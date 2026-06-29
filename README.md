@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-06-30T00:44:05+08:00
+生成时间：2026-06-30T01:20:54+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据。
 数据源说明：A 股日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -34,7 +34,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 快照类型：早报前快照
 - 适合报告：早报盘前基线
 - 生成日期：2026-06-30
-- 生成时间：中国时间 00:44
+- 生成时间：中国时间 01:20
 - 使用限制：通常只能核验上一交易日收盘和观察池状态，不能代表今日盘中数据。
 - 使用规则：
 - 早报可使用上一交易日收盘快照作为盘前基线。
@@ -43,8 +43,6 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 数据更新提示
 
-- 涨停股池获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
-- 东方财富主日线接口失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用新浪备用日线接口。
 - 行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 - 最新交易日为 2026-06-29，当前自然日可能非 A 股交易日或数据未更新。
 
@@ -86,7 +84,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 主题：先进封装/半导体封测
 - 优先级：high
 - 状态：active
-- 日线数据来源：新浪备用日线接口
+- 日线数据来源：东方财富主接口
 - 最新交易日：2026-06-29
 - 今日收盘价：103.25
 - 今日涨跌幅：2.34%
@@ -106,8 +104,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：缩量上涨
-- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：需要重点核验
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 - 数据更新提示：最新交易日为 2026-06-29，当前自然日可能非 A 股交易日或数据未更新。
 
