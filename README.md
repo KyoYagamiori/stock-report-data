@@ -2,11 +2,235 @@
 
 This public mirror only contains sanitized structured market snapshots for GPT report generation.
 
-Raw links:
+## Latest Snapshot For ChatGPT
 
-- https://raw.githubusercontent.com/KyoYagamiori/stock-report-data/main/output/latest/report_data.md
-- https://raw.githubusercontent.com/KyoYagamiori/stock-report-data/main/output/latest/report_data.json
+If ChatGPT cannot fetch Raw/CDN/Jina file links, read this repository homepage. The latest public snapshot is embedded below as normal Markdown.
 
-Use this mirror only for structured market snapshot verification. Previous report context should come from the same ChatGPT conversation via the `供下一篇读取的生产线摘要` block, not from this public mirror.
+Snapshot file links:
+
+- https://github.com/KyoYagamiori/stock-report-data
+- https://cdn.jsdelivr.net/gh/KyoYagamiori/stock-report-data@main/output/latest/report_data.md
+- https://cdn.statically.io/gh/KyoYagamiori/stock-report-data/main/output/latest/report_data.md
+- https://raw.githubusercontent.com/KyoYagamiori/stock-report-data/refs/heads/main/output/latest/report_data.md
+
+Use this mirror only for structured market snapshot verification. Previous report context should come from the same ChatGPT task/report thread via the `供下一篇读取的生产线摘要` block, not from this public mirror.
 
 The private research repository, historical report text, prompts, portfolio details, and execution records are not mirrored here.
+
+---
+
+<!-- SNAPSHOT_START -->
+
+# 股票报告结构化行情公开快照
+
+生成时间：2026-06-29T19:39:36+08:00
+数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据。
+数据源说明：A 股日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
+隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
+风险说明：本快照只提供数据核验，不构成买卖建议；若字段缺失，报告生产线不得编造。
+
+## 快照适用状态
+
+- 快照类型：晚间补充快照
+- 适合报告：晚报补充和下一交易日早报基线
+- 生成日期：2026-06-29
+- 生成时间：中国时间 19:39
+- 使用限制：适合作为下一交易日早报的上一交易日收盘基线，不代表下一交易日实时行情。
+- 使用规则：
+- 早报可使用上一交易日收盘快照作为盘前基线。
+- 午报/晚报若快照最新交易日不是今天，只能写“快照为上一交易日，仅作基线”。
+- 公开快照只用于结构化行情核验，不替代联网新闻、公告、政策和产业动态搜索。
+
+## 数据更新提示
+
+- 东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+## 一、观察池状态
+
+- 当前 active 股票数量：5
+- 当前 high priority 股票：
+- 长电科技 600584
+- 本次新增股票：
+- 无
+- 本次降级股票：
+- 无
+- 本次 inactive 股票：
+- 无
+- 本次被跳过的固定观察删除请求：
+- 无
+
+## 二、重点结论摘要
+
+- 今日进入涨停股池的观察股：
+- 无
+- 今日构成缩量涨停的观察股：
+- 无
+- 今日明显放量上涨的观察股：
+- 无
+- 今日明显放量下跌的观察股：
+- 无
+- 今日数据缺失或接口异常的股票：
+- 无
+- 下一份报告需要重点核验的股票：
+- 长电科技 600584
+- 通富微电 002156
+- 华天科技 002185
+
+## 三、逐只股票数据
+
+### 长电科技 600584
+
+- 主题：先进封装/半导体封测
+- 优先级：high
+- 状态：active
+- 日线数据来源：新浪备用日线接口
+- 最新交易日：2026-06-29
+- 今日收盘价：103.25
+- 今日涨跌幅：2.34%
+- 今日成交量：326.16万手
+- 昨日交易日：2026-06-26
+- 昨日成交量：335.83万手
+- 较昨日缩量/放量比例：-2.88%（轻微缩量）
+- 今日成交额：324.40亿元
+- 昨日成交额：352.29亿元
+- 今日换手率：18.23%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：先进封装/半导体封测
+- 自动量价判定：缩量上涨
+- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+### 通富微电 002156
+
+- 主题：先进封装/半导体封测
+- 优先级：medium
+- 状态：active
+- 日线数据来源：新浪备用日线接口
+- 最新交易日：2026-06-29
+- 今日收盘价：72.58
+- 今日涨跌幅：1.37%
+- 今日成交量：169.90万手
+- 昨日交易日：2026-06-26
+- 昨日成交量：196.74万手
+- 较昨日缩量/放量比例：-13.64%（正常缩量）
+- 今日成交额：121.00亿元
+- 昨日成交额：146.24亿元
+- 今日换手率：11.20%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：先进封装/半导体封测
+- 自动量价判定：缩量上涨
+- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+### 华天科技 002185
+
+- 主题：先进封装/半导体封测
+- 优先级：medium
+- 状态：active
+- 日线数据来源：新浪备用日线接口
+- 最新交易日：2026-06-29
+- 今日收盘价：21.92
+- 今日涨跌幅：-2.84%
+- 今日成交量：609.05万手
+- 昨日交易日：2026-06-26
+- 昨日成交量：659.18万手
+- 较昨日缩量/放量比例：-7.60%（轻微缩量）
+- 今日成交额：133.50亿元
+- 昨日成交额：150.98亿元
+- 今日换手率：18.33%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：先进封装/半导体封测
+- 自动量价判定：缩量回调
+- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+### 寒武纪 688256
+
+- 主题：AI芯片
+- 优先级：medium
+- 状态：active
+- 日线数据来源：新浪备用日线接口
+- 最新交易日：2026-06-29
+- 今日收盘价：1482.00
+- 今日涨跌幅：1.65%
+- 今日成交量：15.12万手
+- 昨日交易日：2026-06-26
+- 昨日成交量：12.44万手
+- 较昨日缩量/放量比例：21.57%（未缩量）
+- 今日成交额：224.35亿元
+- 昨日成交额：182.44亿元
+- 今日换手率：2.41%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：AI芯片
+- 自动量价判定：暂无显著自动量价信号
+- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+### 中芯国际 688981
+
+- 主题：半导体制造
+- 优先级：medium
+- 状态：active
+- 日线数据来源：新浪备用日线接口
+- 最新交易日：2026-06-29
+- 今日收盘价：151.00
+- 今日涨跌幅：1.51%
+- 今日成交量：102.74万手
+- 昨日交易日：2026-06-26
+- 昨日成交量：107.62万手
+- 较昨日缩量/放量比例：-4.53%（轻微缩量）
+- 今日成交额：151.58亿元
+- 昨日成交额：161.72亿元
+- 今日换手率：5.14%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：半导体制造
+- 自动量价判定：缩量上涨
+- 给报告生产线的提示：主日线接口失败，已使用新浪备用日线，报告中可用于量价核验但需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
+## 四、给 ChatGPT 报告生产线的使用要求
+
+1. 报告生成时应优先读取本快照中的成交量、成交额、涨跌幅、换手率、涨停池、封板资金、炸板次数等字段。
+2. 对“缩量涨停、放量突破、封板质量、主升浪候选”等判断，优先使用本快照字段。
+3. 若字段缺失，必须写“结构化行情快照暂未取得该字段”，不得编造。
+4. 本快照只提供数据核验，不构成买卖建议。
+5. 报告仍然必须联网搜索新闻、公告、政策、产业动态，不能只看行情快照。
+
+
+<!-- SNAPSHOT_END -->
