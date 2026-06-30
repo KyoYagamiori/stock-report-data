@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-06-30T22:36:08+08:00
+生成时间：2026-07-01T03:25:05+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -31,12 +31,12 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 快照适用状态
 
-- 快照类型：晚间补充快照
-- 适合报告：晚报补充和下一交易日早报基线
-- 生成日期：2026-06-30
-- 生成时间：中国时间 22:36
+- 快照类型：早报前快照
+- 适合报告：09:00 早报盘前基线
+- 生成日期：2026-07-01
+- 生成时间：中国时间 03:25
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
-- 使用限制：适合作为下一交易日早报的上一交易日收盘基线；下一交易日前不代表实时行情。
+- 使用限制：优先读取实时/准实时口径；开盘前若实时接口仍返回上一交易日收盘状态，只能作为盘前基线。
 - 使用规则：
 - 所有报告优先读取实时/准实时口径字段。
 - 早报开盘前若实时口径仍是上一交易日状态，只能作为盘前基线。
@@ -45,8 +45,8 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 数据更新提示
 
-- 东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ## 一、观察池状态
 
@@ -63,16 +63,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 寒武纪 688256
 - 中芯国际 688981
 - 本次新增股票：
-- 中际旭创 300308
-- 新易盛 300502
-- 胜宏科技 300476
-- 中科曙光 603019
-- 浪潮信息 000977
-- 紫光股份 000938
-- 英维克 002837
-- 北方华创 002371
-- 中科飞测 688361
-- 正帆科技 688596
+- 无
 - 本次降级股票：
 - 无
 - 本次 inactive 股票：
@@ -144,8 +135,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 浪潮信息 000977
 
@@ -179,8 +170,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI服务器/国产算力
 - 自动量价判定：放量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 北方华创 002371
 
@@ -214,8 +205,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：半导体设备
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 英维克 002837
 
@@ -249,8 +240,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：液冷散热/机柜级液冷
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中际旭创 300308
 
@@ -284,8 +275,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI运力/光模块
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 胜宏科技 300476
 
@@ -319,8 +310,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI运力/高速PCB
 - 自动量价判定：放量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 新易盛 300502
 
@@ -354,8 +345,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI运力/光模块
 - 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中科曙光 603019
 
@@ -389,7 +380,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：计算机设
 - 自动量价判定：放量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 
 ### 寒武纪 688256
 
@@ -423,8 +414,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI芯片
 - 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中芯国际 688981
 
@@ -458,8 +449,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：半导体制造
 - 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 通富微电 002156
 
@@ -493,8 +484,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 华天科技 002185
 
@@ -528,8 +519,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 紫光股份 000938
 
@@ -563,7 +554,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：IT服务Ⅱ
 - 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 
 ### 中科飞测 688361
 
@@ -597,8 +588,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：半导体设备/检测
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ### 正帆科技 688596
 
@@ -632,8 +623,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：半导体设备/材料
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ## 四、给 ChatGPT 报告生产线的使用要求
 
