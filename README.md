@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-07-01T21:57:47+08:00
+生成时间：2026-07-02T02:37:44+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -31,12 +31,12 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 快照适用状态
 
-- 快照类型：晚间补充快照
-- 适合报告：晚报补充和下一交易日早报基线
-- 生成日期：2026-07-01
-- 生成时间：中国时间 21:57
+- 快照类型：早报前快照
+- 适合报告：09:00 早报盘前基线
+- 生成日期：2026-07-02
+- 生成时间：中国时间 02:37
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
-- 使用限制：若逐股最新交易日为当天且实时/准实时行情时间在15:00后，可用于当日晚报补充核验；下一交易日开盘前只能作为上一交易日基线，不代表下一交易日实时行情。
+- 使用限制：优先读取实时/准实时口径；开盘前若实时接口仍返回上一交易日收盘状态，只能作为盘前基线。
 - 使用规则：
 - 先校验快照生成时间、快照类型、适合报告和生成日期，再读取逐股实时/准实时字段。
 - 逐股字段读取顺序：行情主口径、实时/准实时行情可用、实时/准实时数据来源、实时/准实时行情时间、最新交易日/推定日期、最新价、涨跌幅、成交量、成交额、换手率、涨停池、封板资金、炸板次数，最后才看日线备份和已存快照备份。
@@ -47,7 +47,9 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 数据更新提示
 
+- 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+- 行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ## 一、观察池状态
 
@@ -112,7 +114,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：106.64
@@ -133,7 +135,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：暂无显著自动量价信号
-- 给报告生产线的提示：需要重点核验
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 浪潮信息 000977
@@ -146,7 +149,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：67.26
@@ -167,7 +170,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI服务器/国产算力
 - 自动量价判定：缩量回调
-- 给报告生产线的提示：需要重点核验
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 北方华创 002371
@@ -180,7 +184,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：935.36
@@ -201,7 +205,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：半导体设备
 - 自动量价判定：暂无显著自动量价信号
-- 给报告生产线的提示：需要重点核验
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 英维克 002837
@@ -316,7 +321,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:41:30
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：575.56
@@ -337,7 +342,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI运力/光模块
 - 自动量价判定：缩量回调
-- 给报告生产线的提示：需要重点核验
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中科曙光 603019
@@ -520,7 +526,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:01
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：151.89
@@ -541,7 +547,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：功率半导体/IGBT模块/AI电力运力上游
 - 自动量价判定：暂无显著自动量价信号
-- 给报告生产线的提示：需要重点核验
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 紫光股份 000938
@@ -554,7 +561,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：东方财富主接口
+- 日线备份来源：新浪备用日线接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：29.93
@@ -575,7 +582,8 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：算力网络/服务器
 - 自动量价判定：放量上涨
-- 给报告生产线的提示：重点核验放量上涨是否由消息或板块主线驱动
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中科飞测 688361
@@ -644,7 +652,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：半导体设备/材料
 - 自动量价判定：缩量上涨
 - 给报告生产线的提示：常规观察
-- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
 
 ## 四、给 ChatGPT 报告生产线的使用要求
 
