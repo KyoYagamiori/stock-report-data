@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-07-01T20:18:11+08:00
+生成时间：2026-07-01T21:54:46+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -31,27 +31,27 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 快照适用状态
 
-- 快照类型：晚报前快照
-- 适合报告：21:30 晚报收盘与盘后核验
+- 快照类型：晚间补充快照
+- 适合报告：晚报补充和下一交易日早报基线
 - 生成日期：2026-07-01
-- 生成时间：中国时间 20:18
+- 生成时间：中国时间 21:54
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
-- 使用限制：优先读取实时/准实时口径，作为晚报量价核验主口径；若字段缺失，必须明确标注不可核验。
+- 使用限制：适合作为下一交易日早报的上一交易日收盘基线；下一交易日前不代表实时行情。
 - 使用规则：
-- 所有报告优先读取实时/准实时口径字段。
-- 早报开盘前若实时口径仍是上一交易日状态，只能作为盘前基线。
-- 午报/晚报若实时口径不可用，必须标注已回落到日线或已存快照。
+- 先校验快照生成时间、快照类型、适合报告和生成日期，再读取逐股实时/准实时字段。
+- 逐股字段读取顺序：行情主口径、实时/准实时行情可用、实时/准实时数据来源、实时/准实时行情时间、最新交易日/推定日期、最新价、涨跌幅、成交量、成交额、换手率、涨停池、封板资金、炸板次数，最后才看日线备份和已存快照备份。
+- 实时/准实时行情可用=是，只说明本快照生成时使用了实时接口；若快照生成时间或类型不适合当前报告时点，不得把它当作当前实时数据。
+- 早报可把上一交易日实时/收盘口径作为盘前基线；午报必须校验当天11:30后快照或逐股行情时间；晚报必须校验当天15:00后逐股行情时间或收盘后/晚报前快照。
+- 快照不满足当前时点时，报告必须写结构化快照未通过实时性校验，并改用联网实时行情兜底或降低盘面确认分。
 - 公开快照只用于结构化行情核验，不替代联网新闻、公告、政策和产业动态搜索。
 
 ## 数据更新提示
 
 - 行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
-- 行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。
-- 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 
 ## 一、观察池状态
 
-- 当前 active 股票数量：15
+- 当前 active 股票数量：16
 - 当前 high priority 股票：
 - 长电科技 600584
 - 浪潮信息 000977
@@ -97,6 +97,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 中芯国际 688981
 - 通富微电 002156
 - 华天科技 002185
+- 斯达半导 603290
 - 紫光股份 000938
 
 ## 三、逐只股票数据
@@ -303,7 +304,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI运力/高速PCB
 - 自动量价判定：缩量回调
 - 给报告生产线的提示：需要重点核验
-- 数据更新提示：行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 新易盛 300502
 
@@ -337,7 +338,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：AI运力/光模块
 - 自动量价判定：缩量回调
 - 给报告生产线的提示：需要重点核验
-- 数据更新提示：行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中科曙光 603019
 
@@ -371,7 +372,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 所属行业：国产算力/AI服务器
 - 自动量价判定：缩量回调
 - 给报告生产线的提示：需要重点核验
-- 数据更新提示：行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 寒武纪 688256
 
@@ -383,7 +384,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:34:59
 - 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
+- 日线备份来源：东方财富主接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：1485.33
@@ -404,8 +405,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI芯片
 - 自动量价判定：缩量回调
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：需要重点核验
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中芯国际 688981
@@ -452,7 +452,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
+- 日线备份来源：东方财富主接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：73.91
@@ -473,8 +473,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：先进封装/半导体封测
 - 自动量价判定：暂无显著自动量价信号
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：需要重点核验
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 华天科技 002185
@@ -511,6 +510,40 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：需要重点核验
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
+### 斯达半导 603290
+
+- 主题：功率半导体/IGBT模块/AI电力运力上游
+- 优先级：medium
+- 状态：active
+- 行情主口径：新浪实时行情接口
+- 实时/准实时行情可用：是
+- 实时/准实时数据来源：新浪实时行情接口
+- 实时/准实时行情时间：15:00:01
+- 已存快照备份：未使用
+- 日线备份来源：东方财富主接口
+- 日线最新交易日：2026-07-01
+- 最新交易日/推定日期：2026-07-01
+- 最新价/收盘价：151.89
+- 最新涨跌幅：-0.69%
+- 最新成交量：22.21万手
+- 昨日交易日：2026-06-30
+- 昨日成交量：17.48万手
+- 较昨日缩量/放量比例：27.03%（未缩量）
+- 最新成交额：34.44亿元
+- 昨日成交额：25.59亿元
+- 最新换手率：9.27%
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：功率半导体/IGBT模块/AI电力运力上游
+- 自动量价判定：暂无显著自动量价信号
+- 给报告生产线的提示：需要重点核验
+- 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
+
 ### 紫光股份 000938
 
 - 主题：算力网络/服务器
@@ -521,7 +554,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:00:00
 - 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
+- 日线备份来源：东方财富主接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：29.93
@@ -542,8 +575,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：算力网络/服务器
 - 自动量价判定：放量上涨
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：重点核验放量上涨是否由消息或板块主线驱动
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 中科飞测 688361
@@ -556,7 +588,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:34:59
 - 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
+- 日线备份来源：东方财富主接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：422.00
@@ -577,8 +609,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：半导体设备/检测
 - 自动量价判定：暂无显著自动量价信号
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：常规观察
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ### 正帆科技 688596
@@ -591,7 +622,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 实时/准实时数据来源：新浪实时行情接口
 - 实时/准实时行情时间：15:34:59
 - 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
+- 日线备份来源：东方财富主接口
 - 日线最新交易日：2026-07-01
 - 最新交易日/推定日期：2026-07-01
 - 最新价/收盘价：83.66
@@ -612,17 +643,17 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：半导体设备/材料
 - 自动量价判定：缩量上涨
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 给报告生产线的提示：常规观察
 - 数据更新提示：行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 
 ## 四、给 ChatGPT 报告生产线的使用要求
 
-1. 报告生成时应优先读取本快照中的实时/准实时行情口径，包括最新价、成交量、成交额、涨跌幅、换手率、涨停池、封板资金、炸板次数等字段。
-2. 对“缩量涨停、放量突破、封板质量、主升浪候选”等判断，优先使用本快照字段。
-3. 若实时/准实时行情不可用，按日线数据、上一份已存快照顺序兜底，并在报告中明确标注口径。
-4. 本快照只提供数据核验，不构成买卖建议。
-5. 报告仍然必须联网搜索新闻、公告、政策、产业动态，不能只看行情快照。
+1. 先做当前报告时点有效性校验：快照生成时间、快照类型、适合报告、生成日期、逐股实时/准实时行情时间和最新交易日/推定日期必须与当前早报/午报/晚报时点匹配。
+2. 逐股字段读取顺序：行情主口径、实时/准实时行情可用、实时/准实时数据来源、实时/准实时行情时间、最新交易日/推定日期、最新价、成交量、成交额、涨跌幅、换手率、涨停池、封板资金、炸板次数、连板数、自动量价判定，最后才看日线备份和已存快照备份。
+3. 实时/准实时行情可用=是，只说明本快照生成时使用了实时接口；若快照生成时间或快照类型不适合当前报告时点，不得把它当作当前实时数据。
+4. 对“缩量涨停、放量突破、封板质量、主升浪候选”等判断，必须优先使用通过时点校验的实时/准实时字段；字段缺失时写明不可核验，不得编造。
+5. 若结构化快照未通过实时性校验，报告必须写“结构化快照未通过当前时点有效性校验”，并改用联网实时行情兜底；若兜底也失败，应降低盘面确认分或停止生成盘面结论。
+6. 本快照只提供数据核验，不构成买卖建议；报告仍然必须联网搜索新闻、公告、政策、产业动态，不能只看行情快照。
 
 
 <!-- SNAPSHOT_END -->
