@@ -82,6 +82,20 @@
 - 最新成交额：123.21亿元
 - 昨日成交额：237.89亿元
 - 最新换手率：6.69%
+- box_data_source / box range: N/A; lookback=0 trading days (N/A to N/A)
+- box_upper / box top: 暂无
+- box_lower / box bottom: 暂无
+- box_mid: 暂无
+- box_position: N/A (N/A)
+- box_breakout_watch_price / breakout buy watch: 暂无
+- box_pullback_watch_price / pullback buy watch: 暂无
+- ma_data_source: N/A
+- ma5 / 5-day MA: 暂无; price_vs_ma5: N/A (unknown)
+- ma10 / 10-day MA: 暂无; price_vs_ma10: N/A (unknown)
+- ma20 / 20-day MA: 暂无; price_vs_ma20: N/A (unknown)
+- ma60 / 60-day MA: 暂无; price_vs_ma60: N/A (unknown)
+- ma_alignment: unknown
+- ma_trend_signal: unknown
 - 是否进入涨停股池：是
 - 是否构成缩量涨停：是
 - 封板资金：8.77亿元
@@ -116,6 +130,20 @@
 - 最新成交额：162.73亿元
 - 昨日成交额：145.57亿元
 - 最新换手率：13.86%
+- box_data_source / box range: N/A; lookback=0 trading days (N/A to N/A)
+- box_upper / box top: 暂无
+- box_lower / box bottom: 暂无
+- box_mid: 暂无
+- box_position: N/A (N/A)
+- box_breakout_watch_price / breakout buy watch: 暂无
+- box_pullback_watch_price / pullback buy watch: 暂无
+- ma_data_source: N/A
+- ma5 / 5-day MA: 暂无; price_vs_ma5: N/A (unknown)
+- ma10 / 10-day MA: 暂无; price_vs_ma10: N/A (unknown)
+- ma20 / 20-day MA: 暂无; price_vs_ma20: N/A (unknown)
+- ma60 / 60-day MA: 暂无; price_vs_ma60: N/A (unknown)
+- ma_alignment: unknown
+- ma_trend_signal: unknown
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -151,6 +179,20 @@
 - 最新成交额：120.77亿元
 - 昨日成交额：122.01亿元
 - 最新换手率：16.50%
+- box_data_source / box range: N/A; lookback=0 trading days (N/A to N/A)
+- box_upper / box top: 暂无
+- box_lower / box bottom: 暂无
+- box_mid: 暂无
+- box_position: N/A (N/A)
+- box_breakout_watch_price / breakout buy watch: 暂无
+- box_pullback_watch_price / pullback buy watch: 暂无
+- ma_data_source: N/A
+- ma5 / 5-day MA: 暂无; price_vs_ma5: N/A (unknown)
+- ma10 / 10-day MA: 暂无; price_vs_ma10: N/A (unknown)
+- ma20 / 20-day MA: 暂无; price_vs_ma20: N/A (unknown)
+- ma60 / 60-day MA: 暂无; price_vs_ma60: N/A (unknown)
+- ma_alignment: unknown
+- ma_trend_signal: unknown
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -186,6 +228,20 @@
 - 最新成交额：237.99亿元
 - 昨日成交额：201.85亿元
 - 最新换手率：2.54%
+- box_data_source / box range: N/A; lookback=0 trading days (N/A to N/A)
+- box_upper / box top: 暂无
+- box_lower / box bottom: 暂无
+- box_mid: 暂无
+- box_position: N/A (N/A)
+- box_breakout_watch_price / breakout buy watch: 暂无
+- box_pullback_watch_price / pullback buy watch: 暂无
+- ma_data_source: N/A
+- ma5 / 5-day MA: 暂无; price_vs_ma5: N/A (unknown)
+- ma10 / 10-day MA: 暂无; price_vs_ma10: N/A (unknown)
+- ma20 / 20-day MA: 暂无; price_vs_ma20: N/A (unknown)
+- ma60 / 60-day MA: 暂无; price_vs_ma60: N/A (unknown)
+- ma_alignment: unknown
+- ma_trend_signal: unknown
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -221,6 +277,20 @@
 - 最新成交额：184.71亿元
 - 昨日成交额：211.61亿元
 - 最新换手率：5.93%
+- box_data_source / box range: N/A; lookback=0 trading days (N/A to N/A)
+- box_upper / box top: 暂无
+- box_lower / box bottom: 暂无
+- box_mid: 暂无
+- box_position: N/A (N/A)
+- box_breakout_watch_price / breakout buy watch: 暂无
+- box_pullback_watch_price / pullback buy watch: 暂无
+- ma_data_source: N/A
+- ma5 / 5-day MA: 暂无; price_vs_ma5: N/A (unknown)
+- ma10 / 10-day MA: 暂无; price_vs_ma10: N/A (unknown)
+- ma20 / 20-day MA: 暂无; price_vs_ma20: N/A (unknown)
+- ma60 / 60-day MA: 暂无; price_vs_ma60: N/A (unknown)
+- ma_alignment: unknown
+- ma_trend_signal: unknown
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用

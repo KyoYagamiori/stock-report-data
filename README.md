@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-07-02T18:44:32+08:00
+生成时间：2026-07-02T23:29:34+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -31,12 +31,12 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 快照适用状态
 
-- 快照类型：晚报前快照
-- 适合报告：21:30 晚报收盘与盘后核验
+- 快照类型：晚间补充快照
+- 适合报告：晚报补充和下一交易日早报基线
 - 生成日期：2026-07-02
-- 生成时间：中国时间 18:44
+- 生成时间：中国时间 23:29
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
-- 使用限制：优先读取实时/准实时口径，作为晚报量价核验主口径；若字段缺失，必须明确标注不可核验。
+- 使用限制：若逐股最新交易日为当天且实时/准实时行情时间在15:00后，可用于当日晚报补充核验；下一交易日开盘前只能作为上一交易日基线，不代表下一交易日实时行情。
 - 使用规则：
 - 先校验快照生成时间、快照类型、适合报告和生成日期，再读取逐股实时/准实时字段。
 - 逐股字段读取顺序：行情主口径、实时/准实时行情可用、实时/准实时数据来源、实时/准实时行情时间、最新交易日/推定日期、最新价、涨跌幅、成交量、成交额、换手率、涨停池、封板资金、炸板次数，最后才看日线备份和已存快照备份。
@@ -126,6 +126,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：186.87亿元
 - 昨日成交额：263.27亿元
 - 最新换手率：10.66%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 111.11
+- box_lower / box bottom: 67.95
+- box_mid: 89.53
+- box_position: 64.94% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 111.11
+- box_pullback_watch_price / pullback buy watch: 67.95
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 102.06; price_vs_ma5: -5.96% (below)
+- ma10 / 10-day MA: 96.96; price_vs_ma10: -1.01% (below)
+- ma20 / 20-day MA: 85.94; price_vs_ma20: 11.68% (above)
+- ma60 / 60-day MA: 65.87; price_vs_ma60: 45.71% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -161,6 +175,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：47.06亿元
 - 昨日成交额：66.61亿元
 - 最新换手率：4.94%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 71.87
+- box_lower / box bottom: 57.15
+- box_mid: 64.51
+- box_position: 45.11% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 71.87
+- box_pullback_watch_price / pullback buy watch: 57.15
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 66.15; price_vs_ma5: -3.57% (below)
+- ma10 / 10-day MA: 66.00; price_vs_ma10: -3.35% (below)
+- ma20 / 20-day MA: 63.39; price_vs_ma20: 0.63% (above)
+- ma60 / 60-day MA: 67.33; price_vs_ma60: -5.26% (below)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -196,6 +224,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：103.46亿元
 - 昨日成交额：136.02亿元
 - 最新换手率：1.67%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 968.00
+- box_lower / box bottom: 568.22
+- box_mid: 768.11
+- box_position: 68.44% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 968.00
+- box_pullback_watch_price / pullback buy watch: 568.22
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 867.06; price_vs_ma5: -2.91% (below)
+- ma10 / 10-day MA: 811.69; price_vs_ma10: 3.71% (above)
+- ma20 / 20-day MA: 726.63; price_vs_ma20: 15.85% (above)
+- ma60 / 60-day MA: 607.56; price_vs_ma60: 38.56% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -231,6 +273,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：37.90亿元
 - 昨日成交额：48.55亿元
 - 最新换手率：4.64%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 89.69
+- box_lower / box bottom: 62.20
+- box_mid: 75.94
+- box_position: 33.47% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 89.69
+- box_pullback_watch_price / pullback buy watch: 62.20
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 76.99; price_vs_ma5: -7.26% (below)
+- ma10 / 10-day MA: 78.80; price_vs_ma10: -9.39% (below)
+- ma20 / 20-day MA: 73.83; price_vs_ma20: -3.29% (below)
+- ma60 / 60-day MA: 89.90; price_vs_ma60: -20.58% (below)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -266,6 +322,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：367.21亿元
 - 昨日成交额：342.56亿元
 - 最新换手率：2.86%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 1416.88
+- box_lower / box bottom: 1093.00
+- box_mid: 1254.94
+- box_position: 15.44% (接近箱体下沿)
+- box_breakout_watch_price / breakout buy watch: 1416.88
+- box_pullback_watch_price / pullback buy watch: 1093.00
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 1222.01; price_vs_ma5: -6.47% (below)
+- ma10 / 10-day MA: 1280.59; price_vs_ma10: -10.74% (below)
+- ma20 / 20-day MA: 1239.50; price_vs_ma20: -7.79% (below)
+- ma60 / 60-day MA: 1033.60; price_vs_ma60: 10.58% (above)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -301,6 +371,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：121.43亿元
 - 昨日成交额：148.38亿元
 - 最新换手率：4.49%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 375.80
+- box_lower / box bottom: 303.75
+- box_mid: 339.77
+- box_position: 3.25% (接近箱体下沿)
+- box_breakout_watch_price / breakout buy watch: 375.80
+- box_pullback_watch_price / pullback buy watch: 303.75
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 322.86; price_vs_ma5: -5.19% (below)
+- ma10 / 10-day MA: 338.05; price_vs_ma10: -9.45% (below)
+- ma20 / 20-day MA: 339.40; price_vs_ma20: -9.82% (below)
+- ma60 / 60-day MA: 336.47; price_vs_ma60: -9.03% (below)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -336,6 +420,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：365.74亿元
 - 昨日成交额：282.57亿元
 - 最新换手率：5.55%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 818.38
+- box_lower / box bottom: 490.13
+- box_mid: 654.25
+- box_position: 5.75% (接近箱体下沿)
+- box_breakout_watch_price / breakout buy watch: 818.38
+- box_pullback_watch_price / pullback buy watch: 490.13
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 562.90; price_vs_ma5: -9.58% (below)
+- ma10 / 10-day MA: 569.38; price_vs_ma10: -10.60% (below)
+- ma20 / 20-day MA: 609.04; price_vs_ma20: -16.43% (below)
+- ma60 / 60-day MA: 593.38; price_vs_ma60: -14.22% (below)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -371,6 +469,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：91.34亿元
 - 昨日成交额：149.85亿元
 - 最新换手率：6.43%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 109.60
+- box_lower / box bottom: 77.77
+- box_mid: 93.69
+- box_position: 52.75% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 109.60
+- box_pullback_watch_price / pullback buy watch: 77.77
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 100.10; price_vs_ma5: -5.53% (below)
+- ma10 / 10-day MA: 95.20; price_vs_ma10: -0.67% (below)
+- ma20 / 20-day MA: 89.02; price_vs_ma20: 6.23% (above)
+- ma60 / 60-day MA: 90.77; price_vs_ma60: 4.17% (above)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -406,6 +518,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：196.15亿元
 - 昨日成交额：191.80亿元
 - 最新换手率：2.24%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 1620.00
+- box_lower / box bottom: 1199.00
+- box_mid: 1409.50
+- box_position: 41.09% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 1620.00
+- box_pullback_watch_price / pullback buy watch: 1199.00
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 1478.58; price_vs_ma5: -7.21% (below)
+- ma10 / 10-day MA: 1472.83; price_vs_ma10: -6.85% (below)
+- ma20 / 20-day MA: 1377.96; price_vs_ma20: -0.43% (below)
+- ma60 / 60-day MA: 1343.54; price_vs_ma60: 2.12% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -441,6 +567,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：139.43亿元
 - 昨日成交额：183.28亿元
 - 最新换手率：4.75%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 166.88
+- box_lower / box bottom: 120.00
+- box_mid: 143.44
+- box_position: 51.41% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 166.88
+- box_pullback_watch_price / pullback buy watch: 120.00
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 151.43; price_vs_ma5: -4.84% (below)
+- ma10 / 10-day MA: 149.35; price_vs_ma10: -3.52% (below)
+- ma20 / 20-day MA: 138.90; price_vs_ma20: 3.74% (above)
+- ma60 / 60-day MA: 125.49; price_vs_ma60: 14.83% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -476,6 +616,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：93.95亿元
 - 昨日成交额：119.42亿元
 - 最新换手率：8.99%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 79.38
+- box_lower / box bottom: 56.68
+- box_mid: 68.03
+- box_position: 47.09% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 79.38
+- box_pullback_watch_price / pullback buy watch: 56.68
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 72.27; price_vs_ma5: -6.77% (below)
+- ma10 / 10-day MA: 72.17; price_vs_ma10: -6.65% (below)
+- ma20 / 20-day MA: 67.84; price_vs_ma20: -0.69% (below)
+- ma60 / 60-day MA: 59.54; price_vs_ma60: 13.14% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -511,6 +665,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：88.28亿元
 - 昨日成交额：118.65亿元
 - 最新换手率：12.90%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 23.86
+- box_lower / box bottom: 16.01
+- box_mid: 19.94
+- box_position: 54.27% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 23.86
+- box_pullback_watch_price / pullback buy watch: 16.01
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 21.78; price_vs_ma5: -6.95% (below)
+- ma10 / 10-day MA: 21.19; price_vs_ma10: -4.34% (below)
+- ma20 / 20-day MA: 19.38; price_vs_ma20: 4.60% (above)
+- ma60 / 60-day MA: 16.11; price_vs_ma60: 25.79% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -546,6 +714,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：25.49亿元
 - 昨日成交额：34.44亿元
 - 最新换手率：7.51%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 159.69
+- box_lower / box bottom: 105.97
+- box_mid: 132.83
+- box_position: 57.56% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 159.69
+- box_pullback_watch_price / pullback buy watch: 105.97
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 142.92; price_vs_ma5: -4.22% (below)
+- ma10 / 10-day MA: 139.73; price_vs_ma10: -2.03% (below)
+- ma20 / 20-day MA: 127.64; price_vs_ma20: 7.25% (above)
+- ma60 / 60-day MA: 118.04; price_vs_ma60: 15.97% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -581,6 +763,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：64.02亿元
 - 昨日成交额：103.12亿元
 - 最新换手率：7.60%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 31.29
+- box_lower / box bottom: 25.03
+- box_mid: 28.16
+- box_position: 63.90% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 31.29
+- box_pullback_watch_price / pullback buy watch: 25.03
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 27.94; price_vs_ma5: 3.92% (above)
+- ma10 / 10-day MA: 27.80; price_vs_ma10: 4.43% (above)
+- ma20 / 20-day MA: 27.14; price_vs_ma20: 6.97% (above)
+- ma60 / 60-day MA: 28.88; price_vs_ma60: 0.52% (above)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -616,6 +812,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：74.46亿元
 - 昨日成交额：59.40亿元
 - 最新换手率：5.70%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 458.98
+- box_lower / box bottom: 188.00
+- box_mid: 323.49
+- box_position: 62.00% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 458.98
+- box_pullback_watch_price / pullback buy watch: 188.00
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 387.85; price_vs_ma5: -8.21% (below)
+- ma10 / 10-day MA: 338.03; price_vs_ma10: 5.32% (above)
+- ma20 / 20-day MA: 277.82; price_vs_ma20: 28.14% (above)
+- ma60 / 60-day MA: 223.15; price_vs_ma60: 59.54% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -651,6 +861,20 @@ The private research repository, historical report text, prompts, portfolio deta
 - 最新成交额：30.80亿元
 - 昨日成交额：47.17亿元
 - 最新换手率：13.05%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-04 to 2026-07-02)
+- box_upper / box top: 88.66
+- box_lower / box bottom: 37.38
+- box_mid: 63.02
+- box_position: 83.05% (接近箱体上沿)
+- box_breakout_watch_price / breakout buy watch: 88.66
+- box_pullback_watch_price / pullback buy watch: 37.38
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 72.97; price_vs_ma5: 9.59% (above)
+- ma10 / 10-day MA: 59.58; price_vs_ma10: 34.22% (above)
+- ma20 / 20-day MA: 51.81; price_vs_ma20: 54.34% (above)
+- ma60 / 60-day MA: 41.82; price_vs_ma60: 91.23% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
