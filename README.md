@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-07-05T18:15:24+08:00
+生成时间：2026-07-05T18:26:16+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -34,7 +34,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 快照类型：晚报前快照
 - 适合报告：21:30 晚报收盘与盘后核验
 - 生成日期：2026-07-05
-- 生成时间：中国时间 18:15
+- 生成时间：中国时间 18:26
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
 - 使用限制：优先读取实时/准实时口径，作为晚报量价核验主口径；若字段缺失，必须明确标注不可核验。
 - 使用规则：
@@ -57,7 +57,6 @@ The private research repository, historical report text, prompts, portfolio deta
 - 长电科技 600584
 - 紫光股份 000938
 - 浪潮信息 000977
-- 北方华创 002371
 - 英维克 002837
 - 中际旭创 300308
 - 胜宏科技 300476
@@ -69,7 +68,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 本次新增股票：
 - 江波龙 301308
 - 本次降级股票：
-- 无
+- 北方华创 002371
 - 本次 inactive 股票：
 - 无
 - 本次被跳过的固定观察删除请求：
@@ -91,7 +90,6 @@ The private research repository, historical report text, prompts, portfolio deta
 - 长电科技 600584
 - 紫光股份 000938
 - 浪潮信息 000977
-- 北方华创 002371
 - 英维克 002837
 - 中际旭创 300308
 - 胜宏科技 300476
@@ -103,6 +101,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 通富微电 002156
 - 华天科技 002185
 - 斯达半导 603290
+- 北方华创 002371
 
 ## 三、逐只股票数据
 
@@ -249,55 +248,6 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI服务器/国产算力
 - 自动量价判定：放量上涨
-- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
-- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
-- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
-
-### 北方华创 002371
-
-- 主题：半导体设备
-- 优先级：high
-- 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:00:00
-- 已存快照备份：未使用
-- 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
-- 最新交易日/推定日期：2026-07-05
-- 最新价/收盘价：816.00
-- 最新涨跌幅：-2.98%
-- 最新成交量：16.59万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：12.12万手
-- 较昨日缩量/放量比例：36.83%（未缩量）
-- 最新成交额：134.59亿元
-- 昨日成交额：103.46亿元
-- 最新换手率：2.29%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
-- box_upper / box top: 968.00
-- box_lower / box bottom: 568.22
-- box_mid: 768.11
-- box_position: 61.98% (箱体中部)
-- box_breakout_watch_price / breakout buy watch: 968.00
-- box_pullback_watch_price / pullback buy watch: 568.22
-- ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 867.59; price_vs_ma5: -5.95% (below)
-- ma10 / 10-day MA: 821.19; price_vs_ma10: -0.63% (below)
-- ma20 / 20-day MA: 736.08; price_vs_ma20: 10.86% (above)
-- ma60 / 60-day MA: 614.05; price_vs_ma60: 32.89% (above)
-- ma_alignment: bullish_alignment
-- ma_trend_signal: price_above_ma20_trend_repair
-- 是否进入涨停股池：否
-- 是否构成缩量涨停：否
-- 封板资金：未进入涨停池，不适用
-- 首次封板时间：未进入涨停池，不适用
-- 最后封板时间：未进入涨停池，不适用
-- 炸板次数：未进入涨停池，不适用
-- 连板数：未进入涨停池，不适用
-- 所属行业：半导体设备
-- 自动量价判定：放量下跌
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
@@ -837,6 +787,55 @@ The private research repository, historical report text, prompts, portfolio deta
 - 连板数：未进入涨停池，不适用
 - 所属行业：功率半导体/IGBT模块/AI电力运力上游
 - 自动量价判定：缩量回调
+- 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
+- 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+
+### 北方华创 002371
+
+- 主题：半导体设备
+- 优先级：medium
+- 状态：active
+- 行情主口径：新浪实时行情接口
+- 实时/准实时行情可用：是
+- 实时/准实时数据来源：新浪实时行情接口
+- 实时/准实时行情时间：15:00:00
+- 已存快照备份：未使用
+- 日线备份来源：新浪备用日线接口
+- 日线最新交易日：2026-07-03
+- 最新交易日/推定日期：2026-07-05
+- 最新价/收盘价：816.00
+- 最新涨跌幅：-2.98%
+- 最新成交量：16.59万手
+- 昨日交易日：2026-07-02
+- 昨日成交量：12.12万手
+- 较昨日缩量/放量比例：36.83%（未缩量）
+- 最新成交额：134.59亿元
+- 昨日成交额：103.46亿元
+- 最新换手率：2.29%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- box_upper / box top: 968.00
+- box_lower / box bottom: 568.22
+- box_mid: 768.11
+- box_position: 61.98% (箱体中部)
+- box_breakout_watch_price / breakout buy watch: 968.00
+- box_pullback_watch_price / pullback buy watch: 568.22
+- ma_data_source: 新浪备用日线接口
+- ma5 / 5-day MA: 867.59; price_vs_ma5: -5.95% (below)
+- ma10 / 10-day MA: 821.19; price_vs_ma10: -0.63% (below)
+- ma20 / 20-day MA: 736.08; price_vs_ma20: 10.86% (above)
+- ma60 / 60-day MA: 614.05; price_vs_ma60: 32.89% (above)
+- ma_alignment: bullish_alignment
+- ma_trend_signal: price_above_ma20_trend_repair
+- 是否进入涨停股池：否
+- 是否构成缩量涨停：否
+- 封板资金：未进入涨停池，不适用
+- 首次封板时间：未进入涨停池，不适用
+- 最后封板时间：未进入涨停池，不适用
+- 炸板次数：未进入涨停池，不适用
+- 连板数：未进入涨停池，不适用
+- 所属行业：半导体设备
+- 自动量价判定：放量下跌
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
