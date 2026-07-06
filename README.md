@@ -23,7 +23,7 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情公开快照
 
-生成时间：2026-07-06T16:26:11+08:00
+生成时间：2026-07-06T19:44:33+08:00
 数据用途：供 ChatGPT 股票早报、午报、晚报生产线匿名读取，用于核验观察池股票的结构化行情数据；优先使用实时/准实时行情口径。
 数据源说明：A 股实时/准实时行情、日线、涨停股池和个股行业信息来自 AKShare 对公开行情数据接口的封装。
 隐私说明：本公开快照仅包含行情字段，已移除个人化交易信息和内部观察原因字段。
@@ -34,7 +34,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 快照类型：晚报前快照
 - 适合报告：21:30 晚报收盘与盘后核验
 - 生成日期：2026-07-06
-- 生成时间：中国时间 16:26
+- 生成时间：中国时间 19:44
 - 行情口径优先级：实时/准实时行情优先；日线数据次之；上一份已存快照最后兜底。
 - 使用限制：优先读取实时/准实时口径，作为晚报量价核验主口径；若字段缺失，必须明确标注不可核验。
 - 使用规则：
@@ -47,8 +47,12 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 数据更新提示
 
+- 新浪实时行情接口获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+- 东方财富实时行情接口获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+- 实时/准实时行情不可用，本次将按日线数据、上一份已存快照顺序兜底。
 - 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ## 一、观察池状态
 
@@ -84,12 +88,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - 今日构成缩量涨停的观察股：
 - 中电港 001287
 - 今日明显放量上涨的观察股：
-- 紫光股份 000938
-- 浪潮信息 000977
+- 英维克 002837
 - 江波龙 301308
 - 东方盛虹 000301
 - 东岳硅材 300821
-- 招商轮船 601872
 - 今日明显放量下跌的观察股：
 - 杭电股份 603618
 - 今日数据缺失或接口异常的股票：
@@ -112,7 +114,6 @@ The private research repository, historical report text, prompts, portfolio deta
 - 斯达半导 603290
 - 东方盛虹 000301
 - 东岳硅材 300821
-- 招商轮船 601872
 - 杭电股份 603618
 
 ## 三、逐只股票数据
@@ -122,24 +123,24 @@ The private research repository, historical report text, prompts, portfolio deta
 - 主题：先进封装/半导体封测
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：95.09
 - 最新涨跌幅：4.63%
 - 最新成交量：208.42万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：190.80万手
-- 较昨日缩量/放量比例：9.23%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：178.23万手
+- 较昨日缩量/放量比例：16.94%（未缩量）
 - 最新成交额：197.49亿元
-- 昨日成交额：186.87亿元
-- 最新换手率：9.96%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：164.08亿元
+- 最新换手率：11.65%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 111.11
 - box_lower / box bottom: 67.95
 - box_mid: 89.53
@@ -147,10 +148,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 111.11
 - box_pullback_watch_price / pullback buy watch: 67.95
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 100.06; price_vs_ma5: -4.97% (below)
-- ma10 / 10-day MA: 97.75; price_vs_ma10: -2.72% (below)
-- ma20 / 20-day MA: 86.48; price_vs_ma20: 9.95% (above)
-- ma60 / 60-day MA: 66.75; price_vs_ma60: 42.46% (above)
+- ma5 / 5-day MA: 98.43; price_vs_ma5: -3.39% (below)
+- ma10 / 10-day MA: 98.12; price_vs_ma10: -3.09% (below)
+- ma20 / 20-day MA: 87.46; price_vs_ma20: 8.73% (above)
+- ma60 / 60-day MA: 67.68; price_vs_ma60: 40.49% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -165,41 +166,42 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 紫光股份 000938
 
 - 主题：算力网络/服务器
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:45
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：33.31
 - 最新涨跌幅：10.01%
 - 最新成交量：315.68万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：217.38万手
-- 较昨日缩量/放量比例：45.22%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：246.18万手
+- 较昨日缩量/放量比例：28.23%（未缩量）
 - 最新成交额：99.34亿元
-- 昨日成交额：64.02亿元
-- 最新换手率：8.61%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
-- box_upper / box top: 31.59
+- 昨日成交额：75.84亿元
+- 最新换手率：11.04%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
+- box_upper / box top: 33.31
 - box_lower / box bottom: 25.03
-- box_mid: 28.31
-- box_position: 126.22% (箱体上沿上方/突破区)
-- box_breakout_watch_price / breakout buy watch: 31.59
+- box_mid: 29.17
+- box_position: 100.00% (箱体上沿上方/突破区)
+- box_breakout_watch_price / breakout buy watch: 33.31
 - box_pullback_watch_price / pullback buy watch: 25.03
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 28.87; price_vs_ma5: 15.39% (above)
-- ma10 / 10-day MA: 28.08; price_vs_ma10: 18.62% (above)
-- ma20 / 20-day MA: 27.27; price_vs_ma20: 22.17% (above)
-- ma60 / 60-day MA: 28.96; price_vs_ma60: 15.03% (above)
+- ma5 / 5-day MA: 30.28; price_vs_ma5: 10.00% (above)
+- ma10 / 10-day MA: 28.62; price_vs_ma10: 16.37% (above)
+- ma20 / 20-day MA: 27.54; price_vs_ma20: 20.96% (above)
+- ma60 / 60-day MA: 29.09; price_vs_ma60: 14.49% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：是
@@ -210,33 +212,34 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：0.00
 - 连板数：1.00
 - 所属行业：IT服务Ⅱ
-- 自动量价判定：放量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 浪潮信息 000977
 
 - 主题：AI服务器/国产算力
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：69.71
 - 最新涨跌幅：5.06%
 - 最新成交量：116.02万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：72.51万手
-- 较昨日缩量/放量比例：60.02%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：98.84万手
+- 较昨日缩量/放量比例：17.38%（未缩量）
 - 最新成交额：78.65亿元
-- 昨日成交额：47.06亿元
-- 最新换手率：6.74%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：66.06亿元
+- 最新换手率：7.91%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 71.87
 - box_lower / box bottom: 57.15
 - box_mid: 64.51
@@ -244,10 +247,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 71.87
 - box_pullback_watch_price / pullback buy watch: 57.15
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 66.64; price_vs_ma5: 4.60% (above)
-- ma10 / 10-day MA: 66.07; price_vs_ma10: 5.51% (above)
-- ma20 / 20-day MA: 63.54; price_vs_ma20: 9.71% (above)
-- ma60 / 60-day MA: 67.49; price_vs_ma60: 3.29% (above)
+- ma5 / 5-day MA: 67.42; price_vs_ma5: 3.39% (above)
+- ma10 / 10-day MA: 66.42; price_vs_ma10: 4.95% (above)
+- ma20 / 20-day MA: 63.92; price_vs_ma20: 9.06% (above)
+- ma60 / 60-day MA: 67.66; price_vs_ma60: 3.03% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：否
@@ -258,34 +261,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI服务器/国产算力
-- 自动量价判定：放量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 中电港 001287
 
 - 主题：中报预增/AI硬件/数据中心/先进计算/存储涨价/电子元器件分销
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:45
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：31.47
 - 最新涨跌幅：10.00%
 - 最新成交量：30.73万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：47.85万手
-- 较昨日缩量/放量比例：-35.77%（明显缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：41.38万手
+- 较昨日缩量/放量比例：-25.75%（正常缩量）
 - 最新成交额：9.57亿元
-- 昨日成交额：14.14亿元
-- 最新换手率：5.45%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：12.00亿元
+- 最新换手率：4.04%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 32.64
 - box_lower / box bottom: 24.39
 - box_mid: 28.52
@@ -293,10 +297,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 32.64
 - box_pullback_watch_price / pullback buy watch: 24.39
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 29.63; price_vs_ma5: 6.22% (above)
-- ma10 / 10-day MA: 30.04; price_vs_ma10: 4.75% (above)
-- ma20 / 20-day MA: 28.34; price_vs_ma20: 11.04% (above)
-- ma60 / 60-day MA: 27.71; price_vs_ma60: 13.57% (above)
+- ma5 / 5-day MA: 30.10; price_vs_ma5: 4.54% (above)
+- ma10 / 10-day MA: 30.19; price_vs_ma10: 4.25% (above)
+- ma20 / 20-day MA: 28.53; price_vs_ma20: 10.30% (above)
+- ma60 / 60-day MA: 27.85; price_vs_ma60: 12.99% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：是
@@ -307,33 +311,34 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：0.00
 - 连板数：1.00
 - 所属行业：其他电子
-- 自动量价判定：缩量涨停，缩量强度：明显缩量；缩量上涨
+- 自动量价判定：缩量涨停，缩量强度：正常缩量；缩量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 英维克 002837
 
 - 主题：液冷散热/机柜级液冷
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:00
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：74.06
 - 最新涨跌幅：3.68%
 - 最新成交量：65.19万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：52.48万手
-- 较昨日缩量/放量比例：24.23%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：43.28万手
+- 较昨日缩量/放量比例：50.61%（未缩量）
 - 最新成交额：48.75亿元
-- 昨日成交额：37.90亿元
-- 最新换手率：3.83%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：31.41亿元
+- 最新换手率：5.77%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 89.69
 - box_lower / box bottom: 62.20
 - box_mid: 75.94
@@ -341,12 +346,12 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 89.69
 - box_pullback_watch_price / pullback buy watch: 62.20
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 74.76; price_vs_ma5: -0.94% (below)
-- ma10 / 10-day MA: 78.50; price_vs_ma10: -5.66% (below)
-- ma20 / 20-day MA: 73.94; price_vs_ma20: 0.16% (above)
-- ma60 / 60-day MA: 89.70; price_vs_ma60: -17.43% (below)
+- ma5 / 5-day MA: 74.24; price_vs_ma5: -0.24% (below)
+- ma10 / 10-day MA: 78.18; price_vs_ma10: -5.27% (below)
+- ma20 / 20-day MA: 74.35; price_vs_ma20: -0.39% (below)
+- ma60 / 60-day MA: 89.52; price_vs_ma60: -17.27% (below)
 - ma_alignment: mixed_or_converging
-- ma_trend_signal: price_above_ma20_trend_repair
+- ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -355,45 +360,46 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：液冷散热/机柜级液冷
-- 自动量价判定：暂无显著自动量价信号
+- 自动量价判定：放量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 中际旭创 300308
 
 - 主题：AI运力/光模块
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:15
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：1098.92
 - 最新涨跌幅：-1.53%
 - 最新成交量：31.56万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：31.76万手
-- 较昨日缩量/放量比例：-0.65%（轻微缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：32.86万手
+- 较昨日缩量/放量比例：-3.97%（轻微缩量）
 - 最新成交额：347.04亿元
-- 昨日成交额：367.21亿元
-- 最新换手率：2.96%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：377.02亿元
+- 最新换手率：2.84%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 1416.88
-- box_lower / box bottom: 1093.00
-- box_mid: 1254.94
-- box_position: 1.83% (接近箱体下沿)
+- box_lower / box bottom: 1060.34
+- box_mid: 1238.61
+- box_position: 10.82% (接近箱体下沿)
 - box_breakout_watch_price / breakout buy watch: 1416.88
-- box_pullback_watch_price / pullback buy watch: 1093.00
+- box_pullback_watch_price / pullback buy watch: 1060.34
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 1194.43; price_vs_ma5: -8.00% (below)
-- ma10 / 10-day MA: 1255.40; price_vs_ma10: -12.46% (below)
-- ma20 / 20-day MA: 1231.30; price_vs_ma20: -10.75% (below)
-- ma60 / 60-day MA: 1042.09; price_vs_ma60: 5.45% (above)
+- ma5 / 5-day MA: 1170.22; price_vs_ma5: -6.09% (below)
+- ma10 / 10-day MA: 1227.06; price_vs_ma10: -10.44% (below)
+- ma20 / 20-day MA: 1227.25; price_vs_ma20: -10.46% (below)
+- ma60 / 60-day MA: 1050.08; price_vs_ma60: 4.65% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
@@ -408,41 +414,42 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 胜宏科技 300476
 
 - 主题：AI运力/高速PCB
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：292.77
 - 最新涨跌幅：-4.97%
 - 最新成交量：34.99万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：38.83万手
-- 较昨日缩量/放量比例：-9.90%（轻微缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：33.06万手
+- 较昨日缩量/放量比例：5.82%（未缩量）
 - 最新成交额：103.16亿元
-- 昨日成交额：121.43亿元
-- 最新换手率：3.82%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：101.97亿元
+- 最新换手率：4.04%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 375.80
-- box_lower / box bottom: 293.88
-- box_mid: 334.84
-- box_position: -1.35% (箱体下沿下方/破位区)
+- box_lower / box bottom: 285.00
+- box_mid: 330.40
+- box_position: 8.56% (接近箱体下沿)
 - box_breakout_watch_price / breakout buy watch: 375.80
-- box_pullback_watch_price / pullback buy watch: 293.88
+- box_pullback_watch_price / pullback buy watch: 285.00
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 320.56; price_vs_ma5: -8.67% (below)
-- ma10 / 10-day MA: 331.96; price_vs_ma10: -11.80% (below)
-- ma20 / 20-day MA: 336.47; price_vs_ma20: -12.99% (below)
-- ma60 / 60-day MA: 337.21; price_vs_ma60: -13.18% (below)
+- ma5 / 5-day MA: 316.04; price_vs_ma5: -7.36% (below)
+- ma10 / 10-day MA: 324.69; price_vs_ma10: -9.83% (below)
+- ma20 / 20-day MA: 334.17; price_vs_ma20: -12.39% (below)
+- ma60 / 60-day MA: 337.68; price_vs_ma60: -13.30% (below)
 - ma_alignment: bearish_alignment
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
@@ -453,46 +460,47 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI运力/高速PCB
-- 自动量价判定：缩量回调
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 新易盛 300502
 
 - 主题：AI运力/光模块
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:45
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：506.89
 - 最新涨跌幅：-3.63%
 - 最新成交量：43.17万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：69.61万手
-- 较昨日缩量/放量比例：-37.98%（明显缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：53.45万手
+- 较昨日缩量/放量比例：-19.24%（正常缩量）
 - 最新成交额：221.49亿元
-- 昨日成交额：365.74亿元
-- 最新换手率：4.26%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
-- box_upper / box top: 818.38
+- 昨日成交额：284.33亿元
+- 最新换手率：3.44%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
+- box_upper / box top: 799.75
 - box_lower / box bottom: 490.13
-- box_mid: 654.25
-- box_position: 5.11% (接近箱体下沿)
-- box_breakout_watch_price / breakout buy watch: 818.38
+- box_mid: 644.94
+- box_position: 5.41% (接近箱体下沿)
+- box_breakout_watch_price / breakout buy watch: 799.75
 - box_pullback_watch_price / pullback buy watch: 490.13
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 554.90; price_vs_ma5: -8.65% (below)
-- ma10 / 10-day MA: 563.83; price_vs_ma10: -10.10% (below)
-- ma20 / 20-day MA: 596.54; price_vs_ma20: -15.03% (below)
-- ma60 / 60-day MA: 594.56; price_vs_ma60: -14.75% (below)
-- ma_alignment: mixed_or_converging
+- ma5 / 5-day MA: 544.89; price_vs_ma5: -6.97% (below)
+- ma10 / 10-day MA: 556.52; price_vs_ma10: -8.92% (below)
+- ma20 / 20-day MA: 584.49; price_vs_ma20: -13.28% (below)
+- ma60 / 60-day MA: 595.36; price_vs_ma60: -14.86% (below)
+- ma_alignment: bearish_alignment
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
@@ -506,30 +514,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 江波龙 301308
 
 - 主题：存储芯片/端侧AI存储/中报业绩兑现
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：681.80
 - 最新涨跌幅：10.32%
 - 最新成交量：29.53万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：20.80万手
-- 较昨日缩量/放量比例：41.98%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：20.64万手
+- 较昨日缩量/放量比例：43.09%（未缩量）
 - 最新成交额：202.33亿元
-- 昨日成交额：127.72亿元
-- 最新换手率：7.32%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：126.66亿元
+- 最新换手率：10.48%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 749.88
 - box_lower / box bottom: 470.00
 - box_mid: 609.94
@@ -537,12 +546,12 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 749.88
 - box_pullback_watch_price / pullback buy watch: 470.00
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 662.40; price_vs_ma5: 2.93% (above)
-- ma10 / 10-day MA: 650.10; price_vs_ma10: 4.88% (above)
-- ma20 / 20-day MA: 588.82; price_vs_ma20: 15.79% (above)
-- ma60 / 60-day MA: 507.19; price_vs_ma60: 34.43% (above)
-- ma_alignment: bullish_alignment
-- ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
+- ma5 / 5-day MA: 654.14; price_vs_ma5: 4.23% (above)
+- ma10 / 10-day MA: 656.67; price_vs_ma10: 3.83% (above)
+- ma20 / 20-day MA: 596.91; price_vs_ma20: 14.22% (above)
+- ma60 / 60-day MA: 513.59; price_vs_ma60: 32.75% (above)
+- ma_alignment: mixed_or_converging
+- ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
 - 封板资金：未进入涨停池，不适用
@@ -555,30 +564,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 中科曙光 603019
 
 - 主题：国产算力/AI服务器
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：94.56
 - 最新涨跌幅：2.03%
 - 最新成交量：81.11万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：94.09万手
-- 较昨日缩量/放量比例：-13.80%（正常缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：79.01万手
+- 较昨日缩量/放量比例：2.66%（未缩量）
 - 最新成交额：76.25亿元
-- 昨日成交额：91.34亿元
-- 最新换手率：5.40%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：74.60亿元
+- 最新换手率：5.54%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 109.60
 - box_lower / box bottom: 77.77
 - box_mid: 93.69
@@ -586,10 +596,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 109.60
 - box_pullback_watch_price / pullback buy watch: 77.77
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 98.88; price_vs_ma5: -4.37% (below)
-- ma10 / 10-day MA: 95.60; price_vs_ma10: -1.09% (below)
-- ma20 / 20-day MA: 89.43; price_vs_ma20: 5.74% (above)
-- ma60 / 60-day MA: 91.02; price_vs_ma60: 3.89% (above)
+- ma5 / 5-day MA: 98.30; price_vs_ma5: -3.80% (below)
+- ma10 / 10-day MA: 96.15; price_vs_ma10: -1.66% (below)
+- ma20 / 20-day MA: 90.04; price_vs_ma20: 5.02% (above)
+- ma60 / 60-day MA: 91.30; price_vs_ma60: 3.58% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -600,34 +610,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：国产算力/AI服务器
-- 自动量价判定：缩量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 寒武纪 688256
 
 - 主题：AI芯片
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：1369.75
 - 最新涨跌幅：1.24%
 - 最新成交量：10.37万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：14.06万手
-- 较昨日缩量/放量比例：-26.24%（正常缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：10.19万手
+- 较昨日缩量/放量比例：1.73%（未缩量）
 - 最新成交额：140.45亿元
-- 昨日成交额：196.15亿元
-- 最新换手率：1.62%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：140.22亿元
+- 最新换手率：1.65%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 1620.00
 - box_lower / box bottom: 1199.00
 - box_mid: 1409.50
@@ -635,11 +646,11 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 1620.00
 - box_pullback_watch_price / pullback buy watch: 1199.00
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 1457.58; price_vs_ma5: -6.03% (below)
-- ma10 / 10-day MA: 1457.39; price_vs_ma10: -6.01% (below)
-- ma20 / 20-day MA: 1377.67; price_vs_ma20: -0.57% (below)
-- ma60 / 60-day MA: 1348.99; price_vs_ma60: 1.54% (above)
-- ma_alignment: bullish_alignment
+- ma5 / 5-day MA: 1435.13; price_vs_ma5: -4.56% (below)
+- ma10 / 10-day MA: 1448.66; price_vs_ma10: -5.45% (below)
+- ma20 / 20-day MA: 1381.20; price_vs_ma20: -0.83% (below)
+- ma60 / 60-day MA: 1353.17; price_vs_ma60: 1.23% (above)
+- ma_alignment: mixed_or_converging
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
@@ -649,34 +660,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：AI芯片
-- 自动量价判定：缩量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 中芯国际 688981
 
 - 主题：半导体制造
 - 优先级：high
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：143.99
 - 最新涨跌幅：2.62%
 - 最新成交量：89.66万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：94.90万手
-- 较昨日缩量/放量比例：-5.52%（轻微缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：77.04万手
+- 较昨日缩量/放量比例：16.38%（未缩量）
 - 最新成交额：127.37亿元
-- 昨日成交额：139.43亿元
-- 最新换手率：3.85%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：110.12亿元
+- 最新换手率：4.48%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 166.88
 - box_lower / box bottom: 120.00
 - box_mid: 143.44
@@ -684,11 +696,11 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 166.88
 - box_pullback_watch_price / pullback buy watch: 120.00
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 149.74; price_vs_ma5: -3.84% (below)
-- ma10 / 10-day MA: 149.31; price_vs_ma10: -3.57% (below)
-- ma20 / 20-day MA: 139.17; price_vs_ma20: 3.46% (above)
-- ma60 / 60-day MA: 126.30; price_vs_ma60: 14.00% (above)
-- ma_alignment: bullish_alignment
+- ma5 / 5-day MA: 148.34; price_vs_ma5: -2.93% (below)
+- ma10 / 10-day MA: 149.16; price_vs_ma10: -3.46% (below)
+- ma20 / 20-day MA: 140.00; price_vs_ma20: 2.85% (above)
+- ma60 / 60-day MA: 127.11; price_vs_ma60: 13.28% (above)
+- ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
 - 是否构成缩量涨停：否
@@ -698,34 +710,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：半导体制造
-- 自动量价判定：缩量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 通富微电 002156
 
 - 主题：先进封装/半导体封测
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:15
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：66.18
 - 最新涨跌幅：2.13%
 - 最新成交量：110.82万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：136.48万手
-- 较昨日缩量/放量比例：-18.80%（正常缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：104.18万手
+- 较昨日缩量/放量比例：6.37%（未缩量）
 - 最新成交额：73.73亿元
-- 昨日成交额：93.95亿元
-- 最新换手率：6.87%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：68.63亿元
+- 最新换手率：7.30%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 79.38
 - box_lower / box bottom: 56.68
 - box_mid: 68.03
@@ -733,10 +746,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 79.38
 - box_pullback_watch_price / pullback buy watch: 56.68
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 70.91; price_vs_ma5: -6.67% (below)
-- ma10 / 10-day MA: 71.83; price_vs_ma10: -7.86% (below)
-- ma20 / 20-day MA: 67.52; price_vs_ma20: -1.99% (below)
-- ma60 / 60-day MA: 59.95; price_vs_ma60: 10.39% (above)
+- ma5 / 5-day MA: 69.63; price_vs_ma5: -4.95% (below)
+- ma10 / 10-day MA: 71.32; price_vs_ma10: -7.20% (below)
+- ma20 / 20-day MA: 67.49; price_vs_ma20: -1.94% (below)
+- ma60 / 60-day MA: 60.37; price_vs_ma60: 9.63% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
@@ -747,34 +760,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：先进封装/半导体封测
-- 自动量价判定：缩量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 华天科技 002185
 
 - 主题：先进封装/半导体封测
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：19.94
 - 最新涨跌幅：2.20%
 - 最新成交量：346.77万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：428.53万手
-- 较昨日缩量/放量比例：-19.08%（正常缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：323.59万手
+- 较昨日缩量/放量比例：7.16%（未缩量）
 - 最新成交额：69.86亿元
-- 昨日成交额：88.28亿元
-- 最新换手率：9.74%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：64.44亿元
+- 最新换手率：10.44%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 23.86
 - box_lower / box bottom: 16.01
 - box_mid: 19.94
@@ -782,10 +796,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 23.86
 - box_pullback_watch_price / pullback buy watch: 16.01
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 21.17; price_vs_ma5: -5.83% (below)
-- ma10 / 10-day MA: 21.18; price_vs_ma10: -5.85% (below)
-- ma20 / 20-day MA: 19.39; price_vs_ma20: 2.83% (above)
-- ma60 / 60-day MA: 16.25; price_vs_ma60: 22.70% (above)
+- ma5 / 5-day MA: 20.78; price_vs_ma5: -4.03% (below)
+- ma10 / 10-day MA: 21.13; price_vs_ma10: -5.63% (below)
+- ma20 / 20-day MA: 19.48; price_vs_ma20: 2.34% (above)
+- ma60 / 60-day MA: 16.39; price_vs_ma60: 21.65% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -796,34 +810,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：先进封装/半导体封测
-- 自动量价判定：缩量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 斯达半导 603290
 
 - 主题：功率半导体/IGBT模块/AI电力运力上游
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：126.71
 - 最新涨跌幅：-2.04%
 - 最新成交量：12.45万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：17.98万手
-- 较昨日缩量/放量比例：-30.76%（明显缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：12.55万手
+- 较昨日缩量/放量比例：-0.83%（轻微缩量）
 - 最新成交额：15.82亿元
-- 昨日成交额：25.49亿元
-- 最新换手率：5.24%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：16.62亿元
+- 最新换手率：5.20%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 159.69
 - box_lower / box bottom: 105.97
 - box_mid: 132.83
@@ -831,10 +846,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 159.69
 - box_pullback_watch_price / pullback buy watch: 105.97
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 142.02; price_vs_ma5: -10.78% (below)
-- ma10 / 10-day MA: 139.58; price_vs_ma10: -9.22% (below)
-- ma20 / 20-day MA: 128.04; price_vs_ma20: -1.04% (below)
-- ma60 / 60-day MA: 118.57; price_vs_ma60: 6.87% (above)
+- ma5 / 5-day MA: 139.56; price_vs_ma5: -9.20% (below)
+- ma10 / 10-day MA: 138.69; price_vs_ma10: -8.64% (below)
+- ma20 / 20-day MA: 128.72; price_vs_ma20: -1.56% (below)
+- ma60 / 60-day MA: 119.05; price_vs_ma60: 6.44% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
@@ -849,43 +864,44 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 东方盛虹 000301
 
 - 主题：石化化工/中报预增
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：13.81
 - 最新涨跌幅：10.04%
 - 最新成交量：117.84万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：21.78万手
-- 较昨日缩量/放量比例：441.04%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：37.83万手
+- 较昨日缩量/放量比例：211.48%（未缩量）
 - 最新成交额：15.86亿元
-- 昨日成交额：2.62亿元
-- 最新换手率：0.57%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
-- box_upper / box top: 12.91
+- 昨日成交额：4.65亿元
+- 最新换手率：1.78%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
+- box_upper / box top: 13.81
 - box_lower / box bottom: 10.80
-- box_mid: 11.86
-- box_position: 142.65% (箱体上沿上方/突破区)
-- box_breakout_watch_price / breakout buy watch: 12.91
+- box_mid: 12.30
+- box_position: 100.00% (箱体上沿上方/突破区)
+- box_breakout_watch_price / breakout buy watch: 13.81
 - box_pullback_watch_price / pullback buy watch: 10.80
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 11.89; price_vs_ma5: 16.17% (above)
-- ma10 / 10-day MA: 11.84; price_vs_ma10: 16.61% (above)
-- ma20 / 20-day MA: 11.88; price_vs_ma20: 16.21% (above)
-- ma60 / 60-day MA: 12.20; price_vs_ma60: 13.18% (above)
+- ma5 / 5-day MA: 12.39; price_vs_ma5: 11.46% (above)
+- ma10 / 10-day MA: 12.01; price_vs_ma10: 14.99% (above)
+- ma20 / 20-day MA: 11.98; price_vs_ma20: 15.26% (above)
+- ma60 / 60-day MA: 12.24; price_vs_ma60: 12.82% (above)
 - ma_alignment: mixed_or_converging
-- ma_trend_signal: price_above_ma20_trend_repair
+- ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：是
 - 是否构成缩量涨停：否
 - 封板资金：5155.23万元
@@ -897,30 +913,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 自动量价判定：放量上涨
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 北方华创 002371
 
 - 主题：半导体设备
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:15
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：803.60
 - 最新涨跌幅：-1.52%
 - 最新成交量：15.24万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：12.12万手
-- 较昨日缩量/放量比例：25.75%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：16.59万手
+- 较昨日缩量/放量比例：-8.10%（轻微缩量）
 - 最新成交额：121.93亿元
-- 昨日成交额：103.46亿元
-- 最新换手率：2.29%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：134.59亿元
+- 最新换手率：2.10%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 968.00
 - box_lower / box bottom: 568.22
 - box_mid: 768.11
@@ -928,10 +945,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 968.00
 - box_pullback_watch_price / pullback buy watch: 568.22
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 867.59; price_vs_ma5: -7.38% (below)
-- ma10 / 10-day MA: 821.19; price_vs_ma10: -2.14% (below)
-- ma20 / 20-day MA: 736.08; price_vs_ma20: 9.17% (above)
-- ma60 / 60-day MA: 614.05; price_vs_ma60: 30.87% (above)
+- ma5 / 5-day MA: 856.27; price_vs_ma5: -6.15% (below)
+- ma10 / 10-day MA: 827.05; price_vs_ma10: -2.83% (below)
+- ma20 / 20-day MA: 746.09; price_vs_ma20: 7.71% (above)
+- ma60 / 60-day MA: 620.37; price_vs_ma60: 29.53% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -942,45 +959,46 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：半导体设备
-- 自动量价判定：暂无显著自动量价信号
+- 自动量价判定：缩量回调
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 东岳硅材 300821
 
 - 主题：有机硅/周期化工/中报预增
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:35:30
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：22.02
 - 最新涨跌幅：12.92%
 - 最新成交量：177.90万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：92.42万手
-- 较昨日缩量/放量比例：92.50%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：82.11万手
+- 较昨日缩量/放量比例：116.65%（未缩量）
 - 最新成交额：39.78亿元
-- 昨日成交额：19.43亿元
-- 最新换手率：6.84%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
-- box_upper / box top: 22.32
+- 昨日成交额：16.67亿元
+- 最新换手率：14.83%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
+- box_upper / box top: 23.40
 - box_lower / box bottom: 15.50
-- box_mid: 18.91
-- box_position: 95.60% (接近箱体上沿)
-- box_breakout_watch_price / breakout buy watch: 22.32
+- box_mid: 19.45
+- box_position: 82.53% (接近箱体上沿)
+- box_breakout_watch_price / breakout buy watch: 23.40
 - box_pullback_watch_price / pullback buy watch: 15.50
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 20.67; price_vs_ma5: 6.55% (above)
-- ma10 / 10-day MA: 20.13; price_vs_ma10: 9.37% (above)
-- ma20 / 20-day MA: 19.05; price_vs_ma20: 15.61% (above)
-- ma60 / 60-day MA: 16.33; price_vs_ma60: 34.82% (above)
+- ma5 / 5-day MA: 21.13; price_vs_ma5: 4.22% (above)
+- ma10 / 10-day MA: 20.25; price_vs_ma10: 8.77% (above)
+- ma20 / 20-day MA: 19.31; price_vs_ma20: 14.04% (above)
+- ma60 / 60-day MA: 16.48; price_vs_ma60: 33.64% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_above_ma5_ma10_ma20_short_term_strong
 - 是否进入涨停股池：否
@@ -995,30 +1013,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 招商轮船 601872
 
 - 主题：航运/中报预增
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：17.68
 - 最新涨跌幅：4.00%
 - 最新成交量：196.88万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：139.66万手
-- 较昨日缩量/放量比例：40.97%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：151.69万手
+- 较昨日缩量/放量比例：29.79%（未缩量）
 - 最新成交额：35.07亿元
-- 昨日成交额：23.58亿元
-- 最新换手率：1.88%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：26.40亿元
+- 最新换手率：2.44%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 22.16
 - box_lower / box bottom: 13.91
 - box_mid: 18.04
@@ -1026,10 +1045,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 22.16
 - box_pullback_watch_price / pullback buy watch: 13.91
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 17.25; price_vs_ma5: 2.52% (above)
-- ma10 / 10-day MA: 18.81; price_vs_ma10: -5.99% (below)
-- ma20 / 20-day MA: 17.19; price_vs_ma20: 2.86% (above)
-- ma60 / 60-day MA: 17.56; price_vs_ma60: 0.66% (above)
+- ma5 / 5-day MA: 17.13; price_vs_ma5: 3.21% (above)
+- ma10 / 10-day MA: 18.69; price_vs_ma10: -5.40% (below)
+- ma20 / 20-day MA: 17.33; price_vs_ma20: 2.00% (above)
+- ma60 / 60-day MA: 17.52; price_vs_ma60: 0.91% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -1040,34 +1059,35 @@ The private research repository, historical report text, prompts, portfolio deta
 - 炸板次数：未进入涨停池，不适用
 - 连板数：未进入涨停池，不适用
 - 所属行业：航运/中报预增
-- 自动量价判定：放量上涨
+- 自动量价判定：暂无显著自动量价信号
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 杭电股份 603618
 
 - 主题：光纤光缆/光通信/中报预增
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：44.10
 - 最新涨跌幅：-10.00%
 - 最新成交量：97.26万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：61.41万手
-- 较昨日缩量/放量比例：58.38%（未缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：54.99万手
+- 较昨日缩量/放量比例：76.88%（未缩量）
 - 最新成交额：44.49亿元
-- 昨日成交额：29.87亿元
-- 最新换手率：7.95%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：26.97亿元
+- 最新换手率：14.07%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 57.21
 - box_lower / box bottom: 37.98
 - box_mid: 47.59
@@ -1075,10 +1095,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 57.21
 - box_pullback_watch_price / pullback buy watch: 37.98
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 49.12; price_vs_ma5: -10.22% (below)
-- ma10 / 10-day MA: 51.72; price_vs_ma10: -14.73% (below)
-- ma20 / 20-day MA: 47.64; price_vs_ma20: -7.44% (below)
-- ma60 / 60-day MA: 38.05; price_vs_ma60: 15.89% (above)
+- ma5 / 5-day MA: 48.08; price_vs_ma5: -8.28% (below)
+- ma10 / 10-day MA: 50.62; price_vs_ma10: -12.88% (below)
+- ma20 / 20-day MA: 47.76; price_vs_ma20: -7.67% (below)
+- ma60 / 60-day MA: 38.34; price_vs_ma60: 15.03% (above)
 - ma_alignment: mixed_or_converging
 - ma_trend_signal: price_below_ma20_trend_pressure
 - 是否进入涨停股池：否
@@ -1093,30 +1113,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 中科飞测 688361
 
 - 主题：半导体设备/检测
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：343.00
 - 最新涨跌幅：0.29%
 - 最新成交量：11.59万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：19.97万手
-- 较昨日缩量/放量比例：-41.94%（明显缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：15.85万手
+- 较昨日缩量/放量比例：-26.86%（正常缩量）
 - 最新成交额：39.76亿元
-- 昨日成交额：74.46亿元
-- 最新换手率：4.53%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：54.42亿元
+- 最新换手率：3.31%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 458.98
 - box_lower / box bottom: 188.00
 - box_mid: 323.49
@@ -1124,10 +1145,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 458.98
 - box_pullback_watch_price / pullback buy watch: 188.00
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 385.25; price_vs_ma5: -10.97% (below)
-- ma10 / 10-day MA: 347.00; price_vs_ma10: -1.15% (below)
-- ma20 / 20-day MA: 284.37; price_vs_ma20: 20.62% (above)
-- ma60 / 60-day MA: 226.32; price_vs_ma60: 51.56% (above)
+- ma5 / 5-day MA: 378.60; price_vs_ma5: -9.40% (below)
+- ma10 / 10-day MA: 354.45; price_vs_ma10: -3.23% (below)
+- ma20 / 20-day MA: 291.52; price_vs_ma20: 17.66% (above)
+- ma60 / 60-day MA: 229.50; price_vs_ma60: 49.45% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -1142,30 +1163,31 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ### 正帆科技 688596
 
 - 主题：半导体设备/材料
 - 优先级：medium
 - 状态：active
-- 行情主口径：新浪实时行情接口
-- 实时/准实时行情可用：是
-- 实时/准实时数据来源：新浪实时行情接口
-- 实时/准实时行情时间：15:34:59
+- 行情主口径：新浪备用日线接口
+- 实时/准实时行情可用：否
+- 实时/准实时数据来源：暂无
+- 实时/准实时行情时间：暂无
 - 已存快照备份：未使用
 - 日线备份来源：新浪备用日线接口
-- 日线最新交易日：2026-07-03
+- 日线最新交易日：2026-07-06
 - 最新交易日/推定日期：2026-07-06
 - 最新价/收盘价：71.00
 - 最新涨跌幅：-8.28%
 - 最新成交量：30.60万手
-- 昨日交易日：2026-07-02
-- 昨日成交量：38.38万手
-- 较昨日缩量/放量比例：-20.29%（正常缩量）
+- 昨日交易日：2026-07-03
+- 昨日成交量：37.67万手
+- 较昨日缩量/放量比例：-18.77%（正常缩量）
 - 最新成交额：22.38亿元
-- 昨日成交额：30.80亿元
-- 最新换手率：12.81%
-- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-05 to 2026-07-03)
+- 昨日成交额：28.12亿元
+- 最新换手率：10.40%
+- box_data_source / box range: 新浪备用日线接口; lookback=20 trading days (2026-06-08 to 2026-07-06)
 - box_upper / box top: 88.66
 - box_lower / box bottom: 37.51
 - box_mid: 63.08
@@ -1173,10 +1195,10 @@ The private research repository, historical report text, prompts, portfolio deta
 - box_breakout_watch_price / breakout buy watch: 88.66
 - box_pullback_watch_price / pullback buy watch: 37.51
 - ma_data_source: 新浪备用日线接口
-- ma5 / 5-day MA: 77.21; price_vs_ma5: -8.04% (below)
-- ma10 / 10-day MA: 62.71; price_vs_ma10: 13.22% (above)
-- ma20 / 20-day MA: 53.69; price_vs_ma20: 32.24% (above)
-- ma60 / 60-day MA: 42.65; price_vs_ma60: 66.48% (above)
+- ma5 / 5-day MA: 78.22; price_vs_ma5: -9.23% (below)
+- ma10 / 10-day MA: 65.30; price_vs_ma10: 8.73% (above)
+- ma20 / 20-day MA: 55.20; price_vs_ma20: 28.63% (above)
+- ma60 / 60-day MA: 43.35; price_vs_ma60: 63.79% (above)
 - ma_alignment: bullish_alignment
 - ma_trend_signal: price_above_ma20_trend_repair
 - 是否进入涨停股池：否
@@ -1191,6 +1213,7 @@ The private research repository, historical report text, prompts, portfolio deta
 - 给报告生产线的提示：已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径
 - 数据更新提示：东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 数据更新提示：行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 数据更新提示：实时/准实时行情不可用，已回落到新浪备用日线接口。
 
 ## 四、给 ChatGPT 报告生产线的使用要求
 
