@@ -37,12 +37,12 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告快照读取状态
 
-生成时间：2026-07-09T18:32:59+08:00
-快照类型：晚报前快照
-适合报告：21:30 晚报收盘与盘后核验
-生成日期：2026-07-09
-生成时间：中国时间 18:32
-使用限制：优先读取实时/准实时口径，作为晚报量价核验主口径；若字段缺失，必须明确标注不可核验。
+生成时间：2026-07-10T00:09:37+08:00
+快照类型：早报前快照
+适合报告：09:00 早报盘前基线
+生成日期：2026-07-10
+生成时间：中国时间 00:09
+使用限制：优先读取实时/准实时口径；开盘前若实时接口仍返回上一交易日收盘状态，只能作为盘前基线。
 
 ## 数据质量
 
@@ -116,8 +116,8 @@ The private research repository, historical report text, prompts, portfolio deta
 
 ## 数据更新提示
 
-- 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 - 行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- 东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。
 
 
 <!-- SNAPSHOT_STATUS_END -->
@@ -128,11 +128,11 @@ The private research repository, historical report text, prompts, portfolio deta
 
 # 股票报告结构化行情紧凑快照
 
-生成时间：2026-07-09T18:32:59+08:00
-快照类型：晚报前快照
-适合报告：21:30 晚报收盘与盘后核验
-生成日期：2026-07-09
-生成时间：中国时间 18:32
+生成时间：2026-07-10T00:09:37+08:00
+快照类型：早报前快照
+适合报告：09:00 早报盘前基线
+生成日期：2026-07-10
+生成时间：中国时间 00:09
 
 ## 逐股紧凑字段
 
