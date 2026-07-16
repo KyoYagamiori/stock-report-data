@@ -1,6 +1,12 @@
 name: Stock report data pipeline v1.6.1
 
 on:
+  # Temporary one-shot trigger used for the v1.6.1 cloud smoke test.
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/market-snapshot.yml
   workflow_dispatch:
     inputs:
       snapshot_type:
@@ -93,7 +99,19 @@ jobs:
           INPUT_PLANNED_AT: ${{ inputs.planned_at }}
           INPUT_ATTEMPT_ROLE: ${{ inputs.attempt_role }}
           INPUT_REPORT_DATE: ${{ inputs.report_date }}
-        run: python -m pipeline.schedule --github-output "$GITHUB_OUTPUT"
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            {
+              echo "snapshot_type=evening"
+              echo "mode=full"
+              echo "planned_at=20:50"
+              echo "attempt_role=cloud-smoke"
+              echo "report_date=2026-07-16"
+            } >> "$GITHUB_OUTPUT"
+          else
+            python -m pipeline.schedule --github-output "$GITHUB_OUTPUT"
+          fi
 
       - name: Validate frozen contracts
         run: python -m unittest tests.test_contracts tests.test_quality tests.test_publisher tests.test_schedule
