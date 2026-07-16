@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.6.1",
+  "quality_rank": {"F": 0, "B": 1, "A": 2},
+  "profiles": {
+    "trading_preopen": {
+      "realtime_expected": false,
+      "market_date_rule": "latest_completed_trading_day",
+      "quote_window": null,
+      "grade_a": {
+        "min_indices": 3,
+        "core_ratio": 1.0,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": true,
+        "sector_top": 0,
+        "sector_bottom": 0
+      },
+      "grade_b": {
+        "min_indices": 2,
+        "core_ratio": 0.7,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": false,
+        "sector_top": 0,
+        "sector_bottom": 0
+      }
+    },
+    "trading_intraday": {
+      "realtime_expected": true,
+      "market_date_rule": "report_date",
+      "max_quote_age_minutes": 15,
+      "quote_window": null,
+      "grade_a": {
+        "min_indices": 3,
+        "core_ratio": 1.0,
+        "require_turnover": true,
+        "require_breadth": true,
+        "require_turnover_or_breadth": false,
+        "sector_top": 5,
+        "sector_bottom": 5
+      },
+      "grade_b": {
+        "min_indices": 2,
+        "core_ratio": 0.7,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": true,
+        "sector_top": 0,
+        "sector_bottom": 0
+      }
+    },
+    "trading_noon": {
+      "realtime_expected": true,
+      "market_date_rule": "report_date",
+      "quote_window": {"start": "11:25:00", "end": "11:35:59"},
+      "grade_a": {
+        "min_indices": 3,
+        "core_ratio": 1.0,
+        "require_turnover": true,
+        "require_breadth": true,
+        "require_turnover_or_breadth": false,
+        "sector_top": 5,
+        "sector_bottom": 5
+      },
+      "grade_b": {
+        "min_indices": 2,
+        "core_ratio": 0.7,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": true,
+        "sector_top": 0,
+        "sector_bottom": 0
+      }
+    },
+    "trading_close": {
+      "realtime_expected": true,
+      "market_date_rule": "report_date",
+      "quote_window": {"start": "14:55:00", "end": "15:59:59"},
+      "grade_a": {
+        "min_indices": 3,
+        "core_ratio": 1.0,
+        "require_turnover": true,
+        "require_breadth": true,
+        "require_turnover_or_breadth": false,
+        "sector_top": 5,
+        "sector_bottom": 5
+      },
+      "grade_b": {
+        "min_indices": 2,
+        "core_ratio": 0.7,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": true,
+        "sector_top": 0,
+        "sector_bottom": 0
+      }
+    },
+    "trading_evening": {
+      "realtime_expected": false,
+      "market_date_rule": "report_date",
+      "quote_window": {"start": "14:55:00", "end": "15:59:59"},
+      "requires_based_on_close": true,
+      "grade_a": {"base_close_grade": "A"},
+      "grade_b": {"base_close_grade": "B"}
+    },
+    "non_trading": {
+      "realtime_expected": false,
+      "market_date_rule": "latest_completed_trading_day",
+      "quote_window": null,
+      "grade_a": {
+        "min_indices": 0,
+        "core_ratio": 1.0,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": false,
+        "sector_top": 0,
+        "sector_bottom": 0
+      },
+      "grade_b": {
+        "min_indices": 0,
+        "core_ratio": 0.0,
+        "require_turnover": false,
+        "require_breadth": false,
+        "require_turnover_or_breadth": false,
+        "sector_top": 0,
+        "sector_bottom": 0
+      }
+    }
+  }
+}

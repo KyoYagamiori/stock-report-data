@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KyoYagamiori/stock-report-data/schemas/manifest.schema.json",
+  "title": "Stock report manifest v1.6.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "calendar", "snapshots", "report_readiness", "health"],
+  "properties": {
+    "schema_version": {"const": "1.6.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "is_trading_day", "latest_completed_trading_day", "next_trading_day", "source"],
+      "properties": {
+        "date": {"type": "string", "format": "date"},
+        "is_trading_day": {"type": "boolean"},
+        "latest_completed_trading_day": {"type": "string", "format": "date"},
+        "next_trading_day": {"type": ["string", "null"], "format": "date"},
+        "source": {"type": "string", "minLength": 1}
+      }
+    },
+    "snapshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["early", "noon", "close", "evening", "intraday"],
+      "properties": {
+        "early": {"$ref": "#/$defs/snapshotPointerOrNull"},
+        "noon": {"$ref": "#/$defs/snapshotPointerOrNull"},
+        "close": {"$ref": "#/$defs/snapshotPointerOrNull"},
+        "evening": {"$ref": "#/$defs/snapshotPointerOrNull"},
+        "intraday": {"$ref": "#/$defs/snapshotPointerOrNull"}
+      }
+    },
+    "report_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["early", "noon", "evening"],
+      "properties": {
+        "early": {"$ref": "#/$defs/readiness"},
+        "noon": {"$ref": "#/$defs/readiness"},
+        "evening": {"$ref": "#/$defs/readiness"}
+      }
+    },
+    "health": {
+      "type": "object",
+      "required": ["latest_run", "last_grade_a_at", "last_grade_b_at"],
+      "properties": {
+        "latest_run": {"type": "string"},
+        "last_grade_a_at": {"type": ["string", "null"], "format": "date-time"},
+        "last_grade_b_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "snapshotPointerOrNull": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/snapshotPointer"}
+      ]
+    },
+    "snapshotPointer": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "selected_snapshot_id",
+        "selected_file",
+        "latest_alias",
+        "schema_version",
+        "sha256",
+        "snapshot_type",
+        "quality_profile",
+        "quality_grade",
+        "report_cycle",
+        "market_date",
+        "quote_time_max",
+        "suitable_reports"
+      ],
+      "properties": {
+        "selected_snapshot_id": {"type": "string", "minLength": 12},
+        "selected_file": {"type": "string", "pattern": "^output/archive/"},
+        "latest_alias": {"type": "string", "pattern": "^output/latest/"},
+        "schema_version": {"const": "1.6.1"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "snapshot_type": {"enum": ["early", "noon", "close", "evening", "intraday"]},
+        "quality_profile": {
+          "enum": ["trading_preopen", "trading_intraday", "trading_noon", "trading_close", "trading_evening", "non_trading"]
+        },
+        "quality_grade": {"enum": ["A", "B"]},
+        "report_cycle": {"type": "string"},
+        "market_date": {"type": "string", "format": "date"},
+        "quote_time_max": {"type": ["string", "null"], "format": "date-time"},
+        "suitable_reports": {"type": "array", "items": {"enum": ["early", "noon", "evening"]}}
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "selected_snapshot_id",
+        "selected_file",
+        "sha256",
+        "quality_profile",
+        "quality_grade",
+        "missing_core_fields",
+        "missing_optional_fields",
+        "reasons"
+      ],
+      "properties": {
+        "status": {"enum": ["ready_a", "ready_b", "not_ready", "not_applicable", "invalid"]},
+        "selected_snapshot_id": {"type": ["string", "null"]},
+        "selected_file": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"]},
+        "quality_profile": {"type": ["string", "null"]},
+        "quality_grade": {"type": ["string", "null"], "enum": ["A", "B", "F", null]},
+        "missing_core_fields": {"type": "array", "items": {"type": "string"}},
+        "missing_optional_fields": {"type": "array", "items": {"type": "string"}},
+        "reasons": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

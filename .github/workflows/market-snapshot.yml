@@ -1,0 +1,126 @@
+name: Stock report data pipeline v1.6.1
+
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot_type:
+        description: Snapshot type
+        required: true
+        default: early
+        type: choice
+        options:
+          - early
+          - noon
+          - close
+          - evening
+          - intraday
+      mode:
+        description: Collection mode
+        required: true
+        default: full
+        type: choice
+        options:
+          - full
+          - light
+      planned_at:
+        description: Planned China time in HH:MM
+        required: true
+        default: "08:40"
+        type: string
+      attempt_role:
+        description: Attempt role
+        required: true
+        default: manual
+        type: string
+      report_date:
+        description: Optional China report date in YYYY-MM-DD
+        required: false
+        type: string
+  schedule:
+    - cron: "40 0 * * *"
+    - cron: "55 0 * * 1-5"
+    - cron: "35 1 * * 1-5"
+    - cron: "5 2 * * 1-5"
+    - cron: "35 2 * * 1-5"
+    - cron: "5 3 * * 1-5"
+    - cron: "35 3 * * 1-5"
+    - cron: "5 4 * * *"
+    - cron: "25 4 * * 1-5"
+    - cron: "5 5 * * 1-5"
+    - cron: "35 5 * * 1-5"
+    - cron: "5 6 * * 1-5"
+    - cron: "35 6 * * 1-5"
+    - cron: "5 7 * * 1-5"
+    - cron: "20 7 * * 1-5"
+    - cron: "35 12 * * *"
+    - cron: "50 12 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-report-data-publisher-main
+  cancel-in-progress: false
+
+jobs:
+  publish-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai
+
+    steps:
+      - name: Checkout public data repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pinned dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Resolve schedule parameters
+        id: params
+        env:
+          GITHUB_EVENT_SCHEDULE: ${{ github.event.schedule }}
+          INPUT_SNAPSHOT_TYPE: ${{ inputs.snapshot_type }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_PLANNED_AT: ${{ inputs.planned_at }}
+          INPUT_ATTEMPT_ROLE: ${{ inputs.attempt_role }}
+          INPUT_REPORT_DATE: ${{ inputs.report_date }}
+        run: python -m pipeline.schedule --github-output "$GITHUB_OUTPUT"
+
+      - name: Validate frozen contracts
+        run: python -m unittest tests.test_contracts tests.test_quality tests.test_publisher tests.test_schedule
+
+      - name: Collect, grade and publish snapshot
+        shell: bash
+        run: |
+          args=(
+            --snapshot-type "${{ steps.params.outputs.snapshot_type }}"
+            --mode "${{ steps.params.outputs.mode }}"
+            --planned-at "${{ steps.params.outputs.planned_at }}"
+            --attempt-role "${{ steps.params.outputs.attempt_role }}"
+          )
+          if [[ -n "${{ steps.params.outputs.report_date }}" ]]; then
+            args+=(--report-date "${{ steps.params.outputs.report_date }}")
+          fi
+          python -m pipeline.run "${args[@]}"
+
+      - name: Commit one consistent publication
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output
+          if git diff --cached --quiet; then
+            echo "No publication changes."
+            exit 0
+          fi
+          git commit -m "snapshot: ${{ steps.params.outputs.snapshot_type }} ${{ steps.params.outputs.planned_at }}"
+          git push

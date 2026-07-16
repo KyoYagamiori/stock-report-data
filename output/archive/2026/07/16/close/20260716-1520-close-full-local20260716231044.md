@@ -1,13 +1,13 @@
-# 股票行情快照 | 2026-07-16 evening
+# 股票行情快照 | 2026-07-16 close
 
 - Schema：1.6.1
-- Snapshot ID：`20260716-2035-evening-full-local20260716231123`
-- 报告周期：`2026-07-16-evening`
+- Snapshot ID：`20260716-1520-close-full-local20260716231044`
+- 报告周期：`2026-07-16-close`
 - 质量等级：**A**
-- 质量 Profile：`trading_evening`
+- 质量 Profile：`trading_close`
 - 行情日期：2026-07-16
 - 行情时间范围：2026-07-16T15:34:59+08:00 至 2026-07-16T15:36:00+08:00
-- 生成时间：2026-07-16T23:11:23+08:00
+- 生成时间：2026-07-16T23:11:22+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -63,5 +63,5 @@
 
 ## 数据源状态
 
-- `market_overview`：success；来源=新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths；错误=AKShare stock_board_industry_name_em failed: HTTPSConnectionPool(host='17.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m%3A90+t%3A2+f%3A%2150&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf1；AKShare stock_board_concept_name_em failed: HTTPSConnectionPool(host='79.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A3+f%3A%2150&fields=f2%2Cf3%2Cf4%2Cf8%2Cf12%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf24%2Cf2
 - `stock_quotes`：success；来源=新浪实时行情接口；错误=东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。；行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。
+- `market_overview`：success；来源=新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths；错误=AKShare stock_board_industry_name_em failed: HTTPSConnectionPool(host='17.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m%3A90+t%3A2+f%3A%2150&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf1；AKShare stock_board_concept_name_em failed: HTTPSConnectionPool(host='79.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A3+f%3A%2150&fields=f2%2Cf3%2Cf4%2Cf8%2Cf12%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf24%2Cf2

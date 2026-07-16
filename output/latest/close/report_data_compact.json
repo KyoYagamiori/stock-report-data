@@ -1,6 +1,6 @@
 {
   "attempt_role": "migration",
-  "based_on_snapshot_id": "20260716-1520-close-full-local20260716231044",
+  "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "coverage": {
     "core": {
@@ -36,7 +36,6 @@
   },
   "degradation_actions": [],
   "market": {
-    "base_close_grade": "A",
     "breadth": {
       "down": 2861,
       "flat": 169,
@@ -144,27 +143,29 @@
     "turnover_valid": true
   },
   "market_date": "2026-07-16",
-  "market_session": "evening_verified",
+  "market_session": "market_close",
   "missing_core_fields": [],
   "missing_optional_fields": [],
-  "planned_at": "2026-07-16T20:35:00+08:00",
-  "published_at": "2026-07-16T23:11:23+08:00",
+  "planned_at": "2026-07-16T15:20:00+08:00",
+  "published_at": "2026-07-16T23:11:22+08:00",
   "quality_grade": "A",
-  "quality_profile": "trading_evening",
+  "quality_profile": "trading_close",
   "quality_reasons": [
-    "verified same-day A-grade close snapshot"
+    "quality profile thresholds met for grade A",
+    "indices coverage 3/3",
+    "core coverage 10/10"
   ],
   "quote_time_max": "2026-07-16T15:36:00+08:00",
   "quote_time_min": "2026-07-16T15:34:59+08:00",
   "realtime_available": true,
-  "realtime_expected": false,
-  "report_cycle": "2026-07-16-evening",
+  "realtime_expected": true,
+  "report_cycle": "2026-07-16-close",
   "report_date": "2026-07-16",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
   "schema_version": "1.6.1",
-  "snapshot_id": "20260716-2035-evening-full-local20260716231123",
+  "snapshot_id": "20260716-1520-close-full-local20260716231044",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
+  "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
@@ -193,7 +194,7 @@
       "status": "success"
     }
   },
-  "started_at": "2026-07-16T23:11:23+08:00",
+  "started_at": "2026-07-16T23:10:44+08:00",
   "stocks": [
     {
       "amount": 15886100924.0,
@@ -2375,7 +2376,6 @@
     "evening"
   ],
   "validation": {
-    "base_snapshot_valid": true,
     "calendar_valid": true,
     "cross_field_valid": true,
     "schema_valid": true,
@@ -2388,5 +2388,5 @@
     "AKShare stock_board_concept_name_em failed: HTTPSConnectionPool(host='79.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A3+f%3A%2150&fields=f2%2Cf3%2Cf4%2Cf8%2Cf12%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf24%2Cf2"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "local20260716231123"
+  "workflow_run_id": "local20260716231044"
 }
