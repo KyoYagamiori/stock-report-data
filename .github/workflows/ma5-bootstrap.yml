@@ -1,6 +1,14 @@
 name: MA5 all-A bootstrap
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ma5-bootstrap.yml"
+      - "ma5_system/**"
+      - "config/ma5_strategy.json"
+      - "requirements.txt"
   schedule:
     - cron: "0 10 * * 6"
   workflow_dispatch:
@@ -24,7 +32,7 @@ concurrency:
 
 jobs:
   history-shards:
-    if: inputs.mode != 'industry'
+    if: github.event_name != 'workflow_dispatch' || inputs.mode != 'industry'
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +54,7 @@ jobs:
           if-no-files-found: error
 
   merge-and-publish:
-    if: always() && (needs.history-shards.result == 'success' || inputs.mode == 'industry')
+    if: always() && (needs.history-shards.result == 'success' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'industry'))
     needs: history-shards
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -59,15 +67,15 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: python -m pip install --disable-pip-version-check -r requirements.txt
-      - if: inputs.mode != 'industry'
+      - if: github.event_name != 'workflow_dispatch' || inputs.mode != 'industry'
         uses: actions/download-artifact@v4
         with:
           pattern: ma5-history-*
           path: output/ma5/bootstrap
           merge-multiple: true
-      - if: inputs.mode != 'industry'
+      - if: github.event_name != 'workflow_dispatch' || inputs.mode != 'industry'
         run: python -m ma5_system.bootstrap --mode merge-history
-      - if: inputs.mode != 'history'
+      - if: github.event_name != 'workflow_dispatch' || inputs.mode != 'history'
         run: python -m ma5_system.bootstrap --mode industry --workers 6
       - name: Commit bootstrapped state
         shell: bash
