@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/ma5_screen.schema.json",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "strategy_id",
+    "scan_id",
+    "phase",
+    "report_date",
+    "market_date",
+    "started_at",
+    "completed_at",
+    "quality",
+    "market_environment",
+    "directions",
+    "top10",
+    "primary_candidate",
+    "signal_shards"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "strategy_id": {"const": "ma5_concentrated_v1"},
+    "scan_id": {"type": "string", "minLength": 12},
+    "phase": {"enum": ["preclose", "close"]},
+    "report_date": {"type": "string", "format": "date"},
+    "market_date": {"type": "string", "format": "date"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "quality": {
+      "type": "object",
+      "required": ["grade", "report_readiness", "actionable"],
+      "properties": {
+        "grade": {"enum": ["A", "B", "F"]},
+        "report_readiness": {"enum": ["ready_a", "ready_b", "not_ready"]},
+        "actionable": {"type": "boolean"}
+      }
+    },
+    "market_environment": {
+      "type": "object",
+      "required": ["score", "regime", "maximum_position_pct"],
+      "properties": {
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "regime": {"enum": ["strong", "neutral", "weak"]},
+        "maximum_position_pct": {"enum": [30, 70, 100]}
+      }
+    },
+    "directions": {"type": "array"},
+    "top10": {"type": "array", "maxItems": 10},
+    "primary_candidate": {"type": ["object", "null"]},
+    "signal_shards": {"type": "array"}
+  }
+}

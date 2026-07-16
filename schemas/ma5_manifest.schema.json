@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/ma5_manifest.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "strategy_id", "generated_at", "scans", "report_readiness"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "strategy_id": {"const": "ma5_concentrated_v1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "latest_phase": {"enum": ["preclose", "close"]},
+    "scans": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preclose", "close"],
+      "properties": {
+        "preclose": {"$ref": "#/$defs/pointerOrNull"},
+        "close": {"$ref": "#/$defs/pointerOrNull"}
+      }
+    },
+    "report_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preclose", "close"],
+      "properties": {
+        "preclose": {"$ref": "#/$defs/readinessOrNull"},
+        "close": {"$ref": "#/$defs/readinessOrNull"}
+      }
+    }
+  },
+  "$defs": {
+    "pointerOrNull": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scan_id", "report_date", "market_date", "planned_at", "started_at", "quote_time_max", "selected_file", "latest_alias", "sha256", "grade", "actionable", "market_score", "market_regime", "maximum_position_pct", "top10", "signal_shards", "completed_at"],
+          "properties": {
+            "scan_id": {"type": "string"},
+            "report_date": {"type": "string", "format": "date"},
+            "market_date": {"type": "string", "format": "date"},
+            "planned_at": {"type": "string", "format": "date-time"},
+            "started_at": {"type": "string", "format": "date-time"},
+            "quote_time_max": {"type": ["string", "null"], "format": "date-time"},
+            "selected_file": {"type": "string"},
+            "latest_alias": {"type": "string"},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "grade": {"enum": ["A", "B", "F"]},
+            "actionable": {"type": "boolean"},
+            "market_score": {"type": "number", "minimum": 0, "maximum": 100},
+            "market_regime": {"enum": ["strong", "neutral", "weak"]},
+            "maximum_position_pct": {"enum": [30, 70, 100]},
+            "top10": {
+              "type": "array",
+              "maxItems": 10,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["code", "name", "score", "a_plus"],
+                "properties": {
+                  "code": {"type": "string"},
+                  "name": {"type": "string"},
+                  "score": {"type": "number"},
+                  "a_plus": {"type": "boolean"}
+                }
+              }
+            },
+            "signal_shards": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bucket", "file", "sha256", "count"],
+                "properties": {
+                  "bucket": {"type": "string"},
+                  "file": {"type": "string"},
+                  "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                  "count": {"type": "integer", "minimum": 0}
+                }
+              }
+            },
+            "completed_at": {"type": "string", "format": "date-time"}
+          }
+        }
+      ]
+    },
+    "readinessOrNull": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "grade", "actionable", "reasons"],
+          "properties": {
+            "status": {"enum": ["ready_a", "ready_b", "not_ready"]},
+            "grade": {"enum": ["A", "B", "F"]},
+            "actionable": {"type": "boolean"},
+            "reasons": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "strategy_id": "ma5_concentrated_v1",
+  "holding_period_days": [3, 10],
+  "universe": {
+    "allowed_prefixes": ["000", "001", "002", "003", "300", "301", "600", "601", "603", "605", "688"],
+    "excluded_prefixes": ["4", "8", "9"],
+    "expected_min_stocks": 5000,
+    "minimum_listing_days": 60,
+    "minimum_history_days": 60,
+    "minimum_median_amount_20": 100000000
+  },
+  "candidate": {
+    "minimum_score": 70,
+    "a_plus_score": 85,
+    "distance_to_ma5_min_pct": -1.0,
+    "distance_to_ma5_max_pct": 2.5,
+    "maximum_planned_risk_pct": 5.0,
+    "minimum_reward_risk": 2.0,
+    "box_lookback_days": 20,
+    "recent_low_days": 5,
+    "invalidation_buffer_pct": 0.5,
+    "buy_zone_pct": 1.0,
+    "maximum_cards": 10
+  },
+  "score_weights": {
+    "direction": 30,
+    "trend": 25,
+    "pullback_reclaim": 20,
+    "volume_price": 15,
+    "liquidity_risk": 10
+  },
+  "market": {
+    "strong_minimum": 70,
+    "neutral_minimum": 50,
+    "strong_cap_pct": 100,
+    "neutral_cap_pct": 70,
+    "weak_cap_pct": 30,
+    "components": {
+      "index_trend": 30,
+      "breadth": 25,
+      "turnover": 15,
+      "sector_persistence": 20,
+      "limit_down_risk": 10
+    }
+  },
+  "position": {
+    "levels": [0, 40, 70, 100],
+    "event_risk_cap_pct": 70,
+    "drawdown_warning_pct": [8, 12],
+    "max_primary_positions": 1,
+    "future_max_positions": 3
+  },
+  "quality": {
+    "grade_a_universe_coverage": 0.95,
+    "grade_a_history_coverage": 0.95,
+    "grade_a_industry_coverage": 0.95,
+    "grade_b_universe_coverage": 0.85,
+    "grade_b_history_coverage": 0.80,
+    "grade_b_industry_coverage": 0.80,
+    "maximum_quote_age_minutes": 10,
+    "preclose_action_deadline": "14:52"
+  },
+  "history": {
+    "rolling_days": 70,
+    "adjustment": "qfq"
+  },
+  "costs": {
+    "commission_bps": 2.5,
+    "minimum_commission": 5.0,
+    "stamp_duty_sell_bps": 5.0,
+    "slippage_bps": 5.0
+  }
+}

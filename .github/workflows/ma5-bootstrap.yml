@@ -1,0 +1,83 @@
+name: MA5 all-A bootstrap
+
+on:
+  schedule:
+    - cron: "0 10 * * 6"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Bootstrap scope
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - history
+          - industry
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-report-data-publisher-main
+  cancel-in-progress: false
+
+jobs:
+  history-shards:
+    if: inputs.mode != 'industry'
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python -m ma5_system.bootstrap --mode history --shard-index ${{ matrix.shard }} --shard-count 16 --workers 6
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ma5-history-${{ matrix.shard }}
+          path: output/ma5/bootstrap/history-shard-*
+          if-no-files-found: error
+
+  merge-and-publish:
+    if: always() && (needs.history-shards.result == 'success' || inputs.mode == 'industry')
+    needs: history-shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - if: inputs.mode != 'industry'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ma5-history-*
+          path: output/ma5/bootstrap
+          merge-multiple: true
+      - if: inputs.mode != 'industry'
+        run: python -m ma5_system.bootstrap --mode merge-history
+      - if: inputs.mode != 'history'
+        run: python -m ma5_system.bootstrap --mode industry --workers 6
+      - name: Commit bootstrapped state
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/ma5/state
+          if git diff --cached --quiet; then
+            echo "No bootstrap state changes."
+            exit 0
+          fi
+          git commit -m "ma5: bootstrap all-A state"
+          git push

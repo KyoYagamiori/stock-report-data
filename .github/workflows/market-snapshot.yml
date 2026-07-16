@@ -98,6 +98,20 @@ jobs:
       - name: Validate frozen contracts
         run: python -m unittest tests.test_contracts tests.test_quality tests.test_publisher tests.test_schedule
 
+      - name: Validate MA5 contracts at strategy nodes
+        if: steps.params.outputs.planned_at == '14:35' || steps.params.outputs.planned_at == '15:20'
+        run: python -m unittest discover -s tests -p "test_ma5_*.py"
+
+      - name: Run independent MA5 preclose scan before the reporting deadline
+        if: steps.params.outputs.planned_at == '14:35'
+        shell: bash
+        run: |
+          args=(--phase preclose --planned-at "${{ steps.params.outputs.planned_at }}")
+          if [[ -n "${{ steps.params.outputs.report_date }}" ]]; then
+            args+=(--report-date "${{ steps.params.outputs.report_date }}")
+          fi
+          python -m ma5_system.run "${args[@]}"
+
       - name: Collect, grade and publish snapshot
         shell: bash
         run: |
@@ -111,6 +125,16 @@ jobs:
             args+=(--report-date "${{ steps.params.outputs.report_date }}")
           fi
           python -m pipeline.run "${args[@]}"
+
+      - name: Run independent MA5 close confirmation
+        if: steps.params.outputs.planned_at == '15:20'
+        shell: bash
+        run: |
+          args=(--phase close --planned-at "${{ steps.params.outputs.planned_at }}")
+          if [[ -n "${{ steps.params.outputs.report_date }}" ]]; then
+            args+=(--report-date "${{ steps.params.outputs.report_date }}")
+          fi
+          python -m ma5_system.run "${args[@]}"
 
       - name: Commit one consistent publication
         shell: bash

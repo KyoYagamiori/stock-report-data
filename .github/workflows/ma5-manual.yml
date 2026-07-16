@@ -1,0 +1,67 @@
+name: MA5 strategy manual scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: MA5 scan phase
+        required: true
+        default: preclose
+        type: choice
+        options:
+          - preclose
+          - close
+      planned_at:
+        description: Planned China time in HH:MM
+        required: true
+        default: "14:45"
+        type: string
+      report_date:
+        description: Optional China report date in YYYY-MM-DD
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-report-data-publisher-main
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Validate MA5 contracts
+        run: python -m unittest discover -s tests -p "test_ma5_*.py"
+      - name: Run scan
+        shell: bash
+        run: |
+          args=(--phase "${{ inputs.phase }}" --planned-at "${{ inputs.planned_at }}")
+          if [[ -n "${{ inputs.report_date }}" ]]; then
+            args+=(--report-date "${{ inputs.report_date }}")
+          fi
+          python -m ma5_system.run "${args[@]}"
+      - name: Commit one consistent MA5 publication
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/ma5
+          if git diff --cached --quiet; then
+            echo "No MA5 publication changes."
+            exit 0
+          fi
+          git commit -m "ma5: ${{ inputs.phase }} ${{ inputs.planned_at }}"
+          git push
