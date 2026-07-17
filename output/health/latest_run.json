@@ -1,7 +1,7 @@
 {
-  "attempt_role": "retry-2",
+  "attempt_role": "rolling",
   "blocking_reasons": [
-    "quote_time_max is outside the profile quote window"
+    "quote_time_max is older than 15 minutes"
   ],
   "coverage": {
     "core": {
@@ -35,45 +35,44 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-07-17T14:35:48+08:00",
-  "planned_at": "2026-07-17T12:25:00+08:00",
+  "finished_at": "2026-07-17T15:28:13+08:00",
+  "planned_at": "2026-07-17T13:05:00+08:00",
   "published": false,
   "quality_grade": "F",
   "quality_reasons": [],
   "reason": "quality gate failed",
   "schema_version": "1.6.1",
-  "snapshot_id": "20260717-1225-noon-full-29560323921",
-  "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_id": "20260717-1305-intraday-light-29563102457",
+  "snapshot_mode": "light",
+  "snapshot_type": "intraday",
   "source_status": {
     "market_overview": {
       "errors": [
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-07-17T14:35:48+08:00",
+      "finished_at": "2026-07-17T15:28:13+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-17T14:32:45+08:00",
+      "started_at": "2026-07-17T15:27:07+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。"
+        "日线箱体字段不可用，已沿用上一份已存快照箱体数据。",
+        "日线均线字段不可用，已沿用上一份已存快照均线数据。"
       ],
-      "finished_at": "2026-07-17T14:35:11+08:00",
+      "finished_at": "2026-07-17T15:27:52+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-17T14:32:45+08:00",
+      "started_at": "2026-07-17T15:27:07+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-07-17T14:32:45+08:00",
+  "started_at": "2026-07-17T15:27:07+08:00",
   "status": "not_published"
 }
