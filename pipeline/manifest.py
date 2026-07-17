@@ -64,10 +64,17 @@ def build_pointer(snapshot: dict[str, Any], selected_file: str, sha256: str) -> 
 
 
 def update_report_readiness(manifest: dict[str, Any]) -> None:
+    calendar_date = str(manifest.get("calendar", {}).get("date", ""))
     for report_type in REPORT_TYPES:
         pointer = manifest["snapshots"].get(report_type)
         if pointer is None:
             manifest["report_readiness"][report_type] = empty_readiness()
+            continue
+        expected_cycle = f"{calendar_date}-{report_type}"
+        if calendar_date and pointer.get("report_cycle") != expected_cycle:
+            manifest["report_readiness"][report_type] = empty_readiness(
+                f"stale report cycle {pointer.get('report_cycle')}; expected {expected_cycle}"
+            )
             continue
         if pointer["quality_profile"] == "non_trading":
             status = "not_applicable"
