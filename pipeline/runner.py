@@ -15,6 +15,7 @@ import pandas as pd
 from pipeline import SCHEMA_VERSION
 from pipeline.adapters import AdapterResult
 from pipeline.adapters.market_overview import collect_market_overview
+from pipeline.adapters.point_in_time import recover_fixed_point_in_time
 from pipeline.adapters.stock_quotes import collect_stock_quotes
 from pipeline.calendar import CalendarInfo, resolve_calendar
 from pipeline.contracts import ContractError, load_json
@@ -83,6 +84,10 @@ def run_pipeline(
     calendar_resolver: Callable[[datetime, Path], CalendarInfo] = resolve_calendar,
     stock_collector: Callable[[Path, datetime, str, str], tuple[AdapterResult, pd.DataFrame]] = collect_stock_quotes,
     market_collector: Callable[[pd.DataFrame, str, datetime], AdapterResult] = collect_market_overview,
+    point_in_time_recoverer: Callable[
+        [AdapterResult, AdapterResult, str, str, str, datetime],
+        tuple[AdapterResult, AdapterResult],
+    ] = recover_fixed_point_in_time,
 ) -> RunResult:
     options.validate()
     started = (options.moment or datetime.now(TIMEZONE)).astimezone(TIMEZONE)
@@ -107,6 +112,7 @@ def run_pipeline(
                 calendar_resolver=calendar_resolver,
                 stock_collector=stock_collector,
                 market_collector=market_collector,
+                point_in_time_recoverer=point_in_time_recoverer,
             )
             if recovery.grade == "F":
                 recovery_reason = f"automatic close recovery failed: {recovery.reason}"
@@ -139,8 +145,36 @@ def run_pipeline(
         market_date=market_date,
         stock_result=stock_result,
         market_result=market_result,
+        collection_mode="live_or_latest_completed",
     )
     quality = evaluate_quality(snapshot, profile)
+    if quality.grade == "F" and _recovery_target_reached(profile, report_date, started):
+        try:
+            stock_result, market_result = point_in_time_recoverer(
+                stock_result,
+                market_result,
+                profile,
+                report_date,
+                market_date,
+                started,
+            )
+            published_at = datetime.now(TIMEZONE).isoformat(timespec="seconds")
+            snapshot = _build_snapshot(
+                options=options,
+                report_date=report_date,
+                planned_at=planned_at,
+                started=started,
+                published_at=published_at,
+                calendar=calendar,
+                profile=profile,
+                market_date=market_date,
+                stock_result=stock_result,
+                market_result=market_result,
+                collection_mode="historical_point_in_time_recovery",
+            )
+            quality = evaluate_quality(snapshot, profile)
+        except Exception as exc:
+            snapshot["warnings"].append(f"历史时点恢复失败：{str(exc)[:400]}")
     apply_quality_result(snapshot, quality)
     if quality.grade == "F":
         health = _health_payload(options, started, snapshot, False, "quality gate failed")
@@ -284,6 +318,7 @@ def _build_snapshot(
     market_date: str,
     stock_result: AdapterResult,
     market_result: AdapterResult,
+    collection_mode: str,
 ) -> dict[str, Any]:
     stocks = list(stock_result.data["stocks"])
     market = dict(market_result.data)
@@ -328,6 +363,9 @@ def _build_snapshot(
         "planned_at": planned_at,
         "started_at": started.isoformat(timespec="seconds"),
         "published_at": published_at,
+        "collection_mode": collection_mode,
+        "point_in_time_recovered": collection_mode == "historical_point_in_time_recovery",
+        "schedule_delay_minutes": _schedule_delay_minutes(planned_at, started),
         "quote_time_min": quote_times[0] if quote_times else None,
         "quote_time_max": quote_times[-1] if quote_times else None,
         "realtime_expected": realtime_expected,
@@ -384,6 +422,24 @@ def _initial_time_valid(profile: str, quote_times: list[str]) -> bool:
     return bool(quote_times)
 
 
+def _recovery_target_reached(profile: str, report_date: str, started: datetime) -> bool:
+    if profile == "trading_preopen":
+        return started.date().isoformat() >= report_date
+    if profile != "trading_noon":
+        return False
+    if started.date().isoformat() > report_date:
+        return True
+    return started.date().isoformat() == report_date and started.time().replace(tzinfo=None) >= datetime.strptime("11:30", "%H:%M").time()
+
+
+def _schedule_delay_minutes(planned_at: str, started: datetime) -> float:
+    try:
+        planned = datetime.fromisoformat(planned_at).astimezone(TIMEZONE)
+    except ValueError:
+        return 0.0
+    return round(max(0.0, (started - planned).total_seconds() / 60), 2)
+
+
 def _session_for(snapshot_type: str, started: datetime) -> str:
     if snapshot_type != "intraday":
         return SESSION_BY_TYPE[snapshot_type]
@@ -425,6 +481,9 @@ def _health_payload(
         "started_at": started.isoformat(timespec="seconds"),
         "finished_at": datetime.now(TIMEZONE).isoformat(timespec="seconds"),
         "quality_grade": snapshot["quality_grade"],
+        "collection_mode": snapshot.get("collection_mode", "unknown"),
+        "point_in_time_recovered": bool(snapshot.get("point_in_time_recovered")),
+        "schedule_delay_minutes": snapshot.get("schedule_delay_minutes", 0),
         "quality_reasons": snapshot.get("quality_reasons", []),
         "blocking_reasons": snapshot.get("blocking_reasons", []),
         "coverage": snapshot.get("coverage", {}),

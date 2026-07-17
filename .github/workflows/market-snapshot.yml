@@ -126,6 +126,10 @@ jobs:
           fi
           python -m pipeline.run "${args[@]}"
 
+      - name: Catch up a missing fixed noon snapshot after delayed schedules
+        if: github.event_name == 'schedule'
+        run: python -m pipeline.catchup
+
       - name: Run independent MA5 close confirmation
         if: steps.params.outputs.planned_at == '15:20'
         shell: bash

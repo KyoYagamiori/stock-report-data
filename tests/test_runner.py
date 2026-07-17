@@ -125,6 +125,34 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual("ready_a", manifest["report_readiness"]["noon"]["status"])
             self.assertIn("output/archive/", manifest["snapshots"]["noon"]["selected_file"])
 
+    def test_delayed_noon_uses_point_in_time_recovery(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            moment = datetime(2026, 7, 16, 14, 32, tzinfo=TIMEZONE)
+
+            def recover(stock_result, market_result, profile, report_date, market_date, started):
+                del stock_result, market_result, report_date, market_date
+                self.assertEqual("trading_noon", profile)
+                return (
+                    stock_collector_for("2026-07-16T11:30:00+08:00")(root, started, "2026-07-16", "full")[0],
+                    full_market_collector(pd.DataFrame(), "recovered", started),
+                )
+
+            result = run_pipeline(
+                RunOptions("noon", "full", "11:35", "retry-2", moment=moment),
+                root,
+                calendar_resolver=trading_calendar,
+                stock_collector=stock_collector_for("2026-07-16T14:30:00+08:00"),
+                market_collector=full_market_collector,
+                point_in_time_recoverer=recover,
+            )
+            self.assertEqual("A", result.grade)
+            manifest = json.loads((root / "output/latest/manifest.json").read_text(encoding="utf-8"))
+            pointer = manifest["snapshots"]["noon"]
+            self.assertTrue(pointer["point_in_time_recovered"])
+            self.assertEqual("historical_point_in_time_recovery", pointer["collection_mode"])
+            self.assertEqual(177.0, pointer["schedule_delay_minutes"])
+
     def test_non_trading_snapshot_is_published_as_not_applicable(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
