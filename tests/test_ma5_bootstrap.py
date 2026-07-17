@@ -12,6 +12,7 @@ from ma5_system.bootstrap import (
     _fetch_ths_board_members,
     _parse_sw_industry_files,
     bootstrap_industry_map,
+    merge_history,
 )
 
 
@@ -63,6 +64,51 @@ def _write_history(root: Path) -> None:
 
 
 class MA5BootstrapTests(unittest.TestCase):
+    def test_merge_history_rejects_false_green_below_coverage_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "output" / "ma5" / "bootstrap"
+            source.mkdir(parents=True, exist_ok=True)
+            pd.DataFrame([{"code": "600001", "date": "2026-07-17", "close": 10}]).to_csv(
+                source / "history-shard-00.csv.gz",
+                index=False,
+                compression="gzip",
+            )
+            (source / "history-shard-00.csv.json").write_text(
+                json.dumps({"codes": 2, "successful_codes": 1}),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(RuntimeError, "1/2 codes"):
+                merge_history(root, minimum_coverage=0.95)
+            status = json.loads(
+                (root / "output" / "ma5" / "state" / "history_bootstrap.status.json").read_text(encoding="utf-8")
+            )
+            self.assertFalse(status["ready"])
+            self.assertEqual(0.5, status["coverage"])
+
+    def test_merge_history_accepts_complete_shards(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "output" / "ma5" / "bootstrap"
+            source.mkdir(parents=True, exist_ok=True)
+            for index, code in enumerate(("600001", "000002")):
+                pd.DataFrame([{"code": code, "date": "2026-07-17", "close": 10 + index}]).to_csv(
+                    source / f"history-shard-{index:02d}.csv.gz",
+                    index=False,
+                    compression="gzip",
+                )
+                (source / f"history-shard-{index:02d}.csv.json").write_text(
+                    json.dumps({"codes": 1, "successful_codes": 1}),
+                    encoding="utf-8",
+                )
+            output = merge_history(root, minimum_coverage=0.95)
+            self.assertTrue(output.exists())
+            status = json.loads(
+                (root / "output" / "ma5" / "state" / "history_bootstrap.status.json").read_text(encoding="utf-8")
+            )
+            self.assertTrue(status["ready"])
+            self.assertEqual(1.0, status["coverage"])
+
     def test_industry_bootstrap_falls_back_to_official_sw_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

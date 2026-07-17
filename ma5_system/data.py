@@ -246,13 +246,52 @@ def fetch_history_for_codes(
 ) -> tuple[pd.DataFrame, list[str]]:
     if ak_module is None and fetcher is None:
         return pd.DataFrame(columns=HISTORY_COLUMNS), ["AKShare is unavailable"]
-    history_fetcher = fetcher or ak_module.stock_zh_a_hist
     frames: list[pd.DataFrame] = []
     errors: list[str] = []
 
     def fetch(code: str) -> pd.DataFrame:
-        raw = history_fetcher(symbol=code, period="daily", start_date=start_date, end_date=end_date, adjust="qfq")
-        return normalize_history_frame(raw, code)
+        if fetcher is not None:
+            raw = fetcher(symbol=code, period="daily", start_date=start_date, end_date=end_date, adjust="qfq")
+            return normalize_history_frame(raw, code)
+
+        failures: list[str] = []
+        eastmoney_fetcher = getattr(ak_module, "stock_zh_a_hist", None)
+        if eastmoney_fetcher is not None:
+            try:
+                raw = eastmoney_fetcher(
+                    symbol=code,
+                    period="daily",
+                    start_date=start_date,
+                    end_date=end_date,
+                    adjust="qfq",
+                )
+                normalized = normalize_history_frame(raw, code)
+                if not normalized.empty:
+                    return normalized
+                failures.append("EastMoney returned no usable rows")
+            except Exception as exc:
+                failures.append(f"EastMoney: {str(exc)[:120]}")
+
+        sina_fetcher = getattr(ak_module, "stock_zh_a_daily", None)
+        if sina_fetcher is not None:
+            try:
+                market_prefix = "sh" if code.startswith("6") else "sz"
+                raw = sina_fetcher(
+                    symbol=f"{market_prefix}{code}",
+                    start_date=start_date,
+                    end_date=end_date,
+                    adjust="qfq",
+                )
+                normalized = normalize_history_frame(raw, code)
+                if not normalized.empty:
+                    if "turnover" in normalized.columns:
+                        normalized["turnover"] = pd.to_numeric(normalized["turnover"], errors="coerce") * 100
+                    return normalized
+                failures.append("Sina returned no usable rows")
+            except Exception as exc:
+                failures.append(f"Sina: {str(exc)[:120]}")
+
+        raise RuntimeError("; ".join(failures) or "No daily history source is available")
 
     with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
         future_by_code = {executor.submit(fetch, normalize_code(code)): normalize_code(code) for code in codes}

@@ -7,13 +7,43 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from ma5_system.config import load_strategy_config
-from ma5_system.data import apply_industry_map, is_st_name, normalize_spot_frame
+from ma5_system.data import apply_industry_map, fetch_history_for_codes, is_st_name, normalize_spot_frame
 
 
 TIMEZONE = ZoneInfo("Asia/Shanghai")
 
 
 class MA5DataTests(unittest.TestCase):
+    def test_daily_history_falls_back_to_sina_qfq(self) -> None:
+        calls: list[str] = []
+
+        class FakeAK:
+            @staticmethod
+            def stock_zh_a_hist(**_: object) -> pd.DataFrame:
+                raise ConnectionError("eastmoney unavailable")
+
+            @staticmethod
+            def stock_zh_a_daily(**kwargs: object) -> pd.DataFrame:
+                calls.append(str(kwargs["symbol"]))
+                return pd.DataFrame(
+                    [
+                        {"date": "2026-07-16", "open": 10, "high": 11, "low": 9.8, "close": 10.5, "volume": 100, "amount": 200_000_000, "turnover": 0.02},
+                        {"date": "2026-07-17", "open": 10.5, "high": 11.2, "low": 10.2, "close": 11, "volume": 120, "amount": 240_000_000, "turnover": 0.025},
+                    ]
+                )
+
+        result, errors = fetch_history_for_codes(
+            ["600001"],
+            "20260701",
+            "20260717",
+            ak_module=FakeAK,
+            workers=1,
+        )
+        self.assertEqual([], errors)
+        self.assertEqual(["sh600001"], calls)
+        self.assertEqual(2, len(result))
+        self.assertAlmostEqual(2.5, float(result.iloc[-1]["turnover"]))
+
     def test_normalize_spot_filters_bse_stays_in_supported_boards(self) -> None:
         frame = pd.DataFrame(
             [

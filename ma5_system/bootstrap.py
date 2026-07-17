@@ -52,7 +52,14 @@ def bootstrap_history(root: Path, shard_index: int, shard_count: int, workers: i
     diagnostic = output.with_suffix(".json")
     diagnostic.write_text(
         json.dumps(
-            {"shard_index": shard_index, "shard_count": shard_count, "codes": len(shard_codes), "rows": len(history), "errors": [*errors, *history_errors]},
+            {
+                "shard_index": shard_index,
+                "shard_count": shard_count,
+                "codes": len(shard_codes),
+                "successful_codes": int(history["code"].nunique()) if not history.empty else 0,
+                "rows": len(history),
+                "errors": [*errors, *history_errors],
+            },
             ensure_ascii=False,
             indent=2,
         ) + "\n",
@@ -61,11 +68,49 @@ def bootstrap_history(root: Path, shard_index: int, shard_count: int, workers: i
     return output
 
 
-def merge_history(root: Path, pattern: str = "history-shard-*.csv.gz") -> Path:
+def merge_history(
+    root: Path,
+    pattern: str = "history-shard-*.csv.gz",
+    minimum_coverage: float = 0.95,
+) -> Path:
     source_dir = root / "output" / "ma5" / "bootstrap"
     frames = [pd.read_csv(path, dtype={"code": str}) for path in sorted(source_dir.glob(pattern))]
     if not frames:
         raise FileNotFoundError(f"No bootstrap shards matched {source_dir / pattern}")
+    diagnostics = []
+    for path in sorted(source_dir.glob("history-shard-*.json")):
+        try:
+            diagnostics.append(json.loads(path.read_text(encoding="utf-8")))
+        except (OSError, json.JSONDecodeError):
+            continue
+    expected_codes = sum(int(item.get("codes", 0) or 0) for item in diagnostics)
+    fetched_codes = {
+        normalize_code(value)
+        for frame in frames
+        for value in frame.get("code", pd.Series(dtype=str)).dropna().unique()
+        if re.fullmatch(r"\d{6}", normalize_code(value))
+    }
+    coverage = min(1.0, len(fetched_codes) / expected_codes) if expected_codes else 0.0
+    ready = bool(fetched_codes) and bool(expected_codes) and coverage >= minimum_coverage
+    status = {
+        "ready": ready,
+        "expected_codes": expected_codes,
+        "fetched_codes": len(fetched_codes),
+        "coverage": round(coverage, 6),
+        "minimum_coverage": minimum_coverage,
+        "rows": sum(len(frame) for frame in frames),
+        "shards": len(frames),
+        "diagnostics": len(diagnostics),
+    }
+    status_path = root / "output" / "ma5" / "state" / "history_bootstrap.status.json"
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    status_path.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if not ready:
+        raise RuntimeError(
+            "History bootstrap is not ready: "
+            f"{len(fetched_codes)}/{expected_codes} codes ({coverage:.2%}), "
+            f"minimum {minimum_coverage:.2%}"
+        )
     store = HistoryStore(root / "output" / "ma5" / "state" / "daily_history.csv.gz")
     existing = store.load()
     merged = pd.concat([existing, *frames], ignore_index=True)
