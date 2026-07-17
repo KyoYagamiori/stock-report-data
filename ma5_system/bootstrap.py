@@ -92,13 +92,15 @@ def merge_history(
     }
     coverage = min(1.0, len(fetched_codes) / expected_codes) if expected_codes else 0.0
     ready = bool(fetched_codes) and bool(expected_codes) and coverage >= minimum_coverage
+    source_rows = sum(len(frame) for frame in frames)
     status = {
         "ready": ready,
         "expected_codes": expected_codes,
         "fetched_codes": len(fetched_codes),
         "coverage": round(coverage, 6),
         "minimum_coverage": minimum_coverage,
-        "rows": sum(len(frame) for frame in frames),
+        "rows": source_rows,
+        "source_rows": source_rows,
         "shards": len(frames),
         "diagnostics": len(diagnostics),
     }
@@ -118,6 +120,18 @@ def merge_history(
         if column not in merged.columns:
             merged[column] = None
     store.save(merged[HISTORY_COLUMNS])
+    stored = store.load()
+    rows_per_code = stored.groupby("code").size() if not stored.empty else pd.Series(dtype=int)
+    status.update(
+        {
+            "rows": len(stored),
+            "stored_codes": int(stored["code"].nunique()) if not stored.empty else 0,
+            "rows_per_code_min": int(rows_per_code.min()) if not rows_per_code.empty else 0,
+            "rows_per_code_median": float(rows_per_code.median()) if not rows_per_code.empty else 0.0,
+            "rows_per_code_max": int(rows_per_code.max()) if not rows_per_code.empty else 0,
+        }
+    )
+    status_path.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return store.path
 
 

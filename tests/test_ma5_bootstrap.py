@@ -108,6 +108,12 @@ class MA5BootstrapTests(unittest.TestCase):
             )
             self.assertTrue(status["ready"])
             self.assertEqual(1.0, status["coverage"])
+            self.assertEqual(2, status["rows"])
+            self.assertEqual(2, status["source_rows"])
+            self.assertEqual(2, status["stored_codes"])
+            self.assertEqual(1, status["rows_per_code_min"])
+            self.assertEqual(1.0, status["rows_per_code_median"])
+            self.assertEqual(1, status["rows_per_code_max"])
 
     def test_industry_bootstrap_falls_back_to_official_sw_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
