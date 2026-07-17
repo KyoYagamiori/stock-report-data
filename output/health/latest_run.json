@@ -1,11 +1,13 @@
 {
-  "attempt_role": "cloud-smoke",
-  "blocking_reasons": [],
+  "attempt_role": "primary",
+  "blocking_reasons": [
+    "validation.time_valid is not true"
+  ],
   "coverage": {
     "core": {
       "expected": 10,
-      "ratio": 1.0,
-      "valid": 10
+      "ratio": 0.0,
+      "valid": 0
     },
     "indices": {
       "expected": 3,
@@ -29,50 +31,48 @@
     },
     "watch": {
       "expected": 14,
-      "ratio": 1.0,
-      "valid": 14
+      "ratio": 0.0,
+      "valid": 0
     }
   },
-  "finished_at": "2026-07-16T23:24:13+08:00",
-  "planned_at": "2026-07-16T20:50:00+08:00",
-  "published": true,
-  "quality_grade": "A",
-  "quality_reasons": [
-    "verified same-day A-grade close snapshot"
-  ],
-  "reason": "published",
+  "finished_at": "2026-07-17T11:53:14+08:00",
+  "planned_at": "2026-07-17T08:40:00+08:00",
+  "published": false,
+  "quality_grade": "F",
+  "quality_reasons": [],
+  "reason": "quality gate failed",
   "schema_version": "1.6.1",
-  "snapshot_id": "20260716-2050-evening-full-29510942997",
+  "snapshot_id": "20260717-0840-early-full-29553352505",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
+  "snapshot_type": "early",
   "source_status": {
     "market_overview": {
       "errors": [
-        "AKShare stock_board_industry_name_em failed: HTTPSConnectionPool(host='17.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m%3A90+t%3A2+f%3A%2150&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf1",
-        "AKShare stock_board_concept_name_em failed: HTTPSConnectionPool(host='79.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A90+t%3A3+f%3A%2150&fields=f2%2Cf3%2Cf4%2Cf8%2Cf12%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf24%2Cf2"
+        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-07-16T23:11:22+08:00",
+      "finished_at": "2026-07-17T11:53:14+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-16T23:10:44+08:00",
+      "started_at": "2026-07-17T11:50:32+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "东方财富主日线接口失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用新浪备用日线接口。",
-        "行业信息获取失败：接口连接失败：本机代理断开或外部接口暂不可达（ProxyError）。 已使用观察池 theme 作为行业/主题兜底。"
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
       ],
-      "finished_at": "2026-07-16T23:11:09+08:00",
+      "finished_at": "2026-07-17T11:52:47+08:00",
       "records_expected": 25,
-      "records_valid": 25,
+      "records_valid": 0,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-16T23:10:44+08:00",
-      "status": "success"
+      "started_at": "2026-07-17T11:50:32+08:00",
+      "status": "source_error"
     }
   },
-  "started_at": "2026-07-16T23:24:12+08:00",
-  "status": "published"
+  "started_at": "2026-07-17T11:50:32+08:00",
+  "status": "not_published"
 }
