@@ -1,11 +1,11 @@
 # 股票行情快照运行状态
 
 - 状态：not_published
-- 快照类型：intraday
+- 快照类型：noon
 - 质量等级：F
 - 是否发布：否
-- 计划时间：2026-07-17T11:05:00+08:00
-- 开始时间：2026-07-17T13:48:32+08:00
-- 完成时间：2026-07-17T13:50:02+08:00
+- 计划时间：2026-07-17T11:35:00+08:00
+- 开始时间：2026-07-17T14:02:03+08:00
+- 完成时间：2026-07-17T14:10:47+08:00
 - 原因：quality gate failed
-- 阻断原因：quote_time_max is older than 15 minutes
+- 阻断原因：quote_time_max is outside the profile quote window
