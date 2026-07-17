@@ -1,13 +1,13 @@
 {
-  "attempt_role": "primary",
+  "attempt_role": "rolling",
   "blocking_reasons": [
-    "validation.time_valid is not true"
+    "quote_time_max is older than 15 minutes"
   ],
   "coverage": {
     "core": {
       "expected": 10,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 10
     },
     "indices": {
       "expected": 3,
@@ -31,48 +31,48 @@
     },
     "watch": {
       "expected": 14,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 14
     }
   },
-  "finished_at": "2026-07-17T11:53:14+08:00",
-  "planned_at": "2026-07-17T08:40:00+08:00",
+  "finished_at": "2026-07-17T12:48:19+08:00",
+  "planned_at": "2026-07-17T09:35:00+08:00",
   "published": false,
   "quality_grade": "F",
   "quality_reasons": [],
   "reason": "quality gate failed",
   "schema_version": "1.6.1",
-  "snapshot_id": "20260717-0840-early-full-29553352505",
-  "snapshot_mode": "full",
-  "snapshot_type": "early",
+  "snapshot_id": "20260717-0935-intraday-light-29555623954",
+  "snapshot_mode": "light",
+  "snapshot_type": "intraday",
   "source_status": {
     "market_overview": {
       "errors": [
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-07-17T11:53:14+08:00",
+      "finished_at": "2026-07-17T12:48:19+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-17T11:50:32+08:00",
+      "started_at": "2026-07-17T12:45:53+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "日线箱体字段不可用，已沿用上一份已存快照箱体数据。",
+        "日线均线字段不可用，已沿用上一份已存快照均线数据。"
       ],
-      "finished_at": "2026-07-17T11:52:47+08:00",
+      "finished_at": "2026-07-17T12:46:51+08:00",
       "records_expected": 25,
-      "records_valid": 0,
+      "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-17T11:50:32+08:00",
-      "status": "source_error"
+      "started_at": "2026-07-17T12:45:53+08:00",
+      "status": "success"
     }
   },
-  "started_at": "2026-07-17T11:50:32+08:00",
+  "started_at": "2026-07-17T12:45:53+08:00",
   "status": "not_published"
 }
