@@ -1,6 +1,8 @@
 {
-  "attempt_role": "automatic-delayed-catchup",
-  "blocking_reasons": [],
+  "attempt_role": "rolling",
+  "blocking_reasons": [
+    "quote_time_max is older than 15 minutes"
+  ],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
     "core": {
@@ -34,46 +36,43 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-07-20T12:32:39+08:00",
-  "planned_at": "2026-07-20T11:35:00+08:00",
+  "finished_at": "2026-07-20T13:11:40+08:00",
+  "planned_at": "2026-07-20T09:35:00+08:00",
   "point_in_time_recovered": false,
-  "published": true,
-  "quality_grade": "A",
-  "quality_reasons": [
-    "quality profile thresholds met for grade A",
-    "indices coverage 3/3",
-    "core coverage 10/10"
-  ],
-  "reason": "published",
-  "schedule_delay_minutes": 55.29,
+  "published": false,
+  "quality_grade": "F",
+  "quality_reasons": [],
+  "reason": "quality gate failed",
+  "schedule_delay_minutes": 215.01,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260720-1135-noon-full-29716836777",
-  "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_id": "20260720-0935-intraday-light-29718472084",
+  "snapshot_mode": "light",
+  "snapshot_type": "intraday",
   "source_status": {
     "market_overview": {
       "errors": [],
-      "finished_at": "2026-07-20T12:32:39+08:00",
+      "finished_at": "2026-07-20T13:11:40+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
-      "started_at": "2026-07-20T12:30:17+08:00",
+      "started_at": "2026-07-20T13:10:00+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
+        "日线箱体字段不可用，已沿用上一份已存快照箱体数据。",
+        "日线均线字段不可用，已沿用上一份已存快照均线数据。"
       ],
-      "finished_at": "2026-07-20T12:32:04+08:00",
+      "finished_at": "2026-07-20T13:10:57+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-20T12:30:17+08:00",
+      "started_at": "2026-07-20T13:10:00+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-07-20T12:30:17+08:00",
-  "status": "published"
+  "started_at": "2026-07-20T13:10:00+08:00",
+  "status": "not_published"
 }
