@@ -1,12 +1,12 @@
 {
-  "attempt_role": "primary",
+  "attempt_role": "automatic-delayed-catchup",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
     "core": {
       "expected": 10,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 10
     },
     "indices": {
       "expected": 3,
@@ -30,54 +30,50 @@
     },
     "watch": {
       "expected": 14,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 14
     }
   },
-  "finished_at": "2026-07-19T22:07:27+08:00",
-  "planned_at": "2026-07-19T20:35:00+08:00",
+  "finished_at": "2026-07-20T12:32:39+08:00",
+  "planned_at": "2026-07-20T11:35:00+08:00",
   "point_in_time_recovered": false,
   "published": true,
-  "quality_grade": "B",
+  "quality_grade": "A",
   "quality_reasons": [
-    "quality profile thresholds met for grade B",
+    "quality profile thresholds met for grade A",
     "indices coverage 3/3",
-    "core coverage 0/10"
+    "core coverage 10/10"
   ],
   "reason": "published",
-  "schedule_delay_minutes": 89.25,
+  "schedule_delay_minutes": 55.29,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260719-2035-evening-full-29690088413",
+  "snapshot_id": "20260720-1135-noon-full-29716836777",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
-      "errors": [
-        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-      ],
-      "finished_at": "2026-07-19T22:07:26+08:00",
+      "errors": [],
+      "finished_at": "2026-07-20T12:32:39+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
-      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-19T22:04:15+08:00",
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
+      "started_at": "2026-07-20T12:30:17+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
       ],
-      "finished_at": "2026-07-19T22:07:01+08:00",
+      "finished_at": "2026-07-20T12:32:04+08:00",
       "records_expected": 25,
-      "records_valid": 0,
+      "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-19T22:04:15+08:00",
-      "status": "source_error"
+      "started_at": "2026-07-20T12:30:17+08:00",
+      "status": "success"
     }
   },
-  "started_at": "2026-07-19T22:04:15+08:00",
+  "started_at": "2026-07-20T12:30:17+08:00",
   "status": "published"
 }
