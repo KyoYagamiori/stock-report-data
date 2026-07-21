@@ -1,7 +1,7 @@
 {
-  "attempt_role": "automatic-delayed-catchup",
+  "attempt_role": "retry-1",
   "blocking_reasons": [],
-  "collection_mode": "live_or_latest_completed",
+  "collection_mode": "historical_point_in_time_recovery",
   "coverage": {
     "core": {
       "expected": 10,
@@ -15,18 +15,18 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "watch": {
       "expected": 14,
@@ -34,9 +34,9 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-07-21T12:06:04+08:00",
-  "planned_at": "2026-07-21T11:35:00+08:00",
-  "point_in_time_recovered": false,
+  "finished_at": "2026-07-21T12:23:23+08:00",
+  "planned_at": "2026-07-21T08:55:00+08:00",
+  "point_in_time_recovered": true,
   "published": true,
   "quality_grade": "A",
   "quality_reasons": [
@@ -45,39 +45,38 @@
     "core coverage 10/10"
   ],
   "reason": "published",
-  "schedule_delay_minutes": 28.47,
+  "schedule_delay_minutes": 195.77,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260721-1135-noon-full-29799943480",
+  "snapshot_id": "20260721-0855-early-full-29800508654",
   "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_type": "early",
   "source_status": {
     "market_overview": {
       "errors": [
-        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+        "延迟任务未事后恢复上一交易日市场宽度，已留空。",
+        "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
       ],
-      "finished_at": "2026-07-21T12:06:04+08:00",
+      "finished_at": "2026-07-21T12:23:23+08:00",
       "records_expected": 5,
-      "records_valid": 5,
+      "records_valid": 2,
       "retry_count": 0,
-      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-21T12:03:28+08:00",
-      "status": "success"
+      "source": "新浪指数一分钟历史时点恢复",
+      "started_at": "2026-07-21T12:10:46+08:00",
+      "status": "partial"
     },
     "stock_quotes": {
       "errors": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
       ],
-      "finished_at": "2026-07-21T12:05:42+08:00",
+      "finished_at": "2026-07-21T12:23:12+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪实时行情接口",
-      "started_at": "2026-07-21T12:03:28+08:00",
+      "source": "新浪一分钟历史时点恢复；新浪前复权日线",
+      "started_at": "2026-07-21T12:10:46+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-07-21T12:03:28+08:00",
+  "started_at": "2026-07-21T12:10:46+08:00",
   "status": "published"
 }
