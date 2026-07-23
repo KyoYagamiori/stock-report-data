@@ -1,7 +1,7 @@
 {
-  "attempt_role": "automatic-delayed-catchup",
+  "attempt_role": "retry-1",
   "blocking_reasons": [],
-  "collection_mode": "live_or_latest_completed",
+  "collection_mode": "historical_point_in_time_recovery",
   "coverage": {
     "core": {
       "expected": 10,
@@ -15,18 +15,18 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "watch": {
       "expected": 14,
@@ -34,9 +34,9 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-07-23T12:06:02+08:00",
-  "planned_at": "2026-07-23T11:35:00+08:00",
-  "point_in_time_recovered": false,
+  "finished_at": "2026-07-23T12:15:19+08:00",
+  "planned_at": "2026-07-23T08:55:00+08:00",
+  "point_in_time_recovered": true,
   "published": true,
   "quality_grade": "A",
   "quality_reasons": [
@@ -45,35 +45,38 @@
     "core coverage 10/10"
   ],
   "reason": "published",
-  "schedule_delay_minutes": 28.13,
+  "schedule_delay_minutes": 195.24,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260723-1135-noon-full-29978299328",
+  "snapshot_id": "20260723-0855-early-full-29978831319",
   "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_type": "early",
   "source_status": {
     "market_overview": {
-      "errors": [],
-      "finished_at": "2026-07-23T12:06:02+08:00",
+      "errors": [
+        "延迟任务未事后恢复上一交易日市场宽度，已留空。",
+        "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
+      ],
+      "finished_at": "2026-07-23T12:15:19+08:00",
       "records_expected": 5,
-      "records_valid": 5,
+      "records_valid": 2,
       "retry_count": 0,
-      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
-      "started_at": "2026-07-23T12:03:07+08:00",
-      "status": "success"
+      "source": "新浪指数一分钟历史时点恢复",
+      "started_at": "2026-07-23T12:10:14+08:00",
+      "status": "partial"
     },
     "stock_quotes": {
       "errors": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
       ],
-      "finished_at": "2026-07-23T12:05:25+08:00",
+      "finished_at": "2026-07-23T12:15:10+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪实时行情接口",
-      "started_at": "2026-07-23T12:03:07+08:00",
+      "source": "新浪一分钟历史时点恢复；新浪前复权日线",
+      "started_at": "2026-07-23T12:10:14+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-07-23T12:03:07+08:00",
+  "started_at": "2026-07-23T12:10:14+08:00",
   "status": "published"
 }
