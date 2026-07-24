@@ -1,9 +1,7 @@
 {
-  "attempt_role": "rolling",
-  "blocking_reasons": [
-    "quote_time_max is older than 15 minutes"
-  ],
-  "collection_mode": "live_or_latest_completed",
+  "attempt_role": "primary",
+  "blocking_reasons": [],
+  "collection_mode": "historical_point_in_time_recovery",
   "coverage": {
     "core": {
       "expected": 10,
@@ -17,18 +15,18 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "watch": {
       "expected": 14,
@@ -36,46 +34,49 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-07-24T14:04:14+08:00",
-  "planned_at": "2026-07-24T11:05:00+08:00",
-  "point_in_time_recovered": false,
+  "finished_at": "2026-07-24T14:16:23+08:00",
+  "planned_at": "2026-07-24T11:35:00+08:00",
+  "point_in_time_recovered": true,
   "published": false,
-  "quality_grade": "F",
-  "quality_reasons": [],
-  "reason": "quality gate failed",
-  "schedule_delay_minutes": 177.45,
+  "quality_grade": "B",
+  "quality_reasons": [
+    "quality profile thresholds met for grade B",
+    "indices coverage 3/3",
+    "core coverage 10/10"
+  ],
+  "reason": "candidate did not beat current authoritative snapshot",
+  "schedule_delay_minutes": 156.52,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260724-1105-intraday-light-30071076400",
-  "snapshot_mode": "light",
-  "snapshot_type": "intraday",
+  "snapshot_id": "20260724-1135-noon-full-30071524588",
+  "snapshot_mode": "full",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
       "errors": [
-        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
+        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
       ],
-      "finished_at": "2026-07-24T14:04:14+08:00",
+      "finished_at": "2026-07-24T14:16:23+08:00",
       "records_expected": 5,
-      "records_valid": 5,
+      "records_valid": 2,
       "retry_count": 0,
-      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-24T14:02:27+08:00",
-      "status": "success"
+      "source": "新浪指数一分钟历史时点恢复",
+      "started_at": "2026-07-24T14:11:30+08:00",
+      "status": "partial"
     },
     "stock_quotes": {
       "errors": [
-        "日线箱体字段不可用，已沿用上一份已存快照箱体数据。",
-        "日线均线字段不可用，已沿用上一份已存快照均线数据。"
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
       ],
-      "finished_at": "2026-07-24T14:03:39+08:00",
+      "finished_at": "2026-07-24T14:16:16+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪实时行情接口",
-      "started_at": "2026-07-24T14:02:27+08:00",
+      "source": "新浪一分钟历史时点恢复；新浪前复权日线",
+      "started_at": "2026-07-24T14:11:30+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-07-24T14:02:27+08:00",
+  "started_at": "2026-07-24T14:11:30+08:00",
   "status": "not_published"
 }
