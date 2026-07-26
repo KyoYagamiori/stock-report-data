@@ -1,5 +1,5 @@
 {
-  "attempt_role": "automatic-delayed-catchup",
+  "attempt_role": "retry-1",
   "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
@@ -177,9 +177,9 @@
     "600172:quote",
     "603290:quote"
   ],
-  "planned_at": "2026-07-26T11:35:00+08:00",
+  "planned_at": "2026-07-26T12:05:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-07-26T12:14:44+08:00",
+  "published_at": "2026-07-26T14:46:54+08:00",
   "quality_grade": "B",
   "quality_profile": "non_trading",
   "quality_reasons": [
@@ -194,9 +194,9 @@
   "report_cycle": "2026-07-26-noon",
   "report_date": "2026-07-26",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 37.06,
+  "schedule_delay_minutes": 158.76,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260726-1135-noon-full-30187308601",
+  "snapshot_id": "20260726-1205-noon-full-30191534773",
   "snapshot_mode": "full",
   "snapshot_type": "noon",
   "source_status": {
@@ -205,29 +205,29 @@
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-07-26T12:14:44+08:00",
+      "finished_at": "2026-07-26T14:46:54+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-07-26T12:12:03+08:00",
+      "started_at": "2026-07-26T14:43:45+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。"
       ],
-      "finished_at": "2026-07-26T12:14:19+08:00",
+      "finished_at": "2026-07-26T14:46:24+08:00",
       "records_expected": 25,
       "records_valid": 0,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-07-26T12:12:03+08:00",
+      "started_at": "2026-07-26T14:43:45+08:00",
       "status": "source_error"
     }
   },
-  "started_at": "2026-07-26T12:12:03+08:00",
+  "started_at": "2026-07-26T14:43:45+08:00",
   "stocks": [
     {
       "amount": 14208029489.0,
@@ -235,7 +235,7 @@
         "暂无显著自动量价信号"
       ],
       "box_breakout_watch_price": 113.87,
-      "box_data_source": "新浪备用日线接口",
+      "box_data_source": "东方财富主接口",
       "box_end_date": "2026-07-24",
       "box_lookback_days": 20,
       "box_lower": 69.29,
@@ -247,7 +247,7 @@
       "box_upper": 113.87,
       "break_limit_up_count": null,
       "code": "600584",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-07-24",
       "errors": [],
       "first_limit_up_time": "",
@@ -273,7 +273,7 @@
       "ma5": 82.234,
       "ma60": 78.66383333333332,
       "ma_alignment": "mixed_or_converging",
-      "ma_data_source": "新浪备用日线接口",
+      "ma_data_source": "东方财富主接口",
       "ma_trend_signal": "price_below_ma20_trend_pressure",
       "name": "长电科技",
       "needs_report_focus": true,
@@ -281,7 +281,7 @@
       "pool": "core",
       "previous_amount": 13953017825.0,
       "previous_trade_date": "2026-07-23",
-      "previous_volume": 1685303.27,
+      "previous_volume": 1685303.0,
       "price_data_source": "新浪实时行情接口",
       "price_vs_ma10_pct": -5.157422661541257,
       "price_vs_ma10_position": "below",
@@ -297,7 +297,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-07-26",
       "realtime_quote_time": "15:34:59",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -305,14 +305,13 @@
       "today_amount": 14208029489.0,
       "today_close": 82.9,
       "today_pct_change": 2.586,
-      "today_turnover_rate": 9.62110155390095,
+      "today_turnover_rate": 9.62,
       "today_volume": 1721613.93,
-      "turnover_rate": 9.62110155390095,
+      "turnover_rate": 9.62,
       "valid_quote": false,
-      "volume_change_ratio": 0.021545475313769442,
+      "volume_change_ratio": 0.021545638974119156,
       "volume_strength": "未缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
         "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
       ]
     },
@@ -322,7 +321,7 @@
         "缩量回调"
       ],
       "box_breakout_watch_price": 219.0,
-      "box_data_source": "新浪备用日线接口",
+      "box_data_source": "东方财富主接口",
       "box_end_date": "2026-07-24",
       "box_lookback_days": 20,
       "box_lower": 119.0,
@@ -334,7 +333,7 @@
       "box_upper": 219.0,
       "break_limit_up_count": null,
       "code": "688820",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-07-24",
       "errors": [],
       "first_limit_up_time": "",
@@ -360,7 +359,7 @@
       "ma5": 140.76000000000002,
       "ma60": 172.41549999999998,
       "ma_alignment": "mixed_or_converging",
-      "ma_data_source": "新浪备用日线接口",
+      "ma_data_source": "东方财富主接口",
       "ma_trend_signal": "price_below_ma20_trend_pressure",
       "name": "盛合晶微",
       "needs_report_focus": true,
@@ -368,7 +367,7 @@
       "pool": "core",
       "previous_amount": 2273091085.0,
       "previous_trade_date": "2026-07-23",
-      "previous_volume": 158701.21,
+      "previous_volume": 158701.0,
       "price_data_source": "新浪实时行情接口",
       "price_vs_ma10_pct": -9.794606499859162,
       "price_vs_ma10_position": "below",
@@ -384,7 +383,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-07-26",
       "realtime_quote_time": "15:34:59",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -392,14 +391,13 @@
       "today_amount": 1983901779.0,
       "today_close": 140.89,
       "today_pct_change": -0.057,
-      "today_turnover_rate": 8.07016582158319,
+      "today_turnover_rate": 8.07,
       "today_volume": 139535.3,
-      "turnover_rate": 8.07016582158319,
+      "turnover_rate": 8.07,
       "valid_quote": false,
-      "volume_change_ratio": -0.12076725817024335,
+      "volume_change_ratio": -0.12076609473160227,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
         "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
       ]
     },
@@ -2415,11 +2413,11 @@
     "time_valid": true
   },
   "warnings": [
-    "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
     "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+    "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
     "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
     "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "30187308601"
+  "workflow_run_id": "30191534773"
 }
