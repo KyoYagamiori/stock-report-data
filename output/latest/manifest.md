@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-08-01T14:40:25+08:00
+- 更新时间：2026-08-01T22:10:54+08:00
 - 交易日状态：非交易日
 - 最近已完成交易日：2026-07-31
 
@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | early | not_applicable | B | 20260801-0840-early-full-30683172840 | output/archive/2026/08/01/early/20260801-0840-early-full-30683172840.json |
 | noon | not_applicable | B | 20260801-1205-noon-full-30688057408 | output/archive/2026/08/01/noon/20260801-1205-noon-full-30688057408.json |
-| evening | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_applicable | B | 20260801-2035-evening-full-30703123085 | output/archive/2026/08/01/evening/20260801-2035-evening-full-30703123085.json |
 
 ## 权威快照指针
 
@@ -20,7 +20,7 @@
 | early | B | 2026-08-01-early | 2026-07-31 | 暂无 | output/archive/2026/08/01/early/20260801-0840-early-full-30683172840.json | `53106e10f012221c41de9228e1a093cb419d13c67703667361e7228da7e51c27` |
 | noon | B | 2026-08-01-noon | 2026-07-31 | 暂无 | output/archive/2026/08/01/noon/20260801-1205-noon-full-30688057408.json | `1e445da8de5247f9dcb76df3c79483d5c69cbf38ac23f36c60f1c8a34a92aa94` |
 | close | A | 2026-07-29-close | 2026-07-29 | 2026-07-29T15:36:00+08:00 | output/archive/2026/07/29/close/20260729-1520-close-full-30463043433.json | `9b5d9f9bb56fc6d947a664f14ce046c0d59ca64c916353791cbcf899f2df079b` |
-| evening | A | 2026-07-29-evening | 2026-07-29 | 2026-07-29T15:36:00+08:00 | output/archive/2026/07/29/evening/20260729-2050-evening-full-30463640841.json | `6f3f0cbf9f6a2c3463f2273539a8fa425520fe689cff59b81f21cd5a34e6afd7` |
+| evening | B | 2026-08-01-evening | 2026-07-31 | 暂无 | output/archive/2026/08/01/evening/20260801-2035-evening-full-30703123085.json | `bcbf3bbc023ead798d169a191210b65791b162e7f7da8f684723f4de5fc40791` |
 | intraday | A | 2026-07-30-intraday | 2026-07-30 | 2026-07-30T15:55:30+08:00 | output/archive/2026/07/30/intraday/20260730-1335-intraday-light-30524639986.json | `1b3c6951e110d94a896feb446dd1c647fec2de90168485016f7578333064a367` |
 
 > 机器读取应以 Manifest 中的不可变 JSON 文件和 SHA-256 为准；`latest` 仅供人工查看与旧入口兼容。
