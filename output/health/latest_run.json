@@ -1,13 +1,79 @@
 {
-  "attempt_role": "retry-1",
-  "finished_at": "2026-08-04T23:15:08+08:00",
-  "planned_at": "20:50",
-  "published": false,
-  "quality_grade": "F",
-  "reason": "close snapshot market_date is not today",
+  "attempt_role": "automatic-delayed-catchup",
+  "blocking_reasons": [],
+  "collection_mode": "live_or_latest_completed",
+  "coverage": {
+    "core": {
+      "expected": 10,
+      "ratio": 1.0,
+      "valid": 10
+    },
+    "indices": {
+      "expected": 3,
+      "ratio": 1.0,
+      "valid": 3
+    },
+    "market_breadth": {
+      "expected": 5,
+      "ratio": 1.0,
+      "valid": 5
+    },
+    "sectors_bottom": {
+      "expected": 5,
+      "ratio": 1.0,
+      "valid": 5
+    },
+    "sectors_top": {
+      "expected": 5,
+      "ratio": 1.0,
+      "valid": 5
+    },
+    "watch": {
+      "expected": 14,
+      "ratio": 1.0,
+      "valid": 14
+    }
+  },
+  "finished_at": "2026-08-05T11:55:35+08:00",
+  "planned_at": "2026-08-05T11:35:00+08:00",
+  "point_in_time_recovered": false,
+  "published": true,
+  "quality_grade": "A",
+  "quality_reasons": [
+    "quality profile thresholds met for grade A",
+    "indices coverage 3/3",
+    "core coverage 10/10"
+  ],
+  "reason": "published",
+  "schedule_delay_minutes": 17.57,
   "schema_version": "1.6.1",
+  "snapshot_id": "20260805-1135-noon-full-30973230942",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
-  "started_at": "2026-08-04T23:11:42+08:00",
-  "status": "not_ready"
+  "snapshot_type": "noon",
+  "source_status": {
+    "market_overview": {
+      "errors": [],
+      "finished_at": "2026-08-05T11:55:35+08:00",
+      "records_expected": 5,
+      "records_valid": 5,
+      "retry_count": 0,
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
+      "started_at": "2026-08-05T11:52:33+08:00",
+      "status": "success"
+    },
+    "stock_quotes": {
+      "errors": [
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
+      ],
+      "finished_at": "2026-08-05T11:54:45+08:00",
+      "records_expected": 25,
+      "records_valid": 25,
+      "retry_count": 0,
+      "source": "新浪实时行情接口",
+      "started_at": "2026-08-05T11:52:33+08:00",
+      "status": "success"
+    }
+  },
+  "started_at": "2026-08-05T11:52:33+08:00",
+  "status": "published"
 }
