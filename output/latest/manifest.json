@@ -6,9 +6,9 @@
     "next_trading_day": "2026-08-11",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-08-10T11:12:37+08:00",
+  "generated_at": "2026-08-10T12:18:21+08:00",
   "health": {
-    "last_grade_a_at": "2026-08-10T11:12:37+08:00",
+    "last_grade_a_at": "2026-08-10T12:18:21+08:00",
     "last_grade_b_at": "2026-08-09T21:35:47+08:00",
     "latest_run": "output/health/latest_run.json"
   },
@@ -48,17 +48,22 @@
       "status": "not_ready"
     },
     "noon": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_noon",
       "reasons": [
-        "stale report cycle 2026-08-09-noon; expected 2026-08-10-noon"
+        "quality profile thresholds met for grade A",
+        "indices coverage 3/3",
+        "core coverage 10/10"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 30.29,
+      "selected_file": "output/archive/2026/08/10/noon/20260810-1135-noon-full-31354342954.json",
+      "selected_snapshot_id": "20260810-1135-noon-full-31354342954",
+      "sha256": "30bcbafeecb2a8ed8800b86fa04980060767dc0811a5c837455516d351a65405",
+      "status": "ready_a"
     }
   },
   "schema_version": "1.6.1",
@@ -212,55 +217,28 @@
     },
     "noon": {
       "collection_mode": "live_or_latest_completed",
-      "core_effective_count": 0,
-      "effective_field_count": 15,
+      "core_effective_count": 10,
+      "effective_field_count": 42,
       "latest_alias": "output/latest/noon/report_data_compact.json",
-      "market_date": "2026-08-07",
-      "missing_core_fields": [
-        "600584:quote",
-        "688820:quote",
-        "688981:quote",
-        "000977:quote",
-        "000938:quote",
-        "603019:quote",
-        "688256:quote",
-        "300308:quote",
-        "300502:quote",
-        "002371:quote"
-      ],
-      "missing_optional_fields": [
-        "001287:quote",
-        "301308:quote",
-        "002396:quote",
-        "002837:quote",
-        "002156:quote",
-        "002185:quote",
-        "300476:quote",
-        "688361:quote",
-        "688596:quote",
-        "603087:quote",
-        "600521:quote",
-        "300821:quote",
-        "603618:quote",
-        "600172:quote",
-        "603290:quote"
-      ],
+      "market_date": "2026-08-10",
+      "missing_core_fields": [],
+      "missing_optional_fields": [],
       "point_in_time_recovered": false,
-      "published_at": "2026-08-09T13:15:17+08:00",
-      "quality_grade": "B",
-      "quality_profile": "non_trading",
+      "published_at": "2026-08-10T12:18:21+08:00",
+      "quality_grade": "A",
+      "quality_profile": "trading_noon",
       "quality_reasons": [
-        "quality profile thresholds met for grade B",
-        "indices coverage 0/3",
-        "core coverage 0/10"
+        "quality profile thresholds met for grade A",
+        "indices coverage 3/3",
+        "core coverage 10/10"
       ],
-      "quote_time_max": null,
-      "report_cycle": "2026-08-09-noon",
-      "schedule_delay_minutes": 67.19,
+      "quote_time_max": "2026-08-10T11:30:00+08:00",
+      "report_cycle": "2026-08-10-noon",
+      "schedule_delay_minutes": 30.29,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/08/09/noon/20260809-1205-noon-full-31296160732.json",
-      "selected_snapshot_id": "20260809-1205-noon-full-31296160732",
-      "sha256": "6a125ff5a101420002770d2bf88683dcb18252cde99d2fefd461c836d8ac33e6",
+      "selected_file": "output/archive/2026/08/10/noon/20260810-1135-noon-full-31354342954.json",
+      "selected_snapshot_id": "20260810-1135-noon-full-31354342954",
+      "sha256": "30bcbafeecb2a8ed8800b86fa04980060767dc0811a5c837455516d351a65405",
       "snapshot_type": "noon",
       "suitable_reports": [
         "noon"
