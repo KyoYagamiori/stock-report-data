@@ -1,5 +1,5 @@
 {
-  "attempt_role": "primary",
+  "attempt_role": "retry-1",
   "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
@@ -50,25 +50,25 @@
     "indices": [
       {
         "code": "000001",
-        "latest": 3960.1877,
+        "latest": 3959.4828,
         "name": "上证指数",
-        "pct_change": 0.841,
+        "pct_change": 0.823,
         "quote_time": "",
         "source": "AKShare stock_zh_index_spot_sina"
       },
       {
         "code": "399001",
-        "latest": 14534.458,
+        "latest": 14539.88,
         "name": "深证成指",
-        "pct_change": 1.255,
+        "pct_change": 1.293,
         "quote_time": "",
         "source": "AKShare stock_zh_index_spot_sina"
       },
       {
         "code": "399006",
-        "latest": 3674.682,
+        "latest": 3678.054,
         "name": "创业板指",
-        "pct_change": 1.334,
+        "pct_change": 1.427,
         "quote_time": "",
         "source": "AKShare stock_zh_index_spot_sina"
       }
@@ -147,9 +147,9 @@
   "market_session": "noon_close",
   "missing_core_fields": [],
   "missing_optional_fields": [],
-  "planned_at": "2026-08-17T11:35:00+08:00",
+  "planned_at": "2026-08-17T12:05:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-08-17T12:24:57+08:00",
+  "published_at": "2026-08-17T13:01:10+08:00",
   "quality_grade": "A",
   "quality_profile": "trading_noon",
   "quality_reasons": [
@@ -164,9 +164,9 @@
   "report_cycle": "2026-08-17-noon",
   "report_date": "2026-08-17",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 47.21,
+  "schedule_delay_minutes": 47.04,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260817-1135-noon-full-31994203941",
+  "snapshot_id": "20260817-1205-noon-full-31995897998",
   "snapshot_mode": "full",
   "snapshot_type": "noon",
   "source_status": {
@@ -175,29 +175,30 @@
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-08-17T12:24:57+08:00",
+      "finished_at": "2026-08-17T13:01:10+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
       "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-08-17T12:22:12+08:00",
+      "started_at": "2026-08-17T12:52:02+08:00",
       "status": "success"
     },
     "stock_quotes": {
       "errors": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。"
       ],
-      "finished_at": "2026-08-17T12:24:31+08:00",
+      "finished_at": "2026-08-17T13:00:46+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-08-17T12:22:12+08:00",
+      "started_at": "2026-08-17T12:52:02+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-08-17T12:22:12+08:00",
+  "started_at": "2026-08-17T12:52:02+08:00",
   "stocks": [
     {
       "amount": 9655909215.0,
@@ -805,7 +806,7 @@
       "volume_strength": "正常缩量",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+        "行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。"
       ]
     },
     {
@@ -2387,9 +2388,10 @@
   "warnings": [
     "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
     "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+    "行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。",
     "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
     "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "31994203941"
+  "workflow_run_id": "31995897998"
 }
