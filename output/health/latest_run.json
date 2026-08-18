@@ -1,8 +1,6 @@
 {
   "attempt_role": "rolling",
-  "blocking_reasons": [
-    "quote_time_max is older than 15 minutes"
-  ],
+  "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
     "core": {
@@ -12,8 +10,8 @@
     },
     "indices": {
       "expected": 3,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 3
     },
     "market_breadth": {
       "expected": 5,
@@ -36,48 +34,50 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-08-18T14:44:17+08:00",
-  "planned_at": "2026-08-18T14:05:00+08:00",
+  "finished_at": "2026-08-18T15:50:17+08:00",
+  "planned_at": "2026-08-18T15:05:00+08:00",
   "point_in_time_recovered": false,
-  "published": false,
-  "quality_grade": "F",
-  "quality_reasons": [],
-  "reason": "quality gate failed",
-  "schedule_delay_minutes": 37.95,
+  "published": true,
+  "quality_grade": "A",
+  "quality_reasons": [
+    "quality profile thresholds met for grade A",
+    "indices coverage 3/3",
+    "core coverage 10/10"
+  ],
+  "reason": "published",
+  "schedule_delay_minutes": 43.52,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260818-1405-intraday-light-32108080534",
+  "snapshot_id": "20260818-1505-intraday-light-32113181637",
   "snapshot_mode": "light",
   "snapshot_type": "intraday",
   "source_status": {
     "market_overview": {
       "errors": [
-        "AKShare stock_zh_index_spot_sina failed: Can not decode value starting with character '<'",
-        "AKShare stock_zh_index_spot_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ],
-      "finished_at": "2026-08-18T14:44:17+08:00",
+      "finished_at": "2026-08-18T15:50:17+08:00",
       "records_expected": 5,
-      "records_valid": 4,
+      "records_valid": 5,
       "retry_count": 0,
-      "source": "新浪实时行情接口; unavailable; AKShare stock_board_industry_summary_ths",
-      "started_at": "2026-08-18T14:42:57+08:00",
-      "status": "partial"
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
+      "started_at": "2026-08-18T15:48:31+08:00",
+      "status": "success"
     },
     "stock_quotes": {
       "errors": [
         "日线箱体字段不可用，已沿用上一份已存快照箱体数据。",
         "日线均线字段不可用，已沿用上一份已存快照均线数据。"
       ],
-      "finished_at": "2026-08-18T14:43:50+08:00",
+      "finished_at": "2026-08-18T15:49:45+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪实时行情接口",
-      "started_at": "2026-08-18T14:42:57+08:00",
+      "started_at": "2026-08-18T15:48:31+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-08-18T14:42:57+08:00",
-  "status": "not_published"
+  "started_at": "2026-08-18T15:48:31+08:00",
+  "status": "published"
 }
