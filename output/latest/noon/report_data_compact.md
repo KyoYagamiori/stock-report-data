@@ -1,15 +1,15 @@
 # 股票行情快照 | 2026-08-20 noon
 
 - Schema：1.6.1
-- Snapshot ID：`20260820-1205-noon-full-32332987795`
+- Snapshot ID：`20260820-1225-noon-full-32333832360`
 - 报告周期：`2026-08-20-noon`
 - 质量等级：**A**
 - 质量 Profile：`trading_noon`
 - 行情日期：2026-08-20
 - 行情时间范围：2026-08-20T11:30:00+08:00 至 2026-08-20T11:30:00+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：40.03 分钟
-- 生成时间：2026-08-20T12:47:44+08:00
+- 调度延迟：33.94 分钟
+- 生成时间：2026-08-20T13:01:41+08:00
 - 适用报告：noon
 
 ## 读取结论
@@ -24,9 +24,9 @@
 
 | 指数 | 点位 | 涨跌幅 | 行情时间 |
 |---|---:|---:|---|
-| 上证指数 | 3,905.23 | 0.28% | 暂无 |
-| 深证成指 | 14,024.41 | 0.97% | 暂无 |
-| 创业板指 | 3,509.44 | 1.03% | 暂无 |
+| 上证指数 | 3,907.91 | 0.35% | 暂无 |
+| 深证成指 | 14,031.29 | 1.02% | 暂无 |
+| 创业板指 | 3,511.90 | 1.11% | 暂无 |
 
 - 两市成交额：1,380,628,094,146
 - 市场宽度：上涨 4,396 / 下跌 1,037 / 平盘 114 / 涨停 97 / 跌停 5
@@ -46,7 +46,7 @@
 | 688256 | 寒武纪 | core | 是 | 1,021.59 | -2.75% | 8,017,373,521 | 2.51% | 1,113.50 | 1,125.56 | 1,131.85 | 1,285.01 | 1,010.83 | 1,336 | 2026-08-20T11:30:00+08:00 |
 | 300308 | 中际旭创 | core | 是 | 896.73 | 0.13% | 13,355,991,936 | 3.23% | 949.75 | 929.62 | 949.47 | 1,105.93 | 793.03 | 1,115 | 2026-08-20T11:30:00+08:00 |
 | 300502 | 新易盛 | core | 是 | 414.36 | 0.69% | 7,046,364,408 | 4.31% | 441.67 | 429.43 | 431.01 | 541.43 | 347 | 523.83 | 2026-08-20T11:30:00+08:00 |
-| 002371 | 北方华创 | core | 是 | 718.73 | 0.81% | 3,974,043,483 | 1.50% | 746.64 | 749.38 | 729.99 | 727.29 | 632.01 | 785.90 | 2026-08-20T11:30:00+08:00 |
+| 002371 | 北方华创 | core | 是 | 718.73 | 0.81% | 3,974,043,483 | 0.76% | 742.65 | 746.99 | 728.92 | 728.36 | 632.01 | 785.90 | 2026-08-20T11:30:00+08:00 |
 | 001287 | 中电港 | watch | 是 | 23.32 | 1.35% | 265,009,324 | 3.04% | 23.75 | 23.41 | 22.52 | 25.85 | 20.08 | 24.95 | 2026-08-20T11:30:00+08:00 |
 | 301308 | 江波龙 | watch | 是 | 380.23 | 0.33% | 2,474,888,479 | 6.52% | 402.77 | 401.11 | 374.85 | 495.93 | 308 | 442 | 2026-08-20T11:30:00+08:00 |
 | 002396 | 星网锐捷 | watch | 是 | 30.73 | 4.24% | 1,493,436,500 | 10.55% | 32.24 | 30.92 | 29.61 | 25.27 | 24.24 | 36.98 | 2026-08-20T11:30:00+08:00 |
@@ -65,5 +65,5 @@
 
 ## 数据源状态
 
-- `stock_quotes`：success；来源=新浪实时行情接口；错误=东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。；行业信息获取失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用观察池 theme 作为行业/主题兜底。；行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
+- `stock_quotes`：success；来源=新浪实时行情接口；错误=东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。；行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。；行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。
 - `market_overview`：success；来源=新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths；错误=AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
