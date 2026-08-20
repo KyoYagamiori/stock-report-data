@@ -6,9 +6,9 @@
     "next_trading_day": "2026-08-21",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-08-20T10:16:27+08:00",
+  "generated_at": "2026-08-20T11:58:23+08:00",
   "health": {
-    "last_grade_a_at": "2026-08-20T10:16:27+08:00",
+    "last_grade_a_at": "2026-08-20T11:58:23+08:00",
     "last_grade_b_at": "2026-08-19T13:03:37+08:00",
     "latest_run": "output/health/latest_run.json"
   },
@@ -48,17 +48,22 @@
       "status": "not_ready"
     },
     "noon": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_noon",
       "reasons": [
-        "stale report cycle 2026-08-19-noon; expected 2026-08-20-noon"
+        "quality profile thresholds met for grade A",
+        "indices coverage 3/3",
+        "core coverage 10/10"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 20.58,
+      "selected_file": "output/archive/2026/08/20/noon/20260820-1135-noon-full-32329883028.json",
+      "selected_snapshot_id": "20260820-1135-noon-full-32329883028",
+      "sha256": "64d8e5e2c48dc9492beea645972334ad5a8bdb63287656ced77eb6b0ebc95295",
+      "status": "ready_a"
     }
   },
   "schema_version": "1.6.1",
@@ -182,32 +187,29 @@
       ]
     },
     "noon": {
-      "collection_mode": "historical_point_in_time_recovery",
+      "collection_mode": "live_or_latest_completed",
       "core_effective_count": 10,
-      "effective_field_count": 27,
+      "effective_field_count": 42,
       "latest_alias": "output/latest/noon/report_data_compact.json",
-      "market_date": "2026-08-19",
+      "market_date": "2026-08-20",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "sectors_top",
-        "sectors_bottom"
-      ],
-      "point_in_time_recovered": true,
-      "published_at": "2026-08-19T13:03:37+08:00",
-      "quality_grade": "B",
+      "missing_optional_fields": [],
+      "point_in_time_recovered": false,
+      "published_at": "2026-08-20T11:58:23+08:00",
+      "quality_grade": "A",
       "quality_profile": "trading_noon",
       "quality_reasons": [
-        "quality profile thresholds met for grade B",
+        "quality profile thresholds met for grade A",
         "indices coverage 3/3",
         "core coverage 10/10"
       ],
-      "quote_time_max": "2026-08-19T11:30:00+08:00",
-      "report_cycle": "2026-08-19-noon",
-      "schedule_delay_minutes": 32.36,
+      "quote_time_max": "2026-08-20T11:30:00+08:00",
+      "report_cycle": "2026-08-20-noon",
+      "schedule_delay_minutes": 20.58,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/08/19/noon/20260819-1225-noon-full-32217603173.json",
-      "selected_snapshot_id": "20260819-1225-noon-full-32217603173",
-      "sha256": "5086b40522595ed379086700ea0bbec623ba1b4d740f59f107cdb016cdb90ca5",
+      "selected_file": "output/archive/2026/08/20/noon/20260820-1135-noon-full-32329883028.json",
+      "selected_snapshot_id": "20260820-1135-noon-full-32329883028",
+      "sha256": "64d8e5e2c48dc9492beea645972334ad5a8bdb63287656ced77eb6b0ebc95295",
       "snapshot_type": "noon",
       "suitable_reports": [
         "noon"
