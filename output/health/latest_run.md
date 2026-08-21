@@ -5,10 +5,10 @@
 - 质量等级：F
 - 采集模式：live_or_latest_completed
 - 是否历史时点恢复：否
-- 调度延迟：42.09 分钟
+- 调度延迟：47.28 分钟
 - 是否发布：否
-- 计划时间：2026-08-21T14:05:00+08:00
-- 开始时间：2026-08-21T14:47:05+08:00
-- 完成时间：2026-08-21T14:52:33+08:00
+- 计划时间：2026-08-21T15:05:00+08:00
+- 开始时间：2026-08-21T15:52:16+08:00
+- 完成时间：2026-08-21T15:53:33+08:00
 - 原因：quality gate failed
-- 阻断原因：validation.time_valid is not true；quote_time_max is older than 15 minutes；realtime data is required but unavailable
+- 阻断原因：quote_time_max is older than 15 minutes
