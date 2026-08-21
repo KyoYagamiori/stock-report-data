@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-08-20T21:35:49+08:00
+- 更新时间：2026-08-21T10:20:37+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-08-20
 
@@ -9,15 +9,15 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20260820-0855-early-full-32323729326 | output/archive/2026/08/20/early/20260820-0855-early-full-32323729326.json |
-| noon | ready_a | A | 20260820-1225-noon-full-32333832360 | output/archive/2026/08/20/noon/20260820-1225-noon-full-32333832360.json |
-| evening | ready_a | A | 20260820-2050-evening-full-32375113480 | output/archive/2026/08/20/evening/20260820-2050-evening-full-32375113480.json |
+| early | ready_a | A | 20260821-0840-early-full-32438905455 | output/archive/2026/08/21/early/20260821-0840-early-full-32438905455.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-08-20-early | 2026-08-19 | 2026-08-19T15:00:00+08:00 | output/archive/2026/08/20/early/20260820-0855-early-full-32323729326.json | `31028a5efc97e2aa7ea174740a8fd88c352d002dc737d3d3184193c208a3c145` |
+| early | A | 2026-08-21-early | 2026-08-20 | 2026-08-20T15:00:00+08:00 | output/archive/2026/08/21/early/20260821-0840-early-full-32438905455.json | `f70c62ebae8e480ac79059124e6f35b44e51444df1c5a4e58e88f43d1093ee02` |
 | noon | A | 2026-08-20-noon | 2026-08-20 | 2026-08-20T11:30:00+08:00 | output/archive/2026/08/20/noon/20260820-1225-noon-full-32333832360.json | `4bdd398c2881a22fcce2d5c2d52396f9b6b0f568045676171e68150a4045996b` |
 | close | A | 2026-08-20-close | 2026-08-20 | 2026-08-20T15:35:45+08:00 | output/archive/2026/08/20/close/20260820-1520-close-full-32374413712.json | `48d5ae20aa80ca907e2730af7c3294a03e48c5b0a0ff5aa40d3af743897ebfd9` |
 | evening | A | 2026-08-20-evening | 2026-08-20 | 2026-08-20T15:35:45+08:00 | output/archive/2026/08/20/evening/20260820-2050-evening-full-32375113480.json | `5771d92b45a5f64b9b43840d398a26f278d94ddb08dd933d4a0772b603aeba88` |
