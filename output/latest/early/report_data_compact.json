@@ -1,5 +1,5 @@
 {
-  "attempt_role": "primary",
+  "attempt_role": "retry-1",
   "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "collection_mode": "historical_point_in_time_recovery",
@@ -87,9 +87,9 @@
     "sectors_top",
     "sectors_bottom"
   ],
-  "planned_at": "2026-08-24T08:40:00+08:00",
+  "planned_at": "2026-08-24T08:55:00+08:00",
   "point_in_time_recovered": true,
-  "published_at": "2026-08-24T10:14:35+08:00",
+  "published_at": "2026-08-24T10:27:48+08:00",
   "quality_grade": "A",
   "quality_profile": "trading_preopen",
   "quality_reasons": [
@@ -104,9 +104,9 @@
   "report_cycle": "2026-08-24-early",
   "report_date": "2026-08-24",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 89.78,
+  "schedule_delay_minutes": 82.79,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260824-0840-early-full-32682113248",
+  "snapshot_id": "20260824-0855-early-full-32682575373",
   "snapshot_mode": "full",
   "snapshot_type": "early",
   "source_status": {
@@ -115,28 +115,28 @@
         "延迟任务未事后恢复上一交易日市场宽度，已留空。",
         "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
       ],
-      "finished_at": "2026-08-24T10:14:35+08:00",
+      "finished_at": "2026-08-24T10:27:48+08:00",
       "records_expected": 5,
       "records_valid": 2,
       "retry_count": 0,
       "source": "新浪指数一分钟历史时点恢复",
-      "started_at": "2026-08-24T10:09:46+08:00",
+      "started_at": "2026-08-24T10:17:47+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
         "本次为延迟任务的历史时点恢复，不是当前实时行情。"
       ],
-      "finished_at": "2026-08-24T10:14:27+08:00",
+      "finished_at": "2026-08-24T10:27:41+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪一分钟历史时点恢复；新浪前复权日线",
-      "started_at": "2026-08-24T10:09:46+08:00",
+      "started_at": "2026-08-24T10:17:47+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-08-24T10:09:46+08:00",
+  "started_at": "2026-08-24T10:17:47+08:00",
   "stocks": [
     {
       "amount": 7632573168.222099,
@@ -246,7 +246,7 @@
       "break_limit_up_count": null,
       "code": "688820",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -297,7 +297,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -312,8 +312,7 @@
       "volume_change_ratio": -0.48457282598317414,
       "volume_strength": "明显缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -336,7 +335,7 @@
       "break_limit_up_count": null,
       "code": "688981",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -387,7 +386,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -402,8 +401,7 @@
       "volume_change_ratio": -0.23881816538399753,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -426,7 +424,7 @@
       "break_limit_up_count": null,
       "code": "000977",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -477,7 +475,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -492,8 +490,7 @@
       "volume_change_ratio": -0.21991961923794243,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -516,7 +513,7 @@
       "break_limit_up_count": null,
       "code": "000938",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -567,7 +564,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -582,8 +579,7 @@
       "volume_change_ratio": -0.056538728030692015,
       "volume_strength": "轻微缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -606,7 +602,7 @@
       "break_limit_up_count": null,
       "code": "603019",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -657,7 +653,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -672,8 +668,7 @@
       "volume_change_ratio": -0.18886834697659424,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -696,7 +691,7 @@
       "break_limit_up_count": null,
       "code": "688256",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -747,7 +742,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -762,8 +757,7 @@
       "volume_change_ratio": -0.19083280995357235,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -786,7 +780,7 @@
       "break_limit_up_count": null,
       "code": "300308",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -837,7 +831,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -852,8 +846,7 @@
       "volume_change_ratio": 0.26414393092274036,
       "volume_strength": "未缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -876,7 +869,7 @@
       "break_limit_up_count": null,
       "code": "300502",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -927,7 +920,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -942,8 +935,7 @@
       "volume_change_ratio": 0.6813839011015809,
       "volume_strength": "未缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1303,7 +1295,7 @@
       "volume_strength": "未缩量",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1393,7 +1385,7 @@
       "volume_strength": "未缩量",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1416,7 +1408,7 @@
       "break_limit_up_count": null,
       "code": "002156",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "东方财富主接口",
+      "daily_data_source": "新浪备用日线接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -1467,7 +1459,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "需要重点核验",
+      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -1482,7 +1474,8 @@
       "volume_change_ratio": -0.21136488824444283,
       "volume_strength": "正常缩量",
       "warnings": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1505,7 +1498,7 @@
       "break_limit_up_count": null,
       "code": "002185",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "东方财富主接口",
+      "daily_data_source": "新浪备用日线接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -1556,7 +1549,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "需要重点核验",
+      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -1571,7 +1564,8 @@
       "volume_change_ratio": -0.23833024374395811,
       "volume_strength": "正常缩量",
       "warnings": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1594,7 +1588,7 @@
       "break_limit_up_count": null,
       "code": "300476",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "东方财富主接口",
+      "daily_data_source": "新浪备用日线接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -1645,7 +1639,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "常规观察",
+      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -1660,7 +1654,8 @@
       "volume_change_ratio": -0.22585414863679248,
       "volume_strength": "正常缩量",
       "warnings": [
-        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -2200,7 +2195,7 @@
       "volume_strength": "未缩量",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -2290,7 +2285,7 @@
       "volume_strength": "明显缩量",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -2313,7 +2308,7 @@
       "break_limit_up_count": null,
       "code": "603290",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-08-21",
       "errors": [],
       "first_limit_up_time": "",
@@ -2364,7 +2359,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-08-21",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -2379,8 +2374,7 @@
       "volume_change_ratio": -0.17047505328589163,
       "volume_strength": "正常缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-08-21 15:00:00 时点，未使用更晚行情。"
       ]
     }
@@ -2400,5 +2394,5 @@
     "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "32682113248"
+  "workflow_run_id": "32682575373"
 }
