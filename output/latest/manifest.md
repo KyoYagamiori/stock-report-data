@@ -1,23 +1,23 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-08-24T12:56:50+08:00
+- 更新时间：2026-08-25T10:10:36+08:00
 - 交易日状态：交易日
-- 最近已完成交易日：2026-08-21
+- 最近已完成交易日：2026-08-24
 
 ## 报告就绪状态
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20260824-0855-early-full-32682575373 | output/archive/2026/08/24/early/20260824-0855-early-full-32682575373.json |
-| noon | ready_a | A | 20260824-1205-noon-full-32691654606 | output/archive/2026/08/24/noon/20260824-1205-noon-full-32691654606.json |
+| early | ready_a | A | 20260825-0840-early-full-32800068011 | output/archive/2026/08/25/early/20260825-0840-early-full-32800068011.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-08-24-early | 2026-08-21 | 2026-08-21T15:00:00+08:00 | output/archive/2026/08/24/early/20260824-0855-early-full-32682575373.json | `a12c09a5614c22a4a90e53875b58f3583db83d184df23589dd3133f8b48fc663` |
+| early | A | 2026-08-25-early | 2026-08-24 | 2026-08-24T15:00:00+08:00 | output/archive/2026/08/25/early/20260825-0840-early-full-32800068011.json | `3eaf3827a87aeaef8844c30c83b0d0654790314406fc71384965ba7daaf277a4` |
 | noon | A | 2026-08-24-noon | 2026-08-24 | 2026-08-24T11:30:00+08:00 | output/archive/2026/08/24/noon/20260824-1205-noon-full-32691654606.json | `a437d2246c591f0d8948ebb62bf3bf95a428dab89c016f183012ee55c5f3904b` |
 | close | A | 2026-08-20-close | 2026-08-20 | 2026-08-20T15:35:45+08:00 | output/archive/2026/08/20/close/20260820-1520-close-full-32374413712.json | `48d5ae20aa80ca907e2730af7c3294a03e48c5b0a0ff5aa40d3af743897ebfd9` |
 | evening | B | 2026-08-23-evening | 2026-08-21 | 暂无 | output/archive/2026/08/23/evening/20260823-2035-evening-full-32641585605.json | `d89d2797c4963a09692b207c87b8eee6756d6c2472e554137f1ba781e82e6fc1` |
