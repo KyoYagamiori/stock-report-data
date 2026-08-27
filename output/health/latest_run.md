@@ -7,8 +7,8 @@
 - 是否历史时点恢复：否
 - 调度延迟：0 分钟
 - 是否发布：否
-- 计划时间：2026-08-28T13:05:00+08:00
-- 开始时间：2026-08-28T00:25:33+08:00
-- 完成时间：2026-08-28T00:30:06+08:00
+- 计划时间：2026-08-28T13:35:00+08:00
+- 开始时间：2026-08-28T00:46:41+08:00
+- 完成时间：2026-08-28T00:48:17+08:00
 - 原因：quality gate failed
 - 阻断原因：validation.time_valid is not true；quote_time_max is older than 15 minutes；realtime data is required but unavailable
