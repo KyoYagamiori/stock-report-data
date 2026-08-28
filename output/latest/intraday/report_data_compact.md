@@ -1,7 +1,7 @@
 # 股票行情快照 | 2026-08-29 intraday
 
 - Schema：1.6.1
-- Snapshot ID：`20260829-1335-intraday-light-33195775775`
+- Snapshot ID：`20260829-1405-intraday-light-33198521498`
 - 报告周期：`2026-08-29-intraday`
 - 质量等级：**B**
 - 质量 Profile：`non_trading`
@@ -9,7 +9,7 @@
 - 行情时间范围：暂无 至 暂无
 - 采集模式：live_or_latest_completed
 - 调度延迟：0 分钟
-- 生成时间：2026-08-29T01:42:14+08:00
+- 生成时间：2026-08-29T02:19:14+08:00
 - 适用报告：noon, evening
 
 ## 读取结论
