@@ -1,7 +1,7 @@
 # 股票行情快照 | 2026-08-29 evening
 
 - Schema：1.6.1
-- Snapshot ID：`20260829-2035-evening-full-33217232241`
+- Snapshot ID：`20260829-2050-evening-full-33217903539`
 - 报告周期：`2026-08-29-evening`
 - 质量等级：**A**
 - 质量 Profile：`non_trading`
@@ -9,7 +9,7 @@
 - 行情时间范围：暂无 至 暂无
 - 采集模式：live_or_latest_completed
 - 调度延迟：0 分钟
-- 生成时间：2026-08-29T06:35:35+08:00
+- 生成时间：2026-08-29T06:46:52+08:00
 - 适用报告：evening
 
 ## 读取结论
