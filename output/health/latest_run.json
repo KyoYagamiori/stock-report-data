@@ -1,13 +1,82 @@
 {
-  "attempt_role": "retry-1",
-  "finished_at": "2026-08-28T06:41:12+08:00",
-  "planned_at": "20:50",
-  "published": false,
-  "quality_grade": "F",
-  "reason": "close snapshot market_date is not today",
+  "attempt_role": "automatic-delayed-catchup",
+  "blocking_reasons": [],
+  "collection_mode": "historical_point_in_time_recovery",
+  "coverage": {
+    "core": {
+      "expected": 10,
+      "ratio": 1.0,
+      "valid": 10
+    },
+    "indices": {
+      "expected": 3,
+      "ratio": 1.0,
+      "valid": 3
+    },
+    "market_breadth": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "sectors_bottom": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "sectors_top": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "watch": {
+      "expected": 14,
+      "ratio": 1.0,
+      "valid": 14
+    }
+  },
+  "finished_at": "2026-08-28T20:15:20+08:00",
+  "planned_at": "2026-08-28T11:35:00+08:00",
+  "point_in_time_recovered": true,
+  "published": true,
+  "quality_grade": "B",
+  "quality_reasons": [
+    "quality profile thresholds met for grade B",
+    "indices coverage 3/3",
+    "core coverage 10/10"
+  ],
+  "reason": "published",
+  "schedule_delay_minutes": 516.36,
   "schema_version": "1.6.1",
+  "snapshot_id": "20260828-1135-noon-full-33169894522",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
-  "started_at": "2026-08-28T06:38:50+08:00",
-  "status": "not_ready"
+  "snapshot_type": "noon",
+  "source_status": {
+    "market_overview": {
+      "errors": [
+        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
+        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
+      ],
+      "finished_at": "2026-08-28T20:15:20+08:00",
+      "records_expected": 5,
+      "records_valid": 2,
+      "retry_count": 0,
+      "source": "新浪指数一分钟历史时点恢复",
+      "started_at": "2026-08-28T20:11:21+08:00",
+      "status": "partial"
+    },
+    "stock_quotes": {
+      "errors": [
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
+      ],
+      "finished_at": "2026-08-28T20:15:13+08:00",
+      "records_expected": 25,
+      "records_valid": 25,
+      "retry_count": 0,
+      "source": "新浪一分钟历史时点恢复；新浪前复权日线",
+      "started_at": "2026-08-28T20:11:21+08:00",
+      "status": "success"
+    }
+  },
+  "started_at": "2026-08-28T20:11:21+08:00",
+  "status": "published"
 }
