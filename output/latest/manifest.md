@@ -1,16 +1,16 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-08-31T14:31:19+08:00
+- 更新时间：2026-08-31T18:08:10+08:00
 - 交易日状态：交易日
-- 最近已完成交易日：2026-08-28
+- 最近已完成交易日：2026-08-31
 
 ## 报告就绪状态
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
 | early | ready_a | A | 20260831-0855-early-full-33364207904 | output/archive/2026/08/31/early/20260831-0855-early-full-33364207904.json |
-| noon | ready_b | B | 20260831-1135-noon-full-33362640057 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33362640057.json |
+| noon | ready_b | B | 20260831-1135-noon-full-33380603928 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33380603928.json |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
@@ -18,7 +18,7 @@
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
 | early | A | 2026-08-31-early | 2026-08-28 | 2026-08-28T15:00:00+08:00 | output/archive/2026/08/31/early/20260831-0855-early-full-33364207904.json | `6de32ca91443e894b0dbabf002865fa964d8ab113d2576634916f520b2df4b6f` |
-| noon | B | 2026-08-31-noon | 2026-08-31 | 2026-08-31T11:30:00+08:00 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33362640057.json | `2823453ea3f6883a2d900f1d375c3ff8996d32fa11d4b9011f2deeb4fae15180` |
+| noon | B | 2026-08-31-noon | 2026-08-31 | 2026-08-31T11:30:00+08:00 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33380603928.json | `56206304760b90e8dc7c5f77cdfe132703910ac6dfe3da26f9d57acba27e9af6` |
 | close | A | 2026-08-26-close | 2026-08-26 | 2026-08-26T15:35:45+08:00 | output/archive/2026/08/26/close/20260826-1520-close-full-32975024998.json | `5587d9cdf78af2b988ce64c56cc5272e60b883c442b24471b9dac474fa998adb` |
 | evening | A | 2026-08-30-evening | 2026-08-28 | 暂无 | output/archive/2026/08/30/evening/20260830-2035-evening-full-33264053821.json | `2784a42124a1b7b4e78d2193064ec21804003c214cb00efc558e96275eb622ac` |
 | intraday | B | 2026-08-29-intraday | 2026-08-28 | 暂无 | output/archive/2026/08/29/intraday/20260829-1505-intraday-light-33203630193.json | `2583ba7a787f4ab93160f95a0f7099907bf0869be6d307853f52ebed8dabd6fe` |
