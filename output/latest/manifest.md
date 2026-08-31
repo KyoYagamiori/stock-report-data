@@ -1,24 +1,24 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-08-30T17:55:22+08:00
-- 交易日状态：非交易日
+- 更新时间：2026-08-31T14:16:10+08:00
+- 交易日状态：交易日
 - 最近已完成交易日：2026-08-28
 
 ## 报告就绪状态
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | not_applicable | B | 20260830-0840-early-full-33295368609 | output/archive/2026/08/30/early/20260830-0840-early-full-33295368609.json |
-| noon | not_applicable | B | 20260830-1205-noon-full-33305109940 | output/archive/2026/08/30/noon/20260830-1205-noon-full-33305109940.json |
-| evening | not_applicable | A | 20260830-2035-evening-full-33264053821 | output/archive/2026/08/30/evening/20260830-2035-evening-full-33264053821.json |
+| early | ready_a | A | 20260831-0840-early-full-33362640057 | output/archive/2026/08/31/early/20260831-0840-early-full-33362640057.json |
+| noon | ready_b | B | 20260831-1135-noon-full-33362640057 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33362640057.json |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | B | 2026-08-30-early | 2026-08-28 | 暂无 | output/archive/2026/08/30/early/20260830-0840-early-full-33295368609.json | `ed48d7c8841b21faad9f45f776bfa765bfd3d9fcdeb410ed60bbe9336c6d1e3a` |
-| noon | B | 2026-08-30-noon | 2026-08-28 | 暂无 | output/archive/2026/08/30/noon/20260830-1205-noon-full-33305109940.json | `c7714f2ceee8824182586bb73b0a553589c589eb89ba76d02aa501b82ecfa93e` |
+| early | A | 2026-08-31-early | 2026-08-28 | 2026-08-28T15:00:00+08:00 | output/archive/2026/08/31/early/20260831-0840-early-full-33362640057.json | `126d3104d4a779964cc767dfc7ff28c92bb47227e0ecea8335c00eef0446155e` |
+| noon | B | 2026-08-31-noon | 2026-08-31 | 2026-08-31T11:30:00+08:00 | output/archive/2026/08/31/noon/20260831-1135-noon-full-33362640057.json | `2823453ea3f6883a2d900f1d375c3ff8996d32fa11d4b9011f2deeb4fae15180` |
 | close | A | 2026-08-26-close | 2026-08-26 | 2026-08-26T15:35:45+08:00 | output/archive/2026/08/26/close/20260826-1520-close-full-32975024998.json | `5587d9cdf78af2b988ce64c56cc5272e60b883c442b24471b9dac474fa998adb` |
 | evening | A | 2026-08-30-evening | 2026-08-28 | 暂无 | output/archive/2026/08/30/evening/20260830-2035-evening-full-33264053821.json | `2784a42124a1b7b4e78d2193064ec21804003c214cb00efc558e96275eb622ac` |
 | intraday | B | 2026-08-29-intraday | 2026-08-28 | 暂无 | output/archive/2026/08/29/intraday/20260829-1505-intraday-light-33203630193.json | `2583ba7a787f4ab93160f95a0f7099907bf0869be6d307853f52ebed8dabd6fe` |
