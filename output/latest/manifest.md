@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-09-07T17:34:01+08:00
+- 更新时间：2026-09-08T13:19:59+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-09-07
 
@@ -9,16 +9,16 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20260907-0855-early-full-34086932057 | output/archive/2026/09/07/early/20260907-0855-early-full-34086932057.json |
-| noon | ready_b | B | 20260907-1225-noon-full-34106270914 | output/archive/2026/09/07/noon/20260907-1225-noon-full-34106270914.json |
+| early | ready_a | A | 20260908-0840-early-full-34189543455 | output/archive/2026/09/08/early/20260908-0840-early-full-34189543455.json |
+| noon | ready_b | B | 20260908-1135-noon-full-34189543455 | output/archive/2026/09/08/noon/20260908-1135-noon-full-34189543455.json |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-09-07-early | 2026-09-04 | 2026-09-04T15:00:00+08:00 | output/archive/2026/09/07/early/20260907-0855-early-full-34086932057.json | `8b46bdf5884761e436e73c6ba8f772a81e6fe01418214a5145112b519c1f7be1` |
-| noon | B | 2026-09-07-noon | 2026-09-07 | 2026-09-07T11:30:00+08:00 | output/archive/2026/09/07/noon/20260907-1225-noon-full-34106270914.json | `9935a51fd518988ae12137fce336cd53cbd8a398bbcb1cbda11283127c7f973c` |
+| early | A | 2026-09-08-early | 2026-09-07 | 2026-09-07T15:00:00+08:00 | output/archive/2026/09/08/early/20260908-0840-early-full-34189543455.json | `b074ec74f1a4a707cf94193c80fe16161478c569a4e0bb2b9700df1c7e563f89` |
+| noon | B | 2026-09-08-noon | 2026-09-08 | 2026-09-08T11:30:00+08:00 | output/archive/2026/09/08/noon/20260908-1135-noon-full-34189543455.json | `815c07bf5fb20a052bd9e02cda9515c443ace55e354a3c5305d60bdfd36d7d46` |
 | close | A | 2026-08-26-close | 2026-08-26 | 2026-08-26T15:35:45+08:00 | output/archive/2026/08/26/close/20260826-1520-close-full-32975024998.json | `5587d9cdf78af2b988ce64c56cc5272e60b883c442b24471b9dac474fa998adb` |
 | evening | B | 2026-09-06-evening | 2026-09-04 | 暂无 | output/archive/2026/09/06/evening/20260906-2035-evening-full-34043085557.json | `9237d955ab392d5c8c8cd824d02c82c0b8a82222d838dd2992e942c948fb0c54` |
 | intraday | A | 2026-09-02-intraday | 2026-09-02 | 2026-09-02T15:00:04+08:00 | output/archive/2026/09/02/intraday/20260902-1005-intraday-light-33601639418.json | `9a7dba4c0af55df7ddc9a8ddf056d93a341387de2d01f4f8034fc671e47552f0` |
