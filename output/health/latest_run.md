@@ -1,14 +1,14 @@
 # 股票行情快照运行状态
 
-- 状态：not_published
-- 快照类型：intraday
+- 状态：not_ready
+- 快照类型：evening
 - 质量等级：F
-- 采集模式：live_or_latest_completed
+- 采集模式：unknown
 - 是否历史时点恢复：否
-- 调度延迟：312.92 分钟
+- 调度延迟：暂无 分钟
 - 是否发布：否
-- 计划时间：2026-09-09T15:05:00+08:00
-- 开始时间：2026-09-09T20:17:55+08:00
-- 完成时间：2026-09-09T20:19:19+08:00
-- 原因：quality gate failed
-- 阻断原因：quote_time_max is older than 15 minutes
+- 计划时间：20:35
+- 开始时间：2026-09-10T00:50:37+08:00
+- 完成时间：2026-09-10T01:04:58+08:00
+- 原因：close snapshot market_date is not today
+- 阻断原因：无
