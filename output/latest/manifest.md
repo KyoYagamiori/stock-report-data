@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-09-15T17:25:07+08:00
+- 更新时间：2026-09-15T17:35:06+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-09-15
 
@@ -10,7 +10,7 @@
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
 | early | ready_a | A | 20260915-0855-early-full-34933378138 | output/archive/2026/09/15/early/20260915-0855-early-full-34933378138.json |
-| noon | ready_b | B | 20260915-1205-noon-full-34951990329 | output/archive/2026/09/15/noon/20260915-1205-noon-full-34951990329.json |
+| noon | ready_b | B | 20260915-1225-noon-full-34952793606 | output/archive/2026/09/15/noon/20260915-1225-noon-full-34952793606.json |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
@@ -18,7 +18,7 @@
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
 | early | A | 2026-09-15-early | 2026-09-14 | 2026-09-14T15:00:00+08:00 | output/archive/2026/09/15/early/20260915-0855-early-full-34933378138.json | `49427a50662818bf8497513b70f2539c1b3276df1cef4a2241bdd30d4e785c0a` |
-| noon | B | 2026-09-15-noon | 2026-09-15 | 2026-09-15T11:30:00+08:00 | output/archive/2026/09/15/noon/20260915-1205-noon-full-34951990329.json | `04dbb2d26722aeb064aa9baf5674574d34d77a379d8257273c1f6f0c4ee9323a` |
+| noon | B | 2026-09-15-noon | 2026-09-15 | 2026-09-15T11:30:00+08:00 | output/archive/2026/09/15/noon/20260915-1225-noon-full-34952793606.json | `9fe909028b0beae0c9e85de59d5e69df68624ab7f65bea68b1d78147d4f68395` |
 | close | A | 2026-08-26-close | 2026-08-26 | 2026-08-26T15:35:45+08:00 | output/archive/2026/08/26/close/20260826-1520-close-full-32975024998.json | `5587d9cdf78af2b988ce64c56cc5272e60b883c442b24471b9dac474fa998adb` |
 | evening | A | 2026-09-12-evening | 2026-09-11 | 暂无 | output/archive/2026/09/12/evening/20260912-2050-evening-full-34623942689.json | `0694fc7ab2d62b5009b2a494416a03e7787e51fd8687f09937dfadaca038b83a` |
 | intraday | A | 2026-09-14-intraday | 2026-09-14 | 2026-09-14T15:35:45+08:00 | output/archive/2026/09/14/intraday/20260914-1005-intraday-light-34819715536.json | `8b9e50a3bf8b6bcbd633835319c06b5f60bbf08a74418e5633fcab6e7eaf3a02` |
