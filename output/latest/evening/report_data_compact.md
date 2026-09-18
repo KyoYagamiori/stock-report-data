@@ -1,7 +1,7 @@
 # 股票行情快照 | 2026-09-19 evening
 
 - Schema：1.6.1
-- Snapshot ID：`20260919-2035-evening-full-35369722469`
+- Snapshot ID：`20260919-2050-evening-full-35370287675`
 - 报告周期：`2026-09-19-evening`
 - 质量等级：**A**
 - 质量 Profile：`non_trading`
@@ -9,7 +9,7 @@
 - 行情时间范围：暂无 至 暂无
 - 采集模式：live_or_latest_completed
 - 调度延迟：0 分钟
-- 生成时间：2026-09-19T00:42:15+08:00
+- 生成时间：2026-09-19T00:50:08+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -22,7 +22,11 @@
 
 ## 市场概览
 
-暂无可核验指数数据。
+| 指数 | 点位 | 涨跌幅 | 行情时间 |
+|---|---:|---:|---|
+| 上证指数 | 3,911.87 | 0.94% | 暂无 |
+| 深证成指 | 13,640.87 | 1.72% | 暂无 |
+| 创业板指 | 3,372.68 | 2.25% | 暂无 |
 
 - 两市成交额：2,092,632,855,050
 - 市场宽度：上涨 4,233 / 下跌 1,152 / 平盘 179 / 涨停 81 / 跌停 5
@@ -62,4 +66,4 @@
 ## 数据源状态
 
 - `stock_quotes`：success；来源=新浪实时行情接口；错误=东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。；行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。
-- `market_overview`：partial；来源=新浪实时行情接口; unavailable; AKShare stock_board_industry_summary_ths；错误=AKShare stock_zh_index_spot_sina failed: Can not decode value starting with character '<'；AKShare stock_zh_index_spot_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+- `market_overview`：success；来源=新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths；错误=AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
