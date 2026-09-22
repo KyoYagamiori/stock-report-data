@@ -5,6 +5,7 @@ import math
 import os
 import sys
 import traceback
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -781,7 +782,7 @@ def build_stock_record(
         "today_turnover_rate": primary_turnover,
         **box_metrics,
         **ma_metrics,
-        **compute_indicators(hist, daily_data_source, "qfq"),
+        **compute_indicators(hist, daily_data_source, "unadjusted"),
         "volume_change_ratio": volume_change_ratio,
         "is_volume_down_vs_previous": is_volume_down,
         "is_volume_up_vs_previous": is_volume_up,
@@ -1124,25 +1125,21 @@ def collect_snapshot_payload(
     else:
         limit_pool = pd.DataFrame()
 
-    records: list[dict[str, Any]] = []
-    for _, row in active.iterrows():
+    def collect_one(row: pd.Series) -> dict[str, Any]:
         try:
-            records.append(
-                build_stock_record(
-                    row,
-                    limit_pool,
-                    generated_at,
-                    spot_quotes,
-                    realtime_data_source,
-                    saved_records,
-                    saved_snapshot_time,
-                    include_technicals=mode == "full",
-                )
+            return build_stock_record(
+                row, limit_pool, generated_at, spot_quotes, realtime_data_source,
+                saved_records, saved_snapshot_time, include_technicals=mode == "full",
             )
         except Exception as exc:
             error_text = f"{row.get('name', '')} {row.get('code', '')} 快照生成失败：{exc}"
-            errors.append(error_text)
-            records.append(blank_error_record(row, [error_text, traceback.format_exc(limit=3)]))
+            return blank_error_record(row, [error_text, traceback.format_exc(limit=3)])
+
+    # Independent read-only requests; preserve configured order and per-stock failures.
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        records = list(executor.map(collect_one, (row for _, row in active.iterrows())))
+    for record in records:
+        errors.extend(record.get("errors", []))
 
     for record in records:
         warnings.extend(record.get("warnings", []))
