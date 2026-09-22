@@ -49,7 +49,8 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(10, len(pools["core"]))
         self.assertEqual(14, len(pools["watch"]))
         longi = next(record for record in pools["core"] if record["code"] == "600584")
-        self.assertTrue(longi["locked"])
+        self.assertFalse(longi["locked"])
+        self.assertEqual(["688700"], [x["code"] for g in ("core", "watch", "supplemental") for x in pools[g] if x.get("locked")])
 
     def test_quality_profiles_include_all_profiles(self) -> None:
         profiles = load_quality_profiles()["profiles"]

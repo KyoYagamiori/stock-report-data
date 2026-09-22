@@ -69,9 +69,11 @@ def _validate_report_pools(payload: dict[str, Any]) -> None:
         raise ContractError("Core pool must contain exactly 10 stocks in v1.6.1")
     if len(payload["watch"]) != 14:
         raise ContractError("Watch pool must contain exactly 14 stocks in v1.6.1")
-    locked = {record["code"] for record in payload["core"] if record.get("locked") is True}
-    if "600584" not in locked:
-        raise ContractError("600584 must remain locked in the Core pool")
+    locked = {record["code"] for group in ("core", "watch", "supplemental")
+              for record in payload[group] if record.get("locked") is True}
+    if locked != {"688700"}:
+        raise ContractError("688700 must be the only locked symbol")
+
 
 
 def _jsonschema_modules():

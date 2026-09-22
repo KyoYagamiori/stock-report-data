@@ -336,6 +336,15 @@ def _build_snapshot(
         for record in stocks
         if record.get("pool") in {"watch", "supplemental"} and not record.get("valid_quote")
     ]
+    if not market.get("turnover_valid"):
+        missing_optional.append("total_turnover")
+    if not market.get("breadth_valid"):
+        missing_optional.append("market_breadth")
+    for record in stocks:
+        if record.get("locked") and not record.get("valid_quote"):
+            missing_core.append(f"{record['code']}:locked_quote")
+        if record.get("locked") and record.get("indicator_status") != "ready":
+            missing_optional.append(f"{record['code']}:technical_indicators")
     if coverage["sectors_top"]["valid"] < 5:
         missing_optional.append("sectors_top")
     if coverage["sectors_bottom"]["valid"] < 5:

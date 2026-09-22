@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 @dataclass(frozen=True)
@@ -64,6 +65,13 @@ def resolve_schedule(
     schedule: str = "",
     manual: dict[str, str] | None = None,
 ) -> ScheduleParams:
+    if event_name == "push":
+        now = datetime.now(ZoneInfo("Asia/Shanghai"))
+        if now.hour >= 15:
+            return ScheduleParams("close", "full", "15:00", "config-refresh")
+        if (now.hour, now.minute) >= (11, 35):
+            return ScheduleParams("noon", "full", "11:35", "config-refresh")
+        return ScheduleParams("early", "full", now.strftime("%H:%M"), "config-refresh")
     if event_name == "schedule":
         try:
             return SCHEDULES[schedule]

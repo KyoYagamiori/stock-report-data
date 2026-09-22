@@ -101,7 +101,8 @@ class PointInTimeRecoveryTests(unittest.TestCase):
         self.assertTrue(stock["point_in_time_recovered"])
         self.assertIsNotNone(stock["ma5"])
         self.assertEqual(3, len(recovered_market.data["indices"]))
-        self.assertTrue(recovered_market.data["turnover_valid"])
+        self.assertFalse(recovered_market.data["turnover_valid"])
+        self.assertIsNone(stock["volume_change_ratio"])
         self.assertEqual({}, recovered_market.data["breadth"])
         self.assertEqual([], recovered_market.data["sectors_top"])
 
@@ -138,3 +139,25 @@ class PointInTimeRecoveryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class IndicatorRegressionTests(unittest.TestCase):
+    def test_flat_series_has_zero_macd_and_boll_width(self):
+        from scripts.fetch_snapshot import compute_indicators
+        frame = pd.DataFrame({'日期': pd.bdate_range('2026-01-01', periods=60), '收盘': [10.]*60, '最高': [10.]*60, '最低': [10.]*60})
+        got = compute_indicators(frame, 'fixture', 'unadjusted')
+        self.assertEqual('ready', got['indicator_status'])
+        self.assertEqual(10., got['boll_upper'])
+        self.assertEqual(10., got['boll_lower'])
+        self.assertEqual(50., got['kdj_j'])
+        self.assertEqual(0., got['macd_hist'])
+
+    def test_daily_outage_preserves_valid_minute_quote(self):
+        from pipeline.adapters.point_in_time import _recover_stock
+        from datetime import time
+        class NoDaily(FakeAk):
+            def stock_zh_a_daily(self, **kwargs):
+                raise ConnectionError('daily unavailable')
+        got = _recover_stock({'code':'688700'}, '2026-07-17', time(11,30), 'trading_noon', NoDaily())
+        self.assertEqual(11., got['latest_price'])
+        self.assertEqual('missing', got['indicator_status'])
+        self.assertIsNone(got['volume_change_ratio'])

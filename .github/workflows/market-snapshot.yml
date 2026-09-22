@@ -1,6 +1,13 @@
 name: Stock report data pipeline v1.6.1
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "config/report_pools.json"
+      - "config/watchlist.csv"
+      - "pipeline/**"
+      - "scripts/fetch_snapshot.py"
   workflow_dispatch:
     inputs:
       snapshot_type:

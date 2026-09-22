@@ -41,11 +41,16 @@ def evaluate_quality(snapshot: dict[str, Any], quality_profile: str) -> QualityR
     if quality_profile == "trading_evening":
         return _evaluate_evening(snapshot)
 
-    if _meets_thresholds(snapshot, profile["grade_a"]):
+    locked_missing = any(x.get("locked") and not x.get("valid_quote") for x in snapshot.get("stocks", []))
+    if not locked_missing and _meets_thresholds(snapshot, profile["grade_a"]):
         return QualityResult("A", tuple(_success_reasons(snapshot, "A")), (), ())
 
     if _meets_thresholds(snapshot, profile["grade_b"]):
         actions = ["cap capital_consistency_score at 60"]
+        if locked_missing:
+            actions.append("locked symbol quote missing; report explicit gap")
+        if not snapshot.get("market", {}).get("turnover_valid"):
+            actions.append("market turnover unavailable; no market volume inference")
         if _coverage(snapshot, "core")["valid"] < _coverage(snapshot, "core")["expected"]:
             actions.append("disable precise price levels for missing Core symbols")
         return QualityResult("B", tuple(_success_reasons(snapshot, "B")), (), tuple(actions))

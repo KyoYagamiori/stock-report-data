@@ -35,7 +35,7 @@ class MA5PublisherTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             result = publish_screen(screen(), [{"code": "600001", "name": "A"}], root)
-            self.assertIn("output\\ma5\\archive", str(result.archive_file))
+            self.assertEqual(("output", "ma5", "archive"), result.archive_file.relative_to(root).parts[:3])
             loaded = verify_manifest_pointer(root, "preclose")
             self.assertEqual(screen()["scan_id"], loaded["scan_id"])
             manifest = json.loads(result.manifest_file.read_text(encoding="utf-8"))

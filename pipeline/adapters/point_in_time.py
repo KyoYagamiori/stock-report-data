@@ -72,7 +72,7 @@ def recover_fixed_point_in_time(
     )
     recovered_stock_result = AdapterResult(
         status=stock_status,
-        source="新浪一分钟历史时点恢复；新浪前复权日线",
+        source="新浪一分钟历史时点恢复；新浪不复权日线",
         data={
             "stocks": recovered_stocks,
             "recovery_profile": profile,
@@ -121,7 +121,13 @@ def _recover_stock(
         raise ValueError("价格、前收盘价或成交额不完整")
     pct = (price / previous_close - 1) * 100
 
-    daily = _daily_frame(ak_module, symbol, target_date)
+    try:
+        daily = _daily_frame(ak_module, symbol, target_date)
+    except Exception:
+        # A daily-history outage must not discard a valid historical quote.
+        daily = pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume", "amount"])
+        daily["date"] = pd.to_datetime(daily["date"])
+
     technical, previous_daily = _technical_history(
         daily,
         session,
@@ -131,8 +137,8 @@ def _recover_stock(
     outstanding = _latest_number(daily, "outstanding_share", target_date)
     turnover = volume / outstanding * 100 if volume is not None and outstanding not in (None, 0) else None
     chinese_history = _to_legacy_history(technical)
-    ma_metrics = legacy.compute_ma_metrics(chinese_history, price, "新浪前复权日线+恢复时点")
-    box_metrics = legacy.compute_box_metrics(chinese_history, price, "新浪前复权日线+恢复时点")
+    ma_metrics = legacy.compute_ma_metrics(chinese_history, price, "新浪不复权日线+恢复时点")
+    box_metrics = legacy.compute_box_metrics(chinese_history, price, "新浪不复权日线+恢复时点")
 
     recovered = deepcopy(base)
     recovered.update(
@@ -172,6 +178,8 @@ def _recover_stock(
             **box_metrics,
         }
     )
+    recovered.update(legacy.compute_indicators(chinese_history, "新浪不复权日线+目标时点", "unadjusted"))
+    recovered["volume_comparison_valid"] = profile != "trading_noon"
     _refresh_volume_signals(recovered)
     warnings = list(base.get("warnings") or [])
     warnings.append(
@@ -228,9 +236,10 @@ def _recover_market(
         turnover = exchange_amounts["000001"] + exchange_amounts["399001"]
     market = {
         "indices": indices,
-        "total_turnover": turnover,
-        "turnover_valid": turnover is not None,
-        "turnover_scope": "上证指数与深证成指一分钟成交额累计之和；不含北交所",
+        "total_turnover": None,
+        "index_component_turnover": turnover,
+        "turnover_valid": False,
+        "turnover_scope": "指数成分成交额不等于沪深全市场成交额；全市场值缺失",
         "breadth": {},
         "breadth_valid": False,
         "sectors_top": [],
@@ -314,13 +323,13 @@ def _daily_frame(ak_module: Any, symbol: str, target_date: str) -> pd.DataFrame:
         symbol=symbol,
         start_date=start,
         end_date=end,
-        adjust="qfq",
+        adjust="",
     )
     if frame is None or frame.empty:
-        raise ValueError("前复权日线为空")
+        raise ValueError("不复权日线为空")
     normalized = frame.copy().reset_index(drop=False)
     if "date" not in normalized.columns:
-        raise ValueError("前复权日线缺少date字段")
+        raise ValueError("不复权日线缺少date字段")
     normalized["date"] = pd.to_datetime(normalized["date"], errors="coerce")
     normalized = normalized.dropna(subset=["date"]).sort_values("date")
     return normalized
@@ -410,6 +419,8 @@ def _refresh_volume_signals(record: dict[str, Any]) -> None:
     previous = _number(record.get("previous_volume"))
     ratio = (today - previous) / previous if today is not None and previous not in (None, 0) else None
     pct = _number(record.get("today_pct_change"))
+    if record.get("volume_comparison_valid") is False:
+        ratio = None
     record["volume_change_ratio"] = ratio
     record["is_volume_down_vs_previous"] = ratio is not None and ratio < 0
     record["is_volume_up_vs_previous"] = ratio is not None and ratio > 0

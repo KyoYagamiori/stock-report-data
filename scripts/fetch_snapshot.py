@@ -238,6 +238,43 @@ def compute_box_metrics(hist: pd.DataFrame, current_price: float | None, source:
     }
 
 
+def compute_indicators(hist: pd.DataFrame, source: str, adjustment: str) -> dict[str, Any]:
+    """Deterministic daily indicators; K/D seed=50, EMA seeded by first close.
+
+    Exposes the actual history endpoint. Intraday callers must not describe a
+    prior-day indicator as current. No claim of vendor-identical initialization.
+    """
+    result = {"indicator_status": "missing", "indicator_source": source,
+              "indicator_adjustment": adjustment,
+              "indicator_parameters": {"boll": [20, 2], "std_ddof": 0,
+                                       "kdj": [9, 3, 3], "kd_seed": 50,
+                                       "macd": [12, 26, 9], "histogram_multiplier": 2}}
+    if hist.empty or not {"日期", "收盘", "最高", "最低"}.issubset(hist.columns):
+        return result
+    frame = hist.sort_values("日期").drop_duplicates("日期", keep="last").copy()
+    for col in ("收盘", "最高", "最低"):
+        frame[col] = pd.to_numeric(frame[col], errors="coerce")
+    if len(frame) < 35 or frame[["收盘", "最高", "最低"]].isna().any().any():
+        return result
+    c, h, l = frame["收盘"], frame["最高"], frame["最低"]
+    mid=c.rolling(20).mean(); std=c.rolling(20).std(ddof=0)
+    lo=l.rolling(9).min(); hi=h.rolling(9).max()
+    rsv=((c-lo)/(hi-lo).replace(0,float("nan"))*100).fillna(50)
+    k=d=50.; ks=[]; ds=[]
+    for value in rsv:
+        k=(2*k+float(value))/3; d=(2*d+k)/3; ks.append(k); ds.append(d)
+    dif=c.ewm(span=12,adjust=False).mean()-c.ewm(span=26,adjust=False).mean()
+    dea=dif.ewm(span=9,adjust=False).mean()
+    result.update(indicator_status="ready",indicator_asof=pd.Timestamp(frame["日期"].iloc[-1]).strftime("%Y-%m-%d"),
+                  indicator_history_rows=len(frame),boll_mid=float(mid.iloc[-1]),
+                  boll_upper=float((mid+2*std).iloc[-1]),boll_lower=float((mid-2*std).iloc[-1]),
+                  kdj_k=k,kdj_d=d,kdj_j=3*k-2*d,
+                  kdj_previous_k=ks[-2],kdj_previous_d=ds[-2],kdj_previous_j=3*ks[-2]-2*ds[-2],
+                  macd_dif=float(dif.iloc[-1]),macd_dea=float(dea.iloc[-1]),
+                  macd_hist=float(2*(dif-dea).iloc[-1]))
+    return result
+
+
 def saved_box_metrics(saved_record: dict[str, Any]) -> dict[str, Any]:
     if not saved_record:
         return empty_box_metrics()
@@ -657,6 +694,8 @@ def build_stock_record(
     if today_volume is not None and yesterday_volume not in (None, 0):
         volume_change_ratio = (today_volume - float(yesterday_volume)) / float(yesterday_volume)
 
+    if has_realtime_quote and today.hour < 15:
+        volume_change_ratio = None  # Intraday versus prior full day is not comparable.
     pct = primary_pct
     limit_pct = limit_pct_for(code, name)
     is_near_limit_up = pct is not None and pct >= limit_pct - 1.0
@@ -742,6 +781,7 @@ def build_stock_record(
         "today_turnover_rate": primary_turnover,
         **box_metrics,
         **ma_metrics,
+        **compute_indicators(hist, daily_data_source, "qfq"),
         "volume_change_ratio": volume_change_ratio,
         "is_volume_down_vs_previous": is_volume_down,
         "is_volume_up_vs_previous": is_volume_up,
