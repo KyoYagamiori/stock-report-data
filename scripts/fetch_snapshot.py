@@ -781,7 +781,7 @@ def build_stock_record(
         "today_turnover_rate": primary_turnover,
         **box_metrics,
         **ma_metrics,
-        **compute_indicators(hist, daily_data_source, "qfq"),
+        **compute_indicators(hist, daily_data_source, "unadjusted"),
         "volume_change_ratio": volume_change_ratio,
         "is_volume_down_vs_previous": is_volume_down,
         "is_volume_up_vs_previous": is_volume_up,

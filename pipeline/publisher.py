@@ -162,7 +162,11 @@ def _load_or_create_manifest(
 def _load_pointer_snapshot(root: Path, pointer: dict[str, Any] | None) -> dict[str, Any] | None:
     if pointer is None:
         return None
-    return verify_pointer(root, pointer)
+    try:
+        return verify_pointer(root, pointer)
+    except ContractError:
+        # An old invalid pointer must not block a new verified snapshot.
+        return None
 
 
 def _write_bytes_atomic(path: Path, data: bytes, immutable: bool = False) -> None:

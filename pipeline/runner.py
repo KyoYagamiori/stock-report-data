@@ -5,7 +5,7 @@ import os
 import re
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, time, timedelta
 from pathlib import Path
 from typing import Any, Callable
 from zoneinfo import ZoneInfo
@@ -18,7 +18,7 @@ from pipeline.adapters.market_overview import collect_market_overview
 from pipeline.adapters.point_in_time import recover_fixed_point_in_time
 from pipeline.adapters.stock_quotes import collect_stock_quotes
 from pipeline.calendar import CalendarInfo, resolve_calendar
-from pipeline.contracts import ContractError, load_json
+from pipeline.contracts import ContractError, load_json, load_report_pools
 from pipeline.publisher import PublishResult, publish_snapshot, verify_pointer, write_health
 from pipeline.quality import apply_quality_result, evaluate_quality
 
@@ -93,8 +93,15 @@ def run_pipeline(
     started = (options.moment or datetime.now(TIMEZONE)).astimezone(TIMEZONE)
     report_date = options.report_date or started.date().isoformat()
     planned_at = f"{report_date}T{options.planned_at}:00+08:00"
+    if _expired_scheduled_run(options, started, planned_at):
+        return _skipped_run(options, root, started, planned_at)
     calendar = calendar_resolver(started, root)
     profile = "non_trading" if not calendar.is_trading_day else PROFILE_BY_TYPE[options.snapshot_type]
+    if options.attempt_role.startswith("retry-") and _already_ready(root, report_date, options.snapshot_type):
+        return _skipped_run(
+            options, root, started, planned_at,
+            status="skipped_ready", reason="a verified A-grade snapshot for this cycle already exists",
+        )
 
     if options.snapshot_type == "evening" and profile != "non_trading":
         recovery_reason = None
@@ -131,8 +138,20 @@ def run_pipeline(
         if profile in {"trading_preopen", "non_trading"}
         else report_date
     )
-    stock_result, spot_quotes = stock_collector(root, started, market_date, options.mode)
-    market_result = market_collector(spot_quotes, stock_result.source, started)
+    previous_close = (
+        _verified_previous_close_snapshot(root, market_date)
+        if profile in {"trading_preopen", "non_trading"} else None
+    )
+    if previous_close and _previous_close_covers_pool(previous_close):
+        stock_result = _stocks_from_previous_close(previous_close, started)
+        market_result = _market_from_previous_close(previous_close, started)
+    else:
+        stock_result, spot_quotes = stock_collector(root, started, market_date, options.mode)
+        market_result = market_collector(spot_quotes, stock_result.source, started)
+        if previous_close:
+            market_result = _market_from_previous_close(previous_close, started)
+    if profile == "trading_noon":
+        _annotate_noon_volume(root, stock_result.data["stocks"], report_date)
     published_at = datetime.now(TIMEZONE).isoformat(timespec="seconds")
     snapshot = _build_snapshot(
         options=options,
@@ -158,6 +177,8 @@ def run_pipeline(
                 market_date,
                 started,
             )
+            if profile == "trading_noon":
+                _annotate_noon_volume(root, stock_result.data["stocks"], report_date)
             published_at = datetime.now(TIMEZONE).isoformat(timespec="seconds")
             snapshot = _build_snapshot(
                 options=options,
@@ -330,12 +351,18 @@ def _build_snapshot(
         if record.get("valid_quote") and record.get("quote_time")
     )
     coverage = _coverage(stocks, market)
+    pools = load_report_pools()
+    present_codes = {record.get("code") for record in stocks}
     missing_core = [f"{record['code']}:quote" for record in stocks if record.get("pool") == "core" and not record.get("valid_quote")]
+    missing_core.extend(f"{record['code']}:missing_record" for record in pools["core"]
+                        if record["code"] not in present_codes)
     missing_optional = [
         f"{record['code']}:quote"
         for record in stocks
         if record.get("pool") in {"watch", "supplemental"} and not record.get("valid_quote")
     ]
+    missing_optional.extend(f"{record['code']}:missing_record" for record in pools["watch"]
+                            if record["code"] not in present_codes)
     if not market.get("turnover_valid"):
         missing_optional.append("total_turnover")
     if not market.get("breadth_valid"):
@@ -351,7 +378,7 @@ def _build_snapshot(
         missing_optional.append("sectors_bottom")
 
     realtime_expected = profile not in {"trading_preopen", "trading_evening", "non_trading"}
-    time_valid = _initial_time_valid(profile, quote_times)
+    time_valid = _initial_time_valid(profile, quote_times, planned_at, started, published_at)
     session = "non_trading" if profile == "non_trading" else _session_for(options.snapshot_type, started)
     snapshot = {
         "schema_version": SCHEMA_VERSION,
@@ -408,13 +435,18 @@ def _build_snapshot(
 
 
 def _coverage(stocks: list[dict[str, Any]], market: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    core = [record for record in stocks if record.get("pool") == "core"]
-    watch = [record for record in stocks if record.get("pool") == "watch"]
+    pools = load_report_pools()
+    expected_core = {item["code"] for item in pools["core"]}
+    expected_watch = {item["code"] for item in pools["watch"]}
+    core = {record.get("code") for record in stocks if record.get("pool") == "core"
+            and record.get("code") in expected_core and record.get("valid_quote")}
+    watch = {record.get("code") for record in stocks if record.get("pool") == "watch"
+             and record.get("code") in expected_watch and record.get("valid_quote")}
     breadth = market.get("breadth", {})
     return {
         "indices": _coverage_item(len(market.get("indices", [])), 3),
-        "core": _coverage_item(sum(bool(item.get("valid_quote")) for item in core), 10),
-        "watch": _coverage_item(sum(bool(item.get("valid_quote")) for item in watch), 14),
+        "core": _coverage_item(len(core), len(expected_core)),
+        "watch": _coverage_item(len(watch), len(expected_watch)),
         "market_breadth": _coverage_item(sum(key in breadth for key in ("up", "down", "flat", "limit_up", "limit_down")), 5),
         "sectors_top": _coverage_item(len(market.get("sectors_top", [])), 5),
         "sectors_bottom": _coverage_item(len(market.get("sectors_bottom", [])), 5),
@@ -425,10 +457,179 @@ def _coverage_item(valid: int, expected: int) -> dict[str, Any]:
     return {"valid": valid, "expected": expected, "ratio": 1.0 if expected == 0 else valid / expected}
 
 
-def _initial_time_valid(profile: str, quote_times: list[str]) -> bool:
-    if profile == "non_trading":
+def _initial_time_valid(
+    profile: str, quote_times: list[str], planned_at: str, started: datetime, published_at: str
+) -> bool:
+    planned = datetime.fromisoformat(planned_at)
+    published = datetime.fromisoformat(published_at)
+    if not planned <= started <= published:
+        return False
+    if not quote_times:
+        return profile == "non_trading"
+    quotes = [datetime.fromisoformat(value) for value in quote_times]
+    if any(quote > published for quote in quotes):
+        return False
+    if profile == "trading_intraday" and max(quotes) > planned + timedelta(minutes=20):
+        return False
+    if profile == "trading_noon" and max(quotes).time() > time(11, 35, 59):
+        return False
+    return True
+
+
+def _expired_scheduled_run(options: RunOptions, started: datetime, planned_at: str) -> bool:
+    # A queue entry from yesterday must never be relabelled with today's date.
+    if options.attempt_role not in {"primary", "retry-1", "retry-2", "rolling"}:
+        return False
+    planned = datetime.fromisoformat(planned_at)
+    if started < planned:
         return True
-    return bool(quote_times)
+    if options.snapshot_type == "intraday":
+        return started > planned + timedelta(minutes=20)
+    deadlines = {"early": time(9, 5), "noon": time(12, 45), "close": time(20, 10), "evening": time(21, 5)}
+    return started.time().replace(tzinfo=None) > deadlines[options.snapshot_type]
+
+
+def _skipped_run(
+    options: RunOptions, root: Path, started: datetime, planned_at: str,
+    *, status: str = "skipped_expired",
+    reason: str = "scheduled run missed its report window; no later quote was relabelled",
+) -> RunResult:
+    health_path = write_health(root, {
+        "schema_version": SCHEMA_VERSION,
+        "status": status,
+        "snapshot_type": options.snapshot_type,
+        "snapshot_mode": options.mode,
+        "attempt_role": options.attempt_role,
+        "planned_at": planned_at,
+        "started_at": started.isoformat(timespec="seconds"),
+        "finished_at": datetime.now(TIMEZONE).isoformat(timespec="seconds"),
+        "schedule_delay_minutes": _schedule_delay_minutes(planned_at, started),
+        "quality_grade": "A" if status == "skipped_ready" else "F",
+        "published": False,
+        "reason": reason,
+    })
+    return RunResult("A" if status == "skipped_ready" else "F", False, reason, None, health_path)
+
+
+def _already_ready(root: Path, report_date: str, snapshot_type: str) -> bool:
+    if snapshot_type == "intraday":
+        return False
+    path = root / "output/latest/manifest.json"
+    if not path.exists():
+        return False
+    try:
+        manifest = load_json(path)
+        pointer = manifest.get("snapshots", {}).get(snapshot_type)
+        if not pointer or pointer.get("report_cycle") != f"{report_date}-{snapshot_type}":
+            return False
+        return verify_pointer(root, pointer).get("quality_grade") == "A"
+    except (ContractError, OSError):
+        return False
+
+
+def _verified_previous_close_snapshot(root: Path, market_date: str) -> dict[str, Any] | None:
+    path = root / "output/latest/manifest.json"
+    if not path.exists():
+        return None
+    try:
+        pointer = load_json(path).get("snapshots", {}).get("close")
+        if not pointer:
+            return None
+        close = verify_pointer(root, pointer)
+    except (ContractError, OSError):
+        return None
+    if close.get("market_date") != market_date or close.get("quality_grade") not in {"A", "B"}:
+        return None
+    return close
+
+
+def _previous_close_covers_pool(close: dict[str, Any]) -> bool:
+    pools = load_report_pools()
+    expected = {item["code"] for group in ("core", "watch", "supplemental") for item in pools[group]}
+    return expected.issubset({item["code"] for item in close.get("stocks", [])})
+
+
+def _stocks_from_previous_close(close: dict[str, Any], started: datetime) -> AdapterResult:
+    pools = load_report_pools()
+    configured = {item["code"]: (group, item) for group in ("core", "watch", "supplemental") for item in pools[group]}
+    stocks = []
+    for base in close["stocks"]:
+        if base["code"] not in configured:
+            continue
+        group, entry = configured[base["code"]]
+        stock = deepcopy(base)
+        stock["pool"] = group
+        stock["locked"] = bool(entry.get("locked"))
+        # Previous versions labelled raw daily history as qfq. Do not carry that claim forward.
+        if stock.get("indicator_adjustment") == "qfq":
+            stock["indicator_status"] = "missing"
+            stock["indicator_adjustment"] = "unverified_legacy"
+            stock["warnings"] = [*stock.get("warnings", []), "旧指标复权口径未验证，盘前不沿用。"]
+        stocks.append(stock)
+    valid = sum(bool(stock.get("valid_quote")) for stock in stocks)
+    return AdapterResult(
+        status="success" if valid == len(stocks) else "partial",
+        source=f"verified previous close snapshot {close['snapshot_id']}",
+        data={"stocks": stocks}, started_at=started,
+        finished_at=datetime.now(TIMEZONE), records_expected=len(stocks), records_valid=valid,
+    )
+
+
+def _market_from_previous_close(close: dict[str, Any], started: datetime) -> AdapterResult:
+    market_date = close["market_date"]
+    market = deepcopy(close["market"])
+    market["quote_source"] = f"verified previous close snapshot {close['snapshot_id']}"
+    market["market_asof"] = market_date
+    return AdapterResult(
+        status="success", source=market["quote_source"], data=market,
+        started_at=started, finished_at=datetime.now(TIMEZONE),
+        records_expected=5, records_valid=5,
+    )
+
+
+def _annotate_noon_volume(root: Path, stocks: list[dict[str, Any]], report_date: str) -> None:
+    """Compare noon turnover with the prior verified noon, never with a full day."""
+    for stock in stocks:
+        stock["same_phase_amount_ratio"] = None
+        stock["same_phase_reference_date"] = None
+    path = root / "output/latest/manifest.json"
+    if not path.exists():
+        return
+    try:
+        pointer = load_json(path).get("snapshots", {}).get("noon")
+        if not pointer or pointer.get("report_cycle") == f"{report_date}-noon":
+            return
+        prior = verify_pointer(root, pointer)
+    except (ContractError, OSError):
+        return
+    prior_date = prior.get("market_date")
+    prior_quote = prior.get("quote_time_max")
+    if not prior_date or prior_date >= report_date or not prior_quote:
+        return
+    if not time(11, 25) <= datetime.fromisoformat(prior_quote).time() <= time(11, 35, 59):
+        return
+    by_code = {item["code"]: item for item in prior.get("stocks", []) if item.get("valid_quote")}
+    for stock in stocks:
+        current_quote = stock.get("quote_time")
+        if not stock.get("valid_quote") or stock.get("latest_trade_date") != report_date or not current_quote:
+            continue
+        quote_time = datetime.fromisoformat(current_quote).time()
+        if not time(11, 25) <= quote_time <= time(11, 35, 59):
+            continue
+        earlier = by_code.get(stock["code"])
+        daily_date_matches = prior_date in {
+            stock.get("previous_trade_date"), stock.get("daily_latest_trade_date")
+        }
+        if not earlier or not daily_date_matches:
+            continue
+        earlier_quote = earlier.get("quote_time")
+        if not earlier_quote or not time(11, 25) <= datetime.fromisoformat(earlier_quote).time() <= time(11, 35, 59):
+            continue
+        reference = earlier.get("today_amount")
+        current = stock.get("today_amount")
+        if isinstance(reference, (int, float)) and reference > 0 and isinstance(current, (int, float)) and current >= 0:
+            stock["same_phase_amount_ratio"] = round(current / reference - 1, 4)
+            stock["same_phase_reference_date"] = prior_date
 
 
 def _recovery_target_reached(profile: str, report_date: str, started: datetime) -> bool:

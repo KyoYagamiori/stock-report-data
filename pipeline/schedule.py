@@ -40,23 +40,14 @@ class ScheduleParams:
 
 
 SCHEDULES = {
-    "40 0 * * *": ScheduleParams("early", "full", "08:40", "primary"),
-    "55 0 * * 1-5": ScheduleParams("early", "full", "08:55", "retry-1"),
-    "35 1 * * 1-5": ScheduleParams("intraday", "light", "09:35", "rolling"),
-    "5 2 * * 1-5": ScheduleParams("intraday", "light", "10:05", "rolling"),
-    "35 2 * * 1-5": ScheduleParams("intraday", "light", "10:35", "rolling"),
-    "5 3 * * 1-5": ScheduleParams("intraday", "light", "11:05", "rolling"),
-    "35 3 * * 1-5": ScheduleParams("noon", "full", "11:35", "primary"),
-    "5 4 * * *": ScheduleParams("noon", "full", "12:05", "retry-1"),
-    "25 4 * * 1-5": ScheduleParams("noon", "full", "12:25", "retry-2"),
-    "5 5 * * 1-5": ScheduleParams("intraday", "light", "13:05", "rolling"),
-    "35 5 * * 1-5": ScheduleParams("intraday", "light", "13:35", "rolling"),
-    "5 6 * * 1-5": ScheduleParams("intraday", "light", "14:05", "rolling"),
+    "17 0 * * 1-5": ScheduleParams("early", "full", "08:17", "primary"),
+    "43 0 * * 1-5": ScheduleParams("early", "full", "08:43", "retry-1"),
+    "37 3 * * 1-5": ScheduleParams("noon", "full", "11:37", "primary"),
+    "7 4 * * 1-5": ScheduleParams("noon", "full", "12:07", "retry-1"),
     "35 6 * * 1-5": ScheduleParams("intraday", "light", "14:35", "rolling"),
-    "5 7 * * 1-5": ScheduleParams("intraday", "light", "15:05", "rolling"),
     "20 7 * * 1-5": ScheduleParams("close", "full", "15:20", "primary"),
-    "35 12 * * *": ScheduleParams("evening", "full", "20:35", "primary"),
-    "50 12 * * 1-5": ScheduleParams("evening", "full", "20:50", "retry-1"),
+    "17 12 * * *": ScheduleParams("evening", "full", "20:17", "primary"),
+    "41 12 * * *": ScheduleParams("evening", "full", "20:41", "retry-1"),
 }
 
 

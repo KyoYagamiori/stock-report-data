@@ -29,6 +29,12 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ContractError):
             validate_snapshot(payload)
 
+    def test_snapshot_contract_rejects_inverted_time_chain(self) -> None:
+        payload = valid_snapshot()
+        payload["started_at"] = "2026-07-16T11:30:00+08:00"
+        with self.assertRaisesRegex(ContractError, "chronological"):
+            validate_snapshot(payload)
+
     def test_manifest_contract_accepts_immutable_pointer(self) -> None:
         validate_manifest(valid_manifest())
 
@@ -46,10 +52,11 @@ class ContractTests(unittest.TestCase):
 
     def test_report_pool_contract_is_frozen(self) -> None:
         pools = load_report_pools()
-        self.assertEqual(10, len(pools["core"]))
+        self.assertEqual(11, len(pools["core"]))
         self.assertEqual(14, len(pools["watch"]))
         longi = next(record for record in pools["core"] if record["code"] == "600584")
         self.assertFalse(longi["locked"])
+        self.assertIn("688700", [record["code"] for record in pools["core"]])
         self.assertEqual(["688700"], [x["code"] for g in ("core", "watch", "supplemental") for x in pools[g] if x.get("locked")])
 
     def test_quality_profiles_include_all_profiles(self) -> None:

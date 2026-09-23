@@ -65,8 +65,8 @@ def _validate_report_pools(payload: dict[str, Any]) -> None:
             if code in seen:
                 raise ContractError(f"Duplicate stock code across report pools: {code}")
             seen.add(code)
-    if len(payload["core"]) != 10:
-        raise ContractError("Core pool must contain exactly 10 stocks in v1.6.1")
+    if len(payload["core"]) != 11 or not any(item["code"] == "688700" for item in payload["core"]):
+        raise ContractError("Core pool must contain 11 stocks including 688700")
     if len(payload["watch"]) != 14:
         raise ContractError("Watch pool must contain exactly 14 stocks in v1.6.1")
     locked = {record["code"] for group in ("core", "watch", "supplemental")
@@ -111,6 +111,14 @@ def validate_snapshot(payload: dict[str, Any]) -> None:
         raise ContractError(f"report_cycle must equal {expected_cycle}")
     if payload["snapshot_type"] not in payload["snapshot_id"]:
         raise ContractError("snapshot_id must include snapshot_type")
+    planned = datetime.fromisoformat(payload["planned_at"])
+    started = datetime.fromisoformat(payload["started_at"])
+    published = datetime.fromisoformat(payload["published_at"])
+    if not planned <= started <= published:
+        raise ContractError("planned_at, started_at and published_at must be chronological")
+    quote_max = payload.get("quote_time_max")
+    if quote_max and datetime.fromisoformat(quote_max) > published:
+        raise ContractError("quote_time_max cannot be after publication")
 
 
 def validate_manifest(payload: dict[str, Any]) -> None:
