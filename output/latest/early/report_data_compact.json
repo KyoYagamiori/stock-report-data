@@ -1,5 +1,5 @@
 {
-  "attempt_role": "primary",
+  "attempt_role": "retry-1",
   "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "collection_mode": "historical_point_in_time_recovery",
@@ -31,8 +31,8 @@
     },
     "watch": {
       "expected": 14,
-      "ratio": 1.0,
-      "valid": 14
+      "ratio": 0.9285714285714286,
+      "valid": 13
     }
   },
   "degradation_actions": [
@@ -88,14 +88,15 @@
   "market_session": "preopen",
   "missing_core_fields": [],
   "missing_optional_fields": [
+    "002837:quote",
     "total_turnover",
     "market_breadth",
     "sectors_top",
     "sectors_bottom"
   ],
-  "planned_at": "2026-09-23T08:40:00+08:00",
+  "planned_at": "2026-09-23T08:55:00+08:00",
   "point_in_time_recovered": true,
-  "published_at": "2026-09-23T13:17:42+08:00",
+  "published_at": "2026-09-23T13:32:52+08:00",
   "quality_grade": "B",
   "quality_profile": "trading_preopen",
   "quality_reasons": [
@@ -110,9 +111,9 @@
   "report_cycle": "2026-09-23-early",
   "report_date": "2026-09-23",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 267.13,
+  "schedule_delay_minutes": 268.7,
   "schema_version": "1.6.1",
-  "snapshot_id": "20260923-0840-early-full-35821059710",
+  "snapshot_id": "20260923-0855-early-full-35822201564",
   "snapshot_mode": "full",
   "snapshot_type": "early",
   "source_status": {
@@ -121,28 +122,29 @@
         "延迟任务未事后恢复上一交易日市场宽度，已留空。",
         "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
       ],
-      "finished_at": "2026-09-23T13:17:42+08:00",
+      "finished_at": "2026-09-23T13:32:52+08:00",
       "records_expected": 5,
       "records_valid": 2,
       "retry_count": 0,
       "source": "新浪指数一分钟历史时点恢复",
-      "started_at": "2026-09-23T13:07:07+08:00",
+      "started_at": "2026-09-23T13:23:41+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
+        "002837 时点恢复失败：Response ended prematurely",
         "本次为延迟任务的历史时点恢复，不是当前实时行情。"
       ],
-      "finished_at": "2026-09-23T13:17:34+08:00",
+      "finished_at": "2026-09-23T13:32:42+08:00",
       "records_expected": 25,
-      "records_valid": 25,
+      "records_valid": 24,
       "retry_count": 0,
       "source": "新浪一分钟历史时点恢复；新浪不复权日线",
-      "started_at": "2026-09-23T13:07:07+08:00",
-      "status": "success"
+      "started_at": "2026-09-23T13:23:41+08:00",
+      "status": "partial"
     }
   },
-  "started_at": "2026-09-23T13:07:07+08:00",
+  "started_at": "2026-09-23T13:23:41+08:00",
   "stocks": [
     {
       "amount": 7746475809.832701,
@@ -166,7 +168,7 @@
       "break_limit_up_count": null,
       "code": "600584",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-09-22",
       "errors": [],
       "first_limit_up_time": "",
@@ -250,7 +252,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-09-22",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "需要重点核验",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -266,8 +268,7 @@
       "volume_comparison_valid": true,
       "volume_strength": "轻微缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-09-22 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1436,7 +1437,7 @@
       "break_limit_up_count": null,
       "code": "001287",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-09-22",
       "errors": [],
       "first_limit_up_time": "",
@@ -1520,7 +1521,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-09-22",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "常规观察",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -1536,8 +1537,7 @@
       "volume_comparison_valid": true,
       "volume_strength": "轻微缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-09-22 15:00:00 时点，未使用更晚行情。"
       ]
     },
@@ -1796,34 +1796,35 @@
       ]
     },
     {
-      "amount": 2107887894.2044,
+      "amount": null,
       "auto_signals": [
-        "历史时点恢复；涨停池与封板字段不可事后重建"
+        "暂无显著自动量价信号"
       ],
-      "boll_lower": 58.42231262980869,
-      "boll_mid": 63.3725,
-      "boll_upper": 68.32268737019132,
+      "boll_lower": 58.42231262980875,
+      "boll_mid": 63.37249999999999,
+      "boll_upper": 68.32268737019123,
       "box_breakout_watch_price": 70.62,
-      "box_data_source": "新浪不复权日线+恢复时点",
+      "box_data_source": "新浪备用日线接口",
       "box_end_date": "2026-09-22",
       "box_lookback_days": 20,
       "box_lower": 58.68,
       "box_mid": 64.65,
       "box_position": "箱体中部",
-      "box_position_pct": 23.785594639866016,
+      "box_position_pct": 24.036850921273,
       "box_pullback_watch_price": 58.68,
       "box_start_date": "2026-08-26",
       "box_upper": 70.62,
       "break_limit_up_count": null,
       "code": "002837",
-      "collection_mode": "historical_point_in_time_recovery",
       "daily_data_source": "新浪备用日线接口",
       "daily_latest_trade_date": "2026-09-22",
-      "errors": [],
+      "errors": [
+        "延迟任务未能恢复目标时点，已拒绝使用更晚行情：Response ended prematurely"
+      ],
       "first_limit_up_time": "",
-      "indicator_adjustment": "unadjusted",
+      "indicator_adjustment": "qfq",
       "indicator_asof": "2026-09-22",
-      "indicator_history_rows": 80,
+      "indicator_history_rows": 60,
       "indicator_parameters": {
         "boll": [
           20,
@@ -1843,28 +1844,28 @@
         ],
         "std_ddof": 0
       },
-      "indicator_source": "新浪不复权日线+目标时点",
+      "indicator_source": "新浪备用日线接口",
       "indicator_status": "ready",
       "industry": "液冷散热/机柜级液冷",
       "is_limit_up_pool": false,
       "is_near_limit_down": false,
       "is_near_limit_up": false,
       "is_shrink_limit_up": false,
-      "is_shrink_pullback": true,
+      "is_shrink_pullback": false,
       "is_shrink_rise": false,
-      "is_volume_down_vs_previous": true,
+      "is_volume_down_vs_previous": false,
       "is_volume_fall": false,
       "is_volume_rise": false,
       "is_volume_up_vs_previous": false,
-      "kdj_d": 41.55665132126205,
-      "kdj_j": 71.55800627554248,
-      "kdj_k": 51.55710297268886,
-      "kdj_previous_d": 36.556425495548645,
-      "kdj_previous_j": 73.17982667171673,
-      "kdj_previous_k": 48.764225887604674,
+      "kdj_d": 41.55665153893247,
+      "kdj_j": 71.55800587529072,
+      "kdj_k": 51.55710298438522,
+      "kdj_previous_d": 36.556425816206094,
+      "kdj_previous_j": 73.17982608303545,
+      "kdj_previous_k": 48.76422590514921,
       "last_limit_up_time": "",
-      "latest_price": 61.52,
-      "latest_trade_date": "2026-09-22",
+      "latest_price": null,
+      "latest_trade_date": "2026-09-23",
       "limit_up_days": null,
       "limit_up_seal_amount": null,
       "locked": false,
@@ -1873,53 +1874,51 @@
       "ma5": 62.162,
       "ma60": 61.19516666666667,
       "ma_alignment": "mixed_or_converging",
-      "ma_data_source": "新浪不复权日线+恢复时点",
+      "ma_data_source": "新浪备用日线接口",
       "ma_trend_signal": "price_below_ma20_trend_pressure",
-      "macd_dea": 0.6855817153084901,
-      "macd_dif": 0.45499121085867955,
-      "macd_hist": -0.4611810088996211,
+      "macd_dea": 0.6742019382429411,
+      "macd_dif": 0.44743350160871387,
+      "macd_hist": -0.4535368732684544,
       "name": "英维克",
       "needs_report_focus": false,
-      "pct_change": -1.1409288124698547,
-      "point_in_time_recovered": true,
+      "pct_change": null,
+      "point_in_time_recovered": false,
       "pool": "watch",
       "previous_amount": 2155496915.0,
       "previous_trade_date": "2026-09-21",
-      "previous_volume": 34447654.0,
-      "price_data_source": "新浪一分钟历史时点恢复",
-      "price_vs_ma10_pct": 0.07808433107756672,
+      "previous_volume": 344476.54,
+      "price_data_source": "新浪实时行情接口",
+      "price_vs_ma10_pct": 0.12688703800103437,
       "price_vs_ma10_position": "above",
-      "price_vs_ma20_pct": -2.923192236380132,
+      "price_vs_ma20_pct": -2.8758530908517184,
       "price_vs_ma20_position": "below",
-      "price_vs_ma5_pct": -1.0327853029181748,
+      "price_vs_ma5_pct": -0.9845243074547181,
       "price_vs_ma5_position": "below",
-      "price_vs_ma60_pct": 0.5308153421702649,
+      "price_vs_ma60_pct": 0.5798388216934203,
       "price_vs_ma60_position": "above",
       "priority": "medium",
-      "quote_time": "2026-09-22T15:00:00+08:00",
-      "realtime_data_source": "新浪一分钟历史时点恢复",
+      "quote_time": null,
+      "realtime_data_source": "新浪实时行情接口",
       "realtime_quote_available": true,
-      "realtime_quote_date": "2026-09-22",
-      "realtime_quote_time": "15:00:00",
+      "realtime_quote_date": "2026-09-23",
+      "realtime_quote_time": "13:24:06",
       "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
       "theme": "液冷散热/机柜级液冷",
-      "today_amount": 2107887894.2044,
-      "today_close": 61.52,
-      "today_pct_change": -1.1409288124698547,
-      "today_turnover_rate": 2.96752549858347,
-      "today_volume": 33679573.0,
-      "turnover_rate": 2.96752549858347,
-      "valid_quote": true,
-      "volume_change_ratio": -0.022297048153119513,
-      "volume_comparison_valid": true,
-      "volume_strength": "轻微缩量",
+      "today_amount": null,
+      "today_close": null,
+      "today_pct_change": null,
+      "today_turnover_rate": null,
+      "today_volume": null,
+      "turnover_rate": null,
+      "valid_quote": false,
+      "volume_change_ratio": null,
+      "volume_strength": "暂无可核验数据",
       "warnings": [
         "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
-        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
-        "GitHub任务延迟启动；已从分钟历史重建 2026-09-22 15:00:00 时点，未使用更晚行情。"
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
       ]
     },
     {
@@ -2706,7 +2705,7 @@
       "break_limit_up_count": null,
       "code": "600521",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-09-22",
       "errors": [],
       "first_limit_up_time": "",
@@ -2790,7 +2789,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-09-22",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "常规观察",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -2806,7 +2805,6 @@
       "volume_comparison_valid": true,
       "volume_strength": "明显缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
         "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-09-22 15:00:00 时点，未使用更晚行情。"
       ]
@@ -2833,7 +2831,7 @@
       "break_limit_up_count": null,
       "code": "300821",
       "collection_mode": "historical_point_in_time_recovery",
-      "daily_data_source": "新浪备用日线接口",
+      "daily_data_source": "东方财富主接口",
       "daily_latest_trade_date": "2026-09-22",
       "errors": [],
       "first_limit_up_time": "",
@@ -2917,7 +2915,7 @@
       "realtime_quote_available": true,
       "realtime_quote_date": "2026-09-22",
       "realtime_quote_time": "15:00:00",
-      "report_prompt": "已优先使用实时/准实时行情，日线备份存在接口提示，报告中需留意来源口径",
+      "report_prompt": "常规观察",
       "saved_snapshot_source": "",
       "saved_snapshot_used": false,
       "status": "active",
@@ -2933,7 +2931,6 @@
       "volume_comparison_valid": true,
       "volume_strength": "未缩量",
       "warnings": [
-        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
         "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。",
         "GitHub任务延迟启动；已从分钟历史重建 2026-09-22 15:00:00 时点，未使用更晚行情。"
       ]
@@ -3330,10 +3327,11 @@
     "time_valid": true
   },
   "warnings": [
+    "002837 时点恢复失败：Response ended prematurely",
     "本次为延迟任务的历史时点恢复，不是当前实时行情。",
     "延迟任务未事后恢复上一交易日市场宽度，已留空。",
     "延迟任务未事后恢复上一交易日行业/概念榜，已留空。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "35821059710"
+  "workflow_run_id": "35822201564"
 }
