@@ -7,6 +7,8 @@ on:
       - "config/report_pools.json"
       - "config/watchlist.csv"
       - "pipeline/**"
+      - ".github/workflows/market-snapshot.yml"
+      - "scripts/push_publication.sh"
       - "scripts/fetch_snapshot.py"
   workflow_dispatch:
     inputs:
@@ -65,12 +67,14 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: stock-report-data-publisher-main
-  cancel-in-progress: false
-
 jobs:
   publish-snapshot:
+    concurrency:
+      group: stock-report-data-publisher-main
+      cancel-in-progress: false
+    outputs:
+      planned_at: ${{ steps.params.outputs.planned_at }}
+      report_date: ${{ steps.params.outputs.report_date }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -105,20 +109,6 @@ jobs:
       - name: Validate frozen contracts
         run: python -m unittest tests.test_contracts tests.test_quality tests.test_publisher tests.test_schedule
 
-      - name: Validate MA5 contracts at strategy nodes
-        if: steps.params.outputs.planned_at == '14:35' || steps.params.outputs.planned_at == '15:20'
-        run: python -m unittest discover -s tests -p "test_ma5_*.py"
-
-      - name: Run independent MA5 preclose scan before the reporting deadline
-        if: steps.params.outputs.planned_at == '14:35'
-        shell: bash
-        run: |
-          args=(--phase preclose --planned-at "${{ steps.params.outputs.planned_at }}")
-          if [[ -n "${{ steps.params.outputs.report_date }}" ]]; then
-            args+=(--report-date "${{ steps.params.outputs.report_date }}")
-          fi
-          python -m ma5_system.run "${args[@]}"
-
       - name: Collect, grade and publish snapshot
         shell: bash
         run: |
@@ -137,25 +127,54 @@ jobs:
         if: github.event_name == 'schedule'
         run: python -m pipeline.catchup
 
-      - name: Run independent MA5 close confirmation
-        if: steps.params.outputs.planned_at == '15:20'
-        shell: bash
-        run: |
-          args=(--phase close --planned-at "${{ steps.params.outputs.planned_at }}")
-          if [[ -n "${{ steps.params.outputs.report_date }}" ]]; then
-            args+=(--report-date "${{ steps.params.outputs.report_date }}")
-          fi
-          python -m ma5_system.run "${args[@]}"
-
       - name: Commit one consistent publication
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add output
+          git reset -- output/ma5
           if git diff --cached --quiet; then
             echo "No publication changes."
             exit 0
           fi
           git commit -m "snapshot: ${{ steps.params.outputs.snapshot_type }} ${{ steps.params.outputs.planned_at }}"
-          git push
+          bash scripts/push_publication.sh
+
+  strategy-scan:
+    needs: publish-snapshot
+    if: needs.publish-snapshot.outputs.planned_at == '14:35' || needs.publish-snapshot.outputs.planned_at == '15:20'
+    concurrency:
+      group: stock-ma5-publisher-main
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai
+      PLANNED_AT: ${{ needs.publish-snapshot.outputs.planned_at }}
+      REPORT_DATE: ${{ needs.publish-snapshot.outputs.report_date }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python -m unittest discover -s tests -p "test_ma5_*.py"
+      - name: Scan after the report snapshot is committed
+        shell: bash
+        run: |
+          phase=close
+          if [[ "$PLANNED_AT" == "14:35" ]]; then phase=preclose; fi
+          args=(--phase "$phase" --planned-at "$PLANNED_AT")
+          if [[ -n "$REPORT_DATE" ]]; then args+=(--report-date "$REPORT_DATE"); fi
+          python -m ma5_system.run "${args[@]}"
+      - name: Publish strategy output separately
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/ma5
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "ma5: scheduled $PLANNED_AT"
+          bash scripts/push_publication.sh

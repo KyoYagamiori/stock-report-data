@@ -99,12 +99,35 @@ class PointInTimeRecoveryTests(unittest.TestCase):
         self.assertEqual(3200.0, stock["amount"])
         self.assertEqual("2026-07-17T11:30:00+08:00", stock["quote_time"])
         self.assertTrue(stock["point_in_time_recovered"])
+        self.assertEqual("2026-07-17T11:30:00+08:00", stock["indicator_asof_time"])
+        self.assertFalse(stock["indicator_bar_complete"])
+        self.assertEqual("unadjusted", stock["indicator_adjustment"])
         self.assertIsNotNone(stock["ma5"])
         self.assertEqual(3, len(recovered_market.data["indices"]))
         self.assertFalse(recovered_market.data["turnover_valid"])
         self.assertIsNone(stock["volume_change_ratio"])
         self.assertEqual({}, recovered_market.data["breadth"])
         self.assertEqual([], recovered_market.data["sectors_top"])
+
+    def test_parallel_recovery_preserves_order_and_isolates_failures(self):
+        from threading import Barrier
+        from unittest.mock import patch
+        barrier = Barrier(3)
+        moment = datetime(2026, 7, 17, 14, 32, tzinfo=TIMEZONE)
+        bases = [{"code": code, "warnings": [], "errors": []} for code in ["600584", "688700", "300476"]]
+        stocks = AdapterResult(status="partial", source="fixture", data={"stocks": bases}, started_at=moment, finished_at=moment)
+        market = AdapterResult(status="partial", source="fixture", data={}, started_at=moment, finished_at=moment)
+        def recover(base, *args):
+            barrier.wait(timeout=3)
+            if base["code"] == "688700":
+                raise ConnectionError("fixture outage")
+            return {**base, "valid_quote": True}
+        with patch("pipeline.adapters.point_in_time._recover_stock", side_effect=recover):
+            result, _ = recover_fixed_point_in_time(stocks, market, "trading_noon", "2026-07-17", "2026-07-17", moment, ak_module=FakeAk())
+        self.assertEqual([x["code"] for x in bases], [x["code"] for x in result.data["stocks"]])
+        self.assertEqual(2, result.records_valid)
+        self.assertFalse(result.data["stocks"][1]["valid_quote"])
+        self.assertTrue(any("688700" in error for error in result.errors))
 
     def test_early_recovery_uses_previous_completed_close(self) -> None:
         moment = datetime(2026, 7, 17, 11, 50, tzinfo=TIMEZONE)

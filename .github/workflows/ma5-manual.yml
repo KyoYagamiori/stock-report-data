@@ -25,7 +25,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: stock-report-data-publisher-main
+  group: stock-ma5-publisher-main
   cancel-in-progress: false
 
 jobs:
@@ -64,4 +64,4 @@ jobs:
             exit 0
           fi
           git commit -m "ma5: ${{ inputs.phase }} ${{ inputs.planned_at }}"
-          git push
+          bash scripts/push_publication.sh

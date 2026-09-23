@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from datetime import date, datetime, time, timedelta
 from typing import Any
@@ -52,15 +53,18 @@ def recover_fixed_point_in_time(
     recovered_stocks: list[dict[str, Any]] = []
     stock_errors: list[str] = []
 
-    for base in stock_result.data.get("stocks", []):
+    def recover_one(base: dict[str, Any]) -> tuple[dict[str, Any], str | None]:
         try:
-            recovered_stocks.append(
-                _recover_stock(base, target_date, target_time, profile, ak_module)
-            )
+            return _recover_stock(base, target_date, target_time, profile, ak_module), None
         except Exception as exc:
             code = str(base.get("code", "unknown"))
-            stock_errors.append(f"{code} 时点恢复失败：{str(exc)[:240]}")
-            recovered_stocks.append(_invalidate_late_quote(base, str(exc)))
+            return _invalidate_late_quote(base, str(exc)), f"{code} 时点恢复失败：{str(exc)[:240]}"
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        for record, error in executor.map(recover_one, stock_result.data.get("stocks", [])):
+            recovered_stocks.append(record)
+            if error:
+                stock_errors.append(error)
 
     valid_stocks = sum(bool(item.get("valid_quote")) for item in recovered_stocks)
     stock_status = (
@@ -179,6 +183,8 @@ def _recover_stock(
         }
     )
     recovered.update(legacy.compute_indicators(chinese_history, "新浪不复权日线+目标时点", "unadjusted"))
+    recovered["indicator_asof_time"] = quote_at.tz_localize(TIMEZONE).isoformat()
+    recovered["indicator_bar_complete"] = profile != "trading_noon"
     recovered["volume_comparison_valid"] = profile != "trading_noon"
     _refresh_volume_signals(recovered)
     warnings = list(base.get("warnings") or [])
