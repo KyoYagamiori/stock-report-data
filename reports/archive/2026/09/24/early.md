@@ -146,4 +146,4 @@
 | 688361 | 否 | 设备链相对强、订单待核 | 站稳386.99且同业跟随 | 1—3日 | 破376或订单假设落空 | 腾讯/新浪9/23收盘 |
 | 600172 | 是 | 培育钻石短线脉冲 | 突破17.18且板块扩散 | 9/24 | 破15.82或冲高回落 | 腾讯/新浪9/23收盘 |
 
-**公开归档：**[查看本期早报](https://github.com/KyoYagamiori/stock-report-data/blob/main/reports/archive/2026/09/24/early.md)。
+**已自动归档，正文与索引回读一致；正文原始UTF-8字节SHA-256已实际计算并在索引登记：**[查看本期早报](https://github.com/KyoYagamiori/stock-report-data/blob/main/reports/archive/2026/09/24/early.md)。
