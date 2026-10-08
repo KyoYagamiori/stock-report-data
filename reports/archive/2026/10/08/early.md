@@ -115,3 +115,5 @@
 | 002371 | 否 | 国产设备中期逻辑稳 | 收复623.04元，再看640.80元 | 10/8—10/9 | 跌破614.26元且不修复 | 9/30收盘；10/8 09:00隔夜环境 |
 
 本报告为研究观察，不构成确定性买卖指令；未使用或推断任何个人持仓、成本或账户信息。
+
+公开归档：[reports/archive/2026/10/08/early.md](https://github.com/KyoYagamiori/stock-report-data/blob/main/reports/archive/2026/10/08/early.md)
