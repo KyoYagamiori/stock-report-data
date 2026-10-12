@@ -1,11 +1,14 @@
 import json
+import io
 import os
 import tempfile
 import unittest
 from copy import deepcopy
+from contextlib import redirect_stdout
 from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
+from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -16,6 +19,7 @@ from pipeline.quality import evaluate_quality
 from pipeline.runner import RunOptions, _snapshot_id, run_pipeline
 from pipeline.calendar import CalendarInfo
 from pipeline.schedule import resolve_schedule
+from pipeline.run import main as run_cli
 from tests.helpers import valid_snapshot
 from tests.test_publisher import calendar
 from tests.test_runner import stock_collector_for, full_market_collector
@@ -148,6 +152,30 @@ class CloseRepairTests(unittest.TestCase):
         params = resolve_schedule("schedule","17 12 * * *",moment=datetime(2026,10,12,21,45,tzinfo=TZ))
         self.assertEqual(("evening","21:45","delayed-current-phase"),
                          (params.snapshot_type,params.planned_at,params.attempt_role))
+
+    def test_cli_rechecks_automatic_date_after_setup_crosses_midnight(self):
+        moment = datetime(2026,10,13,0,1,tzinfo=TZ)
+        class Clock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return moment.astimezone(tz) if tz else moment.replace(tzinfo=None)
+        result = SimpleNamespace(grade="B",published=True,reason="published",snapshot_id="test",health_path=Path("test"))
+        args = ["pipeline.run","--snapshot-type","evening","--mode","full",
+                "--planned-at","20:17","--report-date","2026-10-12"]
+        for event, cron in (("schedule","17 12 * * *"),("schedule",""),("workflow_dispatch","")):
+            with (self.subTest(event=event,cron=cron), patch("sys.argv",args),
+                  patch("pipeline.run.datetime",Clock),
+                  patch.dict(os.environ,{"GITHUB_EVENT_NAME":event,"GITHUB_EVENT_SCHEDULE":cron}),
+                  patch("pipeline.run.run_pipeline",return_value=result) as execute,
+                  redirect_stdout(io.StringIO())):
+                run_cli()
+                options = execute.call_args.args[0]
+                if event == "schedule":
+                    self.assertEqual(("early","00:01","2026-10-13"),
+                                     (options.snapshot_type,options.planned_at,options.report_date))
+                else:
+                    self.assertEqual(("evening","20:17","2026-10-12"),
+                                     (options.snapshot_type,options.planned_at,options.report_date))
 
 
 if __name__ == "__main__":

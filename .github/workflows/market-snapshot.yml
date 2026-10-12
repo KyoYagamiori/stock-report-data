@@ -75,6 +75,7 @@ jobs:
     env:
       TZ: Asia/Shanghai
       PIPELINE_QUOTE_MODE: direct
+      GITHUB_EVENT_SCHEDULE: ${{ github.event.schedule }}
 
     steps:
       - name: Checkout public data repository
@@ -82,17 +83,6 @@ jobs:
         with:
           fetch-depth: 1
           ref: main
-
-      - name: Resolve schedule parameters
-        id: params
-        env:
-          GITHUB_EVENT_SCHEDULE: ${{ github.event.schedule }}
-          INPUT_SNAPSHOT_TYPE: ${{ inputs.snapshot_type }}
-          INPUT_MODE: ${{ inputs.mode }}
-          INPUT_PLANNED_AT: ${{ inputs.planned_at }}
-          INPUT_ATTEMPT_ROLE: ${{ inputs.attempt_role }}
-          INPUT_REPORT_DATE: ${{ inputs.report_date }}
-        run: python -m pipeline.schedule --github-output "$GITHUB_OUTPUT"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -108,6 +98,17 @@ jobs:
         env:
           PIPELINE_QUOTE_MODE: legacy
         run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Resolve schedule parameters
+        id: params
+        env:
+          GITHUB_EVENT_SCHEDULE: ${{ github.event.schedule }}
+          INPUT_SNAPSHOT_TYPE: ${{ inputs.snapshot_type }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_PLANNED_AT: ${{ inputs.planned_at }}
+          INPUT_ATTEMPT_ROLE: ${{ inputs.attempt_role }}
+          INPUT_REPORT_DATE: ${{ inputs.report_date }}
+        run: python -m pipeline.schedule --github-output "$GITHUB_OUTPUT"
 
       - name: Collect, grade and publish snapshot
         id: collect

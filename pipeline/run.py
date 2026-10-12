@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from pipeline.publisher import write_health
@@ -9,6 +10,7 @@ from pipeline import SCHEMA_VERSION
 from pathlib import Path
 
 from pipeline.runner import RunOptions, run_pipeline
+from pipeline.schedule import resolve_schedule, current_phase
 
 
 def parse_args() -> argparse.Namespace:
@@ -33,17 +35,28 @@ def main() -> None:
         report_date=args.report_date,
         moment=started,
     )
+    # Setup, dependency installation and CI can cross midnight after the
+    # workflow's parameter step. Re-resolve automatic runs at collection start.
+    # Explicit workflow_dispatch requests retain the requested date/type.
+    event = os.environ.get("GITHUB_EVENT_NAME", "")
+    if event in {"push", "schedule"}:
+        cron = os.environ.get("GITHUB_EVENT_SCHEDULE", "")
+        # Already queued workflows may use the older step-only cron env.
+        params = (current_phase(started, "delayed-current-phase") if event == "schedule" and not cron
+                  else resolve_schedule(event, cron, moment=started))
+        options = RunOptions(params.snapshot_type, params.mode, params.planned_at,
+                             params.attempt_role, params.report_date, started)
     root = Path(args.root).resolve()
     try:
         result = run_pipeline(options, root)
     except Exception as exc:
         now = datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds")
-        report_date = args.report_date or started.date().isoformat()
+        report_date = options.report_date or started.date().isoformat()
         write_health(root, {"schema_version": SCHEMA_VERSION, "status": "error",
-            "snapshot_type": args.snapshot_type, "snapshot_mode": args.mode,
-            "report_date": report_date, "report_cycle": f"{report_date}-{args.snapshot_type}",
-            "attempt_role": args.attempt_role,
-            "planned_at": f"{report_date}T{args.planned_at}:00+08:00",
+            "snapshot_type": options.snapshot_type, "snapshot_mode": options.mode,
+            "report_date": report_date, "report_cycle": f"{report_date}-{options.snapshot_type}",
+            "attempt_role": options.attempt_role,
+            "planned_at": f"{report_date}T{options.planned_at}:00+08:00",
             "started_at": started.isoformat(timespec="seconds"), "finished_at": now,
             "quality_grade": "F", "published": False, "reason": f"{type(exc).__name__}: {exc}"})
         raise
