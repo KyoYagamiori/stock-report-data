@@ -7,6 +7,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from pipeline.contracts import ContractError, load_quality_profiles
+from pipeline.close_verification import completed_close_window_verified
 
 
 TIMEZONE = ZoneInfo("Asia/Shanghai")
@@ -93,7 +94,9 @@ def _blocking_reasons(
             blocking.append("market_date is not the latest completed trading day")
 
     quote_window = profile.get("quote_window")
-    if quote_window and not _quote_in_window(snapshot.get("quote_time_max"), quote_window):
+    close_verified = (quality_profile in {"trading_close", "trading_evening"}
+                      and completed_close_window_verified(snapshot))
+    if quote_window and not _quote_in_window(snapshot.get("quote_time_max"), quote_window) and not close_verified:
         blocking.append("quote_time_max is outside the profile quote window")
 
     max_age = profile.get("max_quote_age_minutes")

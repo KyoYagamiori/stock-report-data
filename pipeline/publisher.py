@@ -110,8 +110,10 @@ def publish_snapshot(
     _write_bytes_atomic(legacy_json_path, payload_bytes)
     _write_bytes_atomic(legacy_json_path.with_suffix(".md"), markdown_bytes)
 
-    manifest["calendar"] = dict(calendar)
+    if calendar["date"] >= manifest["calendar"]["date"]:
+        manifest["calendar"] = dict(calendar)
     apply_pointer(manifest, pointer, snapshot)
+    _verify_readiness_targets(root, manifest)
     validate_manifest(manifest)
     _write_bytes_atomic(manifest_path, canonical_json_bytes(manifest))
     _write_bytes_atomic(manifest_path.with_suffix(".md"), render_manifest(manifest).encode("utf-8"))
@@ -145,18 +147,21 @@ def refresh_manifest(root: Path, calendar: dict[str, Any], generated_at: str) ->
         manifest["calendar"] = dict(calendar)
     manifest["generated_at"] = max(manifest["generated_at"], generated_at)
     update_report_readiness(manifest)
-    for kind, pointer in manifest["snapshots"].items():
-        if not pointer:
-            continue
-        try:
-            verify_pointer(root, pointer)
-        except (ContractError, OSError) as exc:
-            if kind in manifest["report_readiness"]:
-                manifest["report_readiness"][kind] = empty_readiness(f"invalid target: {exc}")
+    _verify_readiness_targets(root, manifest)
     validate_manifest(manifest)
     _write_bytes_atomic(path, canonical_json_bytes(manifest))
     _write_bytes_atomic(path.with_suffix(".md"), render_manifest(manifest).encode("utf-8"))
     return path
+
+
+def _verify_readiness_targets(root: Path, manifest: dict[str, Any]) -> None:
+    for kind, readiness in manifest["report_readiness"].items():
+        if readiness["status"] not in {"ready_a", "ready_b", "not_applicable"}:
+            continue
+        try:
+            verify_pointer(root, manifest["snapshots"][kind])
+        except (ContractError, OSError) as exc:
+            manifest["report_readiness"][kind] = empty_readiness(f"invalid target: {exc}")
 
 
 def write_health(root: Path, health: dict[str, Any]) -> Path:
@@ -171,7 +176,7 @@ def write_health(root: Path, health: dict[str, Any]) -> Path:
     if manifest_path.exists():
         manifest = load_json(manifest_path)
         manifest["health"]["last_attempt"] = {key: health.get(key) for key in
-            ("status", "snapshot_type", "planned_at", "started_at", "finished_at", "quality_grade", "published", "reason")}
+            ("status", "snapshot_type", "report_date", "report_cycle", "snapshot_id", "planned_at", "started_at", "finished_at", "quality_grade", "published", "reason", "blocking_reasons")}
         manifest["generated_at"] = max(manifest["generated_at"], health["finished_at"])
         if kind in manifest["report_readiness"] and manifest["report_readiness"][kind]["status"] == "not_ready":
             manifest["report_readiness"][kind]["reasons"].append(str(health.get("reason", "unavailable")))

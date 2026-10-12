@@ -114,11 +114,23 @@ def validate_snapshot(payload: dict[str, Any]) -> None:
     planned = datetime.fromisoformat(payload["planned_at"])
     started = datetime.fromisoformat(payload["started_at"])
     published = datetime.fromisoformat(payload["published_at"])
+    if planned.date().isoformat() != payload["report_date"]:
+        raise ContractError("planned_at date must equal report_date")
     if not planned <= started <= published:
         raise ContractError("planned_at, started_at and published_at must be chronological")
     quote_max = payload.get("quote_time_max")
     if quote_max and datetime.fromisoformat(quote_max) > published:
         raise ContractError("quote_time_max cannot be after publication")
+    quote_min = payload.get("quote_time_min")
+    if quote_min and quote_max and datetime.fromisoformat(quote_min) > datetime.fromisoformat(quote_max):
+        raise ContractError("quote_time_min cannot be after quote_time_max")
+    for value in (quote_min, quote_max):
+        if value and datetime.fromisoformat(value).date().isoformat() != payload["market_date"]:
+            raise ContractError("quote timestamp date must equal market_date")
+    for stock in payload.get("stocks", []):
+        indicator_asof = stock.get("indicator_asof")
+        if stock.get("indicator_status") == "ready" and indicator_asof and indicator_asof > payload["market_date"]:
+            raise ContractError("indicator_asof cannot be after market_date")
 
 
 def validate_manifest(payload: dict[str, Any]) -> None:

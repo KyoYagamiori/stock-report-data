@@ -36,7 +36,8 @@ def collect_market_overview(
         if spot_quotes.attrs.get("fetch_full_market"):
             try:
                 from pipeline.adapters.direct_quotes import fetch_full_market
-                full = fetch_full_market()
+                from pipeline.adapters.bounded import call_with_timeout
+                full = call_with_timeout(fetch_full_market, seconds=60)
                 # A long request crossing the noon cutoff must not import afternoon breadth.
                 current = datetime.now(TIMEZONE)
                 if moment.time().replace(tzinfo=None) < time(13) and current.time().replace(tzinfo=None) >= time(13):

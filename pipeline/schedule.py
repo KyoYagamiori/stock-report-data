@@ -68,7 +68,7 @@ def resolve_schedule(
         # Cron delivery may be hours late or cross midnight. Never label current
         # quotes with a missed morning/noon cycle. Collect the actual phase.
         deadlines = {"early": time(9), "noon": time(12, 40), "intraday": time(15, 10),
-                     "close": time(20), "evening": time(23, 59, 59)}
+                     "close": time(20), "evening": time(21, 5)}
         planned = datetime.strptime(params.planned_at, "%H:%M").time()
         clock = now.time().replace(tzinfo=None)
         if clock < planned or clock >= deadlines[params.snapshot_type]:

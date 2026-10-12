@@ -12,6 +12,7 @@ import requests
 
 from pipeline.adapters import AdapterResult
 from pipeline.contracts import load_report_pools
+from pipeline.close_verification import verify_completed_close
 from scripts.fetch_snapshot import compute_indicators, compute_ma_metrics
 
 TZ = ZoneInfo("Asia/Shanghai")
@@ -91,9 +92,9 @@ def fetch_quotes(symbols):
     return result
 
 
-def daily_indicators(code, market_date, quote_time):
+def fetch_daily_frame(code, quote_symbol=None):
     url = "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData"
-    response = requests.get(url, params={"symbol": symbol(code), "scale": 240,
+    response = requests.get(url, params={"symbol": quote_symbol or symbol(code), "scale": 240,
         "ma": "no", "datalen": 160}, timeout=(15, 20))
     response.raise_for_status()
     match = re.search(r'\(\s*(\[.*\])\s*\)', response.text, re.S)
@@ -102,6 +103,13 @@ def daily_indicators(code, market_date, quote_time):
     frame = pd.DataFrame(json.loads(match.group(1)))
     frame = frame.rename(columns={"day": "日期", "close": "收盘", "high": "最高", "low": "最低"})
     frame["日期"] = pd.to_datetime(frame["日期"])
+    for key in ("open", "最高", "最低", "收盘", "volume"):
+        frame[key] = pd.to_numeric(frame[key], errors="coerce")
+    return frame.sort_values("日期")
+
+
+def daily_indicators(code, market_date, quote_time, quote_symbol=None):
+    frame = fetch_daily_frame(code, quote_symbol)
     # During the session publish only completed daily indicators, labelled by date.
     quote = datetime.fromisoformat(quote_time)
     mask = frame["日期"].dt.strftime("%Y-%m-%d") <= market_date
@@ -111,6 +119,14 @@ def daily_indicators(code, market_date, quote_time):
     result = compute_indicators(frame, "新浪240分钟日线（未复权，已完成日线）", "unadjusted")
     result.update(compute_ma_metrics(frame, None, "新浪已完成日线"))
     result["indicator_is_completed_daily"] = True
+    if not frame.empty:
+        last = frame.iloc[-1]
+        result["completed_daily_bar"] = {
+            "date": last["日期"].strftime("%Y-%m-%d"),
+            "open": float(last["open"]), "high": float(last["最高"]),
+            "low": float(last["最低"]), "close": float(last["收盘"]),
+            "volume": float(last["volume"]),
+        }
     return result
 
 
@@ -139,25 +155,36 @@ def collect_direct(root, moment, market_date, mode):
         if row["valid_quote"] and (mode == "full" or row["locked"]):
             try:
                 row.update(daily_indicators(row["code"], market_date, row["quote_time"]))
+                row.update(verify_completed_close(row, row.get("completed_daily_bar", {}), market_date))
             except Exception as exc:
                 row["warnings"].append(f"日线指标缺失：{type(exc).__name__}: {str(exc)[:140]}")
         return row
     with ThreadPoolExecutor(max_workers=6) as executor:
         stocks = list(executor.map(enrich, stocks))
-    indices = []
-    for sym in INDEX_SYMBOLS:
+    def enrich_index(sym):
         row = quotes.get(sym)
         if row and row["latest_trade_date"] == market_date:
-            indices.append({"code": sym[2:], "name": row["name"], "latest": row["latest_price"],
-                "pct_change": row["pct_change"], "quote_time": row["quote_time"], "source": row.get("source", SOURCE)})
+            row = dict(row)
+            if datetime.fromisoformat(row["quote_time"]).time() >= time(15):
+                try:
+                    daily = daily_indicators(sym[2:], market_date, row["quote_time"], quote_symbol=sym)
+                    row.update(verify_completed_close(row, daily.get("completed_daily_bar", {}), market_date))
+                except Exception as exc:
+                    errors.append(f"{sym} 收盘日线核验缺失：{type(exc).__name__}")
+            return {**row, "code": sym[2:], "latest": row["latest_price"], "source": row.get("source", SOURCE)}
+        return None
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        indices = [row for row in executor.map(enrich_index, INDEX_SYMBOLS) if row]
     frame = pd.DataFrame()
     frame.attrs["direct_indices"] = indices
     frame.attrs["quote_scope"] = "configured_pool_only"
     frame.attrs["fetch_full_market"] = mode == "full"
     valid_count = sum(row["valid_quote"] for row in stocks)
     errors.append("批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。")
+    close_verified = (valid_count == len(stocks) and len(indices) == 3
+                      and all(row.get("close_quote_verified") for row in [*stocks, *indices]))
     return AdapterResult(status="success" if valid_count == len(stocks) else "partial",
-        source="; ".join(sorted({row["price_data_source"] for row in stocks})), data={"stocks": stocks}, started_at=started, finished_at=datetime.now(TZ),
+        source="; ".join(sorted({row["price_data_source"] for row in stocks})), data={"stocks": stocks, "completed_close_verified": close_verified}, started_at=started, finished_at=datetime.now(TZ),
         records_expected=len(stocks), records_valid=valid_count, errors=errors), frame
 
 

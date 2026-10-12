@@ -53,6 +53,7 @@ def build_pointer(snapshot: dict[str, Any], selected_file: str, sha256: str) -> 
         "report_cycle": snapshot["report_cycle"],
         "market_date": snapshot["market_date"],
         "quote_time_max": snapshot.get("quote_time_max"),
+        "market_asof": snapshot.get("market_asof"),
         "collection_mode": snapshot.get("collection_mode", "unknown"),
         "point_in_time_recovered": bool(snapshot.get("point_in_time_recovered")),
         "schedule_delay_minutes": snapshot.get("schedule_delay_minutes", 0),
@@ -106,12 +107,12 @@ def apply_pointer(manifest: dict[str, Any], pointer: dict[str, Any], snapshot: d
     pointer["missing_optional_fields"] = list(snapshot.get("missing_optional_fields", []))
     pointer["quality_reasons"] = list(snapshot.get("quality_reasons", []))
     manifest["snapshots"][pointer["snapshot_type"]] = pointer
-    manifest["generated_at"] = snapshot["published_at"]
+    manifest["generated_at"] = max(manifest["generated_at"], snapshot["published_at"])
     grade = snapshot["quality_grade"]
     if grade == "A":
-        manifest["health"]["last_grade_a_at"] = snapshot["published_at"]
+        manifest["health"]["last_grade_a_at"] = max(manifest["health"].get("last_grade_a_at") or "", snapshot["published_at"])
     elif grade == "B":
-        manifest["health"]["last_grade_b_at"] = snapshot["published_at"]
+        manifest["health"]["last_grade_b_at"] = max(manifest["health"].get("last_grade_b_at") or "", snapshot["published_at"])
     update_report_readiness(manifest)
 
 

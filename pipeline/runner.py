@@ -4,11 +4,12 @@ import json
 import os
 import re
 from copy import deepcopy
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, time, timedelta
 from pathlib import Path
 from typing import Any, Callable
 from zoneinfo import ZoneInfo
+from uuid import uuid4
 
 import pandas as pd
 
@@ -57,6 +58,7 @@ class RunOptions:
     attempt_role: str
     report_date: str | None = None
     moment: datetime | None = None
+    run_nonce: str = field(default_factory=lambda: uuid4().hex[:8])
 
     def validate(self) -> None:
         if self.snapshot_type not in SNAPSHOT_TYPES:
@@ -90,7 +92,9 @@ def run_pipeline(
     ] = recover_fixed_point_in_time,
 ) -> RunResult:
     options.validate()
-    started = (options.moment or datetime.now(TIMEZONE)).astimezone(TIMEZONE)
+    # Every serialized pipeline timestamp uses seconds. Compare at that same
+    # precision, including the fast path that reuses a verified close.
+    started = (options.moment or datetime.now(TIMEZONE)).astimezone(TIMEZONE).replace(microsecond=0)
     report_date = options.report_date or started.date().isoformat()
     planned_at = f"{report_date}T{options.planned_at}:00+08:00"
     if report_date != started.date().isoformat():
@@ -153,6 +157,10 @@ def run_pipeline(
         market_result = market_collector(spot_quotes, stock_result.source, started)
         if previous_close:
             market_result = _market_from_previous_close(previous_close, started)
+    if (profile in {"trading_preopen", "non_trading"} and market_date < report_date
+            and stock_result.data.get("completed_close_verified") and not previous_close):
+        _persist_previous_completed_close(options, root, started, market_date, calendar,
+                                          stock_result, market_result)
     if profile == "trading_noon":
         _annotate_noon_volume(root, stock_result.data["stocks"], report_date)
     published_at = datetime.now(TIMEZONE).isoformat(timespec="seconds")
@@ -201,9 +209,10 @@ def run_pipeline(
             snapshot["warnings"].append(f"历史时点恢复失败：{str(exc)[:400]}")
     apply_quality_result(snapshot, quality)
     if quality.grade == "F":
-        health = _health_payload(options, started, snapshot, False, "quality gate failed")
+        reason = "quality gate failed: " + "; ".join(quality.blocking_reasons)
+        health = _health_payload(options, started, snapshot, False, reason)
         health_path = write_health(root, health)
-        return RunResult("F", False, "quality gate failed", snapshot["snapshot_id"], health_path)
+        return RunResult("F", False, reason, snapshot["snapshot_id"], health_path)
 
     publish_result = publish_snapshot(snapshot, root, calendar.as_manifest())
     health = _health_payload(options, started, snapshot, publish_result.published, publish_result.reason)
@@ -240,7 +249,7 @@ def _run_evening(
     except ContractError as exc:
         return _evening_failure(options, root, started, recovery_reason or str(exc))
     if close_snapshot.get("market_date") != report_date:
-        return _evening_failure(options, root, started, "close snapshot market_date is not today")
+        return _evening_failure(options, root, started, recovery_reason or "close snapshot market_date is not today")
 
     published_at = datetime.now(TIMEZONE).isoformat(timespec="seconds")
     snapshot = deepcopy(close_snapshot)
@@ -320,7 +329,7 @@ def _evening_failure(
         "snapshot_type": "evening",
         "snapshot_mode": options.mode,
         "attempt_role": options.attempt_role,
-        "planned_at": options.planned_at,
+        "planned_at": f"{options.report_date or started.date().isoformat()}T{options.planned_at}:00+08:00",
         "started_at": started.isoformat(timespec="seconds"),
         "finished_at": datetime.now(TIMEZONE).isoformat(timespec="seconds"),
         "quality_grade": "F",
@@ -329,6 +338,41 @@ def _evening_failure(
     }
     path = write_health(root, health)
     return RunResult("F", False, reason, None, path)
+
+
+def _persist_previous_completed_close(
+    options: RunOptions, root: Path, started: datetime, market_date: str,
+    calendar: CalendarInfo, stock_result: AdapterResult, market_result: AdapterResult,
+) -> None:
+    """Repair missed data archives after midnight, preserving their market date.
+
+    This emits data snapshots only. It never regenerates or sends expired reports.
+    The current day's Manifest calendar and report readiness remain current.
+    """
+    recovery_options = RunOptions("close", "full", "15:20", "completed-close-recovery",
+                                  report_date=market_date, moment=started)
+    snapshot = _build_snapshot(
+        options=recovery_options, report_date=market_date,
+        planned_at=f"{market_date}T15:20:00+08:00", started=started,
+        published_at=datetime.now(TIMEZONE).isoformat(timespec="seconds"),
+        calendar=calendar, profile="trading_close", market_date=market_date,
+        stock_result=stock_result, market_result=market_result,
+        collection_mode="verified_completed_close_recovery",
+    )
+    snapshot["late_data_recovery"] = True
+    quality = evaluate_quality(snapshot, "trading_close")
+    apply_quality_result(snapshot, quality)
+    if quality.grade == "F":
+        stock_result.errors.append("上一交易日收盘归档恢复失败：" + "; ".join(quality.blocking_reasons))
+        return
+    published = publish_snapshot(snapshot, root, calendar.as_manifest())
+    if not published.published:
+        return
+    write_health(root, _health_payload(recovery_options, started, snapshot, True, "published"))
+    evening_options = RunOptions("evening", "full", "20:17", "completed-close-recovery",
+                                 report_date=market_date, moment=started)
+    _run_evening(evening_options, root, started, market_date,
+                 f"{market_date}T20:17:00+08:00", calendar)
 
 
 def _build_snapshot(
@@ -354,6 +398,17 @@ def _build_snapshot(
         for record in stocks
         if record.get("valid_quote") and record.get("quote_time")
     )
+    # Include index update times as well as individual stocks. A late index
+    # refresh is data provenance, and must not be hidden by an earlier stock.
+    for index in market.get("indices", []):
+        value = index.get("quote_time")
+        try:
+            parsed = datetime.fromisoformat(str(value))
+            if parsed.utcoffset() is not None:
+                quote_times.append(parsed.astimezone(TIMEZONE).isoformat())
+        except (TypeError, ValueError):
+            pass
+    quote_times.sort()
     coverage = _coverage(stocks, market)
     pools = load_report_pools()
     present_codes = {record.get("code") for record in stocks}
@@ -399,6 +454,8 @@ def _build_snapshot(
         "report_date": report_date,
         "report_cycle": f"{report_date}-{options.snapshot_type}",
         "market_date": market_date,
+        "market_asof": (f"{market_date}T15:00:00+08:00"
+                        if stock_result.data.get("completed_close_verified") else None),
         "market_session": session,
         "planned_at": planned_at,
         "started_at": started.isoformat(timespec="seconds"),
@@ -466,7 +523,7 @@ def _initial_time_valid(
 ) -> bool:
     planned = datetime.fromisoformat(planned_at)
     published = datetime.fromisoformat(published_at)
-    if not planned <= started <= published:
+    if not planned <= started.replace(microsecond=0) <= published:
         return False
     if not quote_times:
         return profile == "non_trading"
@@ -663,7 +720,10 @@ def _session_for(snapshot_type: str, started: datetime) -> str:
 def _snapshot_id(report_date: str, options: RunOptions, started: datetime) -> str:
     run_id = _workflow_run_id(started)
     safe_run_id = re.sub(r"[^A-Za-z0-9_-]", "", run_id)[-24:]
-    return f"{report_date.replace('-', '')}-{options.planned_at.replace(':', '')}-{options.snapshot_type}-{options.mode}-{safe_run_id}"
+    if not os.environ.get("GITHUB_RUN_ID"):
+        safe_run_id += f"-{options.run_nonce}"
+    retry_suffix = f"-a{_workflow_attempt()}" if _workflow_attempt() > 1 else ""
+    return f"{report_date.replace('-', '')}-{options.planned_at.replace(':', '')}-{options.snapshot_type}-{options.mode}-{safe_run_id}{retry_suffix}"
 
 
 def _workflow_run_id(started: datetime) -> str:
@@ -689,6 +749,8 @@ def _health_payload(
         "status": "published" if published else "not_published",
         "snapshot_id": snapshot["snapshot_id"],
         "snapshot_type": options.snapshot_type,
+        "report_date": snapshot["report_date"],
+        "report_cycle": snapshot["report_cycle"],
         "snapshot_mode": options.mode,
         "attempt_role": options.attempt_role,
         "planned_at": snapshot["planned_at"],

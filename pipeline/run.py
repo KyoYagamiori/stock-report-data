@@ -24,21 +24,27 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    started = datetime.now(ZoneInfo("Asia/Shanghai")).replace(microsecond=0)
     options = RunOptions(
         snapshot_type=args.snapshot_type,
         mode=args.mode,
         planned_at=args.planned_at,
         attempt_role=args.attempt_role,
         report_date=args.report_date,
+        moment=started,
     )
     root = Path(args.root).resolve()
     try:
         result = run_pipeline(options, root)
     except Exception as exc:
         now = datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds")
+        report_date = args.report_date or started.date().isoformat()
         write_health(root, {"schema_version": SCHEMA_VERSION, "status": "error",
             "snapshot_type": args.snapshot_type, "snapshot_mode": args.mode,
-            "planned_at": args.planned_at, "started_at": now, "finished_at": now,
+            "report_date": report_date, "report_cycle": f"{report_date}-{args.snapshot_type}",
+            "attempt_role": args.attempt_role,
+            "planned_at": f"{report_date}T{args.planned_at}:00+08:00",
+            "started_at": started.isoformat(timespec="seconds"), "finished_at": now,
             "quality_grade": "F", "published": False, "reason": f"{type(exc).__name__}: {exc}"})
         raise
     print(
