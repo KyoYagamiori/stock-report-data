@@ -91,7 +91,8 @@ class CloseRepairTests(unittest.TestCase):
                 return moment.astimezone(tz) if tz else moment.replace(tzinfo=None)
         def cal(*_):
             return CalendarInfo("2026-07-17",True,"2026-07-16","2026-07-20","test",True)
-        with tempfile.TemporaryDirectory() as tmp, patch("pipeline.runner.datetime", Clock):
+        with (tempfile.TemporaryDirectory() as tmp, patch("pipeline.runner.datetime", Clock),
+              patch.dict(os.environ, {"GITHUB_RUN_ID": "", "GITHUB_RUN_ATTEMPT": "1"})):
             root = Path(tmp)
             result = run_pipeline(RunOptions("early","full","00:43","config-refresh",moment=moment),root,
                                   calendar_resolver=cal,stock_collector=verified_stocks,market_collector=verified_market)
