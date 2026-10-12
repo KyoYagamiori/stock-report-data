@@ -1,41 +1,40 @@
 {
   "calendar": {
-    "date": "2026-09-23",
+    "date": "2026-10-12",
     "is_trading_day": true,
-    "latest_completed_trading_day": "2026-09-23",
-    "next_trading_day": "2026-09-24",
+    "latest_completed_trading_day": "2026-10-09",
+    "next_trading_day": "2026-10-13",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-09-23T15:41:40+08:00",
+  "generated_at": "2026-10-12T14:40:05+08:00",
   "health": {
+    "last_attempt": {
+      "finished_at": "2026-10-12T14:40:05+08:00",
+      "planned_at": "2026-10-12T14:39:00+08:00",
+      "published": true,
+      "quality_grade": "B",
+      "reason": "published",
+      "snapshot_type": "intraday",
+      "started_at": "2026-10-12T14:39:53+08:00",
+      "status": "published"
+    },
     "last_grade_a_at": "2026-09-23T15:41:40+08:00",
-    "last_grade_b_at": "2026-09-23T13:32:52+08:00",
+    "last_grade_b_at": "2026-10-12T14:40:05+08:00",
     "latest_run": "output/health/latest_run.json"
   },
   "report_readiness": {
     "early": {
-      "collection_mode": "historical_point_in_time_recovery",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "002837:quote",
-        "total_turnover",
-        "market_breadth",
-        "sectors_top",
-        "sectors_bottom"
-      ],
-      "point_in_time_recovered": true,
-      "quality_grade": "B",
-      "quality_profile": "trading_preopen",
+      "missing_optional_fields": [],
+      "quality_grade": null,
+      "quality_profile": null,
       "reasons": [
-        "quality profile thresholds met for grade B",
-        "indices coverage 3/3",
-        "core coverage 10/10"
+        "stale report cycle 2026-09-23-early; expected 2026-10-12-early"
       ],
-      "schedule_delay_minutes": 268.7,
-      "selected_file": "output/archive/2026/09/23/early/20260923-0855-early-full-35822201564.json",
-      "selected_snapshot_id": "20260923-0855-early-full-35822201564",
-      "sha256": "f67169061601f8fcadf5b8d7d0d2fe1b1c9356a2ccc292bba7ad7b182ed3de3c",
-      "status": "ready_b"
+      "selected_file": null,
+      "selected_snapshot_id": null,
+      "sha256": null,
+      "status": "not_ready"
     },
     "evening": {
       "missing_core_fields": [],
@@ -43,7 +42,7 @@
       "quality_grade": null,
       "quality_profile": null,
       "reasons": [
-        "stale report cycle 2026-09-20-evening; expected 2026-09-23-evening"
+        "stale report cycle 2026-09-20-evening; expected 2026-10-12-evening"
       ],
       "selected_file": null,
       "selected_snapshot_id": null,
@@ -51,27 +50,17 @@
       "status": "not_ready"
     },
     "noon": {
-      "collection_mode": "historical_point_in_time_recovery",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "total_turnover",
-        "market_breadth",
-        "sectors_top",
-        "sectors_bottom"
-      ],
-      "point_in_time_recovered": true,
-      "quality_grade": "B",
-      "quality_profile": "trading_noon",
+      "missing_optional_fields": [],
+      "quality_grade": null,
+      "quality_profile": null,
       "reasons": [
-        "quality profile thresholds met for grade B",
-        "indices coverage 3/3",
-        "core coverage 10/10"
+        "stale report cycle 2026-09-23-noon; expected 2026-10-12-noon"
       ],
-      "schedule_delay_minutes": 102.71,
-      "selected_file": "output/archive/2026/09/23/noon/20260923-1135-noon-full-35821059710.json",
-      "selected_snapshot_id": "20260923-1135-noon-full-35821059710",
-      "sha256": "2dce30c17746f2ed29a24ddbc7d1d7ac56e7e429204f07045492e5dd431f5444",
-      "status": "ready_b"
+      "selected_file": null,
+      "selected_snapshot_id": null,
+      "sha256": null,
+      "status": "not_ready"
     }
   },
   "schema_version": "1.6.1",
@@ -171,30 +160,33 @@
     },
     "intraday": {
       "collection_mode": "live_or_latest_completed",
-      "core_effective_count": 10,
-      "effective_field_count": 42,
+      "core_effective_count": 11,
+      "effective_field_count": 28,
       "latest_alias": "output/latest/intraday/report_data_compact.json",
-      "market_date": "2026-09-23",
+      "market_date": "2026-10-12",
       "missing_core_fields": [],
       "missing_optional_fields": [
-        "688700:technical_indicators"
+        "total_turnover",
+        "market_breadth",
+        "sectors_top",
+        "sectors_bottom"
       ],
       "point_in_time_recovered": false,
-      "published_at": "2026-09-23T15:41:40+08:00",
-      "quality_grade": "A",
+      "published_at": "2026-10-12T14:40:05+08:00",
+      "quality_grade": "B",
       "quality_profile": "trading_intraday",
       "quality_reasons": [
-        "quality profile thresholds met for grade A",
+        "quality profile thresholds met for grade B",
         "indices coverage 3/3",
-        "core coverage 10/10"
+        "core coverage 11/11"
       ],
-      "quote_time_max": "2026-09-23T15:35:45+08:00",
-      "report_cycle": "2026-09-23-intraday",
-      "schedule_delay_minutes": 335.38,
+      "quote_time_max": "2026-10-12T14:39:57+08:00",
+      "report_cycle": "2026-10-12-intraday",
+      "schedule_delay_minutes": 0.89,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/09/23/intraday/20260923-1005-intraday-light-35832903398.json",
-      "selected_snapshot_id": "20260923-1005-intraday-light-35832903398",
-      "sha256": "79bb674eea1a7f1be67cf38dc93dc354ba5c7295b2b89c40475f427d0fef3650",
+      "selected_file": "output/archive/2026/10/12/intraday/20261012-1439-intraday-light-local20261012143953.json",
+      "selected_snapshot_id": "20261012-1439-intraday-light-local20261012143953",
+      "sha256": "f98bf78f93d8a2862d3ebf26aae62ea01225971d3c4e597515265caf8309c85b",
       "snapshot_type": "intraday",
       "suitable_reports": [
         "noon",

@@ -16,7 +16,7 @@ from pipeline.contracts import (
     validate_manifest,
     validate_snapshot,
 )
-from pipeline.manifest import apply_pointer, build_pointer, new_manifest
+from pipeline.manifest import apply_pointer, build_pointer, new_manifest, update_report_readiness, empty_readiness
 from pipeline.render import render_health, render_manifest, render_snapshot
 
 
@@ -92,7 +92,10 @@ def publish_snapshot(
     manifest_path = root / "output" / "latest" / "manifest.json"
     manifest = _load_or_create_manifest(manifest_path, calendar, snapshot["published_at"])
     current_pointer = manifest["snapshots"].get(snapshot["snapshot_type"])
-    current_snapshot = _load_pointer_snapshot(root, current_pointer)
+    try:
+        current_snapshot = _load_pointer_snapshot(root, current_pointer)
+    except (ContractError, OSError):
+        current_snapshot = None
     comparator = should_publish_intraday if snapshot["snapshot_type"] == "intraday" else should_publish_fixed
     if not comparator(snapshot, current_snapshot):
         return PublishResult(False, "candidate did not beat current authoritative snapshot", archive_path, manifest_path)
@@ -125,13 +128,56 @@ def verify_pointer(root: Path, pointer: dict[str, Any]) -> dict[str, Any]:
     if payload.get("snapshot_id") != pointer.get("selected_snapshot_id"):
         raise ContractError("Manifest snapshot_id does not match target payload")
     validate_snapshot(payload)
+    for key in ("snapshot_type", "report_cycle", "market_date", "quality_grade", "quality_profile", "schema_version"):
+        if pointer.get(key) != payload.get(key):
+            raise ContractError(f"Manifest {key} does not match target payload")
+    if _archive_path(root, payload).relative_to(root).as_posix() != pointer["selected_file"]:
+        raise ContractError("Manifest path does not match payload date/type/id")
     return payload
+
+
+def refresh_manifest(root: Path, calendar: dict[str, Any], generated_at: str) -> Path:
+    """Refresh availability even when collection fails; never redate market data."""
+    path = root / "output/latest/manifest.json"
+    manifest = _load_or_create_manifest(path, calendar, generated_at)
+    # Historical repairs must not roll the current availability date backwards.
+    if calendar["date"] >= manifest["calendar"]["date"]:
+        manifest["calendar"] = dict(calendar)
+    manifest["generated_at"] = max(manifest["generated_at"], generated_at)
+    update_report_readiness(manifest)
+    for kind, pointer in manifest["snapshots"].items():
+        if not pointer:
+            continue
+        try:
+            verify_pointer(root, pointer)
+        except (ContractError, OSError) as exc:
+            if kind in manifest["report_readiness"]:
+                manifest["report_readiness"][kind] = empty_readiness(f"invalid target: {exc}")
+    validate_manifest(manifest)
+    _write_bytes_atomic(path, canonical_json_bytes(manifest))
+    _write_bytes_atomic(path.with_suffix(".md"), render_manifest(manifest).encode("utf-8"))
+    return path
 
 
 def write_health(root: Path, health: dict[str, Any]) -> Path:
     path = root / "output" / "health" / "latest_run.json"
     _write_bytes_atomic(path, canonical_json_bytes(health))
     _write_bytes_atomic(path.with_suffix(".md"), render_health(health).encode("utf-8"))
+    # Retain evidence per run as latest_run will be replaced by the next cycle.
+    stamp = str(health.get("started_at", "unknown")).replace(":", "").replace("+", "_")
+    kind = health.get("snapshot_type", "unknown")
+    _write_bytes_atomic(root / "output/health/runs" / f"{stamp}-{kind}.json", canonical_json_bytes(health))
+    manifest_path = root / "output/latest/manifest.json"
+    if manifest_path.exists():
+        manifest = load_json(manifest_path)
+        manifest["health"]["last_attempt"] = {key: health.get(key) for key in
+            ("status", "snapshot_type", "planned_at", "started_at", "finished_at", "quality_grade", "published", "reason")}
+        manifest["generated_at"] = max(manifest["generated_at"], health["finished_at"])
+        if kind in manifest["report_readiness"] and manifest["report_readiness"][kind]["status"] == "not_ready":
+            manifest["report_readiness"][kind]["reasons"].append(str(health.get("reason", "unavailable")))
+        validate_manifest(manifest)
+        _write_bytes_atomic(manifest_path, canonical_json_bytes(manifest))
+        _write_bytes_atomic(manifest_path.with_suffix(".md"), render_manifest(manifest).encode("utf-8"))
     return path
 
 

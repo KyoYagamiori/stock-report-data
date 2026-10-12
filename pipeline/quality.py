@@ -210,8 +210,8 @@ def _quote_in_window(value: Any, window: dict[str, str]) -> bool:
 
 def _quote_is_fresh(snapshot: dict[str, Any], max_age_minutes: int) -> bool:
     quote = _parse_iso(snapshot.get("quote_time_max"))
-    started = _parse_iso(snapshot.get("started_at"))
-    if quote is None or started is None:
+    published = _parse_iso(snapshot.get("published_at"))
+    if quote is None or published is None:
         return False
-    age_minutes = (started - quote).total_seconds() / 60
+    age_minutes = (published - quote).total_seconds() / 60
     return 0 <= age_minutes <= max_age_minutes

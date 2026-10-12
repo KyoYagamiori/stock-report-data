@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,9 @@ def collect_stock_quotes(
     market_date: str,
     mode: str,
 ) -> tuple[AdapterResult, pd.DataFrame]:
+    if os.environ.get("PIPELINE_QUOTE_MODE") == "direct":
+        from pipeline.adapters.direct_quotes import collect_direct
+        return collect_direct(root, moment, market_date, mode)
     started = moment.astimezone(TIMEZONE)
     pools = load_report_pools()
     pool_by_code = {

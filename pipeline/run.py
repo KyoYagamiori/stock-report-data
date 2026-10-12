@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from pipeline.publisher import write_health
+from pipeline import SCHEMA_VERSION
 from pathlib import Path
 
 from pipeline.runner import RunOptions, run_pipeline
@@ -27,7 +31,16 @@ def main() -> None:
         attempt_role=args.attempt_role,
         report_date=args.report_date,
     )
-    result = run_pipeline(options, Path(args.root).resolve())
+    root = Path(args.root).resolve()
+    try:
+        result = run_pipeline(options, root)
+    except Exception as exc:
+        now = datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds")
+        write_health(root, {"schema_version": SCHEMA_VERSION, "status": "error",
+            "snapshot_type": args.snapshot_type, "snapshot_mode": args.mode,
+            "planned_at": args.planned_at, "started_at": now, "finished_at": now,
+            "quality_grade": "F", "published": False, "reason": f"{type(exc).__name__}: {exc}"})
+        raise
     print(
         json.dumps(
             {
@@ -40,6 +53,9 @@ def main() -> None:
             ensure_ascii=False,
         )
     )
+
+    if result.grade == "F":
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

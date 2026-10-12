@@ -39,13 +39,16 @@ class CalendarInfo:
 def resolve_calendar(moment: datetime, root: Path, ak_module: Any = ak) -> CalendarInfo:
     local_moment = moment.astimezone(TIMEZONE)
     dates, source, warning = _load_trade_dates(root)
+    if dates and not min(dates) <= local_moment.date() < max(dates):
+        dates = set()
+        warning = "交易日历缓存超出覆盖范围，必须刷新。"
     if not dates and ak_module is not None:
         dates, warning = _fetch_trade_dates(ak_module)
         if dates:
             source = "AKShare tool_trade_date_hist_sina"
             _write_trade_dates(root, dates, source)
-    if not dates:
-        return _weekday_fallback(local_moment, warning)
+    if not dates or not min(dates) <= local_moment.date() < max(dates):
+        return _weekday_fallback(local_moment, warning or "交易日历未覆盖目标日期。")
 
     today = local_moment.date()
     is_trading = today in dates
@@ -121,6 +124,6 @@ def _weekday_fallback(moment: datetime, warning: str | None) -> CalendarInfo:
         latest_completed_trading_day=previous.isoformat(),
         next_trading_day=following.isoformat(),
         source="weekday-fallback-unverified",
-        valid=is_weekend,
+        valid=False,
         warning=warning or "缺少交易日历；仅周末判断可视为可靠，工作日状态未通过校验。",
     )

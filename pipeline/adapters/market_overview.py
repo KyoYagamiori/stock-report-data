@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any, Callable
 from zoneinfo import ZoneInfo
 
@@ -28,6 +28,43 @@ def collect_market_overview(
     moment: datetime,
     ak_module: Any = ak,
 ) -> AdapterResult:
+    if spot_quotes.attrs.get("quote_scope") == "configured_pool_only":
+        indices = spot_quotes.attrs.get("direct_indices", [])
+        breadth, turnover = {}, None
+        errors = []
+        sectors_top, sectors_bottom, sector_source = [], [], "unavailable"
+        if spot_quotes.attrs.get("fetch_full_market"):
+            try:
+                from pipeline.adapters.direct_quotes import fetch_full_market
+                full = fetch_full_market()
+                # A long request crossing the noon cutoff must not import afternoon breadth.
+                current = datetime.now(TIMEZONE)
+                if moment.time().replace(tzinfo=None) < time(13) and current.time().replace(tzinfo=None) >= time(13):
+                    raise ValueError("market collection crossed the noon boundary")
+                if time(11, 30) <= moment.time().replace(tzinfo=None) < time(13):
+                    ticks = full.get("ticktime", pd.Series(dtype=str)).astype(str)
+                    if len(ticks) != len(full) or (ticks > "11:30:59").any():
+                        raise ValueError("market rows exceed noon cutoff")
+                breadth, turnover = _market_from_spot(full)
+            except Exception as exc:
+                errors.append(f"全市场采集未完整通过：{type(exc).__name__}: {str(exc)[:200]}")
+            try:
+                from pipeline.adapters.bounded import call_with_timeout, collect_sectors
+                sectors_top, sectors_bottom, sector_source, sector_errors = call_with_timeout(collect_sectors)
+                errors.extend(sector_errors)
+                if moment.time().replace(tzinfo=None) < time(13) <= datetime.now(TIMEZONE).time().replace(tzinfo=None):
+                    sectors_top, sectors_bottom = [], []
+                    errors.append("板块采集跨越午间边界，结果拒用。")
+            except Exception as exc:
+                errors.append(f"板块数据缺失：{type(exc).__name__}: {str(exc)[:200]}")
+        errors.append("市场汇总仅在沪深A股全页数量核对通过时提供。")
+        return AdapterResult(status="partial", source=quote_source,
+            data={"indices": indices, "total_turnover": turnover, "turnover_valid": turnover is not None,
+                  "breadth": breadth, "breadth_valid": bool(breadth), "sectors_top": sectors_top, "sectors_bottom": sectors_bottom,
+                  "sector_source": sector_source,
+                  "market_scope": "沪深A股（不含北交所）", "breadth_limit_counts_method": "涨跌幅阈值估算，不含新股特殊规则核验"},
+            started_at=moment, finished_at=datetime.now(TIMEZONE), records_expected=5,
+            records_valid=int(len(indices) >= 2)+int(bool(breadth))+int(turnover is not None), errors=errors)
     started = moment.astimezone(TIMEZONE)
     errors: list[str] = []
     indices, index_source, index_errors = _fetch_indices(ak_module)

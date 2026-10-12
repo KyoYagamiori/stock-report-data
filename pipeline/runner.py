@@ -19,7 +19,7 @@ from pipeline.adapters.point_in_time import recover_fixed_point_in_time
 from pipeline.adapters.stock_quotes import collect_stock_quotes
 from pipeline.calendar import CalendarInfo, resolve_calendar
 from pipeline.contracts import ContractError, load_json, load_report_pools
-from pipeline.publisher import PublishResult, publish_snapshot, verify_pointer, write_health
+from pipeline.publisher import PublishResult, publish_snapshot, verify_pointer, write_health, refresh_manifest
 from pipeline.quality import apply_quality_result, evaluate_quality
 
 
@@ -93,9 +93,12 @@ def run_pipeline(
     started = (options.moment or datetime.now(TIMEZONE)).astimezone(TIMEZONE)
     report_date = options.report_date or started.date().isoformat()
     planned_at = f"{report_date}T{options.planned_at}:00+08:00"
+    if report_date != started.date().isoformat():
+        raise ValueError("report_date must equal the actual China date; historical recovery requires a separate explicit adapter")
+    calendar = calendar_resolver(started, root)
+    refresh_manifest(root, calendar.as_manifest(), started.isoformat(timespec="seconds"))
     if _expired_scheduled_run(options, started, planned_at):
         return _skipped_run(options, root, started, planned_at)
-    calendar = calendar_resolver(started, root)
     profile = "non_trading" if not calendar.is_trading_day else PROFILE_BY_TYPE[options.snapshot_type]
     if options.attempt_role.startswith("retry-") and _already_ready(root, report_date, options.snapshot_type):
         return _skipped_run(
@@ -235,7 +238,7 @@ def _run_evening(
             raise ContractError("close pointer is missing")
         close_snapshot = verify_pointer(root, close_pointer)
     except ContractError as exc:
-        return _evening_failure(options, root, started, str(exc))
+        return _evening_failure(options, root, started, recovery_reason or str(exc))
     if close_snapshot.get("market_date") != report_date:
         return _evening_failure(options, root, started, "close snapshot market_date is not today")
 
@@ -258,6 +261,7 @@ def _run_evening(
             "planned_at": planned_at,
             "started_at": started.isoformat(timespec="seconds"),
             "published_at": published_at,
+            "schedule_delay_minutes": _schedule_delay_minutes(planned_at, started),
             "realtime_expected": False,
             "based_on_snapshot_id": close_snapshot["snapshot_id"],
             "suitable_reports": ["evening"],
@@ -481,7 +485,7 @@ def _expired_scheduled_run(options: RunOptions, started: datetime, planned_at: s
     if options.attempt_role not in {"primary", "retry-1", "retry-2", "rolling"}:
         return False
     planned = datetime.fromisoformat(planned_at)
-    if started < planned:
+    if started.date() != planned.date() or started < planned:
         return True
     if options.snapshot_type == "intraday":
         return started > planned + timedelta(minutes=20)

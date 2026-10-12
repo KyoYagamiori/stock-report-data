@@ -4,7 +4,7 @@ import argparse
 import os
 import re
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -55,19 +55,28 @@ def resolve_schedule(
     event_name: str,
     schedule: str = "",
     manual: dict[str, str] | None = None,
+    moment: datetime | None = None,
 ) -> ScheduleParams:
+    now = (moment or datetime.now(ZoneInfo("Asia/Shanghai"))).astimezone(ZoneInfo("Asia/Shanghai"))
     if event_name == "push":
-        now = datetime.now(ZoneInfo("Asia/Shanghai"))
-        if now.hour >= 15:
-            return ScheduleParams("close", "full", "15:00", "config-refresh")
-        if (now.hour, now.minute) >= (11, 35):
-            return ScheduleParams("noon", "full", "11:35", "config-refresh")
-        return ScheduleParams("early", "full", now.strftime("%H:%M"), "config-refresh")
+        return current_phase(now, "config-refresh")
     if event_name == "schedule":
         try:
-            return SCHEDULES[schedule]
+            params = SCHEDULES[schedule]
         except KeyError as exc:
             raise ValueError(f"Unknown GitHub schedule: {schedule}") from exc
+        # Cron delivery may be hours late or cross midnight. Never label current
+        # quotes with a missed morning/noon cycle. Collect the actual phase.
+        deadlines = {"early": time(9), "noon": time(12, 40), "intraday": time(15, 10),
+                     "close": time(20), "evening": time(23, 59, 59)}
+        planned = datetime.strptime(params.planned_at, "%H:%M").time()
+        clock = now.time().replace(tzinfo=None)
+        if clock < planned or clock >= deadlines[params.snapshot_type]:
+            return current_phase(now, "delayed-current-phase")
+        if params.snapshot_type == "intraday" and now > datetime.combine(now.date(), planned, now.tzinfo) + timedelta(minutes=20):
+            return current_phase(now, "delayed-current-phase")
+        return ScheduleParams(params.snapshot_type, params.mode, params.planned_at,
+                              params.attempt_role, now.date().isoformat())
     if event_name != "workflow_dispatch":
         raise ValueError(f"Unsupported GitHub event: {event_name}")
     manual = manual or {}
@@ -80,6 +89,24 @@ def resolve_schedule(
     )
     params.validate()
     return params
+
+
+def current_phase(now: datetime, role: str) -> ScheduleParams:
+    clock = now.time().replace(tzinfo=None)
+    if clock < time(9):
+        kind = "early"
+    elif clock < time(11, 30):
+        kind = "intraday"
+    elif clock < time(13):
+        kind = "noon"
+    elif clock < time(15, 10):
+        kind = "intraday"
+    elif clock < time(20):
+        kind = "close"
+    else:
+        kind = "evening"
+    return ScheduleParams(kind, "full" if kind != "intraday" else "light",
+                          now.strftime("%H:%M"), role, now.date().isoformat())
 
 
 def write_github_outputs(path: Path, params: ScheduleParams) -> None:
