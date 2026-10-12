@@ -1,40 +1,45 @@
 {
   "calendar": {
-    "date": "2026-10-12",
+    "date": "2026-10-13",
     "is_trading_day": true,
     "latest_completed_trading_day": "2026-10-12",
-    "next_trading_day": "2026-10-13",
+    "next_trading_day": "2026-10-14",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-10-12T23:56:41+08:00",
+  "generated_at": "2026-10-13T00:49:36+08:00",
   "health": {
     "last_attempt": {
-      "finished_at": "2026-10-12T23:56:41+08:00",
-      "planned_at": "23:55",
-      "published": false,
-      "quality_grade": "F",
-      "reason": "close snapshot market_date is not today",
-      "snapshot_type": "evening",
-      "started_at": "2026-10-12T23:55:54+08:00",
-      "status": "not_ready"
+      "finished_at": "2026-10-13T00:49:36+08:00",
+      "planned_at": "2026-10-13T00:48:00+08:00",
+      "published": true,
+      "quality_grade": "A",
+      "reason": "published",
+      "snapshot_type": "early",
+      "started_at": "2026-10-13T00:48:58+08:00",
+      "status": "published"
     },
-    "last_grade_a_at": "2026-09-23T15:41:40+08:00",
+    "last_grade_a_at": "2026-10-13T00:49:36+08:00",
     "last_grade_b_at": "2026-10-12T14:47:27+08:00",
     "latest_run": "output/health/latest_run.json"
   },
   "report_readiness": {
     "early": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_preopen",
       "reasons": [
-        "stale report cycle 2026-09-23-early; expected 2026-10-12-early"
+        "quality profile thresholds met for grade A",
+        "indices coverage 3/3",
+        "core coverage 11/11"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 0.97,
+      "selected_file": "output/archive/2026/10/13/early/20261013-0048-early-full-38279980396.json",
+      "selected_snapshot_id": "20261013-0048-early-full-38279980396",
+      "sha256": "2df8a546a6ebc8c12b940b6ac43256f46f6ec4eb81c34612e94512082735571b",
+      "status": "ready_a"
     },
     "evening": {
       "missing_core_fields": [],
@@ -42,8 +47,7 @@
       "quality_grade": null,
       "quality_profile": null,
       "reasons": [
-        "invalid target: planned_at, started_at and published_at must be chronological",
-        "close snapshot market_date is not today"
+        "stale report cycle 2026-09-20-evening; expected 2026-10-13-evening"
       ],
       "selected_file": null,
       "selected_snapshot_id": null,
@@ -56,7 +60,7 @@
       "quality_grade": null,
       "quality_profile": null,
       "reasons": [
-        "stale report cycle 2026-09-23-noon; expected 2026-10-12-noon"
+        "stale report cycle 2026-09-23-noon; expected 2026-10-13-noon"
       ],
       "selected_file": null,
       "selected_snapshot_id": null,
@@ -96,35 +100,29 @@
       ]
     },
     "early": {
-      "collection_mode": "historical_point_in_time_recovery",
-      "core_effective_count": 10,
-      "effective_field_count": 26,
+      "collection_mode": "live_or_latest_completed",
+      "core_effective_count": 11,
+      "effective_field_count": 43,
       "latest_alias": "output/latest/early/report_data_compact.json",
-      "market_date": "2026-09-22",
+      "market_date": "2026-10-12",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "002837:quote",
-        "total_turnover",
-        "market_breadth",
-        "sectors_top",
-        "sectors_bottom"
-      ],
-      "point_in_time_recovered": true,
-      "published_at": "2026-09-23T13:32:52+08:00",
-      "quality_grade": "B",
+      "missing_optional_fields": [],
+      "point_in_time_recovered": false,
+      "published_at": "2026-10-13T00:49:36+08:00",
+      "quality_grade": "A",
       "quality_profile": "trading_preopen",
       "quality_reasons": [
-        "quality profile thresholds met for grade B",
+        "quality profile thresholds met for grade A",
         "indices coverage 3/3",
-        "core coverage 10/10"
+        "core coverage 11/11"
       ],
-      "quote_time_max": "2026-09-22T15:00:00+08:00",
-      "report_cycle": "2026-09-23-early",
-      "schedule_delay_minutes": 268.7,
+      "quote_time_max": "2026-10-12T16:29:45+08:00",
+      "report_cycle": "2026-10-13-early",
+      "schedule_delay_minutes": 0.97,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/09/23/early/20260923-0855-early-full-35822201564.json",
-      "selected_snapshot_id": "20260923-0855-early-full-35822201564",
-      "sha256": "f67169061601f8fcadf5b8d7d0d2fe1b1c9356a2ccc292bba7ad7b182ed3de3c",
+      "selected_file": "output/archive/2026/10/13/early/20261013-0048-early-full-38279980396.json",
+      "selected_snapshot_id": "20261013-0048-early-full-38279980396",
+      "sha256": "2df8a546a6ebc8c12b940b6ac43256f46f6ec4eb81c34612e94512082735571b",
       "snapshot_type": "early",
       "suitable_reports": [
         "early"
