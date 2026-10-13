@@ -1,20 +1,17 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, time, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
 
 import pandas as pd
+import numpy as np
 
 from pipeline.adapters import AdapterResult
+from pipeline.adapters.sina_history import SinaHistory
 from scripts import fetch_snapshot as legacy
-
-try:
-    import akshare as ak
-except Exception:  # pragma: no cover - dependency failure path
-    ak = None
-
 
 TIMEZONE = ZoneInfo("Asia/Shanghai")
 INDEX_SYMBOLS = {
@@ -32,7 +29,7 @@ def recover_fixed_point_in_time(
     report_date: str,
     market_date: str,
     moment: datetime,
-    ak_module: Any = ak,
+    ak_module: Any = None,
 ) -> tuple[AdapterResult, AdapterResult]:
     """Rebuild a missed fixed snapshot without relabelling later live quotes.
 
@@ -43,24 +40,22 @@ def recover_fixed_point_in_time(
     """
     if profile not in RECOVERABLE_PROFILES:
         raise ValueError(f"Unsupported point-in-time recovery profile: {profile}")
-    if ak_module is None:
-        raise RuntimeError("AKShare is unavailable for point-in-time recovery")
+    ak_module = ak_module if ak_module is not None else SinaHistory()
 
     started = moment.astimezone(TIMEZONE)
     target_date = market_date if profile == "trading_preopen" else report_date
     target_time = time(15, 0) if profile == "trading_preopen" else time(11, 30)
-    recovered_stocks: list[dict[str, Any]] = []
-    stock_errors: list[str] = []
-
-    for base in stock_result.data.get("stocks", []):
+    def recover_one(base):
         try:
-            recovered_stocks.append(
-                _recover_stock(base, target_date, target_time, profile, ak_module)
-            )
+            return _recover_stock(base, target_date, target_time, profile, ak_module), None
         except Exception as exc:
             code = str(base.get("code", "unknown"))
-            stock_errors.append(f"{code} 时点恢复失败：{str(exc)[:240]}")
-            recovered_stocks.append(_invalidate_late_quote(base, str(exc)))
+            return _invalidate_late_quote(base, str(exc)), f"{code} 时点恢复失败：{str(exc)[:240]}"
+
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        results = list(executor.map(recover_one, stock_result.data.get("stocks", [])))
+    recovered_stocks = [record for record, _ in results]
+    stock_errors = [error for _, error in results if error]
 
     valid_stocks = sum(bool(item.get("valid_quote")) for item in recovered_stocks)
     stock_status = (
@@ -72,7 +67,7 @@ def recover_fixed_point_in_time(
     )
     recovered_stock_result = AdapterResult(
         status=stock_status,
-        source="新浪一分钟历史时点恢复；新浪不复权日线",
+        source="; ".join(sorted({row.get("price_data_source", "unavailable") for row in recovered_stocks if row.get("valid_quote")})) or "unavailable",
         data={
             "stocks": recovered_stocks,
             "recovery_profile": profile,
@@ -108,8 +103,8 @@ def _recover_stock(
 ) -> dict[str, Any]:
     code = str(base["code"])
     symbol = _market_symbol(code)
-    minute = _minute_frame(ak_module.stock_zh_a_minute(symbol=symbol, period="1", adjust=""))
-    session = _session_rows(minute, target_date, target_time)
+    minute, session = _history_session(ak_module, symbol, target_date, target_time)
+    quote_source = minute.attrs.get("source", "新浪一分钟历史时点恢复")
     quote = session.iloc[-1]
     quote_at = pd.Timestamp(quote["day"])
     previous_close = _previous_close(minute, target_date)
@@ -149,14 +144,17 @@ def _recover_stock(
             "pct_change": pct,
             "amount": amount,
             "turnover_rate": turnover,
-            "price_data_source": "新浪一分钟历史时点恢复",
+            "price_data_source": quote_source,
             "realtime_quote_available": True,
-            "realtime_data_source": "新浪一分钟历史时点恢复",
+            "realtime_data_source": quote_source,
             "realtime_quote_date": target_date,
             "realtime_quote_time": quote_at.strftime("%H:%M:%S"),
             "latest_trade_date": target_date,
-            "daily_latest_trade_date": target_date,
+            "daily_latest_trade_date": _date_text(technical.iloc[-1]["date"]) if not technical.empty else "",
             "today_close": price,
+            "today_open": _number(session.iloc[0]["open"]),
+            "today_high": _number(pd.to_numeric(session["high"], errors="coerce").max()),
+            "today_low": _number(pd.to_numeric(session["low"], errors="coerce").min()),
             "today_pct_change": pct,
             "today_volume": volume,
             "today_amount": amount,
@@ -174,11 +172,23 @@ def _recover_stock(
             "last_limit_up_time": "",
             "break_limit_up_count": None,
             "limit_up_days": None,
+            "is_near_limit_up": False,
+            "is_near_limit_down": False,
+            "is_shrink_limit_up": False,
+            "volume_unit": "shares",
+            "amount_unit": "CNY",
+            "completed_close_verified": False,
+            "completed_close_asof": None,
+            "completed_daily_bar": None,
+            "close_quote_verified": False,
+            "close_verification": {},
+            "market_asof": quote_at.tz_localize(TIMEZONE).isoformat(),
             **ma_metrics,
             **box_metrics,
         }
     )
     recovered.update(legacy.compute_indicators(chinese_history, "新浪不复权日线+目标时点", "unadjusted"))
+    recovered["indicator_is_completed_daily"] = True
     recovered["volume_comparison_valid"] = profile != "trading_noon"
     _refresh_volume_signals(recovered)
     warnings = list(base.get("warnings") or [])
@@ -204,10 +214,7 @@ def _recover_market(
 
     for code, (symbol, name) in INDEX_SYMBOLS.items():
         try:
-            minute = _minute_frame(
-                ak_module.stock_zh_a_minute(symbol=symbol, period="1", adjust="")
-            )
-            session = _session_rows(minute, target_date, target_time)
+            minute, session = _history_session(ak_module, symbol, target_date, target_time)
             quote = session.iloc[-1]
             previous_close = _previous_close(minute, target_date)
             latest = _number(quote["close"])
@@ -221,7 +228,7 @@ def _recover_market(
                     "latest": latest,
                     "pct_change": (latest / previous_close - 1) * 100,
                     "quote_time": quote_at.tz_localize(TIMEZONE).isoformat(),
-                    "source": "新浪指数一分钟历史时点恢复",
+                    "source": minute.attrs.get("source", "新浪指数一分钟历史时点恢复"),
                 }
             )
             if code in {"000001", "399001"}:
@@ -244,8 +251,8 @@ def _recover_market(
         "breadth_valid": False,
         "sectors_top": [],
         "sectors_bottom": [],
-        "quote_source": "新浪一分钟历史时点恢复",
-        "index_source": "新浪指数一分钟历史时点恢复",
+        "quote_source": "公开一分钟历史时点恢复",
+        "index_source": "; ".join(sorted({row["source"] for row in indices})) or "unavailable",
         "sector_source": "not_recoverable_after_the_fact",
         "point_in_time_recovered": True,
         "collection_mode": "historical_point_in_time_recovery",
@@ -269,7 +276,7 @@ def _recover_market(
     valid_groups = int(len(indices) >= 2) + int(turnover is not None)
     return AdapterResult(
         status="partial" if valid_groups else "source_error",
-        source="新浪指数一分钟历史时点恢复",
+        source=market["index_source"],
         data=market,
         started_at=started,
         finished_at=datetime.now(TIMEZONE),
@@ -277,6 +284,19 @@ def _recover_market(
         records_valid=valid_groups,
         errors=errors,
     )
+
+
+def _history_session(provider, symbol, target_date, target_time):
+    try:
+        minute = _minute_frame(provider.stock_zh_a_minute(symbol=symbol, period="1", adjust=""))
+        session = _session_rows(minute, target_date, target_time)
+        return minute, session
+    except Exception:
+        fallback = getattr(provider, "stock_zh_a_minute_fallback", None)
+        if fallback is None:
+            raise
+        minute = _minute_frame(fallback(symbol))
+        return minute, _session_rows(minute, target_date, target_time)
 
 
 def _minute_frame(frame: pd.DataFrame) -> pd.DataFrame:
@@ -299,11 +319,18 @@ def _session_rows(frame: pd.DataFrame, target_date: str, target_time: time) -> p
     rows = frame[(dates == target) & (times >= time(9, 30)) & (times <= target_time)].copy()
     if rows.empty:
         raise ValueError(f"{target_date} {target_time.isoformat()} 前无分钟记录")
+    if rows["day"].duplicated().any():
+        raise ValueError("分钟历史包含重复时点，不能重复累计成交量/额")
+    numbers = rows[["open", "high", "low", "close", "volume", "amount"]].apply(pd.to_numeric, errors="coerce")
+    if not np.isfinite(numbers.to_numpy()).all() or (numbers[["volume", "amount"]] < 0).any().any():
+        raise ValueError("目标时段包含缺失或无效数值，不能重建价格与累计量额")
     last_time = pd.Timestamp(rows.iloc[-1]["day"]).time()
-    target_minutes = target_time.hour * 60 + target_time.minute
-    last_minutes = last_time.hour * 60 + last_time.minute
-    if target_minutes - last_minutes > 5:
-        raise ValueError(f"最近分钟记录 {last_time.isoformat()} 距目标时点超过5分钟")
+    if last_time != target_time:
+        raise ValueError(f"目标 {target_time.isoformat()} 分钟缺失；最近记录 {last_time.isoformat()}")
+    if target_time == time(11, 30):
+        expected = pd.date_range(f"{target_date} 09:31", f"{target_date} 11:30", freq="min")
+        if not set(expected).issubset(set(rows["day"])):
+            raise ValueError("上午分钟历史不完整，不能重建午间累计成交量/额或高低价")
     return rows
 
 
@@ -311,6 +338,8 @@ def _previous_close(frame: pd.DataFrame, target_date: str) -> float | None:
     target = date.fromisoformat(target_date)
     previous = frame[frame["day"].dt.date < target]
     if previous.empty:
+        return None
+    if pd.Timestamp(previous.iloc[-1]["day"]).time() != time(15):
         return None
     return _number(previous.iloc[-1]["close"])
 
@@ -349,8 +378,10 @@ def _technical_history(
         if history.empty or history.iloc[-1]["date"].date() != target:
             history = pd.concat([before, _synthetic_daily(session, target_date, daily)], ignore_index=True)
     else:
-        history = pd.concat([before, _synthetic_daily(session, target_date, daily)], ignore_index=True)
-    return history.tail(80), previous
+        # Noon is an unfinished day. Retain completed daily indicators as a
+        # dated baseline instead of mixing a synthetic half day into them.
+        history = before
+    return history.tail(160), previous
 
 
 def _synthetic_daily(session: pd.DataFrame, target_date: str, daily: pd.DataFrame) -> pd.DataFrame:
@@ -401,11 +432,18 @@ def _invalidate_late_quote(base: dict[str, Any], reason: str) -> dict[str, Any]:
             "amount": None,
             "turnover_rate": None,
             "today_close": None,
+            "today_open": None,
+            "today_high": None,
+            "today_low": None,
             "today_pct_change": None,
             "today_volume": None,
             "today_amount": None,
             "today_turnover_rate": None,
             "point_in_time_recovered": False,
+            "completed_daily_bar": None,
+            "close_quote_verified": False,
+            "close_verification": {},
+            "market_asof": None,
         }
     )
     errors = list(base.get("errors") or [])

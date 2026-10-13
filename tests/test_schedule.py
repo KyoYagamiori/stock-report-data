@@ -7,7 +7,7 @@ from pipeline.schedule import SCHEDULES, resolve_schedule
 
 class ScheduleTests(unittest.TestCase):
     def test_all_approved_schedule_nodes_are_present(self) -> None:
-        self.assertEqual(8, len(SCHEDULES))
+        self.assertEqual(9, len(SCHEDULES))
         planned = {params.planned_at for params in SCHEDULES.values()}
         self.assertEqual(
             {
@@ -15,6 +15,7 @@ class ScheduleTests(unittest.TestCase):
                 "08:43",
                 "11:37",
                 "12:07",
+                "12:23",
                 "14:35",
                 "15:20",
                 "20:17",

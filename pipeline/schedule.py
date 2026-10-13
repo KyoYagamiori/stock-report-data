@@ -44,6 +44,7 @@ SCHEDULES = {
     "43 0 * * 1-5": ScheduleParams("early", "full", "08:43", "retry-1"),
     "37 3 * * 1-5": ScheduleParams("noon", "full", "11:37", "primary"),
     "7 4 * * 1-5": ScheduleParams("noon", "full", "12:07", "retry-1"),
+    "23 4 * * 1-5": ScheduleParams("noon", "light", "12:23", "retry-2"),
     "35 6 * * 1-5": ScheduleParams("intraday", "light", "14:35", "rolling"),
     "20 7 * * 1-5": ScheduleParams("close", "full", "15:20", "primary"),
     "17 12 * * *": ScheduleParams("evening", "full", "20:17", "primary"),

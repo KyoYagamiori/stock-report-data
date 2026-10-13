@@ -59,17 +59,27 @@
       "status": "not_ready"
     },
     "noon": {
+      "collection_mode": "historical_point_in_time_recovery",
       "missing_core_fields": [],
-      "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
-      "reasons": [
-        "stale report cycle 2026-09-23-noon; expected 2026-10-13-noon"
+      "missing_optional_fields": [
+        "total_turnover",
+        "market_breadth",
+        "sectors_top",
+        "sectors_bottom"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "point_in_time_recovered": true,
+      "quality_grade": "B",
+      "quality_profile": "trading_noon",
+      "reasons": [
+        "quality profile thresholds met for grade B",
+        "indices coverage 2/3",
+        "core coverage 11/11"
+      ],
+      "schedule_delay_minutes": 185.8,
+      "selected_file": "output/archive/2026/10/13/noon/20261013-1135-noon-full-local20261013144048-1c76f6b9.json",
+      "selected_snapshot_id": "20261013-1135-noon-full-local20261013144048-1c76f6b9",
+      "sha256": "4938083fdbc720b087c00340feaaf3a628a9192c656d0ac5e8b800d9c41043c2",
+      "status": "ready_b"
     }
   },
   "schema_version": "1.6.1",
@@ -200,10 +210,11 @@
     },
     "noon": {
       "collection_mode": "historical_point_in_time_recovery",
-      "core_effective_count": 10,
+      "core_effective_count": 11,
       "effective_field_count": 27,
       "latest_alias": "output/latest/noon/report_data_compact.json",
-      "market_date": "2026-09-23",
+      "market_asof": "2026-10-13T11:30:00+08:00",
+      "market_date": "2026-10-13",
       "missing_core_fields": [],
       "missing_optional_fields": [
         "total_turnover",
@@ -212,21 +223,21 @@
         "sectors_bottom"
       ],
       "point_in_time_recovered": true,
-      "published_at": "2026-09-23T13:22:35+08:00",
+      "published_at": "2026-10-13T14:42:39+08:00",
       "quality_grade": "B",
       "quality_profile": "trading_noon",
       "quality_reasons": [
         "quality profile thresholds met for grade B",
-        "indices coverage 3/3",
-        "core coverage 10/10"
+        "indices coverage 2/3",
+        "core coverage 11/11"
       ],
-      "quote_time_max": "2026-09-23T11:30:00+08:00",
-      "report_cycle": "2026-09-23-noon",
-      "schedule_delay_minutes": 102.71,
+      "quote_time_max": "2026-10-13T11:30:00+08:00",
+      "report_cycle": "2026-10-13-noon",
+      "schedule_delay_minutes": 185.8,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/09/23/noon/20260923-1135-noon-full-35821059710.json",
-      "selected_snapshot_id": "20260923-1135-noon-full-35821059710",
-      "sha256": "2dce30c17746f2ed29a24ddbc7d1d7ac56e7e429204f07045492e5dd431f5444",
+      "selected_file": "output/archive/2026/10/13/noon/20261013-1135-noon-full-local20261013144048-1c76f6b9.json",
+      "selected_snapshot_id": "20261013-1135-noon-full-local20261013144048-1c76f6b9",
+      "sha256": "4938083fdbc720b087c00340feaaf3a628a9192c656d0ac5e8b800d9c41043c2",
       "snapshot_type": "noon",
       "suitable_reports": [
         "noon"

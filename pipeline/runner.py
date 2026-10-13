@@ -18,6 +18,7 @@ from pipeline.adapters import AdapterResult
 from pipeline.adapters.market_overview import collect_market_overview
 from pipeline.adapters.point_in_time import recover_fixed_point_in_time
 from pipeline.adapters.stock_quotes import collect_stock_quotes
+from pipeline.adapters.bounded import call_with_timeout
 from pipeline.calendar import CalendarInfo, resolve_calendar
 from pipeline.contracts import ContractError, load_json, load_report_pools
 from pipeline.publisher import PublishResult, publish_snapshot, verify_pointer, write_health, refresh_manifest
@@ -48,6 +49,10 @@ SUITABLE_REPORTS = {
     "evening": ["evening"],
     "intraday": ["noon", "evening"],
 }
+
+
+def bounded_point_in_time_recovery(*args):
+    return call_with_timeout(recover_fixed_point_in_time, args=args, seconds=180)
 
 
 @dataclass(frozen=True)
@@ -89,7 +94,7 @@ def run_pipeline(
     point_in_time_recoverer: Callable[
         [AdapterResult, AdapterResult, str, str, str, datetime],
         tuple[AdapterResult, AdapterResult],
-    ] = recover_fixed_point_in_time,
+    ] = bounded_point_in_time_recovery,
 ) -> RunResult:
     options.validate()
     # Every serialized pipeline timestamp uses seconds. Compare at that same
@@ -454,7 +459,8 @@ def _build_snapshot(
         "report_date": report_date,
         "report_cycle": f"{report_date}-{options.snapshot_type}",
         "market_date": market_date,
-        "market_asof": (f"{market_date}T15:00:00+08:00"
+        "market_asof": (f"{market_date}T11:30:00+08:00" if profile == "trading_noon"
+                        else f"{market_date}T15:00:00+08:00"
                         if stock_result.data.get("completed_close_verified") else None),
         "market_session": session,
         "planned_at": planned_at,
@@ -532,7 +538,7 @@ def _initial_time_valid(
         return False
     if profile == "trading_intraday" and max(quotes) > planned + timedelta(minutes=20):
         return False
-    if profile == "trading_noon" and max(quotes).time() > time(11, 35, 59):
+    if profile == "trading_noon" and max(quotes).time() > time(11, 30, 59):
         return False
     return True
 

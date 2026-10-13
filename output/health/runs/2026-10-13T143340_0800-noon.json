@@ -1,0 +1,103 @@
+{
+  "attempt_role": "automatic-delayed-catchup",
+  "blocking_reasons": [
+    "minimum B thresholds not met",
+    "indices coverage 2/3",
+    "core coverage 2/11",
+    "sectors_top coverage 0/5",
+    "sectors_bottom coverage 0/5"
+  ],
+  "collection_mode": "historical_point_in_time_recovery",
+  "coverage": {
+    "core": {
+      "expected": 11,
+      "ratio": 0.18181818181818182,
+      "valid": 2
+    },
+    "indices": {
+      "expected": 3,
+      "ratio": 0.6666666666666666,
+      "valid": 2
+    },
+    "market_breadth": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "sectors_bottom": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "sectors_top": {
+      "expected": 5,
+      "ratio": 0.0,
+      "valid": 0
+    },
+    "watch": {
+      "expected": 14,
+      "ratio": 0.5,
+      "valid": 7
+    }
+  },
+  "finished_at": "2026-10-13T14:34:29+08:00",
+  "planned_at": "2026-10-13T11:35:00+08:00",
+  "point_in_time_recovered": true,
+  "published": false,
+  "quality_grade": "F",
+  "quality_reasons": [],
+  "reason": "quality gate failed: minimum B thresholds not met; indices coverage 2/3; core coverage 2/11; sectors_top coverage 0/5; sectors_bottom coverage 0/5",
+  "report_cycle": "2026-10-13-noon",
+  "report_date": "2026-10-13",
+  "schedule_delay_minutes": 178.67,
+  "schema_version": "1.6.1",
+  "snapshot_id": "20261013-1135-noon-full-local20261013143340-cb9b8814",
+  "snapshot_mode": "full",
+  "snapshot_type": "noon",
+  "source_status": {
+    "market_overview": {
+      "errors": [
+        "399001 指数时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
+        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
+      ],
+      "finished_at": "2026-10-13T14:34:29+08:00",
+      "records_expected": 5,
+      "records_valid": 1,
+      "retry_count": 0,
+      "source": "新浪指数一分钟历史时点恢复",
+      "started_at": "2026-10-13T14:33:40+08:00",
+      "status": "partial"
+    },
+    "stock_quotes": {
+      "errors": [
+        "600584 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "688820 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "688981 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "000977 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "000938 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "603019 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "300308 时点恢复失败：上午分钟历史不完整，不能重建午间累计成交量/额或高低价",
+        "300502 时点恢复失败：上午分钟历史不完整，不能重建午间累计成交量/额或高低价",
+        "002371 时点恢复失败：上午分钟历史不完整，不能重建午间累计成交量/额或高低价",
+        "301308 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "002396 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "002837 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "300476 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "688361 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "688596 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "600172 时点恢复失败：HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=5)",
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
+      ],
+      "finished_at": "2026-10-13T14:34:13+08:00",
+      "records_expected": 25,
+      "records_valid": 9,
+      "retry_count": 0,
+      "source": "新浪一分钟历史时点恢复；新浪不复权日线",
+      "started_at": "2026-10-13T14:33:40+08:00",
+      "status": "partial"
+    }
+  },
+  "started_at": "2026-10-13T14:33:40+08:00",
+  "status": "not_published"
+}

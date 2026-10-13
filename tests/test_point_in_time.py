@@ -16,7 +16,7 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 class FakeAk:
     def stock_zh_a_minute(self, symbol: str, period: str, adjust: str) -> pd.DataFrame:
         del symbol, period, adjust
-        return pd.DataFrame(
+        frame = pd.DataFrame(
             [
                 {"day": "2026-07-15 15:00:00", "open": 9.8, "high": 9.9, "low": 9.7, "close": 9.8, "volume": 90, "amount": 900},
                 {"day": "2026-07-16 15:00:00", "open": 10, "high": 10, "low": 10, "close": 10, "volume": 100, "amount": 1000},
@@ -25,6 +25,12 @@ class FakeAk:
                 {"day": "2026-07-17 14:30:00", "open": 11.0, "high": 11.0, "low": 8.0, "close": 8.0, "volume": 300, "amount": 2400},
             ]
         )
+        middle = pd.DataFrame([
+            {"day": stamp.strftime("%Y-%m-%d %H:%M:%S"), "open": 10.5,
+             "high": 10.6, "low": 10.4, "close": 10.5, "volume": 0, "amount": 0}
+            for stamp in pd.date_range("2026-07-17 09:31", "2026-07-17 11:29", freq="min")
+        ])
+        return pd.concat([frame, middle], ignore_index=True)
 
     def stock_zh_a_daily(
         self,
@@ -65,6 +71,11 @@ class PointInTimeRecoveryTests(unittest.TestCase):
                         "valid_quote": True,
                         "quote_time": "2026-07-17T14:30:00+08:00",
                         "latest_price": 8.0,
+                        "today_high": 13.0,
+                        "today_low": 8.0,
+                        "completed_close_verified": True,
+                        "close_quote_verified": True,
+                        "close_verification": {"status": "verified"},
                         "warnings": [],
                         "errors": [],
                     }
@@ -100,11 +111,61 @@ class PointInTimeRecoveryTests(unittest.TestCase):
         self.assertEqual("2026-07-17T11:30:00+08:00", stock["quote_time"])
         self.assertTrue(stock["point_in_time_recovered"])
         self.assertIsNotNone(stock["ma5"])
+        self.assertEqual(11.1, stock["today_high"])
+        self.assertEqual(10.4, stock["today_low"])
+        self.assertFalse(stock["completed_close_verified"])
+        self.assertFalse(stock["close_quote_verified"])
+        self.assertEqual({}, stock["close_verification"])
+        self.assertEqual("2026-07-16", stock["indicator_asof"])
+        self.assertTrue(stock["indicator_is_completed_daily"])
         self.assertEqual(3, len(recovered_market.data["indices"]))
         self.assertFalse(recovered_market.data["turnover_valid"])
         self.assertIsNone(stock["volume_change_ratio"])
         self.assertEqual({}, recovered_market.data["breadth"])
         self.assertEqual([], recovered_market.data["sectors_top"])
+
+    def test_noon_recovery_rejects_missing_1130_bar(self):
+        from pipeline.adapters.point_in_time import _minute_frame, _session_rows
+        from datetime import time
+        frame = FakeAk().stock_zh_a_minute("sh688700", "1", "")
+        frame = frame[frame["day"] != "2026-07-17 11:30:00"]
+        with self.assertRaisesRegex(ValueError, "目标.*分钟缺失"):
+            _session_rows(_minute_frame(frame), "2026-07-17", time(11, 30))
+
+    def test_noon_recovery_rejects_incomplete_or_duplicate_session(self):
+        from pipeline.adapters.point_in_time import _minute_frame, _session_rows
+        from datetime import time
+        frame = FakeAk().stock_zh_a_minute("sh688700", "1", "")
+        missing = frame[frame["day"] != "2026-07-17 10:01:00"]
+        with self.assertRaisesRegex(ValueError, "上午分钟历史不完整"):
+            _session_rows(_minute_frame(missing), "2026-07-17", time(11, 30))
+        duplicate = pd.concat([frame, frame[frame["day"] == "2026-07-17 11:30:00"]])
+        with self.assertRaisesRegex(ValueError, "重复时点"):
+            _session_rows(_minute_frame(duplicate), "2026-07-17", time(11, 30))
+
+    def test_incomplete_primary_uses_verified_same_time_fallback(self):
+        from pipeline.adapters.point_in_time import _recover_stock
+        from datetime import time
+        class WithFallback(FakeAk):
+            def stock_zh_a_minute(self, **kwargs):
+                frame = super().stock_zh_a_minute(**kwargs)
+                return frame[frame["day"] != "2026-07-17 10:01:00"]
+            def stock_zh_a_minute_fallback(self, symbol):
+                frame = FakeAk().stock_zh_a_minute(symbol, "1", "")
+                frame.attrs["source"] = "verified fallback fixture"
+                return frame
+        stock = _recover_stock({"code": "688700"}, "2026-07-17", time(11, 30), "trading_noon", WithFallback())
+        self.assertEqual("verified fallback fixture", stock["price_data_source"])
+        self.assertEqual(11.0, stock["latest_price"])
+        self.assertEqual(3200.0, stock["amount"])
+
+    def test_missing_numeric_minute_value_is_not_silently_summed(self):
+        from pipeline.adapters.point_in_time import _minute_frame, _session_rows
+        from datetime import time
+        frame = FakeAk().stock_zh_a_minute("sh688700", "1", "")
+        frame.loc[frame["day"] == "2026-07-17 10:01:00", "amount"] = None
+        with self.assertRaisesRegex(ValueError, "缺失或无效数值"):
+            _session_rows(_minute_frame(frame), "2026-07-17", time(11, 30))
 
     def test_early_recovery_uses_previous_completed_close(self) -> None:
         moment = datetime(2026, 7, 17, 11, 50, tzinfo=TIMEZONE)
