@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "enabled_awaiting_first_run",
+  "status": "enabled_screening_priority_awaiting_verified_run",
   "scope": "SSE/SZSE ordinary A-shares; BSE excluded",
   "protocol_file": "reports/research/CONTINUOUS.md",
   "seed_manifest_file": "reports/research/state/manifest.json",
@@ -25,6 +25,20 @@
   "last_successful_run": null,
   "last_attempt_at": null,
   "automation_id": "6acee7a264f481919d84ba5d94497665",
-  "updated_at": "2026-10-14T02:24:26.727Z",
-  "counting_note": "Initial baseline imported from read-back coverage. Baseline completion is reusable historical research and is never automatically counted as current-cycle completion. No newly executed worker research is claimed."
+  "updated_at": "2026-10-14T06:51:08.238Z",
+  "counting_note": "Initial baseline imported from read-back coverage. Baseline completion is reusable historical research and is never automatically counted as current-cycle completion. No newly executed worker research is claimed. Policy changed to daily full-universe screening plus verified selected-candidate diligence. This metadata update claims no new executed research or full screening success.",
+  "research_policy": {
+    "version": "2026-10-14-screen-and-diligence",
+    "mode": "daily_universe_screen_candidate_diligence_rolling_baseline",
+    "recommendation_gate": "verified_daily_universe_screen_and_current_selected_candidate_diligence",
+    "priority_order": [
+      "complete_daily_boll_kdj_macd_screen",
+      "target_time_candidate_incremental_review",
+      "candidate_diligence_target_10_20_per_day",
+      "rolling_baseline"
+    ],
+    "protocol_file": "reports/research/CONTINUOUS.md",
+    "legacy_baseline_completion_not_recommendation_gate": true
+  },
+  "screening_backlog_file": "reports/research/2026/10/14/noon/screening_audit.json"
 }
