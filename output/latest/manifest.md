@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-10-14T20:55:31+08:00
+- 更新时间：2026-10-15T01:15:31+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-10-14
 
@@ -9,15 +9,15 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261014-0330-early-full-38455251696 | output/archive/2026/10/14/early/20261014-0330-early-full-38455251696.json |
-| noon | ready_b | B | 20261014-1248-noon-full-38513281444 | output/archive/2026/10/14/noon/20261014-1248-noon-full-38513281444.json |
-| evening | ready_a | A | 20261014-2055-evening-full-38567531329 | output/archive/2026/10/14/evening/20261014-2055-evening-full-38567531329.json |
+| early | ready_a | A | 20261015-0115-early-full-38605015351 | output/archive/2026/10/15/early/20261015-0115-early-full-38605015351.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-10-14-early | 2026-10-13 | 2026-10-13T15:36:00+08:00 | output/archive/2026/10/14/early/20261014-0330-early-full-38455251696.json | `0ad7800e3f7162eb790fd9c1fab263558c1e3074670af22e80cb1cd86427ab3c` |
+| early | A | 2026-10-15-early | 2026-10-14 | 2026-10-14T15:36:00+08:00 | output/archive/2026/10/15/early/20261015-0115-early-full-38605015351.json | `ebb7d64b4637890c4bd0c2904059d62f2d38b57d84a1cadb6c9e2c400fc2fa44` |
 | noon | B | 2026-10-14-noon | 2026-10-14 | 2026-10-14T11:30:00+08:00 | output/archive/2026/10/14/noon/20261014-1248-noon-full-38513281444.json | `b529b4902a6c68b8a47e64063f9dac3876b027cfd9f95d860844f2c0a970307d` |
 | close | A | 2026-10-14-close | 2026-10-14 | 2026-10-14T15:36:00+08:00 | output/archive/2026/10/14/close/20261014-1736-close-full-38543527486.json | `86da9415dc7f363a390cb409fed45529a114c3dbdb024baa8f152f3299a19f1e` |
 | evening | A | 2026-10-14-evening | 2026-10-14 | 2026-10-14T15:36:00+08:00 | output/archive/2026/10/14/evening/20261014-2055-evening-full-38567531329.json | `4899b786b8d3e54d6791d4415a5524c156e07a79b555f21885472e232faf0613` |
