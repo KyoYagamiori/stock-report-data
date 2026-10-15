@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "timezone": "Asia/Shanghai",
-  "updated_at": "2026-10-15T05:29:10.165Z",
+  "updated_at": "2026-10-15T13:13:00Z",
   "latest_by_cycle": {
     "early": {
       "report_date": "2026-10-15",
@@ -91,71 +91,80 @@
       "archive_note": "Body read back identical; report and index statuses distinct from chat delivery. All prior report pointers and history preserved."
     },
     "evening": {
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "report_type": "evening",
-      "title": "2026-10-14 晚报",
-      "selected_file": "reports/archive/2026/10/14/evening.md",
-      "archived_at": "2026-10-14T23:44:40.558345+08:00",
-      "market_cutoff": "2026-10-14T15:00:00+08:00",
-      "news_cutoff": "2026-10-14T21:00:00+08:00",
-      "snapshot_id": "20261014-2055-evening-full-38567531329",
-      "snapshot_file": "output/archive/2026/10/14/evening/20261014-2055-evening-full-38567531329.json",
+      "title": "2026-10-15 晚报",
+      "selected_file": "reports/archive/2026/10/15/evening.md",
+      "archived_at": "2026-10-15T21:12:45+08:00",
+      "market_cutoff": "2026-10-15T15:00:00+08:00",
+      "news_cutoff": "2026-10-15T21:00:00+08:00",
+      "snapshot_id": "20261015-2042-evening-full-38736707294",
+      "snapshot_file": "output/archive/2026/10/15/evening/20261015-2042-evening-full-38736707294.json",
       "snapshot_type": "evening",
-      "snapshot_sha256": "4899b786b8d3e54d6791d4415a5524c156e07a79b555f21885472e232faf0613",
-      "data_quality": "B; immutable same-day evening source A; identity schema validation and time chain checked; original 87706 bytes SHA-256 verified; 8 stocks cross-checked Sina Tencent and completed daily close high low previous volume; 8 independent 160-bar unadjusted completed daily BOLL KDJ MACD recomputations; snapshot 5573 breadth and estimate limit counts rejected; exact current official-universe aggregates missing; full market BOLL screen 612/5224 asof 2026-10-13, not completed for 2026-10-14; current complete candidate fundamental review missing",
+      "snapshot_sha256": "79910bb7b525b2f33552359609d98d1ee3e7be96a08d6189306046377a44a59a",
+      "sha256": "d8bdb969219eb775b683225bb5ce4fe9206d5d6dad8e462c2aeaf1645731e9e0",
+      "data_quality": "B; snapshot and screen raw byte SHA256 matched manifests; candidate SHA256 computed without reference hash; 53 record shards 5225 unique codes reconciled; 17 stocks Sina Tencent close high low crosscheck and independent 160-bar unadjusted BOLL KDJ MACD through Oct15; partial financial and event candidate review; exact ordinary-A breadth and new-rule full-universe ranking unavailable",
       "active_pool": [
-        "688700",
         "002371",
+        "688652",
+        "603127",
+        "301282",
+        "600900",
         "600938",
-        "603228",
-        "300502",
-        "688361",
-        "000977"
+        "300476",
+        "688700"
       ],
       "card_codes": [
-        "688700",
-        "600938",
-        "002371"
+        "002371",
+        "688652",
+        "600900",
+        "688700"
       ],
-      "focus_stock_code": null,
-      "focus_status": "screening_or_candidate_review_incomplete",
-      "conditional_focus_code": "600938",
-      "research_method": "daily_universe_screen_candidate_diligence_rolling_baseline",
+      "locked_codes": [
+        "688700"
+      ],
+      "focus_stock_code": "002371",
+      "focus_status": "watch_for_trigger",
+      "focus_reason": "Partial candidate review: operating business and cashflow plus reclaim of601; event-driven repair below falling BOLL middle, not trend confirmed",
+      "focus_entry_state": "wait600_to601_retest_then_hold601_and_peer_improvement; cancel_new_entry_below595; first_pressure614.96",
+      "focus_window": "Original1_to5_trading_days_unchanged; distinct_new_retest_plan_Oct16_next1_to3_sessions",
+      "focus_invalidation": "new_entry_below595_cancel; original565.17_downgrade_564.50_invalid_unchanged",
+      "technical_stock_code": "688652",
+      "technical_status": "watch_for_trigger",
+      "technical_reason": "Partial technical candidate comparison: rising three bands, near session-high close, increased volume and recent strength; do not chase elevated close",
+      "technical_entry_state": "wait145.64_to146.50_support_then_reclaim146.50_and_peer_confirmation; assess_cost_adjusted_reward_risk",
+      "technical_window": "New_card_Oct16_next1_to3_sessions_focus_Oct16",
+      "technical_invalidation": "effective_loss145.64_without_reclaim_cancel; close_below145.64_invalid; do_not_widen_to137.90",
+      "research_method": "market_event_technical_dual_pick_v1",
       "market_screen": {
-        "universe_count": 5224,
-        "indicator_asof": "2026-10-13",
-        "boll_numeric_coverage": 612,
-        "pending_indicator_or_state_check_count": 4612,
-        "complete": false,
-        "full_market_announcement_risk_scan_complete": false,
-        "completed_2026_10_14_screen_published": false,
-        "source_audit_file": "reports/research/2026/10/14/noon/screening_audit.json"
+        "version": "20261015T205229-close",
+        "market_date": "2026-10-15",
+        "universe_asof": "2026-10-15",
+        "universe_count": 5225,
+        "exchange_counts": {
+          "SH": 2319,
+          "SZ": 2906
+        },
+        "valid_technical": 4965,
+        "excluded": 260,
+        "exclusion_reasons": {
+          "risk_warning_name": 199,
+          "insufficient_completed_history": 54,
+          "no_trades_target_session": 7
+        },
+        "unresolved": 0,
+        "technical_screen_complete": true,
+        "universe_refresh": "failed; reused same-day official-source archived universe retrieved10:25",
+        "screen_sha256": "c4ecb8f0ae9036b8aa9d465c2b83a9fdbd2b25855602794593c122e417d45478",
+        "candidate_sha256": "a7a9bcaeb5812136812d524daf375728978a97795bb1daa45170372600cf4485",
+        "candidate_hash_reference_available": false,
+        "top_candidates_read": 20,
+        "independent_price_indicator_review_count": 17,
+        "new_rule_full_universe_ranking_complete": false,
+        "full_universe_company_diligence_complete": false,
+        "exact_ordinary_a_breadth_available": false
       },
-      "candidate_review": {
-        "price_and_completed_daily_indicator_verified_count": 8,
-        "verified_codes": [
-          "688700",
-          "002371",
-          "600938",
-          "603228",
-          "300308",
-          "300502",
-          "688361",
-          "000977"
-        ],
-        "new_complete_deep_review_count": 0,
-        "current_selected_candidate_deep_review_pass_count": 0,
-        "note": "8 price/technical observations are not complete company diligence; seven retained active names and one removed name."
-      },
-      "research_baseline": {
-        "dossier_count": 5224,
-        "published_complete_count": 1,
-        "uncompleted_count": 5223,
-        "new_complete_since_noon": 0
-      },
-      "coverage_file": "reports/research/2026/10/14/evening/coverage.json",
-      "sha256": "f68d93923375241267bdb557940239a5168d61dc3b26742da6af13e59fe8f6fc",
-      "archive_note": "Manual catch-up preserving 2026-10-14 21:00 information set. Report body read back byte-for-byte as text; code and metadata status are distinct from scheduled delivery. No new complete fundamental review claimed."
+      "archive_note": "Public body read back identical before index update; no personal information. Existing report records and other cycle pointers preserved. Chat delivery separate from archiving."
     }
   },
   "reports": [
@@ -1455,6 +1464,82 @@
         "financial_comparison_stocks": 3
       },
       "archive_note": "Body read back identical; report and index statuses distinct from chat delivery. All prior report pointers and history preserved."
+    },
+    {
+      "report_date": "2026-10-15",
+      "report_type": "evening",
+      "title": "2026-10-15 晚报",
+      "selected_file": "reports/archive/2026/10/15/evening.md",
+      "archived_at": "2026-10-15T21:12:45+08:00",
+      "market_cutoff": "2026-10-15T15:00:00+08:00",
+      "news_cutoff": "2026-10-15T21:00:00+08:00",
+      "snapshot_id": "20261015-2042-evening-full-38736707294",
+      "snapshot_file": "output/archive/2026/10/15/evening/20261015-2042-evening-full-38736707294.json",
+      "snapshot_type": "evening",
+      "snapshot_sha256": "79910bb7b525b2f33552359609d98d1ee3e7be96a08d6189306046377a44a59a",
+      "sha256": "d8bdb969219eb775b683225bb5ce4fe9206d5d6dad8e462c2aeaf1645731e9e0",
+      "data_quality": "B; snapshot and screen raw byte SHA256 matched manifests; candidate SHA256 computed without reference hash; 53 record shards 5225 unique codes reconciled; 17 stocks Sina Tencent close high low crosscheck and independent 160-bar unadjusted BOLL KDJ MACD through Oct15; partial financial and event candidate review; exact ordinary-A breadth and new-rule full-universe ranking unavailable",
+      "active_pool": [
+        "002371",
+        "688652",
+        "603127",
+        "301282",
+        "600900",
+        "600938",
+        "300476",
+        "688700"
+      ],
+      "card_codes": [
+        "002371",
+        "688652",
+        "600900",
+        "688700"
+      ],
+      "locked_codes": [
+        "688700"
+      ],
+      "focus_stock_code": "002371",
+      "focus_status": "watch_for_trigger",
+      "focus_reason": "Partial candidate review: operating business and cashflow plus reclaim of601; event-driven repair below falling BOLL middle, not trend confirmed",
+      "focus_entry_state": "wait600_to601_retest_then_hold601_and_peer_improvement; cancel_new_entry_below595; first_pressure614.96",
+      "focus_window": "Original1_to5_trading_days_unchanged; distinct_new_retest_plan_Oct16_next1_to3_sessions",
+      "focus_invalidation": "new_entry_below595_cancel; original565.17_downgrade_564.50_invalid_unchanged",
+      "technical_stock_code": "688652",
+      "technical_status": "watch_for_trigger",
+      "technical_reason": "Partial technical candidate comparison: rising three bands, near session-high close, increased volume and recent strength; do not chase elevated close",
+      "technical_entry_state": "wait145.64_to146.50_support_then_reclaim146.50_and_peer_confirmation; assess_cost_adjusted_reward_risk",
+      "technical_window": "New_card_Oct16_next1_to3_sessions_focus_Oct16",
+      "technical_invalidation": "effective_loss145.64_without_reclaim_cancel; close_below145.64_invalid; do_not_widen_to137.90",
+      "research_method": "market_event_technical_dual_pick_v1",
+      "market_screen": {
+        "version": "20261015T205229-close",
+        "market_date": "2026-10-15",
+        "universe_asof": "2026-10-15",
+        "universe_count": 5225,
+        "exchange_counts": {
+          "SH": 2319,
+          "SZ": 2906
+        },
+        "valid_technical": 4965,
+        "excluded": 260,
+        "exclusion_reasons": {
+          "risk_warning_name": 199,
+          "insufficient_completed_history": 54,
+          "no_trades_target_session": 7
+        },
+        "unresolved": 0,
+        "technical_screen_complete": true,
+        "universe_refresh": "failed; reused same-day official-source archived universe retrieved10:25",
+        "screen_sha256": "c4ecb8f0ae9036b8aa9d465c2b83a9fdbd2b25855602794593c122e417d45478",
+        "candidate_sha256": "a7a9bcaeb5812136812d524daf375728978a97795bb1daa45170372600cf4485",
+        "candidate_hash_reference_available": false,
+        "top_candidates_read": 20,
+        "independent_price_indicator_review_count": 17,
+        "new_rule_full_universe_ranking_complete": false,
+        "full_universe_company_diligence_complete": false,
+        "exact_ordinary_a_breadth_available": false
+      },
+      "archive_note": "Public body read back identical before index update; no personal information. Existing report records and other cycle pointers preserved. Chat delivery separate from archiving."
     }
   ]
 }
