@@ -1,0 +1,105 @@
+name: Shanghai Shenzhen BOLL screen
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "market_screen/**"
+      - "config/boll_screen.json"
+      - "config/boll_universe_seed.json"
+      - "config/boll_trading_states.json"
+      - "output/boll/bootstrap/**"
+      - "tests/test_boll_*.py"
+      - ".github/workflows/boll-screen.yml"
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: Screen phase
+        required: true
+        default: auto
+        type: choice
+        options: [auto, early, noon, close, intraday]
+  schedule:
+    - cron: "20 0 * * 1-5"
+    - cron: "32 3 * * 1-5"
+    - cron: "45 7 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-boll-screen-main
+  cancel-in-progress: false
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      TZ: Asia/Shanghai
+      INPUT_PHASE: ${{ inputs.phase }}
+      EVENT_SCHEDULE: ${{ github.event.schedule }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restore completed history and official lists
+        id: history_cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            output/boll/state/history
+            output/boll/state/universe_sources
+          key: boll-unadjusted-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            boll-unadjusted-v1-
+      - name: Verify screen contracts
+        run: python -m unittest discover -s tests -p "test_boll_*.py"
+      - name: Resolve cycle
+        id: cycle
+        shell: bash
+        run: |
+          phase="${INPUT_PHASE:-auto}"
+          case "$EVENT_SCHEDULE" in
+            "20 0 * * 1-5") phase=early ;;
+            "32 3 * * 1-5") phase=noon ;;
+            "45 7 * * 1-5") phase=close ;;
+          esac
+          echo "phase=$phase" >> "$GITHUB_OUTPUT"
+      - name: Update daily history and screen every official A share
+        id: collect
+        continue-on-error: true
+        timeout-minutes: 45
+        run: python -m market_screen.runner --phase "${{ steps.cycle.outputs.phase }}" --max-seconds 2400
+      - name: Preserve resumable history even after partial collection
+        if: always() && steps.collect.outcome != 'skipped'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            output/boll/state/history
+            output/boll/state/universe_sources
+          key: boll-unadjusted-v1-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Publish immutable evidence and latest pointer
+        if: always() && steps.collect.outcome != 'skipped'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/boll
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "boll: ${{ steps.cycle.outputs.phase }} full-market evidence"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
+      - name: Surface unresolved coverage
+        if: always() && steps.collect.outcome == 'failure'
+        run: |
+          echo "::error::Full-market screen remains partial; evidence and retry cache were preserved. See output/boll/latest/manifest.json."
+          exit 1
