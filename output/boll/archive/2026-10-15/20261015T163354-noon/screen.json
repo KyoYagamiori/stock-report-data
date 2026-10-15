@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261015T163354-noon",
+  "scope": "SSE/SZSE ordinary A-shares; all sectors; main board, ChiNext, STAR; BSE/B/CDR excluded",
+  "market_date": "2026-10-15",
+  "market_cutoff": "2026-10-15T15:00:00+08:00",
+  "report_date": "2026-10-15",
+  "phase": "noon",
+  "started_at": "2026-10-15T16:33:54.156093+08:00",
+  "published_at": "2026-10-15T16:35:17.027172+08:00",
+  "elapsed_seconds": 82.22,
+  "point_in_time_recovered": false,
+  "universe_count": 5225,
+  "exchange_counts": {
+    "SZ": 2906,
+    "SH": 2319
+  },
+  "universe_fresh": false,
+  "universe_provenance": {
+    "schema_version": 1,
+    "mode": "cache",
+    "asof": "2026-10-15",
+    "version_date": "2026-10-15",
+    "retrieved_at": "2026-10-15T10:25:28.967732+08:00",
+    "loaded_at": "2026-10-15T16:33:58.611334+08:00",
+    "fresh": false,
+    "freshness_reasons": [
+      "official_refresh_failed: ValueError: szse_metadata: URLError: <urlopen error [Errno 104] Connection reset by peer>; szse_xlsx: URLError: <urlopen error [Errno 104] Connection reset by peer>"
+    ],
+    "counts": {
+      "total": 5225,
+      "combined_total": 5225,
+      "exchange_counts": {
+        "SH": 2319,
+        "SZ": 2906
+      },
+      "board_counts": {
+        "SZ_main": 1495,
+        "SZ_chinext": 1411,
+        "SH_main": 1702,
+        "SH_star": 617
+      },
+      "unique_codes": 5225,
+      "duplicates": [],
+      "complete": true
+    },
+    "total": 5225,
+    "combined_total": 5225,
+    "sources": {
+      "sse_main": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=1&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-10-15T10:25:15.119004+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Thu, 15 Oct 2026 02:25:10 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "1946663"
+        },
+        "bytes": 1946663,
+        "sha256": "84d234f329bc23f34bf696f8ef1eae6119532e4b0d168c18fa1f2f454a110388",
+        "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/sse_main.json",
+        "reported_total": 1702,
+        "downloaded_rows": 1702,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-10-15"
+      },
+      "sse_star": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=8&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-10-15T10:25:28.104996+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Thu, 15 Oct 2026 02:25:15 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "715290"
+        },
+        "bytes": 715290,
+        "sha256": "12e1f96294b990b4182eb4faa053115c45405ec2de0e8ba1fd3d692ecc2744ff",
+        "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/sse_star.json",
+        "reported_total": 618,
+        "downloaded_rows": 618,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-10-15"
+      },
+      "szse_metadata": {
+        "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1110&TABKEY=tab1&PAGENO=1",
+        "retrieved_at": "2026-10-15T10:25:20.734763+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Thu, 15 Oct 2026 02:25:20 GMT",
+          "content-type": "application/json",
+          "content-length": "21476"
+        },
+        "bytes": 21476,
+        "sha256": "9fe56e024b85c61ded5ad379f7b43961c795b3b2d80162ee9b8dfd12564de3e3",
+        "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/szse_metadata.json",
+        "reported_total": 2906,
+        "downloaded_rows": 2906,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-10-15",
+        "http_server_date": "2026-10-15"
+      },
+      "szse_xlsx": {
+        "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1",
+        "retrieved_at": "2026-10-15T10:25:28.102151+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Thu, 15 Oct 2026 02:25:20 GMT",
+          "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=GBK",
+          "content-length": "545393"
+        },
+        "bytes": 545393,
+        "sha256": "5c169a48d73f4258844c9e141e920e72bd7bb6678161594e512c593d159ce490",
+        "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/szse.xlsx",
+        "reported_total": 2906,
+        "downloaded_rows": 2906,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-10-15",
+        "http_server_date": "2026-10-15"
+      }
+    },
+    "excluded": [],
+    "seed_file": "config/boll_universe_seed.json",
+    "seed_sha256": "f4a470d8cd61d1a5258d10b7824de8133b34e02383234b1b334baa87a200eb18",
+    "point_in_time_compatible": true,
+    "universe_sha256": "05e1ca79ac1d132fa3484585b321f0aaac804f7f977d67fc3a1bb2e222957dd1",
+    "cached_original_mode": "seed"
+  },
+  "universe_current": true,
+  "status_counts": {
+    "screened": 4965,
+    "excluded": 260
+  },
+  "unresolved_count": 0,
+  "unresolved_codes": [],
+  "all_codes_accounted_for": true,
+  "technical_screen_complete": true,
+  "candidate_count": 20,
+  "parameters": {
+    "history_bars": 160,
+    "adjustment": "unadjusted",
+    "boll": {
+      "n": 20,
+      "stddev": 2,
+      "ddof": 0
+    },
+    "kdj": {
+      "n": 9,
+      "k": 3,
+      "d": 3,
+      "seed": 50
+    },
+    "macd": {
+      "fast": 12,
+      "slow": 26,
+      "signal": 9,
+      "histogram_multiplier": 2
+    }
+  },
+  "record_shards": [
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/000001-000517.json",
+      "count": 100,
+      "sha256": "c37a0e8176a5595b7f03f1a93526b012e6aaca374e53f37b0bce6fc2439c29b1"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/000518-000670.json",
+      "count": 100,
+      "sha256": "d9b62011d9d855eb5c5a616445e45e8a4be94f960b420249fb6c1d19a4cbccfd"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/000672-000821.json",
+      "count": 100,
+      "sha256": "970fe11767ca2261aa5d4ad0277768c3bd87664cac0af7f344a51352806568c2"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/000822-000980.json",
+      "count": 100,
+      "sha256": "b7f73be30636c7cc3f3b72b2287ab80fb65754d533ad9a5fde241d11c733ad9a"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/000981-001337.json",
+      "count": 100,
+      "sha256": "0fb0aa797d27b7dc0cafe8aee9aac7a8005b91636440c816a0bf4005ba56566f"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/001338-002069.json",
+      "count": 100,
+      "sha256": "2a3a92eadb6f656a15c4ac57ce86917d5dca73eeac456ec7a8463d24d7395503"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002072-002177.json",
+      "count": 100,
+      "sha256": "d2e14268c3be06737c0ddbad8fd0cc648eeb5502aac22cb9cc1c61a3da7366eb"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002178-002282.json",
+      "count": 100,
+      "sha256": "f1ef2eae6307862b0df2f7bc339b223a57638df32b56291b45cfecf663bd616e"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002283-002388.json",
+      "count": 100,
+      "sha256": "37689406b94982bf913e7d51139ede93a0a5f431bb449e815e7b6659f22087c0"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002389-002497.json",
+      "count": 100,
+      "sha256": "5b202d85053725656748a44e722dfbc2e9a4e32eeef84c5fc7a13fd26202d834"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002498-002605.json",
+      "count": 100,
+      "sha256": "36c9dad6e1db66237edca6f0913a4122257d6191d632319284210465d46a5087"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002606-002716.json",
+      "count": 100,
+      "sha256": "cb50267cc1d9658bb8d4b8dcff12ced6eeb5435ffb9e068d98ea06d0130c18be"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002717-002831.json",
+      "count": 100,
+      "sha256": "695b85864a074233ed746b7a57aaee1e8b0a0e0f21e493c80f09cfd3e0d07d77"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002832-002941.json",
+      "count": 100,
+      "sha256": "4f86c56954ba334b460dba736acd5f30ba42d4c894ea3e4d935a8cd9323f2c30"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/002942-300005.json",
+      "count": 100,
+      "sha256": "8ef9cb74b73b574d143e9e7884ad8d2fe690d89979e6b92d5cbca16be0b421f3"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300006-300118.json",
+      "count": 100,
+      "sha256": "46c94473e3c99bbff163134cebb86820982ef3129eb4c8b0507c288a1cd7bf81"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300119-300224.json",
+      "count": 100,
+      "sha256": "42f124a51209c3ddece948e98dfa565a731ea4842f599855610c41ff41406fdd"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300225-300333.json",
+      "count": 100,
+      "sha256": "d3946183af68a3bae8f14049ba2d061b5bd4bf005e42118c8b877e88f2e48c2f"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300334-300444.json",
+      "count": 100,
+      "sha256": "c5e25188242358c354b6319de22e9ec02c006effc41ee489d27a091cb15ee848"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300445-300548.json",
+      "count": 100,
+      "sha256": "af062d28efc92cc7aedbb5a3004bc28b2bb8c5c01822e68113c947a309286fa1"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300549-300651.json",
+      "count": 100,
+      "sha256": "7bc01aeed582b5bf1d857315e3c6ab9a0becef706c48be2274e21b5b13c62493"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300652-300758.json",
+      "count": 100,
+      "sha256": "0a6965f77a6e9ae2bf04c0af08a7df2de426394fedb223960f0baf7ba46f766e"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300759-300861.json",
+      "count": 100,
+      "sha256": "b5bc86a41460487161e8be3e8ef99fc9ac3def741b0ef1c196b8a17b6fc05f7a"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300862-300967.json",
+      "count": 100,
+      "sha256": "820d0d495284fc6e1f231c857defde01f9ef54e67f526f0287962b783e8c2848"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/300968-301073.json",
+      "count": 100,
+      "sha256": "c2c32627bbbe83034de326639ec77e37d5fe47e3a25e14f6f153d881888550f2"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/301075-301191.json",
+      "count": 100,
+      "sha256": "57480a2f397f005d49a851103c7ddda72cee333bd1563b846f79c753a2df854d"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/301192-301312.json",
+      "count": 100,
+      "sha256": "27cbc719ab5a60ed83dc5009b9272c13366501344756f8165d9311ca4f08864f"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/301313-301509.json",
+      "count": 100,
+      "sha256": "70f3b6ed77d996f1cf1d55f1783805270535c1a028849f07ab37fab1a1f6f6cf"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/301510-301696.json",
+      "count": 100,
+      "sha256": "fc421deaff2fa85dcc9716fe13367ecd0dfd81486f008e3923fb2a2512903409"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/301697-600127.json",
+      "count": 100,
+      "sha256": "ea2ab2f40a6630e2ee8dc14734e0d6889f9b732db590cf0be500a4c5042eb416"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600128-600259.json",
+      "count": 100,
+      "sha256": "3656f59776b31c3f05fa7d24b406c3c8698431d27437a286f72be5e946251419"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600261-600392.json",
+      "count": 100,
+      "sha256": "05a4d498afad8ddb606876469043e2e158cab1925c7c76728c70e107eed204e8"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600395-600539.json",
+      "count": 100,
+      "sha256": "90f0971617fa846e362f543abe1d186d16ee7f93948e14c5f64f0ae90d95e2c3"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600540-600664.json",
+      "count": 100,
+      "sha256": "11f7c9d3241bd67cd4c1b49966d1e83339ca128f5d53de62e8979f44e792ec38"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600665-600784.json",
+      "count": 100,
+      "sha256": "a7aa163b4088e4f7359e231d7a57979b73e4e3d22f7954c7dce853c18f59a5a8"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600785-600916.json",
+      "count": 100,
+      "sha256": "cefcbf626e697c76aa4103373b4dfac9b402507663e0cc4d3950871ebee43ac7"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/600917-601116.json",
+      "count": 100,
+      "sha256": "f30a1763b4fe63c91383a99df91c3d3f7a23e1de2bab34ec8a30e299eb896b83"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/601117-601669.json",
+      "count": 100,
+      "sha256": "baa9e1ac6c9cdba51d41e3ac6f859830e6d748128042cce9d18ce8ecea527e31"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/601677-603020.json",
+      "count": 100,
+      "sha256": "f2acd5bdf1b873eb0b14f00e42c8289b1ae5eb9772bc3ae748e582825b91054b"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603021-603135.json",
+      "count": 100,
+      "sha256": "e4b63367a2774b6325409b43c83fc7351756d2ded90cdcd15cdad4a8f915e46d"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603136-603271.json",
+      "count": 100,
+      "sha256": "d46507b4a3ca8e9cb4d99ce419c492f3a9d3012535e022d58611408dc6b7b294"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603272-603395.json",
+      "count": 100,
+      "sha256": "22be94aea79c5db2b2556c58e217685148eff81672e5b5f4b633381ce6997240"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603396-603639.json",
+      "count": 100,
+      "sha256": "ed6c80e414a8fa5696198f441f15a2938c5e3ea5a344ac36f39449c80a570c31"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603648-603828.json",
+      "count": 100,
+      "sha256": "891b23cefe3178b4a94972db591d592745a18828606bdcd323884d778395e026"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/603829-605006.json",
+      "count": 100,
+      "sha256": "b93cc5afb0e7319b673182e7eed5805670ac4157c9fcbe091e647ca229f0f896"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/605007-605555.json",
+      "count": 100,
+      "sha256": "6349a2768c12741ae070913aade63f6d4e768473a87dc60f678696196b0d17f6"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/605566-688105.json",
+      "count": 100,
+      "sha256": "5c6fd55913c7aa894d3e14abd13a8868918ac302db65c3ee29995a68ad844aea"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688106-688218.json",
+      "count": 100,
+      "sha256": "bb30a218c364a5c44f495b22a5e78f09458e06280d1ec9edb80001ef0f9579ea"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688219-688334.json",
+      "count": 100,
+      "sha256": "6092675bbc289f8eecc9e51a42b827a7900f61a2c806ba48f91c2a020fec0fb6"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688335-688502.json",
+      "count": 100,
+      "sha256": "2aaff913b6f43c6851d789e8ed0054836e8334e0875676f252950957dcb60493"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688503-688625.json",
+      "count": 100,
+      "sha256": "5a5c8e73ec39290c46fe60c2f089b2db6564c878d43ff50959bd0f0da1e07f58"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688626-688795.json",
+      "count": 100,
+      "sha256": "ec3ff7e67ca105be74a9ee52a98529faf831770fe2744dcea3c22950619f15fe"
+    },
+    {
+      "file": "output/boll/archive/2026-10-15/20261015T163354-noon/records/688796-688981.json",
+      "count": 25,
+      "sha256": "7e5711d005e757aca5855f726ab22984945a3e2eeda5e1a6e9accbfabf6bc600"
+    }
+  ],
+  "candidate_file": "output/boll/archive/2026-10-15/20261015T163354-noon/candidates.json",
+  "company_diligence_complete": false,
+  "focus_stock_code": null,
+  "recommendation_status": "candidate_review_required",
+  "quality_note": "Technical screen coverage and company research are separate. No automatic recommendation or statistical win rate.",
+  "update_methods": {
+    "quote_append": 5193,
+    "history_fetch": 32
+  },
+  "overlay_file": "output/boll/archive/2026-10-15/20261015T163354-noon/overlay.json"
+}
