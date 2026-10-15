@@ -424,6 +424,33 @@ def _persist(root: Path, rows: list[dict], meta: dict) -> None:
     _write_bytes(state / "universe_meta.json", _json_bytes(meta))
 
 
+def membership_current(meta: dict, report_date: str) -> bool:
+    """Accept a live refresh or source-hashed official evidence from this date.
+
+    A failed live refresh remains fresh=False. Reusing the same day's verified
+    source documents does not turn that failure into a live refresh, but can
+    supply a current membership baseline. Prior-date seeds never pass.
+    """
+    if meta.get("fresh"):
+        return True
+    if meta.get("version_date") != report_date:
+        return False
+    try:
+        retrieved = datetime.fromisoformat(meta["retrieved_at"])
+        if retrieved.tzinfo is None or retrieved.astimezone(TZ).date().isoformat() != report_date:
+            return False
+    except (KeyError, TypeError, ValueError):
+        return False
+    sources = meta.get("sources", {})
+    for key in ("sse_main", "sse_star", "szse_metadata", "szse_xlsx"):
+        evidence = sources.get(key, {})
+        if (evidence.get("http_status") != 200
+                or not re.fullmatch(r"[0-9a-f]{64}", str(evidence.get("sha256", "")))
+                or evidence.get("http_server_date") != report_date):
+            return False
+    return all(sources[key].get("source_version_date") == report_date for key in ("szse_metadata", "szse_xlsx"))
+
+
 def load_universe(root: Path, asof: str, refresh: bool = True, timeout: int = 12) -> tuple[list[dict], dict]:
     """Load official ordinary A-share records and their source/count provenance.
 

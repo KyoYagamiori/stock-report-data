@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 from .history import canonical_bytes, fetch_history, import_evidence, import_seed, load_cache, preserve_bootstrap, write_json
 from .quotes import fetch_quotes, validate_quote
 from .technicals import PARAMETERS, calculate, rank_candidate
-from .universe import load_universe, validate_universe
+from .universe import load_universe, membership_current, validate_universe
 
 TZ = ZoneInfo("Asia/Shanghai")
 
@@ -131,7 +131,8 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
                         key=lambda r: (-r["ranking"]["score"], r["code"]))[:config["candidate_count"]]
     all_codes_match = {r["code"] for r in records} == {r["code"] for r in universe} and len(records) == len(universe)
     universe_fresh = bool(universe_meta.get("fresh"))
-    complete = all_codes_match and not unresolved and universe_fresh
+    universe_current = membership_current(universe_meta, dates["report_date"])
+    complete = all_codes_match and not unresolved and universe_current
     relative = lambda path: path.relative_to(root).as_posix()
     write_json(run_dir / "universe.json", {"records": universe, "provenance": universe_meta})
     shards = []
@@ -149,6 +150,7 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         "point_in_time_recovered": dates["market_date"] < started_at[:10],
         "universe_count": len(universe), "exchange_counts": dict(Counter(s["exchange"] for s in universe)),
         "universe_fresh": universe_fresh, "universe_provenance": universe_meta,
+        "universe_current": universe_current,
         "status_counts": dict(counts), "unresolved_count": len(unresolved), "unresolved_codes": unresolved,
         "all_codes_accounted_for": all_codes_match, "technical_screen_complete": complete,
         "candidate_count": len(candidates), "parameters": PARAMETERS, "record_shards": shards,
