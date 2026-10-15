@@ -54,7 +54,16 @@ def resolve_dates(root, moment, phase, explicit_market_date=None):
             "expected_sessions": dates}
 
 
-def assemble_record(stock, history, target_date, config, sessions, quote=None):
+def verified_suspension(state, code, target_date):
+    return bool(isinstance(state, dict) and state.get("code") == code
+                and state.get("status") == "issuer_announced_suspension"
+                and target_date in state.get("verified_market_dates", [])
+                and state.get("start_date", "9999") <= target_date
+                and state.get("source_kind") in ("issuer_announcement", "issuer_announcement_copy")
+                and state.get("source_url") and state.get("verified_at"))
+
+
+def assemble_record(stock, history, target_date, config, sessions, quote=None, trading_state=None):
     code = stock["code"]
     out = {"code": code, "name": stock.get("name"), "exchange": stock["exchange"],
            "board": stock.get("board"), "industry": stock.get("industry"),
@@ -68,6 +77,17 @@ def assemble_record(stock, history, target_date, config, sessions, quote=None):
     listed = str(stock.get("listing_date") or "")[:10]
     if listed and listed > target_date:
         out.update(status="excluded", reasons=["not_listed_at_target_date"], ranking={"eligible": False})
+        return out
+    if verified_suspension(trading_state, code, target_date):
+        dated_rows = [bar for bar in history.get("bars", []) if str(bar.get("day", ""))[:10] == target_date]
+        positive_trade = any(float(bar.get("volume", 0)) > 0 for bar in dated_rows)
+        positive_trade = positive_trade or bool(quote and quote.get("date") == target_date and quote.get("status") == "valid")
+        if positive_trade:
+            out.update(status="unresolved", reasons=["suspension_evidence_conflicts_with_target_trades"],
+                       trading_state=trading_state, ranking={"eligible": False})
+        else:
+            out.update(status="excluded", reasons=["issuer_announced_suspension"],
+                       trading_state=trading_state, ranking={"eligible": False})
         return out
     if history.get("fetch_status") != "success" or not history.get("bars"):
         out.update(status="unresolved", reasons=["history_request_failed"], errors=history.get("errors", []), ranking={"eligible": False})
@@ -101,12 +121,15 @@ def assemble_record(stock, history, target_date, config, sessions, quote=None):
 
 def overlay_record(record, quote, report_date, phase, moment, expected_baseline_date=None):
     out = {"code": record["code"], "name": record["name"], "completed_daily_asof": record["market_date"],
-           "quote": quote, "is_completed_daily_indicator": False}
+           "quote": quote, "is_completed_daily_indicator": False, "quote_status": "unavailable"}
     errors = validate_quote(quote or {}, report_date, phase, now=moment)
     out["errors"] = errors
     if errors:
         out["status"] = "unavailable"
+        if errors == ["no_trades"]:
+            out["quote_status"] = "no_trades"
         return out
+    out["quote_status"] = "valid"
     if expected_baseline_date and record.get("indicators", {}).get("bar_date") != expected_baseline_date:
         out.update(status="stale_baseline", errors=["daily_baseline_not_previous_completed_session"])
         return out
@@ -168,9 +191,13 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         now = datetime.now(TZ)
         expected_baseline = max(day for day in dates["expected_sessions"] if day < dates["report_date"])
         overlay_rows = [overlay_record(r, quotes.get(r["code"]), dates["report_date"], phase, now, expected_baseline) for r in records]
-        valid = sum(r["status"] == "valid" for r in overlay_rows)
+        valid = sum(r["quote_status"] == "valid" for r in overlay_rows)
+        no_trades = sum(r["quote_status"] == "no_trades" for r in overlay_rows)
         overlay = {"market_date": dates["report_date"], "phase": phase, "daily_baseline_date": dates["market_date"],
-                   "valid_quotes": valid, "universe_count": len(universe), "full_market_overlay_complete": valid == len(universe),
+                   "valid_quotes": valid, "no_trade_quotes": no_trades, "universe_count": len(universe),
+                   "full_market_overlay_complete": valid + no_trades == len(universe),
+                   "daily_boll_overlays": sum(r["status"] == "valid" for r in overlay_rows),
+                   "coverage_note": "Quote coverage counts all official codes, separately from whether a daily BOLL overlay is available.",
                    "source": quotes_meta, "candidate_overlays": [r for r in overlay_rows if r["code"] in {c["code"] for c in candidates}]}
         write_json(run_dir / "overlay.json", overlay)
         for offset in range(0, len(overlay_rows), 100):
@@ -227,6 +254,8 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
     validate_universe(universe)
     cache_root = root / "output/boll/state/history"
     cache_root.mkdir(parents=True, exist_ok=True)
+    states_path = root / "config/boll_trading_states.json"
+    states = {row["code"]: row for row in json.loads(states_path.read_text()).get("records", [])} if states_path.exists() else {}
     imported = import_evidence(import_history, cache_root, dates["market_date"])
     seed = root / "output/boll/bootstrap/history.jsonl.gz"
     imported += import_seed(seed, cache_root, dates["market_date"])
@@ -235,6 +264,11 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
     output, pending, codes = {}, {}, iter(universe)
     deadline = started + max_seconds
     def get_history(stock):
+        if str(stock.get("listing_date") or "")[:10] > dates["market_date"]:
+            return {"code": stock["code"], "bars": [], "fetch_status": "success", "update_method": "not_listed_at_target"}
+        if verified_suspension(states.get(stock["code"]), stock["code"], dates["market_date"]):
+            cached = load_cache(cache_root / (stock["code"] + ".json.gz"), stock["code"], dates["market_date"])
+            return {**(cached or {}), "fetch_status": "success", "update_method": "verified_suspension_evidence"}
         if cached_only:
             cached = load_cache(cache_root / (stock["code"] + ".json.gz"), stock["code"], dates["market_date"])
             return {**cached, "fetch_status": "success", "update_method": "cache_hit"} if cached else {
@@ -258,7 +292,7 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
                 stock = pending.pop(future)
                 try:
                     evidence = future.result()
-                    output[stock["code"]] = assemble_record(stock, evidence, dates["market_date"], config, dates["expected_sessions"], quotes.get(stock["code"]))
+                    output[stock["code"]] = assemble_record(stock, evidence, dates["market_date"], config, dates["expected_sessions"], quotes.get(stock["code"]), states.get(stock["code"]))
                 except Exception as exc:
                     output[stock["code"]] = {"code": stock["code"], "name": stock.get("name"), "exchange": stock["exchange"],
                                             "market_date": dates["market_date"], "status": "unresolved", "reasons": [type(exc).__name__ + ":" + str(exc)[:200]],
