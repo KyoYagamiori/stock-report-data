@@ -1,15 +1,15 @@
 # 股票行情快照 | 2026-10-16 close
 
 - Schema：1.6.1
-- Snapshot ID：`20261016-1627-close-full-38873766757`
+- Snapshot ID：`20261016-1707-close-full-38878190880`
 - 报告周期：`2026-10-16-close`
 - 质量等级：**A**
 - 质量 Profile：`trading_close`
 - 行情日期：2026-10-16
 - 行情时间范围：2026-10-16T15:00:03+08:00 至 2026-10-16T15:35:45+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.52 分钟
-- 生成时间：2026-10-16T16:28:20+08:00
+- 调度延迟：0.12 分钟
+- 生成时间：2026-10-16T17:07:56+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -30,8 +30,8 @@
 
 - 两市成交额：1,568,833,473,333
 - 市场宽度：上涨 3,301 / 下跌 2,127 / 平盘 148 / 涨停 70 / 跌停 21
-- 强势方向：燃料电池(6.56%)、航空装备Ⅲ(5.98%)、航空装备Ⅱ(5.98%)、地面兵装Ⅲ(5.97%)、地面兵装Ⅱ(5.97%)
-- 弱势方向：昨日炸板(-5.84%)、历史新高(-5.19%)、文字媒体(-4.60%)、印制电路板(-4.51%)、蓄电池及其他电池(-4.19%)
+- 强势方向：军工装备(5.61%)、军工电子(2.87%)、汽车零部件(2.37%)、化学纤维(2.26%)、汽车整车(1.98%)
+- 弱势方向：元件(-3.83%)、游戏(-2.76%)、医疗服务(-2.35%)、影视院线(-2.22%)、能源金属(-1.74%)
 
 ## 观察池行情
 
@@ -66,4 +66,4 @@
 ## 数据源状态
 
 - `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=市场汇总仅在沪深A股全页数量核对通过时提供。
+- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；市场汇总仅在沪深A股全页数量核对通过时提供。
