@@ -1,7 +1,7 @@
 {
   "attempt_role": "delayed-current-phase",
   "blocking_reasons": [],
-  "collection_mode": "historical_point_in_time_recovery",
+  "collection_mode": "live_or_latest_completed",
   "coverage": {
     "core": {
       "expected": 11,
@@ -15,18 +15,18 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "watch": {
       "expected": 14,
@@ -34,51 +34,50 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-10-16T13:01:04+08:00",
-  "planned_at": "2026-10-16T12:59:00+08:00",
-  "point_in_time_recovered": true,
+  "finished_at": "2026-10-16T16:28:20+08:00",
+  "planned_at": "2026-10-16T16:27:00+08:00",
+  "point_in_time_recovered": false,
   "published": true,
-  "quality_grade": "B",
+  "quality_grade": "A",
   "quality_reasons": [
-    "quality profile thresholds met for grade B",
+    "quality profile thresholds met for grade A",
     "indices coverage 3/3",
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-10-16-noon",
+  "report_cycle": "2026-10-16-close",
   "report_date": "2026-10-16",
-  "schedule_delay_minutes": 0.42,
+  "schedule_delay_minutes": 0.52,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261016-1259-noon-full-38853392975",
+  "snapshot_id": "20261016-1627-close-full-38873766757",
   "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
-        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
-        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
+        "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-10-16T13:01:04+08:00",
+      "finished_at": "2026-10-16T16:28:20+08:00",
       "records_expected": 5,
-      "records_valid": 2,
+      "records_valid": 3,
       "retry_count": 0,
-      "source": "新浪一分钟历史时点恢复",
-      "started_at": "2026-10-16T12:59:25+08:00",
+      "source": "新浪证券批量行情（源日期时间）",
+      "started_at": "2026-10-16T16:27:31+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
-        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
+        "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-10-16T13:01:00+08:00",
+      "finished_at": "2026-10-16T16:27:37+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪一分钟历史时点恢复",
-      "started_at": "2026-10-16T12:59:25+08:00",
+      "source": "新浪证券批量行情（源日期时间）",
+      "started_at": "2026-10-16T16:27:31+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-10-16T12:59:25+08:00",
+  "started_at": "2026-10-16T16:27:31+08:00",
   "status": "published"
 }
