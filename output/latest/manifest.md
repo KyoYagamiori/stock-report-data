@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-10-17T23:38:47+08:00
+- 更新时间：2026-10-17T23:54:23+08:00
 - 交易日状态：非交易日
 - 最近已完成交易日：2026-10-16
 
@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | early | not_applicable | A | 20261017-0054-early-full-38935505953 | output/archive/2026/10/17/early/20261017-0054-early-full-38935505953.json |
 | noon | not_ready | 暂无 | 暂无 | 暂无 |
-| evening | not_applicable | A | 20261017-2338-evening-full-39045930919 | output/archive/2026/10/17/evening/20261017-2338-evening-full-39045930919.json |
+| evening | not_applicable | A | 20261017-2354-evening-full-39047063518 | output/archive/2026/10/17/evening/20261017-2354-evening-full-39047063518.json |
 
 ## 权威快照指针
 
@@ -20,7 +20,7 @@
 | early | A | 2026-10-17-early | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/17/early/20261017-0054-early-full-38935505953.json | `63f66a334be4cc54b560bf87001df134dc84402290cb17148b65139a374cfe5e` |
 | noon | B | 2026-10-16-noon | 2026-10-16 | 2026-10-16T11:30:00+08:00 | output/archive/2026/10/16/noon/20261016-1259-noon-full-38853392975.json | `bdcdeeb4497a780d0a9d20a409031ab3a135f86d74d23cccb6e492519a738dd7` |
 | close | A | 2026-10-16-close | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/16/close/20261016-1947-close-full-38896062941.json | `07b99c3e05c8a153b485b55f4e75d9e5443398a85abb4016dc0d07be99230e0f` |
-| evening | A | 2026-10-17-evening | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/17/evening/20261017-2338-evening-full-39045930919.json | `d2d5eee09cae89961636c0ef920b5bc89072a90a00bbcf972f91583546a38718` |
+| evening | A | 2026-10-17-evening | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/17/evening/20261017-2354-evening-full-39047063518.json | `ec3c14edbc71d914e46c8a68a7e0072b3dda6042e10e862a98297f72ab3416d8` |
 | intraday | B | 2026-10-15-intraday | 2026-10-15 | 2026-10-15T13:11:36+08:00 | output/archive/2026/10/15/intraday/20261015-1311-intraday-light-38685413504.json | `dd57861416df702240224cca98b0963ea2863169db041c6e852ba6d1f5af7beb` |
 
 > 机器读取应以 Manifest 中的不可变 JSON 文件和 SHA-256 为准；`latest` 仅供人工查看与旧入口兼容。
