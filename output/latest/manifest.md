@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-10-19T12:36:13+08:00
+- 更新时间：2026-10-19T13:19:14+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-10-16
 
@@ -21,6 +21,6 @@
 | noon | B | 2026-10-19-noon | 2026-10-19 | 2026-10-19T11:30:00+08:00 | output/archive/2026/10/19/noon/20261019-1235-noon-full-39200177196.json | `12d8fca5ae85a2ba9a93a4dcdb647d4b1bab3e12c3c0192ed06278722570cbe5` |
 | close | A | 2026-10-16-close | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/16/close/20261016-1947-close-full-38896062941.json | `07b99c3e05c8a153b485b55f4e75d9e5443398a85abb4016dc0d07be99230e0f` |
 | evening | A | 2026-10-18-evening | 2026-10-16 | 2026-10-16T15:35:45+08:00 | output/archive/2026/10/18/evening/20261018-2354-evening-full-39142564166.json | `041259ef2475b2369626746c4f515c3714582aa413ca04c529fbbca37a9b240c` |
-| intraday | B | 2026-10-15-intraday | 2026-10-15 | 2026-10-15T13:11:36+08:00 | output/archive/2026/10/15/intraday/20261015-1311-intraday-light-38685413504.json | `dd57861416df702240224cca98b0963ea2863169db041c6e852ba6d1f5af7beb` |
+| intraday | B | 2026-10-19-intraday | 2026-10-19 | 2026-10-19T13:19:12+08:00 | output/archive/2026/10/19/intraday/20261019-1319-intraday-light-39203887775.json | `dc7727777ccf67349074e19d6ca28ff74154e2d25a2fd80b2bb3c542ec653cdc` |
 
 > 机器读取应以 Manifest 中的不可变 JSON 文件和 SHA-256 为准；`latest` 仅供人工查看与旧入口兼容。
