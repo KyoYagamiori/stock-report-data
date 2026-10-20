@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "timezone": "Asia/Shanghai",
-  "updated_at": "2026-10-19T06:57:25.872Z",
+  "updated_at": "2026-10-20T09:20:48.596Z",
   "latest_by_cycle": {
     "early": {
       "report_date": "2026-10-19",
@@ -62,62 +62,129 @@
       }
     },
     "noon": {
-      "report_date": "2026-10-19",
+      "report_date": "2026-10-20",
       "report_type": "noon",
-      "title": "2026-10-19 午报",
-      "selected_file": "reports/archive/2026/10/19/noon.md",
-      "archived_at": "2026-10-19T06:55:40.181Z",
-      "sha256": "a3dc66608d1f510ffbcadbf6aadae0be2c16e6868d78050f0b6d9484c8dceccd",
-      "market_cutoff": "2026-10-19T11:30:00+08:00",
-      "news_cutoff": "2026-10-19T12:40:00+08:00",
-      "snapshot_file": "output/archive/2026/10/19/noon/20261019-1235-noon-full-39200177196.json",
-      "snapshot_id": "20261019-1235-noon-full-39200177196",
-      "quote_coverage_original_pool": 3,
-      "data_quality": "B; explicit historical reconstruction on Oct19; original report not recovered; original cutoffs maintained; targeted sources and partial candidate coverage; no invented historic forecast probabilities or new recommendations; noon exact quote coverage3/8 original pool; no full current-universe ranking",
+      "title": "2026-10-20 午报",
+      "selected_file": "reports/archive/2026/10/20/noon.md",
+      "archived_at": "2026-10-20T09:20:19.001Z",
+      "sha256": "cc07561263df8be607880d02f311c4e738a53526fbf6b011db927450e824efba",
+      "market_cutoff": "2026-10-20T11:30:00+08:00",
+      "news_cutoff": "2026-10-20T12:40:00+08:00",
+      "indicator_cutoff": "2026-10-19",
+      "snapshot_file": "output/archive/2026/10/20/noon/20261020-1244-noon-full-39371111058.json",
+      "snapshot_id": "20261020-1244-noon-full-39371111058",
+      "snapshot_sha256": "ac767ac3b847f1148d05464d6830a6fee78ce37f7b0c10a1f1802ed398514245",
+      "snapshot_sha256_verified": true,
       "historical_reconstruction": true,
-      "reconstruction_date": "2026-10-19",
-      "original_final_available": false,
+      "reconstruction_date": "2026-10-20",
+      "data_quality": "B; frozen 11:30 market and 12:40 news; 23/25 snapshot quotes plus 6 saved minute-cache candidates, 29 unique quotes; active pool 8/8; no independent second-source verification for supplemental candidates; prior-day 160-bar indicators not independently recalculated this run; no current-universe complete screen or noon overlay",
       "active_pool": [
-        "002371",
-        "688652",
-        "600900",
         "600938",
+        "688213",
+        "300896",
         "688700",
         "300476",
-        "603127",
-        "301282"
+        "002371",
+        "000786",
+        "003021"
       ],
       "card_codes": [
-        "002371",
-        "688652",
-        "600900",
-        "688700"
+        "600938",
+        "688213",
+        "688700",
+        "300476",
+        "300896"
       ],
       "locked_codes": [
         "688700"
       ],
-      "focus_stock_code": null,
-      "focus_status": "data_unavailable",
-      "focus_reason": "Original Northern595 entry plan canceled; no newly issued historical comprehensive recommendation reconstructed",
-      "technical_stock_code": null,
-      "technical_status": "data_unavailable",
-      "technical_reason": "Original Jingyi145.64 card invalidated at Oct16 close; no new historical technical recommendation invented",
+      "focus_stock_code": "600938",
+      "focus_status": "watch_for_trigger",
+      "focus_reason": "Verified prior earnings and cash flow support; no touch of original 34.90 area; no qualified entry at noon",
+      "focus_conditions": {
+        "observation_zone": [
+          34.9,
+          34.9
+        ],
+        "invalidation_below": 34.65,
+        "trigger": "Reversal after support plus adequate net reward/risk; touch alone insufficient",
+        "original_window": {
+          "start": "2026-10-20",
+          "end": "2026-10-22"
+        },
+        "trigger_met": false
+      },
+      "technical_stock_code": "688213",
+      "technical_status": "watch_for_trigger",
+      "technical_reason": "Partial-candidate technical preference after Imeik invalidation; prior-day rising and widening BOLL with noon breakout; current and proposed retest reward/risk insufficient",
+      "technical_conditions": {
+        "observation_zone": [
+          102.6,
+          103
+        ],
+        "downgrade_below": 102.6,
+        "invalidation_below": 100.3,
+        "first_resistance": 106.58,
+        "entry_authorized": false,
+        "trigger_met": false,
+        "window": {
+          "first_named_in": "2026-10-20-noon",
+          "review_by": "2026-10-22"
+        },
+        "historical_breakout_not_backfilled_as_entry": true
+      },
+      "terminated_cards": [
+        {
+          "code": "300896",
+          "original_window": {
+            "start": "2026-10-20",
+            "end": "2026-10-22"
+          },
+          "invalidation_below": 93.79,
+          "observed_low": 93.2,
+          "source_asof": "2026-10-20T11:30:00+08:00",
+          "judgment": "Canceled on saved morning sequence; rebound does not reopen; independent second source unavailable"
+        }
+      ],
       "research_method": "market_event_technical_dual_pick_v1",
-      "restoration_method": "frozen_cutoff_fact_and_original_card_reconstruction",
-      "archive_note": "Public UTF8 body read back identical; SHA256 computed from saved public body. Archive does not establish final chat delivery; no delivered receipt written.",
       "market_screen": {
-        "version": "20261016T204506-close",
-        "market_date": "2026-10-16",
+        "version": "20261019T225946-close",
+        "market_date": "2026-10-19",
         "universe_asof": "2026-10-15",
         "universe_count": 5225,
-        "valid_technical": 4966,
-        "excluded": 259,
+        "unique_codes": 5225,
+        "valid_technical": 4965,
+        "excluded": 260,
         "unresolved": 0,
+        "exclusion_reasons_independently_reviewed": false,
         "technical_screen_complete": false,
         "universe_current": false,
+        "official_refresh_succeeded": false,
         "top_candidates_read": 20,
-        "new_rule_full_universe_ranking_complete": false
-      }
+        "comprehensive_comparison_count": 4,
+        "technical_comparison_count": 3,
+        "new_rule_full_universe_ranking_complete": false,
+        "full_market_noon_quote_coverage_verified": false,
+        "valid_noon_snapshot_quotes": 23,
+        "expected_noon_snapshot_quotes": 25,
+        "supplemental_minute_cache_quotes": 6,
+        "total_unique_noon_quotes": 29,
+        "supplemental_independent_crosscheck_passed": false,
+        "latest_screen_rejected": {
+          "version": "20261020T165045-noon",
+          "reason": "market cutoff 15:00 exceeds historical noon cutoff; overlay 0 valid quotes"
+        },
+        "screen_sha256": null,
+        "candidate_sha256": null
+      },
+      "previous_report": {
+        "date": "2026-10-20",
+        "type": "early",
+        "source": "saved generated body",
+        "public_archive_status": "404 at expected path and absent from public index",
+        "chat_delivery_not_inferred": true
+      },
+      "archive_note": "Public research and source-linked carryover only. Body read back identical before index update. Archiving does not establish full final chat delivery."
     },
     "evening": {
       "report_date": "2026-10-18",
@@ -1971,6 +2038,131 @@
         "top_candidates_read": 20,
         "new_rule_full_universe_ranking_complete": false
       }
+    },
+    {
+      "report_date": "2026-10-20",
+      "report_type": "noon",
+      "title": "2026-10-20 午报",
+      "selected_file": "reports/archive/2026/10/20/noon.md",
+      "archived_at": "2026-10-20T09:20:19.001Z",
+      "sha256": "cc07561263df8be607880d02f311c4e738a53526fbf6b011db927450e824efba",
+      "market_cutoff": "2026-10-20T11:30:00+08:00",
+      "news_cutoff": "2026-10-20T12:40:00+08:00",
+      "indicator_cutoff": "2026-10-19",
+      "snapshot_file": "output/archive/2026/10/20/noon/20261020-1244-noon-full-39371111058.json",
+      "snapshot_id": "20261020-1244-noon-full-39371111058",
+      "snapshot_sha256": "ac767ac3b847f1148d05464d6830a6fee78ce37f7b0c10a1f1802ed398514245",
+      "snapshot_sha256_verified": true,
+      "historical_reconstruction": true,
+      "reconstruction_date": "2026-10-20",
+      "data_quality": "B; frozen 11:30 market and 12:40 news; 23/25 snapshot quotes plus 6 saved minute-cache candidates, 29 unique quotes; active pool 8/8; no independent second-source verification for supplemental candidates; prior-day 160-bar indicators not independently recalculated this run; no current-universe complete screen or noon overlay",
+      "active_pool": [
+        "600938",
+        "688213",
+        "300896",
+        "688700",
+        "300476",
+        "002371",
+        "000786",
+        "003021"
+      ],
+      "card_codes": [
+        "600938",
+        "688213",
+        "688700",
+        "300476",
+        "300896"
+      ],
+      "locked_codes": [
+        "688700"
+      ],
+      "focus_stock_code": "600938",
+      "focus_status": "watch_for_trigger",
+      "focus_reason": "Verified prior earnings and cash flow support; no touch of original 34.90 area; no qualified entry at noon",
+      "focus_conditions": {
+        "observation_zone": [
+          34.9,
+          34.9
+        ],
+        "invalidation_below": 34.65,
+        "trigger": "Reversal after support plus adequate net reward/risk; touch alone insufficient",
+        "original_window": {
+          "start": "2026-10-20",
+          "end": "2026-10-22"
+        },
+        "trigger_met": false
+      },
+      "technical_stock_code": "688213",
+      "technical_status": "watch_for_trigger",
+      "technical_reason": "Partial-candidate technical preference after Imeik invalidation; prior-day rising and widening BOLL with noon breakout; current and proposed retest reward/risk insufficient",
+      "technical_conditions": {
+        "observation_zone": [
+          102.6,
+          103
+        ],
+        "downgrade_below": 102.6,
+        "invalidation_below": 100.3,
+        "first_resistance": 106.58,
+        "entry_authorized": false,
+        "trigger_met": false,
+        "window": {
+          "first_named_in": "2026-10-20-noon",
+          "review_by": "2026-10-22"
+        },
+        "historical_breakout_not_backfilled_as_entry": true
+      },
+      "terminated_cards": [
+        {
+          "code": "300896",
+          "original_window": {
+            "start": "2026-10-20",
+            "end": "2026-10-22"
+          },
+          "invalidation_below": 93.79,
+          "observed_low": 93.2,
+          "source_asof": "2026-10-20T11:30:00+08:00",
+          "judgment": "Canceled on saved morning sequence; rebound does not reopen; independent second source unavailable"
+        }
+      ],
+      "research_method": "market_event_technical_dual_pick_v1",
+      "market_screen": {
+        "version": "20261019T225946-close",
+        "market_date": "2026-10-19",
+        "universe_asof": "2026-10-15",
+        "universe_count": 5225,
+        "unique_codes": 5225,
+        "valid_technical": 4965,
+        "excluded": 260,
+        "unresolved": 0,
+        "exclusion_reasons_independently_reviewed": false,
+        "technical_screen_complete": false,
+        "universe_current": false,
+        "official_refresh_succeeded": false,
+        "top_candidates_read": 20,
+        "comprehensive_comparison_count": 4,
+        "technical_comparison_count": 3,
+        "new_rule_full_universe_ranking_complete": false,
+        "full_market_noon_quote_coverage_verified": false,
+        "valid_noon_snapshot_quotes": 23,
+        "expected_noon_snapshot_quotes": 25,
+        "supplemental_minute_cache_quotes": 6,
+        "total_unique_noon_quotes": 29,
+        "supplemental_independent_crosscheck_passed": false,
+        "latest_screen_rejected": {
+          "version": "20261020T165045-noon",
+          "reason": "market cutoff 15:00 exceeds historical noon cutoff; overlay 0 valid quotes"
+        },
+        "screen_sha256": null,
+        "candidate_sha256": null
+      },
+      "previous_report": {
+        "date": "2026-10-20",
+        "type": "early",
+        "source": "saved generated body",
+        "public_archive_status": "404 at expected path and absent from public index",
+        "chat_delivery_not_inferred": true
+      },
+      "archive_note": "Public research and source-linked carryover only. Body read back identical before index update. Archiving does not establish full final chat delivery."
     }
   ]
 }
