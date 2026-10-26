@@ -1,5 +1,5 @@
 {
-  "attempt_role": "delayed-current-phase",
+  "attempt_role": "config-refresh",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -20,13 +20,13 @@
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "watch": {
       "expected": 14,
@@ -34,8 +34,8 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-10-26T13:17:39+08:00",
-  "planned_at": "2026-10-26T13:17:00+08:00",
+  "finished_at": "2026-10-26T15:18:58+08:00",
+  "planned_at": "2026-10-26T15:18:00+08:00",
   "point_in_time_recovered": false,
   "published": true,
   "quality_grade": "B",
@@ -45,39 +45,42 @@
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-10-26-intraday",
+  "report_cycle": "2026-10-26-close",
   "report_date": "2026-10-26",
-  "schedule_delay_minutes": 0.6,
+  "schedule_delay_minutes": 0.13,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261026-1317-intraday-light-40273386292",
-  "snapshot_mode": "light",
-  "snapshot_type": "intraday",
+  "snapshot_id": "20261026-1518-close-full-40284898623",
+  "snapshot_mode": "full",
+  "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
+        "全市场采集未完整通过：RuntimeError: HTTPError: 504 Server Error: Gateway Time-out for url: https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=58&num=80&sort=symbol&asc=1&node=hs_a&symbo",
+        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-10-26T13:17:39+08:00",
+      "finished_at": "2026-10-26T15:18:58+08:00",
       "records_expected": 5,
       "records_valid": 1,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-10-26T13:17:36+08:00",
+      "started_at": "2026-10-26T15:18:08+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
         "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-10-26T13:17:39+08:00",
+      "finished_at": "2026-10-26T15:18:14+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-10-26T13:17:36+08:00",
+      "started_at": "2026-10-26T15:18:08+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-10-26T13:17:36+08:00",
+  "started_at": "2026-10-26T15:18:08+08:00",
   "status": "published"
 }
