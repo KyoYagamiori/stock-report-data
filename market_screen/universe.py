@@ -325,19 +325,28 @@ def _parse_szse(metadata_payload: bytes, xlsx_payload: bytes) -> tuple[list[dict
 
 def _fetch(url: str, timeout: int, path: Path) -> tuple[bytes, dict]:
     referer = "https://www.sse.com.cn/" if "sse.com.cn/" in url and "szse.cn/" not in url else "https://www.szse.cn/"
-    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Referer": referer})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = response.read()
-        status = response.status
-        headers = {key.lower(): value for key, value in response.headers.items()
-                   if key.lower() in ("date", "content-type", "content-length", "last-modified", "etag")}
+    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Referer": referer,
+                                                 "Cache-Control": "no-cache"})
+    errors = []
+    for attempt in (1, 2):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                payload = response.read()
+                status = response.status
+                headers = {key.lower(): value for key, value in response.headers.items()
+                           if key.lower() in ("date", "content-type", "content-length", "last-modified", "etag")}
+            break
+        except (OSError, ValueError) as exc:
+            errors.append(type(exc).__name__ + ":" + str(exc)[:300])
+            if attempt == 2:
+                raise
     if status != 200 or not payload:
         raise ValueError(f"empty/non-200 official response: {status}")
     retrieved_at = datetime.now(TZ).isoformat()
     _write_bytes(path, payload)
     evidence = {"url": url, "retrieved_at": retrieved_at, "http_status": status,
                 "http_headers": headers, "bytes": len(payload), "sha256": _sha256(payload),
-                "raw_file": path.as_posix()}
+                "raw_file": path.as_posix(), "attempt_count": attempt, "earlier_errors": errors}
     _write_bytes(path.with_suffix(path.suffix + ".meta.json"), _json_bytes(evidence))
     return payload, evidence
 

@@ -89,6 +89,12 @@ def assemble_record(stock, history, target_date, config, sessions, quote=None, t
             out.update(status="excluded", reasons=["issuer_announced_suspension"],
                        trading_state=trading_state, ranking={"eligible": False})
         return out
+    # An exact-session, completed zero-activity observation is sufficient to
+    # account for no trading. It does not establish an issuer's suspension.
+    if quote and quote.get("code") == code and validate_quote(quote, target_date, "close") == ["no_trades"]:
+        out.update(status="excluded", reasons=["no_trades_on_target_session"],
+                   quote=quote, ranking={"eligible": False})
+        return out
     if history.get("fetch_status") != "success" or not history.get("bars"):
         out.update(status="unresolved", reasons=["history_request_failed"], errors=history.get("errors", []), ranking={"eligible": False})
         return out
@@ -101,10 +107,7 @@ def assemble_record(stock, history, target_date, config, sessions, quote=None, t
     if not indicators["history_current"]:
         # Exact target-day zero-activity quotes justify a no-trade exclusion.
         # A stale last bar or today's zero volume cannot prove an earlier halt.
-        if quote and quote.get("date") == target_date and quote.get("status") == "no_trades":
-            out.update(status="excluded", reasons=["no_trades_on_target_session"], quote=quote, ranking={"eligible": False})
-        else:
-            out.update(status="unresolved", reasons=["missing_target_session_bar"], ranking={"eligible": False})
+        out.update(status="unresolved", reasons=["missing_target_session_bar"], ranking={"eligible": False})
         return out
     if indicators["bar_count"] < config["minimum_history_bars"]:
         possible_sessions = sum(listed <= day <= target_date for day in sessions) if listed else None
@@ -219,7 +222,9 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
                 "selected_file": relative(run_dir / "screen.json"), "candidate_file": relative(run_dir / "candidates.json"),
                 "sha256": hashlib.sha256((run_dir / "screen.json").read_bytes()).hexdigest(),
                 "technical_screen_complete": complete, "unresolved_count": len(unresolved),
-                "published_at": summary["published_at"]}
+                "published_at": summary["published_at"], "report_date": dates["report_date"],
+                "universe_count": len(universe), "status_counts": dict(counts),
+                "universe_current": universe_current}
     prior = manifest.get("latest_screen", {})
     # New incomplete runs cannot hide an already accepted complete same-date run.
     if dates["market_date"] > prior.get("market_date", "") or (dates["market_date"] == prior.get("market_date", "") and (complete or not prior.get("technical_screen_complete"))):
@@ -264,6 +269,11 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
     output, pending, codes = {}, {}, iter(universe)
     deadline = started + max_seconds
     def get_history(stock):
+        if "ST" in str(stock.get("name", "")).upper() or "退" in str(stock.get("name", "")):
+            return {"code": stock["code"], "bars": [], "fetch_status": "success", "update_method": "risk_warning_exclusion"}
+        quote = quotes.get(stock["code"])
+        if quote and quote.get("code") == stock["code"] and validate_quote(quote, dates["market_date"], "close") == ["no_trades"]:
+            return {"code": stock["code"], "bars": [], "fetch_status": "success", "update_method": "completed_no_trade_quote"}
         if str(stock.get("listing_date") or "")[:10] > dates["market_date"]:
             return {"code": stock["code"], "bars": [], "fetch_status": "success", "update_method": "not_listed_at_target"}
         if verified_suspension(states.get(stock["code"]), stock["code"], dates["market_date"]):

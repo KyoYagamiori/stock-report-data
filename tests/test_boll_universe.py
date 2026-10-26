@@ -197,5 +197,32 @@ class UniverseFallbackTests(unittest.TestCase):
             u.load_universe(self.root, "2026-10-15", refresh=False)
 
 
+class OfficialRequestRetryTests(unittest.TestCase):
+    def test_connection_reset_retries_once_and_preserves_source_headers(self):
+        from unittest.mock import MagicMock
+        response = MagicMock()
+        response.__enter__.return_value = response
+        response.status = 200
+        response.headers = {"Date": "Mon, 26 Oct 2026 07:10:00 GMT"}
+        response.read.return_value = b'{"official":true}'
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "official.json"
+            with patch.object(u.urllib.request, "urlopen", side_effect=[ConnectionResetError("reset"), response]) as fetch:
+                raw, meta = u._fetch(u.SZSE_JSON_URL, 12, path)
+            self.assertEqual(2, fetch.call_count)
+            self.assertEqual(2, meta["attempt_count"])
+            self.assertIn("reset", meta["earlier_errors"][0])
+            self.assertEqual("Mon, 26 Oct 2026 07:10:00 GMT", meta["http_headers"]["date"])
+            self.assertEqual(raw, path.read_bytes())
+            self.assertEqual(u._sha256(raw), meta["sha256"])
+
+    def test_persistent_failure_remains_a_failure_after_two_attempts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(u.urllib.request, "urlopen", side_effect=ConnectionResetError("reset")) as fetch:
+                with self.assertRaises(ConnectionResetError):
+                    u._fetch(u.SZSE_JSON_URL, 12, Path(directory) / "official.json")
+            self.assertEqual(2, fetch.call_count)
+
+
 if __name__ == "__main__":
     unittest.main()
