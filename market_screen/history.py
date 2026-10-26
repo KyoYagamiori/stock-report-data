@@ -99,19 +99,20 @@ def import_seed(seed_path, cache_root, target_date):
             payload = json.loads(line)
             code = payload["code"]
             path = cache_root / (code + ".json.gz")
-            if load_cache(path, code, target_date):
-                continue
             if payload.get("adjustment") != "unadjusted":
                 raise ValueError("seed_adjustment_mismatch")
             if hashlib.sha256(canonical_bytes(payload["bars"])).hexdigest() != payload["history_sha256"]:
                 raise ValueError("seed_history_hash_mismatch:" + code)
             bars = normalize_bars(payload["bars"], target_date)
+            cached = load_cache(path, code, target_date)
+            if cached and cached["bars"][-1]["day"] >= bars[-1]["day"]:
+                continue
             save_cache(path, code, bars, payload["source"])
             count += 1
     return count
 
 
-def preserve_bootstrap(root, universe, market_date):
+def preserve_bootstrap(root, universe, market_date, *, complete=False):
     """Keep a public, hash-verified restart point when cache coverage grows."""
     directory = root / "output/boll/bootstrap"
     manifest_path = directory / "manifest.json"
@@ -119,7 +120,8 @@ def preserve_bootstrap(root, universe, market_date):
     cache = root / "output/boll/state/history"
     present = sum((cache / (stock["code"] + ".json.gz")).exists() for stock in universe)
     if ((directory / "history.jsonl.gz").exists() and present <= old.get("record_count", 0)
-            and market_date <= old.get("market_date", "")):
+            and market_date <= old.get("market_date", "")
+            and (not complete or old.get("technical_screen_complete"))):
         return old
     if present == 0:
         return None
@@ -139,6 +141,7 @@ def preserve_bootstrap(root, universe, market_date):
     temporary.replace(destination)
     meta = {"schema_version": "1.0", "market_date": market_date, "adjustment": "unadjusted",
             "record_count": count, "current_history_count": current, "universe_count": len(universe),
+            "technical_screen_complete": complete,
             "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(), "bytes": destination.stat().st_size,
             "note": "Restart history evidence, not company diligence or a coverage acceptance flag."}
     write_json(manifest_path, meta)
@@ -163,7 +166,8 @@ def append_completed_quote(cached, quote, target_date, previous_session):
     return normalize_bars([*bars, row], target_date)
 
 
-def fetch_history(stock, target_date, cache_root, *, previous_session=None, quote=None, timeout=12, retry_count=1):
+def fetch_history(stock, target_date, cache_root, *, previous_session=None, quote=None, timeout=12, retry_count=1,
+                  suspension_evidence=None):
     code = stock["code"]
     path = cache_root / (code + ".json.gz")
     cached = load_cache(path, code, target_date)
@@ -180,6 +184,8 @@ def fetch_history(stock, target_date, cache_root, *, previous_session=None, quot
                     "original_response_sha256": quote["raw_sha256"], "previous_session": previous_session}
             # Keep provenance bounded instead of recursively growing every day.
             meta["prior_source"] = {key: cached["source"].get(key) for key in ("method", "source_url", "retrieved_at", "original_response_sha256")}
+            if suspension_evidence:
+                meta["verified_suspension_gap"] = suspension_evidence
             result = save_cache(path, code, rows, meta)
             return {**result, "fetch_status": "success", "update_method": "quote_append"}
     symbol = ("sh" if stock["exchange"] == "SH" else "sz") + code
@@ -199,8 +205,27 @@ def fetch_history(stock, target_date, cache_root, *, previous_session=None, quot
                     "retrieved_at": datetime.now(TZ).isoformat(),
                     "original_response_sha256": hashlib.sha256(raw).hexdigest(),
                     "earlier_errors": errors, "corporate_action_basis_change": action_gap}
+            # A historical endpoint may publish today's bar later than the
+            # completed quote feed. Both observations are explicitly unadjusted.
+            # Preserve the actual ex-date jump, flag review, and never rescale
+            # history or treat a reset reference close as the last traded price.
+            method = "history_fetch"
+            if (quote and quote.get("code") == code and rows[-1]["day"] == previous_session):
+                from .quotes import validate_quote
+                if not validate_quote(quote, target_date, "close"):
+                    reset = abs(rows[-1]["close"] - quote["prev_close"]) > .011
+                    row = {"day": target_date, **{key: quote[key] for key in
+                                                 ("open", "high", "low", "close", "volume", "amount")}}
+                    rows = normalize_bars([*rows, row], target_date)
+                    meta.update(method="sina_unadjusted_history_with_completed_quote",
+                                corporate_action_basis_change=bool(action_gap or reset),
+                                completed_quote={key: quote[key] for key in
+                                                 ("source_url", "raw_sha256", "retrieved_at", "prev_close")})
+                    if suspension_evidence:
+                        meta["verified_suspension_gap"] = suspension_evidence
+                    method = "history_fetch_and_quote_append"
             result = save_cache(path, code, rows, meta)
-            return {**result, "fetch_status": "success", "update_method": "history_fetch"}
+            return {**result, "fetch_status": "success", "update_method": method}
         except Exception as exc:
             errors.append(type(exc).__name__ + ": " + str(exc)[:250])
     return {"code": code, "fetch_status": "failed", "errors": errors, "source_url": url,

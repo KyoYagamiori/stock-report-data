@@ -79,6 +79,31 @@ class HistoryCacheTests(unittest.TestCase):
             self.assertEqual(TARGET, second["market_date"])
             self.assertEqual(1, second["current_history_count"])
             self.assertNotEqual(first["sha256"], second["sha256"])
+
+    def test_newer_verified_seed_replaces_older_existing_cache(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cache = root / "cache"
+            save_cache(cache / f"{CODE}.json.gz", CODE, [bar()], {"method": "older"})
+            seed_payload = save_cache(root / "new.json.gz", CODE, [bar(), bar(TARGET, 41)], {"method": "newer"})
+            seed = root / "seed.jsonl.gz"
+            with gzip.open(seed, "wt", encoding="utf-8") as handle:
+                handle.write(json.dumps(seed_payload) + "\n")
+            self.assertEqual(1, import_seed(seed, cache, TARGET))
+            self.assertEqual(TARGET, load_cache(cache / f"{CODE}.json.gz", CODE, TARGET)["bars"][-1]["day"])
+            self.assertEqual(0, import_seed(seed, cache, TARGET))
+
+    def test_completed_same_day_rebuilds_a_partial_restart_seed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "output/boll/state/history" / f"{CODE}.json.gz"
+            save_cache(path, CODE, [bar()], {})
+            preserve_bootstrap(root, [{"code": CODE}], TARGET)
+            save_cache(path, CODE, [bar(), bar(TARGET, 41)], {})
+            result = preserve_bootstrap(root, [{"code": CODE}], TARGET, complete=True)
+            self.assertTrue(result["technical_screen_complete"])
+            self.assertEqual(1, result["current_history_count"])
+
     def test_round_trip_checks_code_adjustment_and_actual_content_hash(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / f"{CODE}.json.gz"
@@ -196,6 +221,29 @@ class SafeCompletedAppendTests(unittest.TestCase):
 
 
 class HistoryFetchTests(unittest.TestCase):
+    def test_fresh_unadjusted_history_and_completed_ex_date_quote_are_preserved(self):
+        raw = b"var _data=(" + json.dumps([bar()]).encode() + b");"
+        with tempfile.TemporaryDirectory() as directory:
+            with patch("market_screen.history.urlopen", return_value=FakeResponse(raw)):
+                result = fetch_history({"code": CODE, "exchange": "SH"}, TARGET, Path(directory),
+                                       previous_session=PREVIOUS, quote=completed_quote(prev_close=39))
+            self.assertEqual("history_fetch_and_quote_append", result["update_method"])
+            self.assertEqual(40, result["bars"][0]["close"])
+            self.assertEqual(40.5, result["bars"][-1]["close"])
+            self.assertEqual(TARGET, result["bars"][-1]["day"])
+            self.assertTrue(result["source"]["corporate_action_basis_change"])
+            self.assertEqual(39, result["source"]["completed_quote"]["prev_close"])
+            self.assertEqual(completed_quote()["raw_sha256"], result["source"]["completed_quote"]["raw_sha256"])
+
+    def test_history_does_not_invent_an_unexplained_missing_session(self):
+        raw = b"var _data=(" + json.dumps([bar("2026-10-12")]).encode() + b");"
+        with tempfile.TemporaryDirectory() as directory:
+            with patch("market_screen.history.urlopen", return_value=FakeResponse(raw)):
+                result = fetch_history({"code": CODE, "exchange": "SH"}, TARGET, Path(directory),
+                                       previous_session=PREVIOUS, quote=completed_quote())
+            self.assertEqual("2026-10-12", result["bars"][-1]["day"])
+            self.assertEqual("history_fetch", result["update_method"])
+
     def test_current_valid_cache_avoids_network(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

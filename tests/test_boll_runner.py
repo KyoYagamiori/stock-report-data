@@ -103,6 +103,23 @@ class CompletedSessionTests(unittest.TestCase):
             runner.resolve_dates(self.root, moment, "auto")
 
 
+class ResumptionSessionTests(unittest.TestCase):
+    def test_only_source_verified_nontrading_dates_can_be_skipped(self):
+        listing = stock("301314", "SZ", board="chinext")
+        dates = {"previous_session": "2026-10-23", "expected_sessions": [
+            "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16",
+            "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26"]}
+        state = {"code": "301314", "status": "issuer_announced_suspension", "start_date": "2026-10-13",
+                 "verified_market_dates": dates["expected_sessions"][1:-1], "source_kind": "issuer_announcement_copy",
+                 "source_url": "https://example.invalid/issuer-resumption", "verified_at": "2026-10-26T09:00:00+08:00"}
+        previous, evidence = runner.previous_stock_session(listing, dates, state)
+        self.assertEqual("2026-10-12", previous)
+        self.assertEqual(9, len(evidence["verified_market_dates"]))
+        incomplete = {**state, "verified_market_dates": ["2026-10-23"]}
+        self.assertEqual("2026-10-22", runner.previous_stock_session(listing, dates, incomplete)[0])
+        self.assertEqual("2026-10-23", runner.previous_stock_session(listing, dates, None)[0])
+
+
 class RecordClassificationTests(unittest.TestCase):
     def assemble(self, listing=None, evidence=None, quote=None):
         return runner.assemble_record(listing or stock(), evidence or history(), TARGET,
