@@ -22,7 +22,10 @@ on:
   schedule:
     - cron: "20 0 * * 1-5"
     - cron: "32 3 * * 1-5"
-    - cron: "45 7 * * 1-5"
+    # Daily full-close acceptance, including a no-new-session check on holidays.
+    - cron: "45 7 * * *"
+    # Before the 21:00 report, retry only if the latest session is incomplete.
+    - cron: "17 10 * * *"
 
 permissions:
   contents: write
@@ -67,14 +70,28 @@ jobs:
           case "$EVENT_SCHEDULE" in
             "20 0 * * 1-5") phase=early ;;
             "32 3 * * 1-5") phase=noon ;;
-            "45 7 * * 1-5") phase=close ;;
+            "45 7 * * *"|"17 10 * * *") phase=close ;;
           esac
           echo "phase=$phase" >> "$GITHUB_OUTPUT"
       - name: Update daily history and screen every official A share
         id: collect
         continue-on-error: true
         timeout-minutes: 45
-        run: python -m market_screen.runner --phase "${{ steps.cycle.outputs.phase }}" --max-seconds 2400
+        shell: bash
+        run: |
+          phase="${{ steps.cycle.outputs.phase }}"
+          if [[ "$phase" == "close" ]]; then
+            python -m market_screen.daily --max-seconds 2400
+          elif [[ "$phase" == "auto" ]]; then
+            phase=$(python -c 'from pathlib import Path; from datetime import datetime; from market_screen.runner import TZ, resolve_dates; print(resolve_dates(Path("."), datetime.now(TZ), "auto")["phase"])')
+            if [[ "$phase" == "close" ]]; then
+              python -m market_screen.daily --max-seconds 2400
+            else
+              python -m market_screen.runner --phase "$phase" --max-seconds 2400
+            fi
+          else
+            python -m market_screen.runner --phase "$phase" --max-seconds 2400
+          fi
       - name: Preserve resumable history even after partial collection
         if: always() && steps.collect.outcome != 'skipped'
         uses: actions/cache/save@v4

@@ -118,8 +118,8 @@ def preserve_bootstrap(root, universe, market_date):
     old = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
     cache = root / "output/boll/state/history"
     present = sum((cache / (stock["code"] + ".json.gz")).exists() for stock in universe)
-    elapsed_days = (date.fromisoformat(market_date) - date.fromisoformat(old.get("market_date", market_date))).days
-    if (directory / "history.jsonl.gz").exists() and present <= old.get("record_count", 0) and elapsed_days < 28:
+    if ((directory / "history.jsonl.gz").exists() and present <= old.get("record_count", 0)
+            and market_date <= old.get("market_date", "")):
         return old
     if present == 0:
         return None

@@ -136,10 +136,24 @@ class RecordClassificationTests(unittest.TestCase):
         self.assertEqual(result["reasons"], ["missing_target_session_bar"])
 
     def test_exact_target_no_trade_evidence_is_explicit_exclusion(self):
+        quote = {"code": "600000", "name": "测试股份", "date": TARGET,
+                 "time": "15:05:00", "status": "no_trades", "open": 0, "high": 0,
+                 "low": 0, "close": 0, "prev_close": 10, "volume": 0, "amount": 0,
+                 "retrieved_at": TARGET + "T15:06:00+08:00"}
         result = self.assemble(evidence=history(sessions_ending("2026-10-13")),
-                               quote={"date": TARGET, "status": "no_trades"})
+                               quote=quote)
         self.assertEqual(result["status"], "excluded")
         self.assertEqual(result["reasons"], ["no_trades_on_target_session"])
+        result = self.assemble(evidence={"fetch_status": "failed", "bars": []}, quote=quote)
+        self.assertEqual(result["status"], "excluded")
+
+    def test_incomplete_or_intraday_no_trade_flag_cannot_close_a_gap(self):
+        for quote in ({"date": TARGET, "status": "no_trades"},
+                      {"code": "600000", "name": "测试股份", "date": TARGET,
+                       "time": "10:00:00", "status": "no_trades", "open": 0, "high": 0,
+                       "low": 0, "close": 0, "prev_close": 10, "volume": 0, "amount": 0}):
+            result = self.assemble(evidence=history(sessions_ending("2026-10-13")), quote=quote)
+            self.assertEqual(result["status"], "unresolved")
 
     def test_short_history_for_old_stock_is_unexplained_gap(self):
         result = self.assemble(evidence=history(sessions_ending(count=40)))

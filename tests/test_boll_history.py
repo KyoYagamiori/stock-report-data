@@ -16,6 +16,7 @@ from market_screen.history import (
     fetch_history,
     import_seed,
     load_cache,
+    preserve_bootstrap,
     save_cache,
 )
 
@@ -67,6 +68,17 @@ def write_payload(path, payload):
 
 
 class HistoryCacheTests(unittest.TestCase):
+    def test_bootstrap_advances_daily_even_when_stock_count_is_unchanged(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cache = root / "output/boll/state/history" / f"{CODE}.json.gz"
+            save_cache(cache, CODE, [bar()], {"method": "fixture"})
+            first = preserve_bootstrap(root, [{"code": CODE}], PREVIOUS)
+            save_cache(cache, CODE, [bar(), bar(TARGET, 41)], {"method": "fixture"})
+            second = preserve_bootstrap(root, [{"code": CODE}], TARGET)
+            self.assertEqual(TARGET, second["market_date"])
+            self.assertEqual(1, second["current_history_count"])
+            self.assertNotEqual(first["sha256"], second["sha256"])
     def test_round_trip_checks_code_adjustment_and_actual_content_hash(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / f"{CODE}.json.gz"
