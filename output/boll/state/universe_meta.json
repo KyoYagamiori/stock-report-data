@@ -1,69 +1,81 @@
 {
   "schema_version": 1,
-  "mode": "seed",
-  "asof": "2026-10-15",
-  "version_date": "2026-10-15",
-  "retrieved_at": "2026-10-15T10:25:28.967732+08:00",
-  "loaded_at": "2026-10-15T10:45:10.792036+08:00",
-  "fresh": false,
-  "freshness_reasons": [
-    "official_refresh_failed: ValueError: szse_metadata: URLError: <urlopen error [Errno 104] Connection reset by peer>; szse_xlsx: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-    "cache_unavailable: FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/stock-report-data/stock-report-data/output/boll/state/universe.json'",
-    "using fixed seed version 2026-10-15; live membership not confirmed"
-  ],
+  "mode": "official_live",
+  "asof": "2026-10-26",
+  "version_date": "2026-10-26",
+  "retrieved_at": "2026-10-26T15:19:50.208309+08:00",
+  "fresh": true,
+  "freshness_reasons": [],
+  "point_in_time_compatible": true,
+  "source_version_dates": {
+    "sse_main": null,
+    "sse_star": null,
+    "szse": "2026-10-26"
+  },
+  "sse_source_version_unknown": true,
   "counts": {
-    "total": 5225,
-    "combined_total": 5225,
+    "total": 5223,
+    "combined_total": 5223,
     "exchange_counts": {
-      "SH": 2319,
+      "SH": 2317,
       "SZ": 2906
     },
     "board_counts": {
-      "SZ_main": 1495,
-      "SZ_chinext": 1411,
-      "SH_main": 1702,
+      "SZ_main": 1494,
+      "SZ_chinext": 1412,
+      "SH_main": 1700,
       "SH_star": 617
     },
-    "unique_codes": 5225,
+    "unique_codes": 5223,
     "duplicates": [],
     "complete": true
   },
-  "total": 5225,
-  "combined_total": 5225,
+  "total": 5223,
+  "combined_total": 5223,
+  "official_reported_total_including_exclusions": 5224,
+  "source_counts": {
+    "sse_main": 1700,
+    "sse_star": 618,
+    "szse": 2906
+  },
   "sources": {
     "sse_main": {
       "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=1&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
-      "retrieved_at": "2026-10-15T10:25:15.119004+08:00",
+      "retrieved_at": "2026-10-26T15:19:49.663323+08:00",
       "http_status": 200,
       "http_headers": {
-        "date": "Thu, 15 Oct 2026 02:25:10 GMT",
+        "date": "Mon, 26 Oct 2026 07:19:46 GMT",
         "content-type": "application/json;charset=UTF-8",
-        "content-length": "1946663"
+        "content-length": "1944351"
       },
-      "bytes": 1946663,
-      "sha256": "84d234f329bc23f34bf696f8ef1eae6119532e4b0d168c18fa1f2f454a110388",
-      "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/sse_main.json",
-      "reported_total": 1702,
-      "downloaded_rows": 1702,
+      "bytes": 1944351,
+      "sha256": "34d6f08763ebc43255e6e6d508201b98031640b666df19151689155443795885",
+      "raw_file": "output/boll/state/universe_sources/20261026T151938000395+0800/sse_main.json",
+      "attempt_count": 1,
+      "earlier_errors": [],
+      "reported_total": 1700,
+      "downloaded_rows": 1700,
       "page_no": 1,
       "page_count": 1,
       "pages_complete": true,
       "source_version_date": null,
       "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
-      "http_server_date": "2026-10-15"
+      "http_server_date": "2026-10-26"
     },
     "sse_star": {
       "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=8&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
-      "retrieved_at": "2026-10-15T10:25:28.104996+08:00",
+      "retrieved_at": "2026-10-26T15:19:48.173124+08:00",
       "http_status": 200,
       "http_headers": {
-        "date": "Thu, 15 Oct 2026 02:25:15 GMT",
+        "date": "Mon, 26 Oct 2026 07:19:46 GMT",
         "content-type": "application/json;charset=UTF-8",
-        "content-length": "715290"
+        "content-length": "715272"
       },
-      "bytes": 715290,
-      "sha256": "12e1f96294b990b4182eb4faa053115c45405ec2de0e8ba1fd3d692ecc2744ff",
-      "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/sse_star.json",
+      "bytes": 715272,
+      "sha256": "4a91f736bebf1205a61891a383fa1ce2e23388d1e416a2e7da68823cff4c5df8",
+      "raw_file": "output/boll/state/universe_sources/20261026T151938000395+0800/sse_star.json",
+      "attempt_count": 1,
+      "earlier_errors": [],
       "reported_total": 618,
       "downloaded_rows": 618,
       "page_no": 1,
@@ -71,20 +83,22 @@
       "pages_complete": true,
       "source_version_date": null,
       "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
-      "http_server_date": "2026-10-15"
+      "http_server_date": "2026-10-26"
     },
     "szse_metadata": {
       "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1110&TABKEY=tab1&PAGENO=1",
-      "retrieved_at": "2026-10-15T10:25:20.734763+08:00",
+      "retrieved_at": "2026-10-26T15:19:38.601067+08:00",
       "http_status": 200,
       "http_headers": {
-        "date": "Thu, 15 Oct 2026 02:25:20 GMT",
+        "date": "Mon, 26 Oct 2026 07:19:38 GMT",
         "content-type": "application/json",
-        "content-length": "21476"
+        "content-length": "21478"
       },
-      "bytes": 21476,
-      "sha256": "9fe56e024b85c61ded5ad379f7b43961c795b3b2d80162ee9b8dfd12564de3e3",
-      "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/szse_metadata.json",
+      "bytes": 21478,
+      "sha256": "9b556835b2228ef718172711a10eed6ba50893a05839bf97fc1272c7cc4d7c45",
+      "raw_file": "output/boll/state/universe_sources/20261026T151938000395+0800/szse_metadata.json",
+      "attempt_count": 1,
+      "earlier_errors": [],
       "reported_total": 2906,
       "downloaded_rows": 2906,
       "page_no": 1,
@@ -93,21 +107,23 @@
       "xlsx_complete": true,
       "json_sample_rows": 20,
       "json_xlsx_sample_agrees": true,
-      "source_version_date": "2026-10-15",
-      "http_server_date": "2026-10-15"
+      "source_version_date": "2026-10-26",
+      "http_server_date": "2026-10-26"
     },
     "szse_xlsx": {
       "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1",
-      "retrieved_at": "2026-10-15T10:25:28.102151+08:00",
+      "retrieved_at": "2026-10-26T15:19:39.997873+08:00",
       "http_status": 200,
       "http_headers": {
-        "date": "Thu, 15 Oct 2026 02:25:20 GMT",
+        "date": "Mon, 26 Oct 2026 07:19:38 GMT",
         "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=GBK",
-        "content-length": "545393"
+        "content-length": "545435"
       },
-      "bytes": 545393,
-      "sha256": "5c169a48d73f4258844c9e141e920e72bd7bb6678161594e512c593d159ce490",
-      "raw_file": "output/boll/state/universe_sources/20261015T102504587167+0800/szse.xlsx",
+      "bytes": 545435,
+      "sha256": "d80163cab67a6010aef5aa16ce83e3a323b4c60f33ac6afdffba6983f8a2d0ed",
+      "raw_file": "output/boll/state/universe_sources/20261026T151938000395+0800/szse.xlsx",
+      "attempt_count": 1,
+      "earlier_errors": [],
       "reported_total": 2906,
       "downloaded_rows": 2906,
       "page_no": 1,
@@ -116,13 +132,47 @@
       "xlsx_complete": true,
       "json_sample_rows": 20,
       "json_xlsx_sample_agrees": true,
-      "source_version_date": "2026-10-15",
-      "http_server_date": "2026-10-15"
+      "source_version_date": "2026-10-26",
+      "http_server_date": "2026-10-26"
     }
   },
-  "excluded": [],
-  "seed_file": "config/boll_universe_seed.json",
-  "seed_sha256": "f4a470d8cd61d1a5258d10b7824de8133b34e02383234b1b334baa87a200eb18",
-  "point_in_time_compatible": true,
-  "universe_sha256": "05e1ca79ac1d132fa3484585b321f0aaac804f7f977d67fc3a1bb2e222957dd1"
+  "source_audits": {
+    "sse_main": {
+      "reported_total": 1700,
+      "downloaded_rows": 1700,
+      "page_no": 1,
+      "page_count": 1,
+      "pages_complete": true,
+      "source_version_date": null,
+      "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+    },
+    "sse_star": {
+      "reported_total": 618,
+      "downloaded_rows": 618,
+      "page_no": 1,
+      "page_count": 1,
+      "pages_complete": true,
+      "source_version_date": null,
+      "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+    },
+    "szse": {
+      "reported_total": 2906,
+      "downloaded_rows": 2906,
+      "page_no": 1,
+      "page_count": 146,
+      "page_size": 20,
+      "xlsx_complete": true,
+      "json_sample_rows": 20,
+      "json_xlsx_sample_agrees": true,
+      "source_version_date": "2026-10-26"
+    }
+  },
+  "excluded": [
+    {
+      "code": "689009",
+      "reason": "CDR"
+    }
+  ],
+  "ordinary_A_share_policy": "All official listing states retained; ST, suspension, liquidity and history filtering occurs later.",
+  "universe_sha256": "bfb7e9dd6fd013b1b20920a374e668c8f64e4cf98ff583b31979319d6a30fee9"
 }
