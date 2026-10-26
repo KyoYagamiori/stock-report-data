@@ -63,6 +63,22 @@ def verified_suspension(state, code, target_date):
                 and state.get("source_url") and state.get("verified_at"))
 
 
+def previous_stock_session(stock, dates, state):
+    """Skip only individually source-verified suspended sessions, never a gap."""
+    previous = dates["previous_session"]
+    skipped = []
+    while verified_suspension(state, stock["code"], previous):
+        skipped.append(previous)
+        earlier = [day for day in dates["expected_sessions"] if day < previous]
+        if not earlier:
+            break
+        previous = max(earlier)
+    evidence = ({"code": stock["code"], "verified_market_dates": sorted(skipped),
+                 "source_url": state["source_url"], "verified_at": state["verified_at"]}
+                if skipped else None)
+    return previous, evidence
+
+
 def assemble_record(stock, history, target_date, config, sessions, quote=None, trading_state=None):
     code = stock["code"]
     out = {"code": code, "name": stock.get("name"), "exchange": stock["exchange"],
@@ -283,9 +299,11 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
             cached = load_cache(cache_root / (stock["code"] + ".json.gz"), stock["code"], dates["market_date"])
             return {**cached, "fetch_status": "success", "update_method": "cache_hit"} if cached else {
                 "code": stock["code"], "fetch_status": "failed", "errors": ["not_cached"], "update_method": "cache_miss"}
+        previous, evidence = previous_stock_session(stock, dates, states.get(stock["code"]))
         return fetch_history(stock, dates["market_date"], cache_root,
-                             previous_session=dates["previous_session"], quote=quotes.get(stock["code"]),
-                             timeout=config["request_timeout_seconds"], retry_count=config["retry_count"])
+                             previous_session=previous, quote=quotes.get(stock["code"]),
+                             timeout=config["request_timeout_seconds"], retry_count=config["retry_count"],
+                             suspension_evidence=evidence)
     def submit(pool):
         if clock.monotonic() >= deadline:
             return
@@ -319,7 +337,7 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
                 "market_date": dates["market_date"], "status": "unresolved", "reasons": ["time_budget_exhausted"], "ranking": {"eligible": False}}
     records = [output[code] for code in sorted(output)]
     summary = publish(root, run_dir, records, universe, universe_meta, dates, quotes, quote_meta, started_at, clock.monotonic() - started, config)
-    preserve_bootstrap(root, universe, dates["market_date"])
+    preserve_bootstrap(root, universe, dates["market_date"], complete=summary["technical_screen_complete"])
     print(json.dumps({key: summary[key] for key in ("run_id", "market_date", "universe_count", "status_counts", "technical_screen_complete", "elapsed_seconds")}), flush=True)
     return summary
 
