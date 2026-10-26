@@ -6,25 +6,23 @@
     "next_trading_day": "2026-10-27",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-10-26T18:18:40+08:00",
+  "generated_at": "2026-10-26T21:27:39+08:00",
   "health": {
     "last_attempt": {
-      "blocking_reasons": [
-        "quote_time_max is outside the profile quote window"
-      ],
-      "finished_at": "2026-10-26T18:18:40+08:00",
-      "planned_at": "2026-10-26T18:17:00+08:00",
-      "published": false,
-      "quality_grade": "F",
-      "reason": "quality gate failed: quote_time_max is outside the profile quote window",
-      "report_cycle": "2026-10-26-close",
+      "blocking_reasons": [],
+      "finished_at": "2026-10-26T21:27:39+08:00",
+      "planned_at": "2026-10-26T21:27:00+08:00",
+      "published": true,
+      "quality_grade": "A",
+      "reason": "published",
+      "report_cycle": "2026-10-26-evening",
       "report_date": "2026-10-26",
-      "snapshot_id": "20261026-1817-close-full-40306203967",
-      "snapshot_type": "close",
-      "started_at": "2026-10-26T18:17:38+08:00",
-      "status": "not_published"
+      "snapshot_id": "20261026-2127-evening-full-40330671804",
+      "snapshot_type": "evening",
+      "started_at": "2026-10-26T21:27:38+08:00",
+      "status": "published"
     },
-    "last_grade_a_at": "2026-10-26T18:02:00+08:00",
+    "last_grade_a_at": "2026-10-26T21:27:39+08:00",
     "last_grade_b_at": "2026-10-26T15:18:58+08:00",
     "latest_run": "output/health/latest_run.json"
   },
@@ -48,17 +46,20 @@
       "status": "ready_a"
     },
     "evening": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_evening",
       "reasons": [
-        "stale report cycle 2026-10-24-evening; expected 2026-10-26-evening"
+        "verified same-day A-grade close snapshot"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 0.63,
+      "selected_file": "output/archive/2026/10/26/evening/20261026-2127-evening-full-40330671804.json",
+      "selected_snapshot_id": "20261026-2127-evening-full-40330671804",
+      "sha256": "5747534739fdd60c0b5c4f8f13a130881e5aafac1542bff05ef6c563fd12b37d",
+      "status": "ready_a"
     },
     "noon": {
       "collection_mode": "historical_point_in_time_recovery",
@@ -151,26 +152,24 @@
       "core_effective_count": 11,
       "effective_field_count": 43,
       "latest_alias": "output/latest/evening/report_data_compact.json",
-      "market_asof": null,
-      "market_date": "2026-10-23",
+      "market_asof": "2026-10-26T15:00:00+08:00",
+      "market_date": "2026-10-26",
       "missing_core_fields": [],
       "missing_optional_fields": [],
       "point_in_time_recovered": false,
-      "published_at": "2026-10-24T23:59:58+08:00",
+      "published_at": "2026-10-26T21:27:39+08:00",
       "quality_grade": "A",
-      "quality_profile": "non_trading",
+      "quality_profile": "trading_evening",
       "quality_reasons": [
-        "quality profile thresholds met for grade A",
-        "indices coverage 3/3",
-        "core coverage 11/11"
+        "verified same-day A-grade close snapshot"
       ],
-      "quote_time_max": "2026-10-23T15:36:00+08:00",
-      "report_cycle": "2026-10-24-evening",
-      "schedule_delay_minutes": 0.97,
+      "quote_time_max": "2026-10-26T16:30:00+08:00",
+      "report_cycle": "2026-10-26-evening",
+      "schedule_delay_minutes": 0.63,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/10/24/evening/20261024-2359-evening-full-40109464384.json",
-      "selected_snapshot_id": "20261024-2359-evening-full-40109464384",
-      "sha256": "f12f0c66bd324fbfcd16309e572369e18d2c1993fdd631743ad53bfd684348d4",
+      "selected_file": "output/archive/2026/10/26/evening/20261026-2127-evening-full-40330671804.json",
+      "selected_snapshot_id": "20261026-2127-evening-full-40330671804",
+      "sha256": "5747534739fdd60c0b5c4f8f13a130881e5aafac1542bff05ef6c563fd12b37d",
       "snapshot_type": "evening",
       "suitable_reports": [
         "evening"
