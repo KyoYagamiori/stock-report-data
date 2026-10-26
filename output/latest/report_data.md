@@ -1,16 +1,16 @@
-# 股票行情快照 | 2026-10-26 evening
+# 股票行情快照 | 2026-10-27 early
 
 - Schema：1.6.1
-- Snapshot ID：`20261026-2223-evening-full-40339155234`
-- 报告周期：`2026-10-26-evening`
+- Snapshot ID：`20261027-0242-early-full-40380058025`
+- 报告周期：`2026-10-27-early`
 - 质量等级：**A**
-- 质量 Profile：`trading_evening`
+- 质量 Profile：`trading_preopen`
 - 行情日期：2026-10-26
 - 行情时间范围：2026-10-26T15:00:00+08:00 至 2026-10-26T16:30:00+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.67 分钟
-- 生成时间：2026-10-26T22:23:40+08:00
-- 适用报告：evening
+- 调度延迟：0.68 分钟
+- 生成时间：2026-10-27T02:42:41+08:00
+- 适用报告：early
 
 ## 读取结论
 
@@ -65,5 +65,5 @@
 
 ## 数据源状态
 
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；市场汇总仅在沪深A股全页数量核对通过时提供。
-- `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
+- `stock_quotes`：success；来源=verified previous close snapshot 20261026-1801-close-full-40304061341；错误=无
+- `market_overview`：success；来源=verified previous close snapshot 20261026-1801-close-full-40304061341；错误=无

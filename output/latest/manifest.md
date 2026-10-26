@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-10-26T22:23:40+08:00
+- 更新时间：2026-10-27T02:42:42+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-10-26
 
@@ -9,15 +9,15 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261026-0046-early-full-40213241466 | output/archive/2026/10/26/early/20261026-0046-early-full-40213241466.json |
-| noon | ready_b | B | 20261026-1240-noon-full-40270275253 | output/archive/2026/10/26/noon/20261026-1240-noon-full-40270275253.json |
-| evening | ready_a | A | 20261026-2223-evening-full-40339155234 | output/archive/2026/10/26/evening/20261026-2223-evening-full-40339155234.json |
+| early | ready_a | A | 20261027-0242-early-full-40380058025 | output/archive/2026/10/27/early/20261027-0242-early-full-40380058025.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-10-26-early | 2026-10-23 | 2026-10-23T15:36:00+08:00 | output/archive/2026/10/26/early/20261026-0046-early-full-40213241466.json | `18cb5d29fd93687711f55be0fa3a44852ba9204b5ac0a0bd9b83dc27e31353c9` |
+| early | A | 2026-10-27-early | 2026-10-26 | 2026-10-26T16:30:00+08:00 | output/archive/2026/10/27/early/20261027-0242-early-full-40380058025.json | `5b47ed2f73f6a2875c77e9a2680e58ff79291534e844cd48a8d659872b87d307` |
 | noon | B | 2026-10-26-noon | 2026-10-26 | 2026-10-26T11:30:00+08:00 | output/archive/2026/10/26/noon/20261026-1240-noon-full-40270275253.json | `38bc5a0eea8c33bb24ff7fdecb2432a19f65ecc38e62b8a48fcd86677ecf1f13` |
 | close | A | 2026-10-26-close | 2026-10-26 | 2026-10-26T16:30:00+08:00 | output/archive/2026/10/26/close/20261026-1801-close-full-40304061341.json | `c98ed72fae967d2594c0f286958ae9b1c75ff37da1b165c0be96a5fffcbcb43d` |
 | evening | A | 2026-10-26-evening | 2026-10-26 | 2026-10-26T16:30:00+08:00 | output/archive/2026/10/26/evening/20261026-2223-evening-full-40339155234.json | `f6267ac801139e5dd11ef028d91416997ab7563dff284ba6fe6800b60ccccfb7` |
