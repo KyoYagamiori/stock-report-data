@@ -1,7 +1,7 @@
 {
   "attempt_role": "delayed-current-phase",
   "blocking_reasons": [],
-  "collection_mode": "historical_point_in_time_recovery",
+  "collection_mode": "live_or_latest_completed",
   "coverage": {
     "core": {
       "expected": 11,
@@ -34,9 +34,9 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-10-27T13:00:12+08:00",
-  "planned_at": "2026-10-27T12:58:00+08:00",
-  "point_in_time_recovered": true,
+  "finished_at": "2026-10-27T13:36:17+08:00",
+  "planned_at": "2026-10-27T13:36:00+08:00",
+  "point_in_time_recovered": false,
   "published": true,
   "quality_grade": "B",
   "quality_reasons": [
@@ -45,40 +45,39 @@
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-10-27-noon",
+  "report_cycle": "2026-10-27-intraday",
   "report_date": "2026-10-27",
-  "schedule_delay_minutes": 0.75,
+  "schedule_delay_minutes": 0.23,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261027-1258-noon-full-40452638868",
-  "snapshot_mode": "full",
-  "snapshot_type": "noon",
+  "snapshot_id": "20261027-1336-intraday-light-40456207104",
+  "snapshot_mode": "light",
+  "snapshot_type": "intraday",
   "source_status": {
     "market_overview": {
       "errors": [
-        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
-        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
+        "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-10-27T13:00:12+08:00",
+      "finished_at": "2026-10-27T13:36:17+08:00",
       "records_expected": 5,
-      "records_valid": 2,
+      "records_valid": 1,
       "retry_count": 0,
-      "source": "东方财富一分钟历史时点恢复（成交量手转股，成交额元）; 新浪一分钟历史时点恢复",
-      "started_at": "2026-10-27T12:58:45+08:00",
+      "source": "新浪证券批量行情（源日期时间）",
+      "started_at": "2026-10-27T13:36:14+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
-        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
+        "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-10-27T12:59:46+08:00",
+      "finished_at": "2026-10-27T13:36:17+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪一分钟历史时点恢复",
-      "started_at": "2026-10-27T12:58:45+08:00",
+      "source": "新浪证券批量行情（源日期时间）",
+      "started_at": "2026-10-27T13:36:14+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-10-27T12:58:45+08:00",
+  "started_at": "2026-10-27T13:36:14+08:00",
   "status": "published"
 }
