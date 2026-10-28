@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-10-28T02:13:39+08:00
+- 更新时间：2026-10-28T13:35:25+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-10-27
 
@@ -10,7 +10,7 @@
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
 | early | ready_a | A | 20261028-0213-early-full-40557870390 | output/archive/2026/10/28/early/20261028-0213-early-full-40557870390.json |
-| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| noon | ready_b | B | 20261028-1135-noon-full-40638777428 | output/archive/2026/10/28/noon/20261028-1135-noon-full-40638777428.json |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
@@ -18,9 +18,9 @@
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
 | early | A | 2026-10-28-early | 2026-10-27 | 2026-10-27T15:36:00+08:00 | output/archive/2026/10/28/early/20261028-0213-early-full-40557870390.json | `4ec2de455d8250485162d3b1bd23ebedb8f55b002312595f59a18a36f23066a8` |
-| noon | B | 2026-10-27-noon | 2026-10-27 | 2026-10-27T11:30:00+08:00 | output/archive/2026/10/27/noon/20261027-1258-noon-full-40452638868.json | `c9fb6ab186730b38dec3e5f4d5d92812c4220762aa89204945177833c4a94793` |
+| noon | B | 2026-10-28-noon | 2026-10-28 | 2026-10-28T11:30:00+08:00 | output/archive/2026/10/28/noon/20261028-1135-noon-full-40638777428.json | `e9fc612d64885bab57a5b685e7ede1539d14cbc208724da262e854309952353c` |
 | close | A | 2026-10-27-close | 2026-10-27 | 2026-10-27T15:36:00+08:00 | output/archive/2026/10/27/close/20261027-1753-close-full-40484226723.json | `f639ab61dc2cb02a6ecf66a336229ce03a692058586adaa84336b236b770dbdf` |
 | evening | A | 2026-10-27-evening | 2026-10-27 | 2026-10-27T15:36:00+08:00 | output/archive/2026/10/27/evening/20261027-2121-evening-full-40511278022.json | `4608315f4b2cb1dbf3454830b81ab97298f7651d4806340d1dce81649cbf1b7b` |
-| intraday | B | 2026-10-27-intraday | 2026-10-27 | 2026-10-27T13:36:15+08:00 | output/archive/2026/10/27/intraday/20261027-1336-intraday-light-40456207104.json | `d6c5f80f0c312dbe6f06c7b8f8ef9aa4604189abe83f4bcd62a47787e9012245` |
+| intraday | B | 2026-10-28-intraday | 2026-10-28 | 2026-10-28T13:35:00+08:00 | output/archive/2026/10/28/intraday/20261028-1335-intraday-light-40638777428.json | `4efefa3efc4024efed1f2bf4bfc9f40895338718e3c59dc568fd0aefc41d00ff` |
 
 > 机器读取应以 Manifest 中的不可变 JSON 文件和 SHA-256 为准；`latest` 仅供人工查看与旧入口兼容。

@@ -1,7 +1,7 @@
 {
-  "attempt_role": "delayed-current-phase",
+  "attempt_role": "automatic-delayed-catchup",
   "blocking_reasons": [],
-  "collection_mode": "live_or_latest_completed",
+  "collection_mode": "historical_point_in_time_recovery",
   "coverage": {
     "core": {
       "expected": 11,
@@ -15,18 +15,18 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 1.0,
-      "valid": 5
+      "ratio": 0.0,
+      "valid": 0
     },
     "watch": {
       "expected": 14,
@@ -34,46 +34,51 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-10-28T02:13:39+08:00",
-  "planned_at": "2026-10-28T02:13:00+08:00",
-  "point_in_time_recovered": false,
+  "finished_at": "2026-10-28T13:35:25+08:00",
+  "planned_at": "2026-10-28T11:35:00+08:00",
+  "point_in_time_recovered": true,
   "published": true,
-  "quality_grade": "A",
+  "quality_grade": "B",
   "quality_reasons": [
-    "quality profile thresholds met for grade A",
+    "quality profile thresholds met for grade B",
     "indices coverage 3/3",
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-10-28-early",
+  "report_cycle": "2026-10-28-noon",
   "report_date": "2026-10-28",
-  "schedule_delay_minutes": 0.63,
+  "schedule_delay_minutes": 120.07,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261028-0213-early-full-40557870390",
+  "snapshot_id": "20261028-1135-noon-full-40638777428",
   "snapshot_mode": "full",
-  "snapshot_type": "early",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
-      "errors": [],
-      "finished_at": "2026-10-28T02:13:39+08:00",
+      "errors": [
+        "延迟任务无法事后精确恢复11:30市场宽度，已留空。",
+        "延迟任务无法事后精确恢复11:30行业/概念榜，已留空。"
+      ],
+      "finished_at": "2026-10-28T13:35:25+08:00",
       "records_expected": 5,
-      "records_valid": 5,
+      "records_valid": 2,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261027-1753-close-full-40484226723",
-      "started_at": "2026-10-28T02:13:38+08:00",
-      "status": "success"
+      "source": "新浪一分钟历史时点恢复",
+      "started_at": "2026-10-28T13:35:04+08:00",
+      "status": "partial"
     },
     "stock_quotes": {
-      "errors": [],
-      "finished_at": "2026-10-28T02:13:39+08:00",
+      "errors": [
+        "本次为延迟任务的历史时点恢复，不是当前实时行情。"
+      ],
+      "finished_at": "2026-10-28T13:35:20+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261027-1753-close-full-40484226723",
-      "started_at": "2026-10-28T02:13:38+08:00",
+      "source": "新浪一分钟历史时点恢复",
+      "started_at": "2026-10-28T13:35:04+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-10-28T02:13:38+08:00",
+  "started_at": "2026-10-28T13:35:04+08:00",
   "status": "published"
 }
