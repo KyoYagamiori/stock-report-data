@@ -16,8 +16,8 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_bottom": {
       "expected": 5,
@@ -35,14 +35,17 @@
       "valid": 14
     }
   },
-  "degradation_actions": [
-    "cap capital_consistency_score at 60",
-    "market turnover unavailable; no market volume inference"
-  ],
+  "degradation_actions": [],
   "market": {
-    "breadth": {},
+    "breadth": {
+      "down": 1238,
+      "flat": 181,
+      "limit_down": 13,
+      "limit_up": 75,
+      "up": 4156
+    },
     "breadth_limit_counts_method": "涨跌幅阈值估算，不含新股特殊规则核验",
-    "breadth_valid": false,
+    "breadth_valid": true,
     "calendar_source": "AKShare tool_trade_date_hist_sina",
     "indices": [
       {
@@ -215,24 +218,21 @@
         "source": "AKShare stock_board_industry_summary_ths"
       }
     ],
-    "total_turnover": null,
-    "turnover_valid": false
+    "total_turnover": 1641733832726.0,
+    "turnover_valid": true
   },
   "market_asof": "2026-10-28T15:00:00+08:00",
   "market_date": "2026-10-28",
   "market_session": "market_close",
   "missing_core_fields": [],
-  "missing_optional_fields": [
-    "total_turnover",
-    "market_breadth"
-  ],
-  "planned_at": "2026-10-28T17:58:00+08:00",
+  "missing_optional_fields": [],
+  "planned_at": "2026-10-28T18:30:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-10-28T17:59:33+08:00",
-  "quality_grade": "B",
+  "published_at": "2026-10-28T18:31:25+08:00",
+  "quality_grade": "A",
   "quality_profile": "trading_close",
   "quality_reasons": [
-    "quality profile thresholds met for grade B",
+    "quality profile thresholds met for grade A",
     "indices coverage 3/3",
     "core coverage 11/11"
   ],
@@ -245,39 +245,38 @@
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
   "schedule_delay_minutes": 0.65,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261028-1758-close-full-40668351054",
+  "snapshot_id": "20261028-1830-close-full-40672608694",
   "snapshot_mode": "full",
   "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
-        "全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)",
         "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
         "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-10-28T17:59:33+08:00",
+      "finished_at": "2026-10-28T18:31:25+08:00",
       "records_expected": 5,
-      "records_valid": 1,
+      "records_valid": 3,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-10-28T17:58:39+08:00",
+      "started_at": "2026-10-28T18:30:39+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
         "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-10-28T17:58:51+08:00",
+      "finished_at": "2026-10-28T18:30:48+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-10-28T17:58:39+08:00",
+      "started_at": "2026-10-28T18:30:39+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-10-28T17:58:39+08:00",
+  "started_at": "2026-10-28T18:30:39+08:00",
   "stocks": [
     {
       "amount": 3695384540.0,
@@ -2866,11 +2865,10 @@
   },
   "warnings": [
     "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。",
-    "全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)",
     "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
     "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
     "市场汇总仅在沪深A股全页数量核对通过时提供。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "40668351054"
+  "workflow_run_id": "40672608694"
 }
