@@ -177,6 +177,7 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
     complete = all_codes_match and not unresolved and universe_current
     relative = lambda path: path.relative_to(root).as_posix()
     write_json(run_dir / "universe.json", {"records": universe, "provenance": universe_meta})
+    universe_sha256 = hashlib.sha256((run_dir / "universe.json").read_bytes()).hexdigest()
     shards = []
     for offset in range(0, len(records), 100):
         rows = records[offset:offset + 100]
@@ -193,6 +194,7 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         "universe_count": len(universe), "exchange_counts": dict(Counter(s["exchange"] for s in universe)),
         "universe_fresh": universe_fresh, "universe_provenance": universe_meta,
         "universe_current": universe_current,
+        "universe_file": relative(run_dir / "universe.json"), "universe_sha256": universe_sha256,
         "status_counts": dict(counts), "unresolved_count": len(unresolved), "unresolved_codes": unresolved,
         "all_codes_accounted_for": all_codes_match, "technical_screen_complete": complete,
         "candidate_count": len(candidates), "parameters": PARAMETERS, "record_shards": shards,
@@ -218,10 +220,15 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
                    "daily_boll_overlays": sum(r["status"] == "valid" for r in overlay_rows),
                    "coverage_note": "Quote coverage counts all official codes, separately from whether a daily BOLL overlay is available.",
                    "source": quotes_meta, "candidate_overlays": [r for r in overlay_rows if r["code"] in {c["code"] for c in candidates}]}
-        write_json(run_dir / "overlay.json", overlay)
+        quote_shards = []
         for offset in range(0, len(overlay_rows), 100):
             rows = overlay_rows[offset:offset + 100]
-            write_json(run_dir / "quotes" / f"{rows[0]['code']}-{rows[-1]['code']}.json", {"records": rows})
+            quote_path = run_dir / "quotes" / f"{rows[0]['code']}-{rows[-1]['code']}.json"
+            write_json(quote_path, {"records": rows})
+            quote_shards.append({"file": relative(quote_path), "count": len(rows),
+                                 "sha256": hashlib.sha256(quote_path.read_bytes()).hexdigest()})
+        overlay["quote_shards"] = quote_shards
+        write_json(run_dir / "overlay.json", overlay)
         summary["overlay_file"] = relative(run_dir / "overlay.json")
     write_json(run_dir / "screen.json", summary)
     text = [f"# 沪深全市场布林筛选：{dates['market_date']}", "",
@@ -249,10 +256,19 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         manifest["latest_complete_screen"] = selected
     if overlay:
         prior_overlay = manifest.get("latest_overlay", {})
+        overlay_pointer = {"market_date": dates["report_date"], "phase": phase,
+            "selected_file": relative(run_dir / "overlay.json"), "valid_quotes": overlay["valid_quotes"],
+            "full_market_overlay_complete": overlay["full_market_overlay_complete"],
+            "sha256": hashlib.sha256((run_dir / "overlay.json").read_bytes()).hexdigest(),
+            "screen_file": selected["selected_file"], "screen_sha256": selected["sha256"],
+            "published_at": summary["published_at"]}
         if dates["report_date"] >= prior_overlay.get("market_date", ""):
-            manifest["latest_overlay"] = {"market_date": dates["report_date"], "phase": phase,
-                "selected_file": relative(run_dir / "overlay.json"), "valid_quotes": overlay["valid_quotes"],
-                "full_market_overlay_complete": overlay["full_market_overlay_complete"], "published_at": summary["published_at"]}
+            manifest["latest_overlay"] = overlay_pointer
+        prior_noon = manifest.get("latest_noon_overlay", {})
+        if phase == "noon" and (dates["report_date"] > prior_noon.get("market_date", "") or
+                (dates["report_date"] == prior_noon.get("market_date", "") and
+                 (overlay["full_market_overlay_complete"] or not prior_noon.get("full_market_overlay_complete")))):
+            manifest["latest_noon_overlay"] = overlay_pointer
     manifest["last_attempt"] = selected
     write_json(manifest_path, manifest)
     return summary
