@@ -483,6 +483,14 @@ def load_universe(root: Path, asof: str, refresh: bool = True, timeout: int = 12
             failures.append(f"official_refresh_failed: {type(exc).__name__}: {exc}")
     else:
         failures.append("official_refresh_disabled")
+    # A pre-open membership job has its own immutable proof. Reuse only this
+    # date's actual source bytes; never promote an old seed after HTTP failure.
+    try:
+        from .membership import read_frozen_universe
+        rows, meta = read_frozen_universe(root, asof, datetime.now(TZ))
+        return rows, {**meta, "freshness_reasons": failures}
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        failures.append(f"same_day_frozen_universe_unavailable: {exc}")
     state = root / "output/boll/state"
     try:
         payload = (state / "universe.json").read_bytes()

@@ -196,7 +196,8 @@ def archive_universe_sources(root, run_dir, metadata):
     return meta, audit
 
 
-def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quotes_meta, started_at, elapsed_s, config):
+def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quotes_meta, started_at, elapsed_s, config,
+            *, moment=None, collection_details=None):
     universe_meta, universe_evidence = archive_universe_sources(root, run_dir, universe_meta)
     counts = Counter(r["status"] for r in records)
     unresolved = [r["code"] for r in records if r["status"] == "unresolved"]
@@ -223,7 +224,7 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         "report_date": dates["report_date"], "phase": dates["phase"],
         "planned_at": started_at, "planned_at_basis": "actual_collection_start_not_scheduler_due_time",
         "started_at": started_at,
-        "published_at": datetime.now(TZ).isoformat(), "elapsed_seconds": round(elapsed_s, 2),
+        "published_at": (moment or datetime.now(TZ)).isoformat(), "elapsed_seconds": round(elapsed_s, 2),
         "point_in_time_recovered": dates["market_date"] < started_at[:10],
         "universe_count": len(universe), "exchange_counts": dict(Counter(s["exchange"] for s in universe)),
         "universe_fresh": universe_fresh, "universe_provenance": universe_meta,
@@ -239,13 +240,15 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         "quality_note": "Technical screen coverage and company research are separate. No automatic recommendation or statistical win rate.",
         "update_methods": dict(Counter(r.get("update_method") for r in records)),
     }
+    if collection_details:
+        summary["collection_details"] = collection_details
     write_json(run_dir / "candidates.json", {"screen_complete": complete, "market_date": dates["market_date"],
                "scope_note": summary["quality_note"], "candidates": candidates})
     summary["candidate_sha256"] = hashlib.sha256((run_dir / "candidates.json").read_bytes()).hexdigest()
     phase = dates["phase"]
     overlay = None
     if phase in ("noon", "intraday") and dates["is_trading_day"]:
-        now = datetime.now(TZ)
+        now = moment or datetime.now(TZ)
         expected_baseline = max(day for day in dates["expected_sessions"] if day < dates["report_date"])
         overlay_rows = [overlay_record(r, quotes.get(r["code"]), dates["report_date"], phase, now, expected_baseline) for r in records]
         valid = sum(r["quote_status"] == "valid" for r in overlay_rows)
@@ -277,6 +280,16 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
     (run_dir / "screen.md").write_text("\n".join(text) + "\n", encoding="utf-8")
     manifest_path = root / "output/boll/latest/manifest.json"
     manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"schema_version": "1.0"}
+    from .membership import SOURCE_KEYS
+    dated_meta = {**universe_meta, "fresh": False}
+    if (membership_current(dated_meta, dates["report_date"]) and SOURCE_KEYS.issubset(universe_evidence)
+            and all(universe_evidence[key]["status"] == "archived" for key in SOURCE_KEYS)):
+        universe_pointer = {"report_date": dates["report_date"], "published_at": summary["published_at"],
+            "universe_file": summary["universe_file"], "universe_sha256": universe_sha256,
+            "universe_count": len(universe), "accepted": True}
+        prior_universe = manifest.get("latest_universe", {})
+        if (universe_pointer["report_date"], universe_pointer["published_at"]) >= (prior_universe.get("report_date", ""), prior_universe.get("published_at", "")):
+            manifest["latest_universe"] = universe_pointer
     selected = {"market_date": dates["market_date"], "phase": phase, "run_id": run_dir.name,
                 "selected_file": relative(run_dir / "screen.json"), "candidate_file": relative(run_dir / "candidates.json"),
                 "sha256": hashlib.sha256((run_dir / "screen.json").read_bytes()).hexdigest(),

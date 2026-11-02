@@ -1,0 +1,143 @@
+name: Independent noon market ingestion
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "market_screen/**"
+      - "config/noon_scan_request.json"
+      - "config/boll_screen.json"
+      - "tests/test_boll_noon*.py"
+      - ".github/workflows/noon-ingest.yml"
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: Independent stage
+        type: choice
+        default: auto
+        options: [auto, membership, noon, replay]
+  schedule:
+    # Freeze the official list before the report deadline; retry independently.
+    - cron: "17 0 * * 1-5"
+    - cron: "17 2 * * 1-5"
+    # These jobs reuse good observations and only request remaining gaps.
+    - cron: "31 3 * * 1-5"
+    - cron: "47 3 * * 1-5"
+    - cron: "7 4 * * 1-5"
+    - cron: "17 4 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-independent-${{ (github.event.schedule == '17 0 * * 1-5' || github.event.schedule == '17 2 * * 1-5') && 'membership' || 'noon' }}
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      TZ: Asia/Shanghai
+      REQUESTED_PHASE: ${{ inputs.phase }}
+      EVENT_SCHEDULE: ${{ github.event.schedule }}
+      EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/
+            /market_screen/
+            /pipeline/
+            /scripts/
+            /report_support/
+            /tests/
+            /config/
+            /schemas/
+            /requirements.txt
+            /output/boll/latest/
+            /output/boll/state/universe.json
+            /output/boll/state/universe_meta.json
+            /output/cache/trade_calendar.json
+            /output/latest/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Resolve date and independent stage
+        id: stage
+        run: |
+          python - <<'PY'
+          from datetime import datetime, time
+          from pathlib import Path
+          import os
+          from market_screen.runner import TZ, resolve_dates
+          now = datetime.now(TZ)
+          dates = resolve_dates(Path('.'), now, 'early')
+          phase = os.environ.get('REQUESTED_PHASE') or 'auto'
+          schedule = os.environ.get('EVENT_SCHEDULE', '')
+          if schedule in ('17 0 * * 1-5', '17 2 * * 1-5'):
+              phase = 'membership'
+          elif schedule:
+              phase = 'noon'
+          if phase == 'auto':
+              phase = ('noon' if time(11,30) <= now.time().replace(tzinfo=None) < time(12,20)
+                       else 'membership' if time(7) <= now.time().replace(tzinfo=None) < time(11,30)
+                       else 'replay')
+          if not dates['is_trading_day']:
+              phase = 'validate_only'
+          if phase == 'noon' and not time(11,30) <= now.time().replace(tzinfo=None) < time(12,20):
+              print('Late noon trigger: preserve existing audit; do not collect later quotes.')
+              phase = 'validate_only'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('phase=' + phase + '\n')
+          print({'phase': phase, 'actual_started_at': now.isoformat(), 'report_date': dates['report_date']})
+          PY
+      - name: Install pinned dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Verify independent noon contracts
+        run: python -m unittest discover -s tests -p "test_boll_noon*.py"
+      - name: Hydrate only referenced immutable evidence
+        if: steps.stage.outputs.phase != 'validate_only'
+        env:
+          PHASE: ${{ steps.stage.outputs.phase }}
+        run: python -m market_screen.workflow_io hydrate --phase "$PHASE"
+      - uses: actions/cache/restore@v4
+        if: steps.stage.outputs.phase == 'noon'
+        with:
+          path: |
+            output/boll/state/history
+            output/boll/state/universe_sources
+          key: boll-unadjusted-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            boll-unadjusted-v1-
+      - name: Collect only the selected independent component
+        id: collect
+        if: steps.stage.outputs.phase != 'validate_only'
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          PHASE: ${{ steps.stage.outputs.phase }}
+        run: |
+          case "$PHASE" in
+            membership) python -m market_screen.membership ;;
+            noon) python -m market_screen.noon --max-seconds 480 ;;
+            replay) python -m market_screen.noon_probe ;;
+          esac
+      - name: Publish immutable evidence and merge concurrent pointers
+        if: always() && steps.collect.outcome != 'skipped' && steps.collect.outcome != ''
+        env:
+          PHASE: ${{ steps.stage.outputs.phase }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python -m market_screen.workflow_io publish --phase "$PHASE"
+      - name: Surface remaining data gaps
+        if: always() && steps.collect.outcome == 'failure'
+        run: |
+          echo "::error::Independent data acceptance remains incomplete. Actual counts and source failures were preserved; no historical audit was relabeled."
+          exit 1

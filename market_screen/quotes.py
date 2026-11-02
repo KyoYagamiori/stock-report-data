@@ -19,6 +19,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 from uuid import uuid4
 from zoneinfo import ZoneInfo
+from time import monotonic
 
 
 TIMEZONE = ZoneInfo("Asia/Shanghai")
@@ -243,7 +244,7 @@ def _identity(record: dict) -> tuple[str, str]:
 
 
 def fetch_quotes(
-    universe: list[dict], output: Path, *, timeout: float = 12, workers: int = 6,
+    universe: list[dict], output: Path, *, timeout: float = 12, workers: int = 6, max_seconds: float | None = None,
 ) -> tuple[dict[str, dict], dict]:
     """Fetch all requested codes in batches of 100 with at most one retry.
 
@@ -256,6 +257,9 @@ including HTTP-error bodies, is preserved byte-for-byte with its actual hash.
         raise ValueError("timeout must be a positive finite number")
     if not isinstance(workers, int) or isinstance(workers, bool) or workers < 1:
         raise ValueError("workers must be a positive integer")
+    if max_seconds is not None and (not math.isfinite(max_seconds) or max_seconds <= 0):
+        raise ValueError("max_seconds must be positive and finite")
+    deadline = monotonic() + max_seconds if max_seconds is not None else None
     workers = min(workers, MAX_WORKERS)
     identified = [(*_identity(record), record) for record in universe]
     codes = [item[0] for item in identified]
@@ -274,7 +278,10 @@ including HTTP-error bodies, is preserved byte-for-byte with its actual hash.
         for attempt in range(1, MAX_ATTEMPTS + 1):
             raw, error, http_status = None, None, None
             try:
-                with urlopen(Request(url, headers=HEADERS), timeout=timeout) as response:
+                remaining = deadline - monotonic() if deadline is not None else timeout
+                if remaining <= 0:
+                    raise TimeoutError("shared_quote_collection_budget_exhausted")
+                with urlopen(Request(url, headers=HEADERS), timeout=min(timeout, remaining)) as response:
                     raw = response.read()
                     http_status = getattr(response, "status", None)
             except HTTPError as exc:
@@ -310,6 +317,8 @@ including HTTP-error bodies, is preserved byte-for-byte with its actual hash.
             (sources / f"sina_{run_key}_batch_{index:04d}_attempt_{attempt}.json").write_text(
                 json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8")
             if error is None:
+                break
+            if deadline is not None and monotonic() >= deadline:
                 break
         rows = {}
         batch_failed = bool(latest_evidence.get("error"))
@@ -349,6 +358,7 @@ including HTTP-error bodies, is preserved byte-for-byte with its actual hash.
                           ("valid", "no_trades", "invalid", "missing")},
         "batch_size": BATCH_SIZE, "batch_count": len(batches), "workers": workers,
         "timeout_seconds": timeout, "max_attempts": MAX_ATTEMPTS,
+        "shared_max_seconds": max_seconds,
         "failed_batches": sum(item["failed"] for item in batch_metadata),
         "errors": errors, "batches": batch_metadata,
         "units": {"volume": "shares", "amount": "CNY", "price": "CNY per share, unadjusted"},

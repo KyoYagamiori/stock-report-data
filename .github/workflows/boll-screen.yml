@@ -8,7 +8,6 @@ on:
       - "config/boll_screen.json"
       - "config/boll_universe_seed.json"
       - "config/boll_trading_states.json"
-      - "config/noon_scan_request.json"
       - "output/boll/bootstrap/**"
       - "tests/test_boll_*.py"
       - ".github/workflows/boll-screen.yml"
@@ -22,7 +21,6 @@ on:
         options: [auto, early, noon, close, intraday]
   schedule:
     - cron: "20 0 * * 1-5"
-    - cron: "32 3 * * 1-5"
     # Daily full-close acceptance, including a no-new-session check on holidays.
     - cron: "45 7 * * *"
     # Before the 21:00 report, retry only if the latest session is incomplete.
@@ -73,7 +71,6 @@ jobs:
           phase="${INPUT_PHASE:-auto}"
           case "$EVENT_SCHEDULE" in
             "20 0 * * 1-5") phase=early ;;
-            "32 3 * * 1-5") phase=noon ;;
             "45 7 * * *"|"17 10 * * *") phase=close ;;
           esac
           if [[ "$phase" == "auto" ]]; then

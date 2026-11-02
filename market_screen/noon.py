@@ -11,7 +11,9 @@ from time import monotonic
 from .daily import accepted_screen
 from .history import write_json
 from .quotes import validate_quote
-from .runner import TZ, resolve_dates, run
+from .runner import TZ, resolve_dates
+from .noon_collection import collect_noon
+from .noon_repair import verify_quote_evidence
 from .universe import membership_current, validate_universe
 
 
@@ -60,6 +62,7 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
                                     "run_id": screen.get("run_id"), "screen_file": pointer["screen_file"],
                                     "status_counts": screen.get("status_counts"),
                                     "unresolved_codes": screen.get("unresolved_codes", [])}
+        independent = screen.get("collection_details", {}).get("strategy") == "completed_store_plus_independent_noon_quotes_v1"
         published = datetime.fromisoformat(screen["published_at"])
         started = datetime.fromisoformat(screen["started_at"])
         if started.tzinfo is None or not started <= published <= moment:
@@ -73,6 +76,25 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
         listings = universe["records"]
         validate_universe(listings)
         expected = {row["code"] for row in listings}
+        if independent:
+            try:
+                from .membership import SOURCE_KEYS
+                provenance = screen.get("universe_provenance", {})
+                if universe.get("provenance") != provenance or not membership_current({**provenance, "fresh": False}, today):
+                    raise ValueError("same_day_official_membership_contract_failed")
+                if not SOURCE_KEYS.issubset(provenance.get("sources", {})):
+                    raise ValueError("official_source_proof_incomplete")
+                for key in SOURCE_KEYS:
+                    ref = provenance["sources"][key]
+                    source_path = (root / ref["raw_file"]).resolve()
+                    stamp = datetime.fromisoformat(ref["retrieved_at"])
+                    if (not source_path.is_relative_to(path.parent / "universe_sources") or stamp.tzinfo is None
+                            or stamp > moment or hashlib.sha256(source_path.read_bytes()).hexdigest() != ref["sha256"]):
+                        raise ValueError("official_source_bytes_or_retrieval_invalid")
+                result["official_membership_bytes_verified"] = True
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                screen_reasons.append(str(exc))
+                result["current_screen"]["accepted"] = False
         counts = screen.get("status_counts", {})
         if (len(expected) != screen.get("universe_count") or overlay.get("universe_count") != len(expected)
                 or sum(counts.values()) != len(expected)):
@@ -86,12 +108,17 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
         codes = [row["code"] for row in rows]
         if len(codes) != len(expected) or set(codes) != expected:
             raise ValueError("noon_quotes_missing_duplicate_or_substituted_codes")
-        valid, no_trades, gaps, times = 0, 0, [], []
+        valid, no_trades, gaps, times, raw_cache = 0, 0, [], [], {}
         for row in rows:
             quote = row.get("quote") or {}
             errors = validate_quote(quote, today, "noon", now=moment)
             if quote.get("code") != row["code"]:
                 errors.append("quote_security_mismatch")
+            if independent and errors in ([], ["no_trades"]):
+                try:
+                    verify_quote_evidence(root, quote, today, moment, cache=raw_cache)
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    errors.append("raw_quote_evidence_invalid:" + str(exc))
             if errors == []:
                 valid += 1
                 times.append(quote["time"])
@@ -108,8 +135,30 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
         quote_accepted = not (gaps or not overlay.get("full_market_overlay_complete")
                 or overlay.get("valid_quotes") != valid or overlay.get("no_trade_quotes") != no_trades)
         result["quote_coverage_accepted"] = quote_accepted
+        comparison_reasons = []
+        if independent:
+            comparison = screen["collection_details"].get("noon_comparison", {})
+            try:
+                table, _ = _read_hashed(root, {"file": comparison["candidate_file"], "sha256": comparison["candidate_sha256"]}, directory=path.parent)
+                evaluated = []
+                for ref in comparison["record_shards"]:
+                    shard, _ = _read_hashed(root, ref, directory=path.parent / "noon_comparisons")
+                    if len(shard["records"]) != ref["count"]:
+                        raise ValueError("comparison_shard_count_mismatch")
+                    evaluated += shard["records"]
+                if (table.get("report_date") != today or table.get("daily_baseline_date") != target
+                        or table.get("evaluated_count") != len(expected) or comparison.get("evaluated_count") != len(expected)
+                        or len(evaluated) != len(expected) or {r["code"] for r in evaluated} != expected
+                        or any(r.get("daily_date") != target for r in evaluated)):
+                    raise ValueError("comparison_date_or_full_universe_accounting_mismatch")
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                comparison_reasons.append(str(exc))
+            result["full_universe_comparison"] = {"accepted": not comparison_reasons, **comparison, "reasons": comparison_reasons}
+            result["collection_strategy"] = screen["collection_details"]["strategy"]
+            result["completed_daily_source"] = screen["collection_details"]["completed_daily"]
         reasons = ([] if baseline["accepted"] else ["completed_daily_baseline_not_accepted"])
         reasons += screen_reasons
+        reasons += comparison_reasons
         if not quote_accepted:
             reasons.append("full_market_noon_quotes_incomplete")
         result.update(accepted=not reasons, reasons=reasons)
@@ -162,9 +211,9 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
               "market_cutoff": dates["report_date"] + "T11:30:00+08:00", "attempts": []}
     if not dates["is_trading_day"]:
         result.update(status="not_applicable", accepted=False, reasons=["non_trading_day"])
-    elif not time(11, 30) <= now.time().replace(tzinfo=None) < time(12, 35):
+    elif not time(11, 30) <= now.time().replace(tzinfo=None) < time(12, 20):
         result.update(status="outside_collection_window", accepted=False,
-                      reasons=["noon_ingest_requires_1130_to_1235_China_time"])
+                      reasons=["noon_ingest_requires_1130_to_1220_China_time"])
     else:
         start = monotonic()
         scan_gate = accepted_noon(root, now)
@@ -172,13 +221,13 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
         for number in (1, 2):
             current = moment or datetime.now(TZ)
             # Finish with room for publication before the 12:40 report.
-            wall_remaining = (current.replace(hour=12, minute=35, second=0, microsecond=0) - current).total_seconds()
+            wall_remaining = (current.replace(hour=12, minute=20, second=0, microsecond=0) - current).total_seconds()
             remaining = min(max_seconds - (monotonic() - start), wall_remaining)
             if remaining <= 0:
                 break
             if not scan_gate["accepted"]:
                 try:
-                    summary = (collector or run)(root, phase="noon",
+                    summary = (collector or collect_noon)(root, phase="noon",
                                                 max_seconds=max(1, int(remaining / (3 - number))))
                     result["attempts"].append({"component": "full_market", "attempt": number,
                                                "run_id": summary.get("run_id")})
@@ -188,7 +237,7 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
                 scan_gate = accepted_noon(root, moment or datetime.now(TZ))
             current = moment or datetime.now(TZ)
             if (not snapshot_gate["accepted"] and monotonic() - start < max_seconds
-                    and current.time().replace(tzinfo=None) < time(12, 35)):
+                    and current.time().replace(tzinfo=None) < time(12, 20)):
                 try:
                     snapshot = (snapshot_collector or _collect_snapshot)(root, current)
                     result["attempts"].append({"component": "report_snapshot", "attempt": number,
@@ -211,7 +260,10 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
     write_json(archive, result)
     result["audit_file"] = archive.relative_to(root).as_posix()
     result["audit_sha256"] = hashlib.sha256(archive.read_bytes()).hexdigest()
-    write_json(root / "output/boll/latest/noon_update.json", result)
+    latest = root / "output/boll/latest/noon_update.json"
+    # A late cron is a diagnostic, not permission to erase an earlier audit.
+    if result["status"] not in {"outside_collection_window", "not_applicable"} or not latest.exists():
+        write_json(latest, result)
     print(json.dumps(result, ensure_ascii=False), flush=True)
     return result
 
