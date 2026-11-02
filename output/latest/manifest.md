@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-02T20:38:57+08:00
+- 更新时间：2026-11-03T00:27:52+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-11-02
 
@@ -9,15 +9,15 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261102-0204-early-full-41334626679 | output/archive/2026/11/02/early/20261102-0204-early-full-41334626679.json |
-| noon | ready_a | A | 20261102-1216-noon-full-41387331965 | output/archive/2026/11/02/noon/20261102-1216-noon-full-41387331965.json |
-| evening | ready_a | A | 20261102-2038-evening-full-41446317584 | output/archive/2026/11/02/evening/20261102-2038-evening-full-41446317584.json |
+| early | ready_a | A | 20261103-0027-early-full-41481591775 | output/archive/2026/11/03/early/20261103-0027-early-full-41481591775.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-11-02-early | 2026-10-30 | 2026-10-30T15:36:00+08:00 | output/archive/2026/11/02/early/20261102-0204-early-full-41334626679.json | `69dcbca600961d55f87bdb3610b93037041b482e7bb9543ed7986c5afc6f6265` |
+| early | A | 2026-11-03-early | 2026-11-02 | 2026-11-02T15:36:00+08:00 | output/archive/2026/11/03/early/20261103-0027-early-full-41481591775.json | `86a85f867a53bb2d661ed8be69d055b2a9e76fbbfb6f48ffd662bcf21cf53d8a` |
 | noon | A | 2026-11-02-noon | 2026-11-02 | 2026-11-02T11:30:00+08:00 | output/archive/2026/11/02/noon/20261102-1216-noon-full-41387331965.json | `ce12bb85be82880a07410dd1fe905d4ab8fce981d06b99675af84d1c16e46286` |
 | close | A | 2026-11-02-close | 2026-11-02 | 2026-11-02T15:36:00+08:00 | output/archive/2026/11/02/close/20261102-1937-close-full-41438184720.json | `9559fe42ab1600e27e9f778bd81729ee4867a64fe80fac559388c521e3cb807f` |
 | evening | A | 2026-11-02-evening | 2026-11-02 | 2026-11-02T15:36:00+08:00 | output/archive/2026/11/02/evening/20261102-2038-evening-full-41446317584.json | `0fda7dfeb2913e18ddab42254373283ed554f82e3db824f36ee199c6587cfaf6` |
