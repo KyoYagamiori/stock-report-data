@@ -6,23 +6,23 @@
     "next_trading_day": "2026-11-03",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-11-02T02:04:19+08:00",
+  "generated_at": "2026-11-02T12:20:02+08:00",
   "health": {
     "last_attempt": {
       "blocking_reasons": [],
-      "finished_at": "2026-11-02T02:04:19+08:00",
-      "planned_at": "2026-11-02T02:04:00+08:00",
+      "finished_at": "2026-11-02T12:20:02+08:00",
+      "planned_at": "2026-11-02T12:16:00+08:00",
       "published": true,
       "quality_grade": "A",
       "reason": "published",
-      "report_cycle": "2026-11-02-early",
+      "report_cycle": "2026-11-02-noon",
       "report_date": "2026-11-02",
-      "snapshot_id": "20261102-0204-early-full-41334626679",
-      "snapshot_type": "early",
-      "started_at": "2026-11-02T02:04:18+08:00",
+      "snapshot_id": "20261102-1216-noon-full-41387331965",
+      "snapshot_type": "noon",
+      "started_at": "2026-11-02T12:16:48+08:00",
       "status": "published"
     },
-    "last_grade_a_at": "2026-11-02T02:04:19+08:00",
+    "last_grade_a_at": "2026-11-02T12:20:02+08:00",
     "last_grade_b_at": "2026-10-30T14:26:50+08:00",
     "latest_run": "output/health/latest_run.json"
   },
@@ -59,17 +59,22 @@
       "status": "not_ready"
     },
     "noon": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_noon",
       "reasons": [
-        "stale report cycle 2026-10-30-noon; expected 2026-11-02-noon"
+        "quality profile thresholds met for grade A",
+        "indices coverage 3/3",
+        "core coverage 11/11"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 0.8,
+      "selected_file": "output/archive/2026/11/02/noon/20261102-1216-noon-full-41387331965.json",
+      "selected_snapshot_id": "20261102-1216-noon-full-41387331965",
+      "sha256": "ce12bb85be82880a07410dd1fe905d4ab8fce981d06b99675af84d1c16e46286",
+      "status": "ready_a"
     }
   },
   "schema_version": "1.6.1",
@@ -199,35 +204,30 @@
       ]
     },
     "noon": {
-      "collection_mode": "historical_point_in_time_recovery",
+      "collection_mode": "live_or_latest_completed",
       "core_effective_count": 11,
-      "effective_field_count": 28,
+      "effective_field_count": 43,
       "latest_alias": "output/latest/noon/report_data_compact.json",
-      "market_asof": "2026-10-30T11:30:00+08:00",
-      "market_date": "2026-10-30",
+      "market_asof": "2026-11-02T11:30:00+08:00",
+      "market_date": "2026-11-02",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "total_turnover",
-        "market_breadth",
-        "sectors_top",
-        "sectors_bottom"
-      ],
-      "point_in_time_recovered": true,
-      "published_at": "2026-10-30T13:42:41+08:00",
-      "quality_grade": "B",
+      "missing_optional_fields": [],
+      "point_in_time_recovered": false,
+      "published_at": "2026-11-02T12:20:02+08:00",
+      "quality_grade": "A",
       "quality_profile": "trading_noon",
       "quality_reasons": [
-        "quality profile thresholds met for grade B",
+        "quality profile thresholds met for grade A",
         "indices coverage 3/3",
         "core coverage 11/11"
       ],
-      "quote_time_max": "2026-10-30T11:30:00+08:00",
-      "report_cycle": "2026-10-30-noon",
-      "schedule_delay_minutes": 126.92,
+      "quote_time_max": "2026-11-02T11:30:00+08:00",
+      "report_cycle": "2026-11-02-noon",
+      "schedule_delay_minutes": 0.8,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/10/30/noon/20261030-1135-noon-full-41009790751.json",
-      "selected_snapshot_id": "20261030-1135-noon-full-41009790751",
-      "sha256": "a468e46cfb599a6bacd96604136df420df527afa4d56630c95244d32dcce6e00",
+      "selected_file": "output/archive/2026/11/02/noon/20261102-1216-noon-full-41387331965.json",
+      "selected_snapshot_id": "20261102-1216-noon-full-41387331965",
+      "sha256": "ce12bb85be82880a07410dd1fe905d4ab8fce981d06b99675af84d1c16e46286",
       "snapshot_type": "noon",
       "suitable_reports": [
         "noon"
