@@ -388,6 +388,8 @@ def run(root, *, phase="auto", market_date=None, max_seconds=2400, workers=None,
             output[stock["code"]] = {"code": stock["code"], "name": stock.get("name"), "exchange": stock["exchange"],
                 "market_date": dates["market_date"], "status": "unresolved", "reasons": ["time_budget_exhausted"], "ranking": {"eligible": False}}
     records = [output[code] for code in sorted(output)]
+    from .completed import reuse_completed_exclusions
+    records = reuse_completed_exclusions(root, records, dates["market_date"], moment)
     summary = publish(root, run_dir, records, universe, universe_meta, dates, quotes, quote_meta, started_at, clock.monotonic() - started, config)
     preserve_bootstrap(root, universe, dates["market_date"], complete=summary["technical_screen_complete"])
     print(json.dumps({key: summary[key] for key in ("run_id", "market_date", "universe_count", "status_counts", "technical_screen_complete", "elapsed_seconds")}), flush=True)
