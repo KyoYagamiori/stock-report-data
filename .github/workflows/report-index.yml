@@ -1,0 +1,55 @@
+name: Maintain public report index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "reports/archive/**.md"
+      - "reports/archive/**-handoff.json"
+      - "report_support/**"
+      - "tests/test_report_*.py"
+      - ".github/workflows/report-index.yml"
+  workflow_dispatch:
+  schedule:
+    # Recover an orphaned archive even if its original push job was interrupted.
+    - cron: "25 1,5,13 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: public-report-index-main
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify archive and recovery contracts
+        run: python -m unittest discover -s tests -p 'test_report_*.py'
+      - name: Index complete archives and publish compact handoff
+        run: python -m report_support.index
+      - name: Commit and retry against the current ledger
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git add reports/latest/manifest.json reports/latest/handoff.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "reports: reconcile archive index and compact handoff"
+            if git push origin HEAD:main; then exit 0; fi
+            # Recompute from the latest ledger, preserving concurrent reports.
+            git fetch origin main
+            git reset --hard origin/main
+            python -m report_support.index
+          done
+          exit 1

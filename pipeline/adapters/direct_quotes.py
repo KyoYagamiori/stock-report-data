@@ -95,7 +95,7 @@ def fetch_quotes(symbols):
 def fetch_daily_frame(code, quote_symbol=None):
     url = "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData"
     response = requests.get(url, params={"symbol": quote_symbol or symbol(code), "scale": 240,
-        "ma": "no", "datalen": 160}, timeout=(15, 20))
+        "ma": "no", "datalen": 161}, timeout=(15, 20))
     response.raise_for_status()
     match = re.search(r'\(\s*(\[.*\])\s*\)', response.text, re.S)
     if not match:
@@ -115,7 +115,13 @@ def daily_indicators(code, market_date, quote_time, quote_symbol=None):
     mask = frame["日期"].dt.strftime("%Y-%m-%d") <= market_date
     if quote.time() < time(15):
         mask &= frame["日期"].dt.strftime("%Y-%m-%d") < market_date
-    frame = frame[mask]
+    frame = frame[mask].sort_values("日期").drop_duplicates("日期", keep="last").tail(160)
+    if len(frame) < 160:
+        return {"indicator_status": "insufficient_history", "indicator_history_rows": len(frame),
+                "indicator_required_rows": 160, "indicator_adjustment": "unadjusted",
+                "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+                "indicator_is_completed_daily": True,
+                "indicator_warning": "Provider returned fewer than 160 completed bars; use the verified full-market daily record, not a short-window EMA/KDJ."}
     result = compute_indicators(frame, "新浪240分钟日线（未复权，已完成日线）", "unadjusted")
     result.update(compute_ma_metrics(frame, None, "新浪已完成日线"))
     result["indicator_is_completed_daily"] = True

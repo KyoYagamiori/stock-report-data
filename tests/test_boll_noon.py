@@ -124,6 +124,55 @@ class NoonTests(unittest.TestCase):
         self.publish_report()
         self.assertTrue(accepted_snapshot(self.root, self.now)["accepted"])
 
+    def test_membership_failure_still_reports_real_quote_counts(self):
+        # A valid prior completed baseline and a current failed membership scan
+        # are separate evidence. No optimistic "ready" or null quote totals.
+        self.publish_scan(run_id="accepted-baseline")
+        manifest_path = self.root / "output/boll/latest/manifest.json"
+        baseline_pointer = json.loads(manifest_path.read_text())["latest_complete_screen"]
+        self.publish_scan(run_id="current-partial")
+        manifest_path = self.root / "output/boll/latest/manifest.json"
+        manifest = json.loads(manifest_path.read_text())
+        pointer = manifest["latest_noon_overlay"]
+        screen_path = self.root / pointer["screen_file"]
+        screen = json.loads(screen_path.read_text())
+        screen.update(universe_current=False, technical_screen_complete=False,
+                      universe_provenance={"fresh": False, "version_date": self.target})
+        write_json(screen_path, screen)
+        pointer["screen_sha256"] = hashlib.sha256(screen_path.read_bytes()).hexdigest()
+        manifest["latest_complete_screen"] = baseline_pointer
+        write_json(manifest_path, manifest)
+        gate = accepted_noon(self.root, self.now)
+        self.assertFalse(gate["accepted"])
+        self.assertTrue(gate["daily_baseline"]["accepted"])
+        self.assertEqual(2, gate["valid_quotes"])
+        self.assertEqual(0, gate["missing_quotes"])
+        self.assertTrue(gate["quote_coverage_accepted"])
+        self.assertIn("noon_membership_not_current", gate["reasons"])
+        self.assertNotEqual(pointer["screen_file"], gate["daily_baseline"]["screen_file"])
+
+    def test_official_source_cache_is_copied_with_verified_bytes(self):
+        source = self.root / "output/boll/state/universe_sources/fixture/sse.json"
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b'{"official_fixture":true}')
+        meta = {"sources": {"sse_main": {"raw_file": source.relative_to(self.root).as_posix(),
+                                        "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}}}
+        run_dir = self.root / "output/boll/archive/2026-07-15/source-fixture"
+        normalized, audit = runner.archive_universe_sources(self.root, run_dir, meta)
+        self.assertEqual("archived", audit["sse_main"]["status"])
+        copied = self.root / normalized["sources"]["sse_main"]["raw_file"]
+        self.assertEqual(source.read_bytes(), copied.read_bytes())
+        self.assertEqual(source.relative_to(self.root).as_posix(), meta["sources"]["sse_main"]["raw_file"])
+
+    def test_missing_corrupt_or_escaped_official_proof_is_explicitly_unavailable(self):
+        source = self.root / "output/boll/state/universe_sources/sse.json"
+        source.parent.mkdir(parents=True)
+        source.write_bytes(b"changed")
+        for path in (source.relative_to(self.root).as_posix(), "../../outside.json", "output/boll/state/universe_sources/missing.json"):
+            meta = {"sources": {"sse_main": {"raw_file": path, "sha256": "0" * 64}}}
+            _, audit = runner.archive_universe_sources(self.root, self.root / "output/boll/archive/test", meta)
+            self.assertEqual("unavailable", audit["sse_main"]["status"])
+
     def test_one_retry_repairs_both_components_and_keeps_dates_separate(self):
         calls = []
         def collect(root, **kwargs):

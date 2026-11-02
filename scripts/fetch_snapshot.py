@@ -246,12 +246,25 @@ def compute_indicators(hist: pd.DataFrame, source: str, adjustment: str) -> dict
     """
     result = {"indicator_status": "missing", "indicator_source": source,
               "indicator_adjustment": adjustment,
+              "indicator_required_rows": 160,
               "indicator_parameters": {"boll": [20, 2], "std_ddof": 0,
                                        "kdj": [9, 3, 3], "kd_seed": 50,
-                                       "macd": [12, 26, 9], "histogram_multiplier": 2}}
+                                       "macd": [12, 26, 9], "histogram_multiplier": 2,
+                                       "history_bars": 160}}
+    # Clear inherited values when a historical recovery cannot produce the
+    # required completed history; a short provider response is not "ready".
+    result.update({key: None for key in ("boll_mid", "boll_upper", "boll_lower", "kdj_k", "kdj_d", "kdj_j",
+                                        "kdj_previous_k", "kdj_previous_d", "kdj_previous_j",
+                                        "macd_dif", "macd_dea", "macd_hist")})
     if hist.empty or not {"日期", "收盘", "最高", "最低"}.issubset(hist.columns):
         return result
-    frame = hist.sort_values("日期").drop_duplicates("日期", keep="last").copy()
+    frame = hist.sort_values("日期").drop_duplicates("日期", keep="last").tail(160).copy()
+    result["indicator_history_rows"] = len(frame)
+    if not frame.empty:
+        result["indicator_asof"] = pd.Timestamp(frame["日期"].iloc[-1]).strftime("%Y-%m-%d")
+    if len(frame) < 160:
+        result["indicator_status"] = "insufficient_history"
+        return result
     for col in ("收盘", "最高", "最低"):
         frame[col] = pd.to_numeric(frame[col], errors="coerce")
     if len(frame) < 35 or frame[["收盘", "最高", "最低"]].isna().any().any():

@@ -204,13 +204,23 @@ if __name__ == "__main__":
 class IndicatorRegressionTests(unittest.TestCase):
     def test_flat_series_has_zero_macd_and_boll_width(self):
         from scripts.fetch_snapshot import compute_indicators
-        frame = pd.DataFrame({'日期': pd.bdate_range('2026-01-01', periods=60), '收盘': [10.]*60, '最高': [10.]*60, '最低': [10.]*60})
+        frame = pd.DataFrame({'日期': pd.bdate_range('2026-01-01', periods=160), '收盘': [10.]*160, '最高': [10.]*160, '最低': [10.]*160})
         got = compute_indicators(frame, 'fixture', 'unadjusted')
         self.assertEqual('ready', got['indicator_status'])
         self.assertEqual(10., got['boll_upper'])
         self.assertEqual(10., got['boll_lower'])
         self.assertEqual(50., got['kdj_j'])
         self.assertEqual(0., got['macd_hist'])
+
+    def test_short_history_is_not_ready_and_clears_old_values(self):
+        from scripts.fetch_snapshot import compute_indicators
+        frame = pd.DataFrame({'日期': pd.bdate_range('2026-01-01', periods=60),
+                              '收盘': [10.]*60, '最高': [10.]*60, '最低': [10.]*60})
+        got = compute_indicators(frame, 'fixture', 'unadjusted')
+        self.assertEqual('insufficient_history', got['indicator_status'])
+        self.assertEqual(60, got['indicator_history_rows'])
+        self.assertIsNone(got['kdj_j'])
+        self.assertIsNone(got['macd_hist'])
 
     def test_daily_outage_preserves_valid_minute_quote(self):
         from pipeline.adapters.point_in_time import _recover_stock

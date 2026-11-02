@@ -166,7 +166,38 @@ def overlay_record(record, quote, report_date, phase, moment, expected_baseline_
     return out
 
 
+def archive_universe_sources(root, run_dir, metadata):
+    """Make source proof replayable instead of pointing into ignored caches."""
+    import copy
+    meta, audit = copy.deepcopy(metadata), {}
+    root = Path(root).resolve()
+    run_dir = Path(run_dir).resolve()
+    allowed = [root / "output/boll/state/universe_sources", root / "output/boll/archive"]
+    for key, source in meta.get("sources", {}).items():
+        try:
+            original = (root / source["raw_file"]).resolve()
+            if not any(original.is_relative_to(directory) for directory in allowed):
+                raise ValueError("official_source_path_outside_evidence_directories")
+            raw = original.read_bytes()
+            digest = hashlib.sha256(raw).hexdigest()
+            if digest != source.get("sha256"):
+                raise ValueError("official_source_sha256_mismatch")
+            safe_key = "".join(c if c.isalnum() or c in "_-" else "_" for c in key)
+            target = run_dir / "universe_sources" / (safe_key + original.suffix)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(raw)
+            source["original_raw_file"] = source["raw_file"]
+            source["raw_file"] = target.relative_to(root).as_posix()
+            source["raw_file_available"] = True
+            audit[key] = {"status": "archived", "file": source["raw_file"], "sha256": digest}
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            source["raw_file_available"] = False
+            audit[key] = {"status": "unavailable", "reason": str(exc)}
+    return meta, audit
+
+
 def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quotes_meta, started_at, elapsed_s, config):
+    universe_meta, universe_evidence = archive_universe_sources(root, run_dir, universe_meta)
     counts = Counter(r["status"] for r in records)
     unresolved = [r["code"] for r in records if r["status"] == "unresolved"]
     candidates = sorted((r for r in records if r.get("ranking", {}).get("eligible")),
@@ -174,7 +205,8 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
     all_codes_match = {r["code"] for r in records} == {r["code"] for r in universe} and len(records) == len(universe)
     universe_fresh = bool(universe_meta.get("fresh"))
     universe_current = membership_current(universe_meta, dates["report_date"])
-    complete = all_codes_match and not unresolved and universe_current
+    complete = (all_codes_match and not unresolved and universe_current
+                and all(evidence["status"] == "archived" for evidence in universe_evidence.values()))
     relative = lambda path: path.relative_to(root).as_posix()
     write_json(run_dir / "universe.json", {"records": universe, "provenance": universe_meta})
     universe_sha256 = hashlib.sha256((run_dir / "universe.json").read_bytes()).hexdigest()
@@ -188,12 +220,15 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         "schema_version": "1.0", "run_id": run_dir.name,
         "scope": "SSE/SZSE ordinary A-shares; all sectors; main board, ChiNext, STAR; BSE/B/CDR excluded",
         "market_date": dates["market_date"], "market_cutoff": dates["market_date"] + "T15:00:00+08:00",
-        "report_date": dates["report_date"], "phase": dates["phase"], "started_at": started_at,
+        "report_date": dates["report_date"], "phase": dates["phase"],
+        "planned_at": started_at, "planned_at_basis": "actual_collection_start_not_scheduler_due_time",
+        "started_at": started_at,
         "published_at": datetime.now(TZ).isoformat(), "elapsed_seconds": round(elapsed_s, 2),
         "point_in_time_recovered": dates["market_date"] < started_at[:10],
         "universe_count": len(universe), "exchange_counts": dict(Counter(s["exchange"] for s in universe)),
         "universe_fresh": universe_fresh, "universe_provenance": universe_meta,
         "universe_current": universe_current,
+        "universe_source_evidence": universe_evidence,
         "universe_file": relative(run_dir / "universe.json"), "universe_sha256": universe_sha256,
         "status_counts": dict(counts), "unresolved_count": len(unresolved), "unresolved_codes": unresolved,
         "all_codes_accounted_for": all_codes_match, "technical_screen_complete": complete,
@@ -206,6 +241,7 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
     }
     write_json(run_dir / "candidates.json", {"screen_complete": complete, "market_date": dates["market_date"],
                "scope_note": summary["quality_note"], "candidates": candidates})
+    summary["candidate_sha256"] = hashlib.sha256((run_dir / "candidates.json").read_bytes()).hexdigest()
     phase = dates["phase"]
     overlay = None
     if phase in ("noon", "intraday") and dates["is_trading_day"]:

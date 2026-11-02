@@ -35,8 +35,6 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
     baseline = accepted_screen(root, target, moment)
     result["daily_baseline"] = baseline
     try:
-        if not baseline["accepted"]:
-            raise ValueError("completed_daily_baseline_not_accepted")
         manifest = json.loads((root / "output/boll/latest/manifest.json").read_text())
         # Keep the noon pointer independent of later intraday/close publications.
         pointer = manifest.get("latest_noon_overlay", manifest.get("latest_overlay", {}))
@@ -48,11 +46,20 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
         if path.parent != screen_path.parent:
             raise ValueError("overlay_not_from_accepted_current_screen")
         if (screen.get("report_date") != today or screen.get("market_date") != target
-                or screen.get("phase") != "noon"
-                or not screen.get("technical_screen_complete") or not screen.get("universe_current")
-                or not screen.get("all_codes_accounted_for") or screen.get("unresolved_count") != 0
-                or not membership_current(screen.get("universe_provenance", {}), today)):
-            raise ValueError("noon_screen_date_phase_or_membership_mismatch")
+                or screen.get("phase") != "noon"):
+            raise ValueError("noon_screen_date_or_phase_mismatch")
+        # Diagnose quotes even when current membership/history fails. A prior
+        # early return hid 5,210 valid observations and nine bad timestamps.
+        screen_reasons = []
+        if not screen.get("universe_current") or not membership_current(screen.get("universe_provenance", {}), today):
+            screen_reasons.append("noon_membership_not_current")
+        if (not screen.get("technical_screen_complete") or not screen.get("all_codes_accounted_for")
+                or screen.get("unresolved_count") != 0):
+            screen_reasons.append("noon_technicals_incomplete")
+        result["current_screen"] = {"accepted": not screen_reasons, "reasons": screen_reasons,
+                                    "run_id": screen.get("run_id"), "screen_file": pointer["screen_file"],
+                                    "status_counts": screen.get("status_counts"),
+                                    "unresolved_codes": screen.get("unresolved_codes", [])}
         published = datetime.fromisoformat(screen["published_at"])
         started = datetime.fromisoformat(screen["started_at"])
         if started.tzinfo is None or not started <= published <= moment:
@@ -68,11 +75,8 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
         expected = {row["code"] for row in listings}
         counts = screen.get("status_counts", {})
         if (len(expected) != screen.get("universe_count") or overlay.get("universe_count") != len(expected)
-                or counts.get("screened", 0) + counts.get("excluded", 0) != len(expected)):
+                or sum(counts.values()) != len(expected)):
             raise ValueError("noon_universe_count_mismatch")
-        result["daily_baseline"] = {**baseline, "screen_file": pointer["screen_file"],
-                                    "run_id": screen["run_id"], "universe_count": len(expected),
-                                    "status_counts": counts, "published_at": screen["published_at"]}
         rows = []
         for shard in overlay.get("quote_shards", []):
             part, _ = _read_hashed(root, shard, directory=path.parent / "quotes")
@@ -101,10 +105,14 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
                       overlay_sha256=pointer["sha256"], quote_time_min=min(times) if times else None,
                       quote_time_max=max(times) if times else None, sha256_verified=True,
                       scan_run_id=screen["run_id"], scan_published_at=screen["published_at"])
-        if (gaps or not overlay.get("full_market_overlay_complete")
-                or overlay.get("valid_quotes") != valid or overlay.get("no_trade_quotes") != no_trades):
-            raise ValueError("full_market_noon_quotes_incomplete")
-        result.update(accepted=True, reasons=[])
+        quote_accepted = not (gaps or not overlay.get("full_market_overlay_complete")
+                or overlay.get("valid_quotes") != valid or overlay.get("no_trade_quotes") != no_trades)
+        result["quote_coverage_accepted"] = quote_accepted
+        reasons = ([] if baseline["accepted"] else ["completed_daily_baseline_not_accepted"])
+        reasons += screen_reasons
+        if not quote_accepted:
+            reasons.append("full_market_noon_quotes_incomplete")
+        result.update(accepted=not reasons, reasons=reasons)
     except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
         result["reasons"] = [str(exc)]
     return result
