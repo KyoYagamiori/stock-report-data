@@ -5,13 +5,47 @@ GitHub-to-ChatGPT send API here, and no inferred delivery acknowledgement.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time
+from math import ceil
 from zoneinfo import ZoneInfo
 
 from .index import CYCLES, validate_body
 
 TZ = ZoneInfo("Asia/Shanghai")
 TIMES = {"early": "09:00:00", "noon": "12:40:00", "evening": "21:00:00"}
+VERIFIER_TIMES = {
+    time(9, 30): ("verify_delivery", "early"),
+    time(11, 30): ("collect_noon", "noon"),
+    time(13, 10): ("verify_delivery", "noon"),
+    time(21, 30): ("verify_delivery", "evening"),
+}
+
+
+def assess_verifier_run(scheduled_for, *, moment):
+    """Keep an early wake-up pending instead of consuming the scheduled scan.
+
+    The caller waits in chunks of at most 60 seconds, then calls this again
+    with the real clock. This helper neither collects data nor claims delivery.
+    """
+    try:
+        due = datetime.fromisoformat(scheduled_for.replace("Z", "+00:00"))
+        if due.tzinfo is None or moment.tzinfo is None:
+            raise ValueError("timezone_required")
+        due, now = due.astimezone(TZ), moment.astimezone(TZ)
+        role, cycle = VERIFIER_TIMES[due.time()]
+    except (AttributeError, KeyError, TypeError, ValueError):
+        return {"action": "invalid_schedule_metadata", "reason": "unknown_or_naive_scheduled_for"}
+    base = {"report_date": due.date().isoformat(), "role": role, "cycle": cycle,
+            "scheduled_for": due.isoformat(), "observed_at": now.isoformat()}
+    if now < due:
+        seconds = ceil((due - now).total_seconds())
+        return {**base, "action": "wait_until_scheduled" if seconds <= 300 else "early_schedule_anomaly",
+                "wait_seconds": seconds, "reason": "scheduled_branch_not_due"}
+    if now.date() != due.date():
+        return {**base, "action": "do_not_backfill", "reason": "past_scheduled_date"}
+    if role == "collect_noon" and now.time() >= time(12, 20):
+        return {**base, "action": "inspect_existing_data_only", "reason": "noon_collection_window_closed"}
+    return {**base, "action": "execute_scheduled_branch"}
 
 
 def assess_delivery(task, report_date, cycle, *, moment):

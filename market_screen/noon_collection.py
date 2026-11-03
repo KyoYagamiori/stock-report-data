@@ -6,6 +6,7 @@ import copy
 from datetime import datetime, time
 import hashlib
 import json
+import math
 from pathlib import Path
 from time import monotonic
 
@@ -100,13 +101,17 @@ def compare_noon(root, directory, records, quotes, dates, moment, config):
             reasons += overlay.get("errors", []) or ["no_valid_daily_price_overlay"]
         elif overlay.get("corporate_action_basis_changed"):
             reasons.append("corporate_action_price_basis_review_required")
-        else:
-            boll = row["indicators"]["boll"]
+        elif row.get("status") == "screened":
+            boll = (row.get("indicators") or {}).get("boll")
             price = overlay["quote"]["close"]
-            if price < boll["mid"]:
-                reasons.append("noon_price_below_completed_middle_band")
-            if (price / boll["upper"] - 1) * 100 > config["maximum_extension_above_upper_pct"]:
-                reasons.append("noon_price_extended_above_completed_upper_band")
+            if (not isinstance(boll, dict) or any(not isinstance(boll.get(key), (int, float))
+                    or not math.isfinite(boll[key]) or boll[key] <= 0 for key in ("mid", "upper"))):
+                reasons.append("completed_daily_boll_unavailable")
+            else:
+                if price < boll["mid"]:
+                    reasons.append("noon_price_below_completed_middle_band")
+                if (price / boll["upper"] - 1) * 100 > config["maximum_extension_above_upper_pct"]:
+                    reasons.append("noon_price_extended_above_completed_upper_band")
         item = {"code": row["code"], "eligible": not reasons, "reasons": list(dict.fromkeys(reasons)),
                 "setup_reasons": setup_reasons, "rejection_reasons": list(dict.fromkeys(reasons)),
                 "completed_daily_score": row.get("ranking", {}).get("score"), "daily_date": dates["market_date"],

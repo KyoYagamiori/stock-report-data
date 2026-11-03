@@ -12,7 +12,7 @@ from market_screen import runner
 from market_screen.history import write_json
 from market_screen.membership import freeze_membership, read_frozen_universe
 from market_screen.noon import accepted_noon, ensure_noon
-from market_screen.noon_collection import collect_noon
+from market_screen.noon_collection import collect_noon, compare_noon
 from market_screen.quotes import parse_sina_quotes
 from tests.test_boll_runner import CONFIG, history, sessions_ending, stock
 
@@ -116,6 +116,33 @@ class IndependentNoonTests(unittest.TestCase):
         requested = retry.call_args.args[0]
         self.assertEqual(["000001"], [s["code"] for s in requested])
         self.assertTrue(accepted_noon(self.root, NOW.replace(minute=45))["accepted"])
+
+    def test_excluded_short_history_with_null_boll_does_not_abort_full_comparison(self):
+        directory = self.root / "output/boll/archive" / TARGET / "null-boll-comparison"
+        quotes = self.quotes(self.universe, directory)
+        records = [runner.assemble_record(s, history(), TARGET, self.config, self.sessions) for s in self.universe]
+        records[0].update(status="excluded", reasons=["new_listing_insufficient_completed_history"], ranking={"eligible": False})
+        records[0]["indicators"].update(boll=None, bar_count=1)
+        dates = {"market_date": TARGET, "report_date": TODAY}
+        result = compare_noon(self.root, directory, records, quotes, dates, NOW, self.config)
+        table = json.loads((self.root / result["candidate_file"]).read_text())
+        self.assertEqual(2, table["evaluated_count"])
+        self.assertEqual(1, table["eligible_count"])
+        self.assertEqual([records[1]["code"]], [r["code"] for r in table["candidates"]])
+        compared = [r for ref in result["record_shards"] for r in json.loads((self.root / ref["file"]).read_text())["records"]]
+        excluded = next(r for r in compared if r["code"] == records[0]["code"])
+        self.assertIn("new_listing_insufficient_completed_history", excluded["rejection_reasons"])
+
+    def test_missing_boll_on_screened_record_fails_closed_without_aborting_other_codes(self):
+        directory = self.root / "output/boll/archive" / TARGET / "bad-boll-comparison"
+        quotes = self.quotes(self.universe, directory)
+        records = [runner.assemble_record(s, history(), TARGET, self.config, self.sessions) for s in self.universe]
+        records[0]["indicators"]["boll"] = None
+        result = compare_noon(self.root, directory, records, quotes, {"market_date": TARGET, "report_date": TODAY}, NOW, self.config)
+        compared = [r for ref in result["record_shards"] for r in json.loads((self.root / ref["file"]).read_text())["records"]]
+        broken = next(r for r in compared if r["code"] == records[0]["code"])
+        self.assertFalse(broken["eligible"])
+        self.assertIn("completed_daily_boll_unavailable", broken["rejection_reasons"])
 
     def test_resumption_today_does_not_erase_prior_completed_no_trade_exclusion(self):
         self.publish_baseline(no_trade=["600000"])

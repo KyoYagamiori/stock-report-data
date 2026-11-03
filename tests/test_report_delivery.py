@@ -1,7 +1,7 @@
 from datetime import datetime
 import unittest
 
-from report_support.delivery import assess_delivery
+from report_support.delivery import assess_delivery, assess_verifier_run
 from tests.test_report_index import report
 
 
@@ -44,3 +44,44 @@ class DeliveryTests(unittest.TestCase):
     def test_future_and_prior_day_are_not_backfilled(self):
         self.assertEqual("not_due", self.check(moment=self.now.replace(hour=12))["action"])
         self.assertEqual("do_not_backfill", self.check(moment=self.now.replace(day=3))["action"])
+
+
+class VerifierScheduleTests(unittest.TestCase):
+    def check(self, stamp, now):
+        return assess_verifier_run(stamp, moment=datetime.fromisoformat(now))
+
+    def test_actual_november3_early_wakeup_waits_for_the_same_scan(self):
+        due = "2026-11-03T03:30:00Z"
+        early = self.check(due, "2026-11-03T03:26:11.702919+00:00")
+        self.assertEqual("wait_until_scheduled", early["action"])
+        self.assertEqual(229, early["wait_seconds"])
+        self.assertEqual("collect_noon", early["role"])
+        ready = self.check(due, "2026-11-03T11:30:00+08:00")
+        self.assertEqual("execute_scheduled_branch", ready["action"])
+        self.assertEqual(early["scheduled_for"], ready["scheduled_for"])
+
+    def test_delayed_scan_does_not_become_a_delivery_check(self):
+        due = "2026-11-03T03:30:00Z"
+        self.assertEqual("collect_noon", self.check(due, "2026-11-03T12:12:00+08:00")["role"])
+        late = self.check(due, "2026-11-03T12:20:00+08:00")
+        self.assertEqual("inspect_existing_data_only", late["action"])
+        self.assertEqual("noon_collection_window_closed", late["reason"])
+
+    def test_all_delivery_slots_keep_their_planned_cycle(self):
+        for slot, cycle in (("09:30", "early"), ("13:10", "noon"), ("21:30", "evening")):
+            out = self.check(f"2026-11-03T{slot}:00+08:00", f"2026-11-03T{slot}:30+08:00")
+            self.assertEqual(("execute_scheduled_branch", "verify_delivery", cycle),
+                             (out["action"], out["role"], out["cycle"]))
+
+    def test_missing_or_unrecognized_metadata_never_guesses_a_role(self):
+        for stamp in (None, "invalid", "2026-11-03T11:30:00", "2026-11-03T12:40:00+08:00"):
+            out = self.check(stamp, "2026-11-03T11:30:00+08:00")
+            self.assertEqual("invalid_schedule_metadata", out["action"])
+        out = self.check("2026-11-03T11:30:00+08:00", "2026-11-03T11:30:00")
+        self.assertEqual("invalid_schedule_metadata", out["action"])
+
+    def test_very_early_and_prior_day_runs_do_not_consume_a_new_scan(self):
+        due = "2026-11-03T11:30:00+08:00"
+        early = self.check(due, "2026-11-03T10:50:00+08:00")
+        self.assertEqual("early_schedule_anomaly", early["action"])
+        self.assertEqual("do_not_backfill", self.check(due, "2026-11-04T11:40:00+08:00")["action"])
