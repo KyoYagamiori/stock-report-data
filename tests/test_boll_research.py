@@ -81,6 +81,14 @@ class ShadowFeatureTests(unittest.TestCase):
         self.assertEqual(0, result["entry_qualified_count"])
         self.assertEqual("shadow", result["mode"])
 
+    def test_short_history_exclusions_do_not_inflate_complete_feature_coverage(self):
+        good, excluded = record(), record("600001")
+        excluded.update(status="excluded", reasons=["new_listing_insufficient_completed_history"])
+        excluded["indicators"]["bar_count"] = 100
+        result = build_shadow([good, excluded], {"phase": "close", "market_date": TARGET, "report_date": TARGET}, CONFIG)
+        self.assertEqual(1, result["feature_available_count"])
+        self.assertEqual(2, result["feature_computed_including_exclusions_count"])
+
 
 if __name__ == "__main__":
     unittest.main()

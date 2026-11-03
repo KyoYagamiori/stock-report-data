@@ -133,6 +133,8 @@ def evaluate_record(row, context, config, quote=None, phase="close", noon_baseli
         relative[f"industry_{h}d_pct"] = f[key] - group if group is not None and f.get(key) is not None else None
     if relative.get("industry_5d_pct") is None:
         gaps.append("dated_industry_reference_unavailable")
+    if row.get("industry"):
+        gaps.append("exchange_industry_category_may_be_coarse_not_subsector")
     gaps.append("corporate_action_window_requires_source_review")
     if f.get("available"):
         if f.get("recent_squeeze_120") and indicators.get("opening_up") and (f.get("breakout_prior20") or f.get("band_position", 0) >= .85):
@@ -179,7 +181,8 @@ def build_shadow(records, dates, config, quotes=None, noon_baselines=None):
     return {"schema_version": "1.0", "experiment_id": "boll_multisetup_v2_20261103", "mode": "shadow",
             "production_strategy": "boll_v1", "feature_version": VERSION, "report_date": dates["report_date"],
             "market_date": dates["market_date"], "phase": dates["phase"], "evaluated_count": len(evaluated),
-            "feature_available_count": sum(r["features"].get("available", False) for r in evaluated),
+            "feature_available_count": sum(r.get("status") == "screened" and r.get("indicators", {}).get("research_features", {}).get("available", False) for r in records),
+            "feature_computed_including_exclusions_count": sum(r["features"].get("available", False) for r in evaluated),
             "structure_eligible_count": sum(r["structure_eligible"] for r in evaluated),
             "pool_counts": {k: len(v) for k, v in pools.items()}, "deduplicated_candidate_count": len(unique),
             "context": context, "pools": pools, "shortlist": shortlist,
