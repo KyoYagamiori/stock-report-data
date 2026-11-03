@@ -6,14 +6,36 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+from types import SimpleNamespace
+import hashlib
 
-from market_screen.workflow_io import archive_directory, merge_boll_manifest, merge_report_manifest, publish_outputs, select_bootstrap_pair
+from market_screen.workflow_io import archive_directory, hydrate_inputs, merge_boll_manifest, merge_report_manifest, publish_outputs, select_bootstrap_pair
 from pipeline.manifest import new_manifest
 from tests.helpers import valid_snapshot
 from pipeline.manifest import apply_pointer, build_pointer
 
 
 class PointerMergeTests(unittest.TestCase):
+    def test_sparse_hydration_includes_only_explicit_verified_no_trade_source_version(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            directory = root / "output/boll/archive/2026-11-02/current"
+            record_path = directory / "records/000001-000001.json"
+            record_path.parent.mkdir(parents=True)
+            record_path.write_text(json.dumps({"records": [{"completed_session_exclusion_evidence": {
+                "screen_file": "output/boll/archive/2026-11-02/original-close/screen.json"}}]}))
+            (directory / "screen.json").write_text(json.dumps({"record_shards": [{
+                "file": record_path.relative_to(root).as_posix(), "sha256": hashlib.sha256(record_path.read_bytes()).hexdigest()}]}))
+            latest = root / "output/boll/latest/manifest.json"
+            latest.parent.mkdir(parents=True)
+            latest.write_text(json.dumps({"latest_complete_screen": {"market_date": "2026-11-02",
+                "selected_file": (directory / "screen.json").relative_to(root).as_posix()}}))
+            with patch("market_screen.runner.resolve_dates", return_value={"market_date": "2026-11-02", "report_date": "2026-11-03"}), \
+                 patch("market_screen.workflow_io.subprocess.run", return_value=SimpleNamespace(stdout="true")) as git:
+                paths = hydrate_inputs(root)
+            self.assertEqual(["/output/boll/archive/2026-11-02/current/", "/output/boll/archive/2026-11-02/original-close/"], paths)
+            self.assertEqual("/output/boll/archive/2026-11-02/original-close/\n", git.call_args.kwargs["input"])
+
     def test_bootstrap_merge_keeps_verified_metadata_and_bytes_together(self):
         import hashlib
         old, new = b'old compressed evidence', b'new compressed evidence'

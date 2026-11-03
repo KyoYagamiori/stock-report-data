@@ -76,9 +76,17 @@ jobs:
           if [[ "$phase" == "auto" ]]; then
             phase=$(python -c 'from pathlib import Path; from datetime import datetime; from market_screen.runner import TZ, resolve_dates; print(resolve_dates(Path("."), datetime.now(TZ), "auto")["phase"])')
           fi
+          if [[ "$phase" == "noon" ]]; then
+            clock=$(date +%H%M)
+            if (( 10#$clock < 1130 || 10#$clock >= 1220 )); then
+              echo "::notice::Outside noon collection window: validate code only and preserve the existing data audit."
+              phase=validate_only
+            fi
+          fi
           echo "phase=$phase" >> "$GITHUB_OUTPUT"
       - name: Update daily history and screen every official A share
         id: collect
+        if: steps.cycle.outputs.phase != 'validate_only'
         continue-on-error: true
         timeout-minutes: 45
         shell: bash

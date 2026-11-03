@@ -80,8 +80,10 @@ and original quote bytes must hash-match before the archived status is reused.
                     continue
                 relative = relative[relative.index(marker):]
                 quote_path = (root / relative).resolve()
-                if not quote_path.is_relative_to(path.parent / "quote_sources"):
-                    raise ValueError("completed_quote_path_outside_version")
+                linked = not quote_path.is_relative_to(path.parent / "quote_sources")
+                if linked:
+                    from .completed_source import verify_no_trade
+                    verify_no_trade(root, path.parent, row, target, moment)
                 raw_quote = quote_path.read_bytes()
                 digest = hashlib.sha256(raw_quote).hexdigest()
                 if digest != quote.get("raw_sha256"):
@@ -92,11 +94,15 @@ and original quote bytes must hash-match before the archived status is reused.
                     raise ValueError("completed_quote_raw_fields_mismatch")
                 restored = copy.deepcopy(row)
                 restored["update_method"] = "verified_same_session_no_trade_reuse"
-                restored["completed_session_exclusion_evidence"] = {
+                evidence = {
                     "market_date": target, "screen_file": pointer["selected_file"], "screen_sha256": pointer["sha256"],
                     "record_file": ref["file"], "record_sha256": ref["sha256"],
                     "quote_source_file": relative, "quote_source_sha256": digest,
                     "scope_note": "No trades in this completed session only; not a claim about today's suspension or quote availability."}
+                # Preserve the directly verified original chain for legacy rows.
+                # publish() will copy its raw source into the new version.
+                if not linked:
+                    restored["completed_session_exclusion_evidence"] = evidence
                 replacements[code] = restored
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return [{**r, "completed_exclusion_reuse_error": str(exc)[:300]} if r.get("code") in wanted else r for r in records]

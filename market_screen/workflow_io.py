@@ -50,6 +50,29 @@ def hydrate_inputs(root, phase="noon"):
     sparse = subprocess.run(["git", "config", "--bool", "core.sparseCheckout"], cwd=root, text=True, capture_output=True)
     if sparse.stdout.strip() == "true" and patterns:
         subprocess.run(["git", "sparse-checkout", "add", "--stdin"], input="\n".join(sorted(patterns)) + "\n", text=True, cwd=root, check=True)
+        # Legacy republished records may refer to an earlier immutable close.
+        # Hydrate only those explicit evidence versions, not every archive.
+        linked = set()
+        for pattern in sorted(patterns):
+            directory = root / pattern.lstrip("/")
+            screen_path = directory / "screen.json"
+            if not screen_path.exists():
+                continue
+            screen = json.loads(screen_path.read_text())
+            for ref in screen.get("record_shards", []):
+                shard_path = (root / ref["file"]).resolve()
+                if not shard_path.is_relative_to(directory / "records"):
+                    raise ValueError("linked_evidence_record_outside_version")
+                raw = shard_path.read_bytes()
+                if hashlib.sha256(raw).hexdigest() != ref.get("sha256"):
+                    raise ValueError("linked_evidence_record_sha256_mismatch")
+                for row in json.loads(raw)["records"]:
+                    proof = row.get("completed_session_exclusion_evidence") or {}
+                    if proof.get("screen_file"):
+                        linked.add(archive_directory(proof["screen_file"]))
+        if linked - patterns:
+            subprocess.run(["git", "sparse-checkout", "add", "--stdin"], input="\n".join(sorted(linked - patterns)) + "\n", text=True, cwd=root, check=True)
+            patterns |= linked
     return sorted(patterns)
 
 

@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from market_screen.completed import reuse_completed_exclusions
+from market_screen.completed_source import retain_completed_no_trade, verify_no_trade
 from market_screen.history import write_json
 from market_screen.quotes import parse_sina_quotes
 from market_screen.technicals import PARAMETERS
@@ -53,6 +54,29 @@ class CompletedExclusionTests(unittest.TestCase):
         self.assertEqual("15:35:00", out["quote"]["time"])
         self.assertEqual("verified_same_session_no_trade_reuse", out["update_method"])
         self.assertIn("not a claim about today's suspension", out["completed_session_exclusion_evidence"]["scope_note"])
+
+    def test_linked_completed_proof_is_verified_and_retained_in_new_version(self):
+        row = self.reuse()
+        directory = self.root / "output/boll/archive" / self.day / "republished"
+        verify_no_trade(self.root, directory, row, self.day, self.now)
+        retained = retain_completed_no_trade(self.root, directory, [row], self.day, self.now)[0]
+        self.assertEqual("excluded", retained["status"])
+        self.assertEqual(row["quote"]["time"], retained["quote"]["time"])
+        self.assertEqual(row["quote"]["retrieved_at"], retained["quote"]["retrieved_at"])
+        self.assertTrue((self.root / retained["quote"]["raw_file"]).is_relative_to(directory / "quote_sources"))
+        verify_no_trade(self.root, directory, retained, self.day, self.now)
+
+    def test_linked_proof_cannot_borrow_a_different_date_or_ignore_tampering(self):
+        directory = self.root / "output/boll/archive" / self.day / "republished"
+        row = self.reuse()
+        row["completed_session_exclusion_evidence"]["market_date"] = "2026-10-29"
+        out = retain_completed_no_trade(self.root, directory, [row], self.day, self.now)[0]
+        self.assertEqual("unresolved", out["status"])
+        row = self.reuse()
+        self.shard.write_bytes(self.shard.read_bytes() + b" ")
+        out = retain_completed_no_trade(self.root, directory, [row], self.day, self.now)[0]
+        self.assertEqual("unresolved", out["status"])
+        self.assertIn("sha256_mismatch", out["completed_exclusion_reuse_error"])
 
     def test_another_market_date_cannot_borrow_old_exclusion(self):
         row = {**self.row, "market_date": "2026-11-02"}

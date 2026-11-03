@@ -198,6 +198,8 @@ def archive_universe_sources(root, run_dir, metadata):
 
 def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quotes_meta, started_at, elapsed_s, config,
             *, moment=None, collection_details=None):
+    from .completed_source import retain_completed_no_trade
+    records = retain_completed_no_trade(root, run_dir, records, dates["market_date"], moment or datetime.now(TZ))
     universe_meta, universe_evidence = archive_universe_sources(root, run_dir, universe_meta)
     counts = Counter(r["status"] for r in records)
     unresolved = [r["code"] for r in records if r["status"] == "unresolved"]

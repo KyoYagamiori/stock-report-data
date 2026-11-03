@@ -38,7 +38,33 @@ def verify_no_trade(root, directory, row, target, moment):
         raise ValueError("completed_no_trade_raw_source_missing")
     path = (root / raw_path[raw_path.index(marker):]).resolve()
     if not path.is_relative_to(directory / "quote_sources"):
-        raise ValueError("completed_no_trade_raw_source_outside_version")
+        proof = row.get("completed_session_exclusion_evidence") or {}
+        if (proof.get("market_date") != target or proof.get("quote_source_file") != path.relative_to(root).as_posix()
+                or proof.get("quote_source_sha256") != quote.get("raw_sha256")):
+            raise ValueError("completed_no_trade_raw_source_outside_version")
+        parent, parent_path = read_hashed(root, {"file": proof["screen_file"], "sha256": proof["screen_sha256"]}, root / "output/boll/archive")
+        stamp = datetime.fromisoformat(parent["published_at"])
+        counts = parent.get("status_counts", {})
+        if (parent.get("market_date") != target or not parent.get("technical_screen_complete")
+                or not parent.get("universe_current") or not parent.get("all_codes_accounted_for")
+                or parent.get("unresolved_count") != 0 or parent.get("parameters") != PARAMETERS
+                or counts.get("screened", 0) + counts.get("excluded", 0) != parent.get("universe_count")
+                or stamp.tzinfo is None or stamp > moment or not path.is_relative_to(parent_path.parent / "quote_sources")):
+            raise ValueError("completed_no_trade_linked_screen_not_accepted")
+        ref = next((r for r in parent["record_shards"] if r.get("file") == proof.get("record_file")
+                    and r.get("sha256") == proof.get("record_sha256")), None)
+        if ref is None:
+            raise ValueError("completed_no_trade_linked_record_not_in_screen")
+        shard, _ = read_hashed(root, ref, parent_path.parent / "records")
+        matched = [r for r in shard["records"] if r.get("code") == row.get("code")]
+        if len(shard["records"]) != ref["count"] or len(matched) != 1:
+            raise ValueError("completed_no_trade_linked_record_count_invalid")
+        old = matched[0]
+        fields = ("code", "date", "time", "status", "open", "prev_close", "close", "high", "low", "volume", "amount", "raw_sha256")
+        if (old.get("market_date") != target or old.get("status") != "excluded"
+                or old.get("reasons") != ["no_trades_on_target_session"]
+                or any((old.get("quote") or {}).get(k) != quote.get(k) for k in fields)):
+            raise ValueError("completed_no_trade_linked_record_mismatch")
     raw = path.read_bytes()
     if hashlib.sha256(raw).hexdigest() != quote.get("raw_sha256"):
         raise ValueError("completed_no_trade_raw_sha256_mismatch")
@@ -46,6 +72,35 @@ def verify_no_trade(root, directory, row, target, moment):
     for key in ("code", "date", "time", "status", "open", "prev_close", "close", "high", "low", "volume", "amount"):
         if parsed.get(key) != quote.get(key):
             raise ValueError("completed_no_trade_raw_fields_mismatch")
+
+
+def retain_completed_no_trade(root, directory, records, target, moment):
+    """Make republished zero-activity records self-contained after verification."""
+    root, directory = Path(root).resolve(), Path(directory).resolve()
+    out = []
+    for row in records:
+        if row.get("status") != "excluded" or row.get("reasons") != ["no_trades_on_target_session"]:
+            out.append(row)
+            continue
+        row = copy.deepcopy(row)
+        try:
+            quote = row["quote"]
+            # Existing linked versions retain the accepted screen + record chain.
+            verify_no_trade(root, directory, row, target, moment)
+            marker = "output/boll/archive/"
+            reference = quote["raw_file"]
+            source = root / reference[reference.index(marker):]
+            raw = source.read_bytes()
+            destination = directory / "quote_sources" / ("completed_" + quote["raw_sha256"] + ".raw")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(raw)
+            quote["original_raw_file"] = reference
+            quote["raw_file"] = destination.relative_to(root).as_posix()
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            row.update(status="unresolved", reasons=["completed_no_trade_evidence_unverified"],
+                       completed_exclusion_reuse_error=str(exc)[:300], ranking={"eligible": False})
+        out.append(row)
+    return out
 
 
 def load_completed_records(root, target, moment):

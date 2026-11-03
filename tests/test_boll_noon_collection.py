@@ -156,6 +156,22 @@ class IndependentNoonTests(unittest.TestCase):
         self.execute(moment=NOW.replace(minute=45), quote_collector=Mock(side_effect=AssertionError("quotes already complete")))
         self.assertTrue(accepted_noon(self.root, NOW.replace(minute=45))["accepted"])
 
+    def test_republished_daily_store_keeps_zero_trade_proof_self_contained_for_noon(self):
+        from market_screen.completed import reuse_completed_exclusions
+        self.publish_baseline(no_trade=["600000"])
+        rows = [runner.assemble_record(s, history(), TARGET, self.config, self.sessions) for s in self.universe]
+        rows[0].update(status="unresolved", reasons=["missing_target_session_bar"])
+        rows = reuse_completed_exclusions(self.root, rows, TARGET, NOW)
+        directory = self.root / "output/boll/archive" / TARGET / "republished-daily"
+        directory.mkdir(parents=True)
+        dates = {"market_date": TARGET, "report_date": TODAY, "phase": "intraday", "is_trading_day": True, "expected_sessions": self.sessions}
+        runner.publish(self.root, directory, rows, self.universe, self.metadata(TODAY), dates, {}, {},
+                       TODAY + "T11:00:00+08:00", 1, self.config, moment=NOW.replace(minute=5))
+        self.execute(history_fetcher=Mock(side_effect=AssertionError("republished no-trade evidence must remain reusable")))
+        gate = accepted_noon(self.root, NOW)
+        self.assertTrue(gate["accepted"], gate)
+        self.assertEqual(1, gate["current_screen"]["status_counts"]["excluded"])
+
     def test_corrupt_daily_shard_preserves_quote_diagnostics_and_does_not_rebuild_all(self):
         shard = self.root / self.baseline["record_shards"][0]["file"]
         shard.write_bytes(shard.read_bytes() + b" ")
