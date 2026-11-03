@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-03T22:33:36+08:00
+- 更新时间：2026-11-03T23:19:30+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-11-03
 
@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | early | ready_a | A | 20261103-0554-early-full-41532454029 | output/archive/2026/11/03/early/20261103-0554-early-full-41532454029.json |
 | noon | ready_b | B | 20261103-1230-noon-full-41578489455 | output/archive/2026/11/03/noon/20261103-1230-noon-full-41578489455.json |
-| evening | ready_a | A | 20261103-2233-evening-full-41654774316 | output/archive/2026/11/03/evening/20261103-2233-evening-full-41654774316.json |
+| evening | ready_a | A | 20261103-2319-evening-full-41662520911 | output/archive/2026/11/03/evening/20261103-2319-evening-full-41662520911.json |
 
 ## 权威快照指针
 
@@ -20,7 +20,7 @@
 | early | A | 2026-11-03-early | 2026-11-02 | 2026-11-02T15:36:00+08:00 | output/archive/2026/11/03/early/20261103-0554-early-full-41532454029.json | `0e8c1e85494357fce6afc8c3cf7a10f88e9250c01137ed304bfaea39a1f1d058` |
 | noon | B | 2026-11-03-noon | 2026-11-03 | 2026-11-03T11:30:00+08:00 | output/archive/2026/11/03/noon/20261103-1230-noon-full-41578489455.json | `85b386548ff3b81fbb4f0ded9f6db95322d33370c19c86b693ccd162aac2f3ff` |
 | close | A | 2026-11-03-close | 2026-11-03 | 2026-11-03T15:14:47+08:00 | output/archive/2026/11/03/close/20261103-1514-close-full-41594972241.json | `d09f8262033710bbcdc60291a0c6b80829c9a0507970f5396c148c3c96d54771` |
-| evening | A | 2026-11-03-evening | 2026-11-03 | 2026-11-03T15:14:47+08:00 | output/archive/2026/11/03/evening/20261103-2233-evening-full-41654774316.json | `17640af455a89b320e2dcf6aaf9d452889a80e9cecf29cdc393da23d8e738f08` |
+| evening | A | 2026-11-03-evening | 2026-11-03 | 2026-11-03T15:14:47+08:00 | output/archive/2026/11/03/evening/20261103-2319-evening-full-41662520911.json | `01c1d7c0788656f2e57b99ca5e8e8b5997b56bf5397eb69399bce3b92bb928aa` |
 | intraday | B | 2026-11-03-intraday | 2026-11-03 | 2026-11-03T14:42:41+08:00 | output/archive/2026/11/03/intraday/20261103-1442-intraday-light-41591535088.json | `4b7666c2002f3a43f06849ead358389360f0723d6c030dd19eec553ab4ba2caf` |
 
 > 机器读取应以 Manifest 中的不可变 JSON 文件和 SHA-256 为准；`latest` 仅供人工查看与旧入口兼容。
