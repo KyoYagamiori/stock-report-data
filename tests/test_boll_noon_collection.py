@@ -99,6 +99,13 @@ class IndependentNoonTests(unittest.TestCase):
         self.assertEqual(2, summary["collection_details"]["completed_daily"]["reused_count"])
         self.assertEqual(2, gate["full_universe_comparison"]["evaluated_count"])
         self.assertTrue(gate["official_membership_bytes_verified"])
+        comparison = summary["collection_details"]["noon_comparison"]
+        candidates = json.loads((self.root / comparison["candidate_file"]).read_text())
+        self.assertEqual(2, candidates["eligible_count"], "Valid daily setups must survive a valid noon overlay")
+        self.assertEqual({"600000", "000001"}, {r["code"] for r in candidates["candidates"]})
+        for row in candidates["candidates"]:
+            self.assertEqual([], row["noon_comparison"]["rejection_reasons"])
+            self.assertTrue(row["noon_comparison"]["setup_reasons"])
 
     def test_second_attempt_requests_only_bad_quote_and_keeps_good_observation(self):
         first = self.collector({"000001": "11:35:00"})
@@ -241,3 +248,4 @@ class IndependentNoonTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

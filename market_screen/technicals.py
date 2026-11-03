@@ -120,6 +120,10 @@ def calculate(rows, target_date):
         distance_to_mid_pct=(prices[-1] / latest["mid"] - 1) * 100,
         distance_to_upper_pct=(prices[-1] / latest["upper"] - 1) * 100,
     )
+    # Additional features are versioned, prospective research inputs. The
+    # production V1 setup/score remains unchanged for a valid control group.
+    from .research import completed_features
+    out["research_features"] = completed_features(bars, series)
     return out
 
 
@@ -147,7 +151,7 @@ def rank_candidate(stock, indicators, config):
     if abs(last["high"] - last["low"]) < 1e-8:
         reasons.append("one_price_bar")
     if reasons:
-        return {"eligible": False, "reasons": reasons, "score": None}
+        return {"eligible": False, "reasons": reasons, "rejection_reasons": reasons, "setup_reasons": [], "score": None}
     patterns = indicators["patterns"]
     boll = 30.0
     boll += 15 if "uptrend_middle_band_pullback" in patterns else 0
@@ -167,7 +171,7 @@ def rank_candidate(stock, indicators, config):
     penalty = 0
     if indicators.get("return_20d_pct", 0) > 40: penalty += 8
     if kdj["j"] > 110: penalty += 3
-    return {"eligible": True, "reasons": patterns, "score": round(max(0, boll + volume + liquidity + auxiliary - penalty), 3),
+    return {"eligible": True, "reasons": patterns, "setup_reasons": patterns, "rejection_reasons": [], "score": round(max(0, boll + volume + liquidity + auxiliary - penalty), 3),
             "components": {"boll_max70": boll, "volume_max10": volume, "liquidity_max10": round(liquidity, 3),
                            "kdj_macd_max10": auxiliary, "extension_penalty": penalty},
             "score_meaning": "heuristic research priority; not backtested probability",

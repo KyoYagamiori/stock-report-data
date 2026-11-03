@@ -242,6 +242,8 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
     }
     if collection_details:
         summary["collection_details"] = collection_details
+    from .research import write_shadow
+    summary["research_shadow"] = write_shadow(root, run_dir, records, dates, config, quotes, summary["published_at"])
     write_json(run_dir / "candidates.json", {"screen_complete": complete, "market_date": dates["market_date"],
                "scope_note": summary["quality_note"], "candidates": candidates})
     summary["candidate_sha256"] = hashlib.sha256((run_dir / "candidates.json").read_bytes()).hexdigest()

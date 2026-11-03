@@ -87,7 +87,11 @@ def compare_noon(root, directory, records, quotes, dates, moment, config):
     comparisons, candidates = [], []
     for row in records:
         overlay = overlay_record(row, quotes.get(row["code"]), dates["report_date"], "noon", moment, dates["market_date"])
-        reasons = list(row.get("ranking", {}).get("reasons", []))
+        ranking = row.get("ranking", {})
+        # V1 uses `reasons` for BOTH successful setups and rejections. Positive
+        # setup labels must never become noon rejection reasons.
+        setup_reasons = list(ranking.get("setup_reasons", ranking.get("reasons", []))) if ranking.get("eligible") else []
+        reasons = list(ranking.get("rejection_reasons", ranking.get("reasons", []))) if not ranking.get("eligible") else []
         if row.get("status") != "screened":
             reasons += row.get("reasons", []) or ["daily_record_not_screened"]
         if not row.get("ranking", {}).get("eligible"):
@@ -104,6 +108,7 @@ def compare_noon(root, directory, records, quotes, dates, moment, config):
             if (price / boll["upper"] - 1) * 100 > config["maximum_extension_above_upper_pct"]:
                 reasons.append("noon_price_extended_above_completed_upper_band")
         item = {"code": row["code"], "eligible": not reasons, "reasons": list(dict.fromkeys(reasons)),
+                "setup_reasons": setup_reasons, "rejection_reasons": list(dict.fromkeys(reasons)),
                 "completed_daily_score": row.get("ranking", {}).get("score"), "daily_date": dates["market_date"],
                 "quote_date": (overlay.get("quote") or {}).get("date"), "quote_time": (overlay.get("quote") or {}).get("time"),
                 "quote_status": overlay["quote_status"], "analysis_reviewed": False}
@@ -120,12 +125,12 @@ def compare_noon(root, directory, records, quotes, dates, moment, config):
     path = directory / "noon_candidates.json"
     write_json(path, {"report_date": dates["report_date"], "daily_baseline_date": dates["market_date"],
         "market_cutoff": dates["report_date"] + "T11:30:00+08:00", "evaluated_count": len(comparisons),
-        "eligible_count": len(candidates), "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1",
+        "eligible_count": len(candidates), "candidate_limit": config["candidate_count"], "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1_fixed",
         "company_diligence_complete": False, "candidates": candidates[:config["candidate_count"]],
         "scope_note": "Every official code accounted for; quantitative triage only. No statistical win rate or full-company diligence."})
     return {"candidate_file": path.relative_to(root).as_posix(), "candidate_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "evaluated_count": len(comparisons), "eligible_count": len(candidates), "record_shards": refs,
-            "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1"}
+            "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1_fixed"}
 
 
 def collect_noon(root, *, phase="noon", max_seconds=480, moment=None, quote_collector=None, repairer=None, history_fetcher=None):

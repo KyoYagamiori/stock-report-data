@@ -31,7 +31,10 @@ def write_json(path: Path, value):
 
 
 def validate_body(text: str, day: str, cycle: str):
-    if not re.search(r"^#\s+" + re.escape(day) + r"\s+" + CYCLES[cycle] + r"(?:\s|$)", text):
+    # Reports may start with public YAML metadata. Validate the FIRST H1 rather
+    # than requiring the title at byte zero or accepting a later decoy title.
+    heading = re.search(r"^#\s+([^\n]+)$", text, re.M)
+    if not heading or not re.match(re.escape(day) + r"\s+" + CYCLES[cycle] + r"(?:\s|$)", heading.group(1)):
         raise ValueError("report_title_date_or_cycle_mismatch")
     if [int(m.group(1)) for m in SECTION.finditer(text)] != list(range(1, 8)):
         raise ValueError("complete_ordered_seven_sections_required")
@@ -101,7 +104,8 @@ def sync_index(root: Path, *, moment=None):
                            "active_pool", "card_codes", "locked_codes", "focus_stock_code", "focus_status",
                            "focus_reason", "technical_stock_code", "technical_status", "technical_reason",
                            "technical_secondary_code", "research_method", "focus_conditions",
-                           "technical_conditions", "technical_secondary_conditions", "market_screen"}
+                           "technical_conditions", "technical_secondary_conditions", "market_screen",
+                           "research_signals", "available_at"}
                 entry.update({key: value for key, value in meta.items() if key in allowed})
                 entry["structured_metadata_status"] = "body_hash_bound_sidecar"
             manifest["reports"].append(entry)

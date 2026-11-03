@@ -151,6 +151,15 @@ def accepted_noon(root: Path, moment: datetime) -> dict:
                         or len(evaluated) != len(expected) or {r["code"] for r in evaluated} != expected
                         or any(r.get("daily_date") != target for r in evaluated)):
                     raise ValueError("comparison_date_or_full_universe_accounting_mismatch")
+                if table.get("ranking_method") == "completed_boll_score_with_noon_price_risk_gates_v1_fixed":
+                    passed = sorted((r for r in evaluated if r.get("eligible")),
+                                    key=lambda r: (-r["completed_daily_score"], r["code"]))
+                    selected = table.get("candidates", [])
+                    if (table.get("eligible_count") != len(passed)
+                            or any(r.get("rejection_reasons") or r.get("reasons") for r in passed)
+                            or [r["code"] for r in selected] != [r["code"] for r in passed[:len(selected)]]
+                            or len(selected) != min(len(passed), table.get("candidate_limit", 20))):
+                        raise ValueError("noon_candidate_business_result_mismatch")
             except (OSError, ValueError, KeyError, TypeError) as exc:
                 comparison_reasons.append(str(exc))
             result["full_universe_comparison"] = {"accepted": not comparison_reasons, **comparison, "reasons": comparison_reasons}

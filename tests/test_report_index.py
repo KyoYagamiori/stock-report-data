@@ -102,3 +102,16 @@ class ReportIndexTests(unittest.TestCase):
         path.write_text(report() + "tampered")
         sync_index(self.root, moment=self.now)
         self.assertEqual("invalid", self.read("handoff")["latest_by_cycle"]["noon"]["status"])
+
+    def test_public_frontmatter_does_not_hide_a_valid_report_title(self):
+        text = '---\nreport_date: "2026-11-02"\n---\n\n' + report()
+        self.body(text=text)
+        out = sync_index(self.root, moment=self.now)
+        self.assertEqual(1, len(out["added"]))
+        self.assertEqual([], out["rejected"])
+
+    def test_later_decoy_title_does_not_override_wrong_first_title(self):
+        self.body(text="# 2026-11-02 晚报\n\n" + report())
+        out = sync_index(self.root, moment=self.now)
+        self.assertEqual([], out["added"])
+        self.assertIn("title_date_or_cycle_mismatch", out["rejected"][0]["reason"])
