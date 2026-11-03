@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from copy import deepcopy
 from datetime import datetime
 import json
@@ -104,6 +105,21 @@ def resolve_conflicts(root, paths):
     root = Path(root)
     def stage(number, path):
         return subprocess.check_output(["git", "show", f":{number}:{path}"], cwd=root)
+    bootstrap_pair = {"output/boll/bootstrap/manifest.json", "output/boll/bootstrap/history.jsonl.gz"}
+    if bootstrap_pair.intersection(paths):
+        pairs = []
+        for revision in ("HEAD", "REBASE_HEAD"):
+            try:
+                meta = json.loads(subprocess.check_output(["git", "show", revision + ":output/boll/bootstrap/manifest.json"], cwd=root))
+                raw = subprocess.check_output(["git", "show", revision + ":output/boll/bootstrap/history.jsonl.gz"], cwd=root)
+                pairs.append((meta, raw))
+            except subprocess.CalledProcessError:
+                continue
+        meta, raw = select_bootstrap_pair(pairs)
+        (root / "output/boll/bootstrap/manifest.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n")
+        (root / "output/boll/bootstrap/history.jsonl.gz").write_bytes(raw)
+        subprocess.run(["git", "add", "--sparse", "--", *sorted(bootstrap_pair)], cwd=root, check=True)
+        paths = set(paths) - bootstrap_pair
     # JSON is authoritative; render matching Markdown after resolving it.
     for path in sorted(paths, key=lambda p: p.endswith(".md")):
         target = root / path
@@ -137,6 +153,16 @@ def resolve_conflicts(root, paths):
         subprocess.run(["git", "add", "--sparse", "--", path], cwd=root, check=True)
 
 
+def select_bootstrap_pair(pairs):
+    """Keep metadata and compressed evidence together, never mix two writers."""
+    valid = [(meta, raw) for meta, raw in pairs if meta.get("adjustment") == "unadjusted"
+             and hashlib.sha256(raw).hexdigest() == meta.get("sha256")]
+    if not valid:
+        raise ValueError("no_hash_verified_bootstrap_pair")
+    return max(valid, key=lambda pair: (pair[0].get("market_date", ""), bool(pair[0].get("technical_screen_complete")),
+               pair[0].get("current_history_count", 0), pair[0].get("record_count", 0), pair[0].get("universe_count", 0)))
+
+
 def publish_outputs(root, label):
     """Operate only in an ephemeral Actions checkout; preserve concurrent work."""
     if os.environ.get("GITHUB_ACTIONS") != "true":
@@ -144,7 +170,7 @@ def publish_outputs(root, label):
     root = Path(root)
     changed = subprocess.check_output(["git", "diff", "--name-only", "-z", "HEAD", "--", "output"], cwd=root).decode().split("\0")
     changed += subprocess.check_output(["git", "ls-files", "--others", "--exclude-standard", "-z", "--", "output"], cwd=root).decode().split("\0")
-    allowed = ("output/boll/archive/", "output/boll/latest/", "output/boll/noon_checks/", "output/latest/", "output/archive/", "output/health/")
+    allowed = ("output/boll/archive/", "output/boll/latest/", "output/boll/bootstrap/", "output/boll/noon_checks/", "output/latest/", "output/archive/", "output/health/")
     changed = sorted({p for p in changed if p.startswith(allowed)})
     if not changed:
         return {"published": False, "reason": "no_changed_publication_files"}

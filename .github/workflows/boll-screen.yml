@@ -105,16 +105,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Noon ingestion publishes both the full-market overlay and the report snapshot.
-          git add output
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "boll: ${{ steps.cycle.outputs.phase }} full-market evidence"
-          for attempt in 1 2 3; do
-            git pull --rebase origin main
-            if git push origin HEAD:main; then exit 0; fi
-            sleep 2
-          done
-          exit 1
+          python -m market_screen.workflow_io publish --phase "${{ steps.cycle.outputs.phase }}"
       - name: Surface unresolved coverage
         if: always() && steps.collect.outcome == 'failure'
         run: |

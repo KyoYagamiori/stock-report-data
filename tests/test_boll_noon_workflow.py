@@ -7,13 +7,23 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from market_screen.workflow_io import archive_directory, merge_boll_manifest, merge_report_manifest, publish_outputs
+from market_screen.workflow_io import archive_directory, merge_boll_manifest, merge_report_manifest, publish_outputs, select_bootstrap_pair
 from pipeline.manifest import new_manifest
 from tests.helpers import valid_snapshot
 from pipeline.manifest import apply_pointer, build_pointer
 
 
 class PointerMergeTests(unittest.TestCase):
+    def test_bootstrap_merge_keeps_verified_metadata_and_bytes_together(self):
+        import hashlib
+        old, new = b'old compressed evidence', b'new compressed evidence'
+        first = {"adjustment": "unadjusted", "market_date": "2026-11-02", "sha256": hashlib.sha256(old).hexdigest()}
+        second = {"adjustment": "unadjusted", "market_date": "2026-11-03", "sha256": hashlib.sha256(new).hexdigest()}
+        self.assertEqual((second, new), select_bootstrap_pair([(first, old), (second, new)]))
+        self.assertEqual((first, old), select_bootstrap_pair([(first, old), (second, old)]))
+        with self.assertRaisesRegex(ValueError, "no_hash_verified"):
+            select_bootstrap_pair([(second, old)])
+
     def test_noon_does_not_erase_a_concurrent_newer_completed_close(self):
         close = {"market_date": "2026-11-02", "published_at": "2026-11-02T16:00:00+08:00", "technical_screen_complete": True}
         universe = {"report_date": "2026-11-02", "published_at": "2026-11-02T08:30:00+08:00", "accepted": True}

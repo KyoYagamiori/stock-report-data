@@ -213,7 +213,25 @@ def write_shadow(root, directory, records, dates, config, quotes=None, published
     data.update(published_at=published_at, record_shards=refs)
     path = directory / "research_shadow.json"
     write_json(path, data)
-    return {"selected_file": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    # Reports read this compact, nonduplicated queue. The evaluator alone needs
+    # full pool rows and all record shards.
+    reader = {k: data[k] for k in ("schema_version", "experiment_id", "mode", "production_strategy", "feature_version",
+        "report_date", "market_date", "phase", "published_at", "evaluated_count", "feature_available_count",
+        "pool_counts", "deduplicated_candidate_count", "entry_qualified_count", "activation_status")}
+    reader["full_result"] = {"file": path.relative_to(root).as_posix(), "sha256": digest}
+    reader["pool_codes"] = {pool: [r["code"] for r in rows] for pool, rows in data["pools"].items()}
+    reader["context"] = {k: v for k, v in data["context"].items() if k != "industry_medians"}
+    reader["shortlist"] = [{"code": r["code"], "name": r["name"], "setups": r["setups"], "price": r["price"],
+        "daily_asof": r["daily_asof"], "structure_eligible": r["structure_eligible"], "entry_status": r["entry_status"],
+        "atr20": r["features"].get("atr20"), "bandwidth_percentile_120": r["features"].get("bandwidth_percentile_120"),
+        "mid_slope_5d_atr": r["features"].get("mid_slope_5d_atr"), "relative_strength": r["relative_strength"],
+        "noon_relative_market_pct": r["noon_relative_market_pct"], "volume_vs_previous_full_morning": r["volume_vs_previous_full_morning"],
+        "evidence_gaps": r["evidence_gaps"], "baseline_v1_score": r["baseline_v1_score"]} for r in data["shortlist"]]
+    reader_path = directory / "research_queue.json"
+    write_json(reader_path, reader)
+    return {"selected_file": path.relative_to(root).as_posix(), "sha256": digest,
+            "reader_file": reader_path.relative_to(root).as_posix(), "reader_sha256": hashlib.sha256(reader_path.read_bytes()).hexdigest(),
             "mode": "shadow", "feature_version": VERSION, "evaluated_count": data["evaluated_count"],
             "feature_available_count": data["feature_available_count"], "pool_counts": data["pool_counts"],
             "entry_qualified_count": 0, "activation_status": data["activation_status"]}

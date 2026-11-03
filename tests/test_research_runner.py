@@ -69,6 +69,17 @@ class ResearchIntegrationTests(unittest.TestCase):
         self.assertIn("sha256_mismatch", out["data_errors"][0])
         self.assertIsNone(out["screen_source"])
 
+    def test_report_reader_is_small_and_hash_bound_without_full_pool_duplicates(self):
+        ref = self.fixture.baseline["research_shadow"]
+        raw = (self.root / ref["reader_file"]).read_bytes()
+        self.assertEqual(ref["reader_sha256"], hashlib.sha256(raw).hexdigest())
+        queue = json.loads(raw)
+        self.assertNotIn("pools", queue)
+        self.assertNotIn("record_shards", queue)
+        self.assertEqual(ref["sha256"], queue["full_result"]["sha256"])
+        self.assertLessEqual(len(queue["shortlist"]), 15)
+        self.assertLess(len(raw), 30000)
+
     def test_noon_capture_keeps_correct_clock_and_never_uses_1135_quote(self):
         self.fixture.execute(quote_collector=self.fixture.collector({"000001": "11:35:00"}))
         out = run(self.root, NOW)

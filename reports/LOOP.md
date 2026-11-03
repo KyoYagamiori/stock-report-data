@@ -3,7 +3,7 @@
 ## 2026-11-03研究评测升级
 
 生产BOLL v1保留作对照，v2三策略池只作shadow；实现与数据口径见 `docs/research-v2.md`。
-每期在已有预算内读取当期screen.research_shadow和 `output/research/latest/summary.json`，
+每期在已有预算内读取当期screen.research_shadow.reader_file和 `output/research/latest/summary.json`，
 核对日期、模式、特征覆盖及缺口。缺少v2特征、行业基准、权益核验、午间同时间基线时明示，
 不输出伪造概率，不把代理指数称官方指数，不声称新模型优于旧模型。
 生产候选与shadow候选分别比较，不把shadow排序自动替代正式推荐。
