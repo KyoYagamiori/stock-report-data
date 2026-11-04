@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-04T23:32:25+08:00
+- 更新时间：2026-11-05T03:48:46+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-11-04
 
@@ -9,15 +9,15 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261104-0346-early-full-41706168783 | output/archive/2026/11/04/early/20261104-0346-early-full-41706168783.json |
-| noon | ready_a | A | 20261104-1131-noon-full-41767529924 | output/archive/2026/11/04/noon/20261104-1131-noon-full-41767529924.json |
-| evening | ready_b | B | 20261104-2332-evening-full-41858647173 | output/archive/2026/11/04/evening/20261104-2332-evening-full-41858647173.json |
+| early | ready_b | B | 20261105-0348-early-full-41900446851 | output/archive/2026/11/05/early/20261105-0348-early-full-41900446851.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-11-04-early | 2026-11-03 | 2026-11-03T15:14:47+08:00 | output/archive/2026/11/04/early/20261104-0346-early-full-41706168783.json | `5f93eb1574c886ddf3afa46247993dde68c5c5ca38d4bb2dc9b376a6ba65d5c3` |
+| early | B | 2026-11-05-early | 2026-11-04 | 2026-11-04T15:35:45+08:00 | output/archive/2026/11/05/early/20261105-0348-early-full-41900446851.json | `e309907bd484114fedb3b1d8c592e27b9d466e7a016a36f51e5c0c472824bcdc` |
 | noon | A | 2026-11-04-noon | 2026-11-04 | 2026-11-04T11:30:00+08:00 | output/archive/2026/11/04/noon/20261104-1131-noon-full-41767529924.json | `596d7dd7375c5243de328aea1ce9e7458bd45bb9fdb613167aec14f920b2f5ef` |
 | close | B | 2026-11-04-close | 2026-11-04 | 2026-11-04T15:35:45+08:00 | output/archive/2026/11/04/close/20261104-1929-close-full-41821125347.json | `29543e284555136a647047aaa096588d92802691271b8b0da71dd1bd265b7440` |
 | evening | B | 2026-11-04-evening | 2026-11-04 | 2026-11-04T15:35:45+08:00 | output/archive/2026/11/04/evening/20261104-2332-evening-full-41858647173.json | `91d29dd3fe6088fef01ceb41f04f682b440f02207e1f4addc2bc6c045a4576ff` |
