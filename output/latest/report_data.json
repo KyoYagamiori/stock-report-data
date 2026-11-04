@@ -1,6 +1,6 @@
 {
   "attempt_role": "delayed-current-phase",
-  "based_on_snapshot_id": null,
+  "based_on_snapshot_id": "20261104-1929-close-full-41821125347",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -36,10 +36,10 @@
     }
   },
   "degradation_actions": [
-    "cap capital_consistency_score at 60",
-    "market turnover unavailable; no market volume inference"
+    "cap capital_consistency_score at 60"
   ],
   "market": {
+    "base_close_grade": "B",
     "breadth": {},
     "breadth_limit_counts_method": "涨跌幅阈值估算，不含新股特殊规则核验",
     "breadth_valid": false,
@@ -220,34 +220,32 @@
   },
   "market_asof": null,
   "market_date": "2026-11-04",
-  "market_session": "market_close",
+  "market_session": "evening_verified",
   "missing_core_fields": [],
   "missing_optional_fields": [
     "total_turnover",
     "market_breadth"
   ],
-  "planned_at": "2026-11-04T19:29:00+08:00",
+  "planned_at": "2026-11-04T20:01:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-11-04T19:29:49+08:00",
+  "published_at": "2026-11-04T20:01:00+08:00",
   "quality_grade": "B",
-  "quality_profile": "trading_close",
+  "quality_profile": "trading_evening",
   "quality_reasons": [
-    "quality profile thresholds met for grade B",
-    "indices coverage 3/3",
-    "core coverage 11/11"
+    "verified same-day B-grade close snapshot"
   ],
   "quote_time_max": "2026-11-04T15:35:45+08:00",
   "quote_time_min": "2026-11-04T15:00:03+08:00",
   "realtime_available": true,
-  "realtime_expected": true,
-  "report_cycle": "2026-11-04-close",
+  "realtime_expected": false,
+  "report_cycle": "2026-11-04-evening",
   "report_date": "2026-11-04",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 0.02,
+  "schedule_delay_minutes": 0.0,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261104-1929-close-full-41821125347",
+  "snapshot_id": "20261104-2001-evening-full-41825536372",
   "snapshot_mode": "full",
-  "snapshot_type": "close",
+  "snapshot_type": "evening",
   "source_status": {
     "market_overview": {
       "errors": [
@@ -277,7 +275,7 @@
       "status": "success"
     }
   },
-  "started_at": "2026-11-04T19:29:01+08:00",
+  "started_at": "2026-11-04T20:01:00+08:00",
   "stocks": [
     {
       "amount": 5137041695.0,
@@ -2847,6 +2845,7 @@
     "evening"
   ],
   "validation": {
+    "base_snapshot_valid": true,
     "calendar_valid": true,
     "cross_field_valid": true,
     "schema_valid": true,
@@ -2860,5 +2859,5 @@
     "市场汇总仅在沪深A股全页数量核对通过时提供。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "41821125347"
+  "workflow_run_id": "41825536372"
 }
