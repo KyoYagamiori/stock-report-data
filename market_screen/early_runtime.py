@@ -173,7 +173,13 @@ def run(root, now=None, quote_collector=None, allow_closed=False):
         refs.append({"file": path.relative_to(root).as_posix(), "count": len(part),
                      "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
     data["record_shards"] = refs
-    data["quote_source"] = qmeta
+    # Keep the report reader bounded; detailed provider batches and request
+    # lists belong to the hash-bound audit rather than every report's context.
+    audit_path = directory / "quote_audit.json"
+    write_json(audit_path, qmeta)
+    data["quote_source"] = {"file": audit_path.relative_to(root).as_posix(),
+        "sha256": hashlib.sha256(audit_path.read_bytes()).hexdigest(),
+        "note": "Full provider collection audit; raw quote evidence retained in this version."}
     path = directory / "queue.json"
     write_json(path, data)
     pointer = {"selected_file": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),

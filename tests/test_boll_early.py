@@ -161,11 +161,16 @@ class EarlyDiscoveryTests(unittest.TestCase):
                 q = quote(time="09:55:00") if stale else quote()
                 with patch("market_screen.completed_source.load_completed_records", return_value=({"600000":record()}, {"accepted":True}, None)), \
                      patch("market_screen.membership.read_frozen_universe", return_value=([stock()], {})):
-                    result = run(root, NOW, quote_collector=lambda *a, **k: ({"600000": q}, {"fixture":True}))
+                    result = run(root, NOW, quote_collector=lambda *a, **k:
+                        ({"600000": q}, {"fixture":True, "large_audit":["x"*1000]*20}))
                 self.assertEqual("partial" if stale else "complete", result["status"])
                 raw = (root / result["selected_file"]).read_bytes()
                 self.assertEqual(result["sha256"], hashlib.sha256(raw).hexdigest())
                 data = json.loads(raw)
+                self.assertLess(len(json.dumps(data["quote_source"])), 1000)
+                audit = (root / data["quote_source"]["file"]).read_bytes()
+                self.assertEqual(data["quote_source"]["sha256"], hashlib.sha256(audit).hexdigest())
+                self.assertEqual(20, len(json.loads(audit)["large_audit"]))
                 self.assertEqual(0 if stale else 1, len(data["shortlist"]))
                 self.assertEqual(1 if stale else 0, result["coverage"]["quote_gaps"])
 
