@@ -124,6 +124,8 @@ def calculate(rows, target_date):
     # production V1 setup/score remains unchanged for a valid control group.
     from .research import completed_features
     out["research_features"] = completed_features(bars, series)
+    from .early import completed_state
+    out["early_state"] = completed_state(bars, series)
     return out
 
 

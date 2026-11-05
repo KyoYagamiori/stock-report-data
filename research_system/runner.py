@@ -187,6 +187,12 @@ def run(root, now=None):
                       "production_activation": False},
         "screen_source": pointer, "research_shadow": screen.get("research_shadow") if screen else None,
         "data_errors": errors, "noon_baseline": noon, **results}
+    from .early_model import run_registered
+    try:
+        summary["early_model_comparison"] = run_registered(root)
+    except (OSError, ValueError, KeyError, TypeError, ImportError) as exc:
+        summary["early_model_comparison"] = {"status": "blocked", "reason": str(exc)[:300],
+                                            "production_activation": False, "probabilities_enabled": False}
     write_json(state_path, state)
     write_json(tape_index_path, tape_index)
     write_json(root / "output/research/latest/summary.json", summary)
