@@ -76,8 +76,14 @@ class EarlyDiscoveryTests(unittest.TestCase):
         points = [point(1), point(2, close=10.2), point(3, close=11., low=10.5),
                   point(4, close=10.4, low=10.38), point(5, close=10.5, low=10.1)]
         self.assertIn("first_mid_retest", [s["pool"] for s in classify(points)[0]])
-        points[2]["low"] = 10.1
+        points[3]["low"] = 10.1
         self.assertNotIn("first_mid_retest", [s["pool"] for s in classify(points)[0]])
+
+    def test_basing_before_advancement_is_not_a_prior_retest(self):
+        points = [point(1), point(2, close=10.2), point(3, close=10.25, low=10.05),
+                  point(4, close=11., low=10.6), point(5, open=10.2, close=10.5, low=10.1)]
+        self.assertLess(points[-1]["close"], points[-2]["close"])
+        self.assertIn("first_mid_retest", [s["pool"] for s in classify(points)[0]])
 
     def test_prepare_has_no_direction_confirmation(self):
         points = [point(1, width=.09), point(2, width=.08),

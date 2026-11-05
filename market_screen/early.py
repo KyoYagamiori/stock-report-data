@@ -103,16 +103,24 @@ def classify(points, config=None):
         setups.append({"pool": POOLS[0], "origin": origin, "signal_age_sessions": age})
     if (slope_ok and age is not None and 2 <= age <= c["retest_max_age"]
             and 0 <= distance <= .75 and abs(p["low"] - p["mid"]) <= c["retest_tolerance_atr"] * atr):
-        interior = points[cross + 1:-1]
-        advanced = any(x["close"] - x["mid"] >= c["retest_advance_atr"] * x["atr20"] for x in interior)
-        touched_before = any(abs(x["low"] - x["mid"]) <= c["retest_tolerance_atr"] * x["atr20"] for x in interior)
-        if advanced and not touched_before and p["close"] > prev["close"] and p["close"] >= p["open"]:
+        advance = next((j for j in range(cross + 1, len(points) - 1)
+                        if points[j]["close"] - points[j]["mid"] >= c["retest_advance_atr"] * points[j]["atr20"]), None)
+        # Only a return AFTER clear advancement is a retest. Initial basing
+        # near the crossing is not a prior failed "first pullback".
+        touched_before = advance is not None and any(
+            x["low"] <= x["mid"] + c["retest_tolerance_atr"] * x["atr20"]
+            for x in points[advance + 1:-1])
+        if advance is not None and not touched_before and p["close"] > p["open"]:
             setups.append({"pool": POOLS[1], "origin": origin, "signal_age_sessions": age})
     q = p.get("width_percentile")
     contracting = p["width"] < prev["width"] and prev["width"] < points[-3]["width"]
     if (slope_ok and contracting and q is not None and q <= c["prepare_bandwidth_percentile"]
             and -.35 <= distance <= .5 and p.get("contraction_origin")):
-        setups.append({"pool": POOLS[2], "origin": p["contraction_origin"], "signal_age_sessions": 0})
+        contraction_age, j = 0, len(points) - 1
+        while j > 0 and points[j]["width"] < points[j - 1]["width"]:
+            contraction_age += 1; j -= 1
+        setups.append({"pool": POOLS[2], "origin": p["contraction_origin"],
+                       "signal_age_sessions": contraction_age, "signal_age_is_lower_bound": j == 0})
     def expansion(i):
         x, prior = points[i], points[i - 1]
         squeeze = any(z.get("width_percentile") is not None and z["width_percentile"] <= c["squeeze_percentile"]

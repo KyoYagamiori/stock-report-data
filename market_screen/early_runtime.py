@@ -152,6 +152,10 @@ def run(root, now=None, quote_collector=None, allow_closed=False):
         "quote_gaps": len(universe) - valid - no_trade if dates["phase"] == "intraday" else None,
         "full_market_early_scan_complete": complete, "membership_asof": dates["report_date"],
         "daily_source": source, "feature_hydration": hydrated}
+    data["coverage"]["unresolved_feature_details"] = [
+        {"code": r["code"], "reasons": r["rejection_reasons"]}
+        for r in rows if mapping[r["code"]].get("status") == "screened" and "features" not in r
+        and not (bool(r["rejection_reasons"]) and set(r["rejection_reasons"]) <= reasonable_rejections)]
     data["latency"] = {"collection_started_at": now.isoformat(), "published_at": published.isoformat(),
         "elapsed_seconds": round(monotonic() - start, 3), "max_accepted_quote_age_seconds": max(ages) if ages else None,
         "median_accepted_quote_age_seconds": statistics.median(ages) if ages else None,
