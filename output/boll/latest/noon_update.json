@@ -1,67 +1,79 @@
 {
   "schema_version": "1.0",
-  "report_date": "2026-11-04",
-  "expected_market_date": "2026-11-03",
+  "report_date": "2026-11-06",
+  "expected_market_date": "2026-11-05",
   "is_trading_day": true,
-  "market_cutoff": "2026-11-04T11:30:00+08:00",
+  "market_cutoff": "2026-11-06T11:30:00+08:00",
   "attempts": [
     {
       "component": "full_market",
       "attempt": 1,
-      "run_id": "20261104T113052285510-noon"
+      "run_id": "20261106T113633880577-noon"
     },
     {
       "component": "report_snapshot",
       "attempt": 1,
       "grade": "A",
       "published": true,
-      "snapshot_id": "20261104-1131-noon-full-41767529924"
+      "snapshot_id": "20261106-1137-noon-full-42157528581"
     },
     {
       "component": "full_market",
       "attempt": 2,
-      "run_id": "20261104T113344044217-noon"
+      "run_id": "20261106T113919975347-noon"
     }
   ],
   "accepted": false,
   "full_market": {
     "accepted": false,
-    "report_date": "2026-11-04",
-    "expected_market_date": "2026-11-03",
+    "report_date": "2026-11-06",
+    "expected_market_date": "2026-11-05",
     "valid_quotes": 5217,
-    "no_trade_quotes": 5,
-    "missing_quotes": 1,
+    "no_trade_quotes": 4,
+    "missing_quotes": 2,
     "daily_baseline": {
       "accepted": true,
       "reasons": [],
-      "market_date": "2026-11-03",
-      "screen_file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/screen.json",
-      "candidate_file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/candidates.json",
-      "run_id": "20261104T113344044217-noon",
-      "published_at": "2026-11-04T11:33:51.298222+08:00",
+      "market_date": "2026-11-05",
+      "screen_file": "output/boll/archive/2026-11-05/20261105T235027-close/screen.json",
+      "candidate_file": "output/boll/archive/2026-11-05/20261105T235027-close/candidates.json",
+      "run_id": "20261105T235027-close",
+      "published_at": "2026-11-05T23:52:56.515394+08:00",
       "universe_count": 5223,
       "status_counts": {
-        "screened": 4968,
-        "excluded": 255
+        "screened": 4969,
+        "excluded": 254
       },
       "universe_current": true,
       "technical_screen_complete": true,
       "sha256_verified": true
     },
     "current_screen": {
-      "accepted": true,
-      "reasons": [],
-      "run_id": "20261104T113344044217-noon",
-      "screen_file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/screen.json",
+      "accepted": false,
+      "reasons": [
+        "noon_technicals_incomplete"
+      ],
+      "run_id": "20261106T113919975347-noon",
+      "screen_file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/screen.json",
       "status_counts": {
-        "screened": 4968,
-        "excluded": 255
+        "screened": 4969,
+        "excluded": 253,
+        "unresolved": 1
       },
-      "unresolved_codes": []
+      "unresolved_codes": [
+        "300237"
+      ]
     },
     "official_membership_bytes_verified": true,
     "universe_count": 5223,
     "quote_gaps": [
+      {
+        "code": "688121",
+        "reasons": [
+          "no_trades",
+          "not_noon"
+        ]
+      },
       {
         "code": "688496",
         "reasons": [
@@ -70,285 +82,285 @@
         ]
       }
     ],
-    "overlay_file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/overlay.json",
-    "overlay_sha256": "fe84917a84ef8e337241371770c9cf1b154374d69fc955e00301de191ecebd2b",
+    "overlay_file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/overlay.json",
+    "overlay_sha256": "ce824afd5c81e1e90b705c9fe81c4fedaa230f51b56fadf5538c198b432708a2",
     "quote_time_min": "11:30:00",
-    "quote_time_max": "11:30:57",
+    "quote_time_max": "11:30:00",
     "sha256_verified": true,
-    "scan_run_id": "20261104T113344044217-noon",
-    "scan_published_at": "2026-11-04T11:33:51.298222+08:00",
+    "scan_run_id": "20261106T113919975347-noon",
+    "scan_published_at": "2026-11-06T11:39:29.847312+08:00",
     "quote_coverage_accepted": false,
     "full_universe_comparison": {
       "accepted": true,
-      "candidate_file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_candidates.json",
-      "candidate_sha256": "892c015a4c6cb430ef3811a84577c1d2a0d63f77f6037f084d387c4102d05eb6",
+      "candidate_file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_candidates.json",
+      "candidate_sha256": "1ff3b019075955bd19c211c3c993fb3e314a3182163c18c16dadaa9cc5d4412f",
       "evaluated_count": 5223,
-      "eligible_count": 305,
+      "eligible_count": 436,
       "record_shards": [
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/000001-000518.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/000001-000518.json",
           "count": 100,
-          "sha256": "21ab05aa00c92ac8a988e3a343222ed88ad95c777b9a267340ac1ca7bddaa41f"
+          "sha256": "f11b66df7d419ee55cf80deba0d704cfeff147ab0b3d56e445c99ca92043d3ee"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/000519-000672.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/000519-000672.json",
           "count": 100,
-          "sha256": "cdbad48dd03a83bfa79448b0eaccfe122c0edc3bc0dc027722af67dde4d5bfbc"
+          "sha256": "36ce6ddc05607399828580764d8db84095afa227925d06f28dca0622f5691699"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/000676-000822.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/000676-000822.json",
           "count": 100,
-          "sha256": "7184fb89f8f96904b1f1f9821daa120b902c4f338e8778d14dffbf2b3eebc082"
+          "sha256": "4a4b23c3870946e1391b39a8a4d211e615d8c81298fd708617df3ba6b3f53f90"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/000823-000981.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/000823-000981.json",
           "count": 100,
-          "sha256": "107fdaf5b8bab92dfd6f37263f9da04e3d04854fd2bb8a60ac7d36abbc0eac44"
+          "sha256": "fa628c9274c98710f117a158f70b895ddaa2f4dbfd63d07e3b36e186155c3d8c"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/000983-001338.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/000983-001338.json",
           "count": 100,
-          "sha256": "a9ddaae73163d989a63672e3375e24d7c7dc110d6fcfb32f22a0e4a34707659c"
+          "sha256": "828e9c759606708873e72ae472412096c5d7f872c6898aea0bcc01747b20a49f"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/001339-002069.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/001339-002069.json",
           "count": 100,
-          "sha256": "1816c927daf0590a2fc70475e8e4207da8e8101cb22c47fd6c5f67d4b1e3a400"
+          "sha256": "75c1b467045ca311caeb122e6505ae0ff6d1ea99cf35430e37cea3a2a0f2ffef"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002072-002177.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002072-002177.json",
           "count": 100,
-          "sha256": "498340f218c3c775e4653a38eb8688d503308b89dfc8306bc046d1702d19adfd"
+          "sha256": "fef3f681c124b870581c8a02229927901124464c41b6108a74f037c401ec1875"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002178-002282.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002178-002282.json",
           "count": 100,
-          "sha256": "0e584c96c67dbfad95086b1b6c47911956ce9e3a16a839cd58d82e0191577154"
+          "sha256": "5735102eff44ece00c110400ec3703bb863d4dbbb34969d8c527ce4bec9a506b"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002283-002388.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002283-002388.json",
           "count": 100,
-          "sha256": "e0adfa322d759b2bf7bef47eec7394c57fa8dc9a9d58fb4a79dac70b4f4a34b7"
+          "sha256": "e703ac04dfbc34feed990f383e10f47db06af706060d641caafceb280a95a235"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002389-002497.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002389-002497.json",
           "count": 100,
-          "sha256": "40470659b868d0c62e04ce6c52a4029c778fd07b96ad556a1b9f17225c3ad215"
+          "sha256": "3de73e922afc50656acb3bd531595068855968c02fe5e43dbe49896c74c0534f"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002498-002605.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002498-002605.json",
           "count": 100,
-          "sha256": "359a0ed80efd870367f98afa7f222bc34d815d543c97d7e3e44c0708a0383062"
+          "sha256": "aae5f4ff329f73302c057447361c002df5ab69a96d8218deb852ce02ee2cedea"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002606-002716.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002606-002716.json",
           "count": 100,
-          "sha256": "1cec90e43b44cb2b8090eef2b40629d15d45f32d26887446f663bcb552be359a"
+          "sha256": "36c75721c119e7df05071c1a20bc42d485141cc83380e445c4c5e8a3c04cb2a6"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002717-002831.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002717-002831.json",
           "count": 100,
-          "sha256": "5db42742abcb274fd4f5036a6bb49fe3c5d00f9e38e05de33184311856c9ce11"
+          "sha256": "093dd1f8de1fa9dc12b537a9ac98f1eed542113525f64c887386737a87e78cee"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002832-002941.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002832-002941.json",
           "count": 100,
-          "sha256": "62890618590ce39c24252c4f13e44dd5637f544c032be7a276ff426fffa882e7"
+          "sha256": "0fe261f545b8fd40a89ecfc15768afd7b59b287fc1e34f882b3684f442c10cca"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/002942-300005.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/002942-300005.json",
           "count": 100,
-          "sha256": "a8cf09fd17585e9af70ee3317c29de57f6714f49afb9a6b30b2233fdd65d2af3"
+          "sha256": "1a861b9fe6769c19d799667def38ba91db43e74236dcaba426347da54e401741"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300006-300118.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300006-300118.json",
           "count": 100,
-          "sha256": "ae93af8c49db0be7884c812adb6c7faad73e72233ba21fc3b6f175e5feb2ee0a"
+          "sha256": "32e835a3416817be94e2bfcb67666f69a2ce3c2d8c7969dc0adab9288b99a88d"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300119-300224.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300119-300224.json",
           "count": 100,
-          "sha256": "452dcd63d152d2c21618d2bae30e4898ef1778e640dfa6ec2d1e101b2a3b8800"
+          "sha256": "23c9a8c73509567ea509a33808fb8b069c2295c3e1f84222841f65ce8c7d47f8"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300225-300333.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300225-300333.json",
           "count": 100,
-          "sha256": "2a1a873baa85704eb1391eea242eea19d9606aad2167f513e2048533e7dc9c93"
+          "sha256": "86ae265ddd13cee0bd47eac22d1fcb069107101dad65efe587061b4b181283a6"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300334-300444.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300334-300444.json",
           "count": 100,
-          "sha256": "fa5002dc52c5d67d28430a0e77234209453c50d8e3b8f07172aef2e87b7d7507"
+          "sha256": "f5666a156cfdaf1e8ee12379dd1cba82eec5f853793249853ea8038b9106fc98"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300445-300548.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300445-300548.json",
           "count": 100,
-          "sha256": "b01071ae53733ecd076a57fedea1c62f2791ad46e4cbfb94e1dd77f6940cf51a"
+          "sha256": "219b1c65c4bbe366c39e326e1789329e1b9d23418ff5b1c585f696c60cdef4a4"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300549-300651.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300549-300651.json",
           "count": 100,
-          "sha256": "780f93e87de37f41e49893fa4be453117f313c9932c3561edb7ae7af30fc468b"
+          "sha256": "054fb17f5035f81275e9fdaebdab01c50f052756cc6f9d3a36d687b86969b329"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300652-300758.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300652-300758.json",
           "count": 100,
-          "sha256": "4bd1869f2cf23c4beb84f04254c9142d4f04fc043e5f35b66c6aa0f838d5c7e9"
+          "sha256": "bd6bd93e19a060058f2272422f1baa4c658c602e2a366b26d7a1b907057d8a90"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300759-300861.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300759-300861.json",
           "count": 100,
-          "sha256": "71a352009cf69b6ac795b89d875741e3ab0c71bf93376b7b4c8aa6cb350f17df"
+          "sha256": "133f7178b1f3935e4abc964881e39b914a9b3aeda474ad9b84a28422ea08cc71"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300862-300967.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300862-300967.json",
           "count": 100,
-          "sha256": "495a21941080edffafff6e488143c0faece0d8caaf81d7f4a888a3f5989a2630"
+          "sha256": "ead5278c4d25c59c6321697f2e52004546422feb512fedf2792b8c58726d7cf5"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/300968-301073.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/300968-301073.json",
           "count": 100,
-          "sha256": "80eca131ec4be12e5ef3cf3bd0794683357026821edaddba36f271c609cbb95a"
+          "sha256": "c9a018591646a3cbb9b5e6d1a5290135369c4e08550092c79e546235e6cefddf"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/301075-301192.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/301075-301192.json",
           "count": 100,
-          "sha256": "2f0dfc6d485b9bfda04bce55ac21537129fd27a0ebbc2556c59e5e3c5505145d"
+          "sha256": "c94d919060d547b781302955639e7c4e9d77f4c6404ea2ec1b9ea7d1b91404b4"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/301193-301313.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/301193-301313.json",
           "count": 100,
-          "sha256": "542e86063e1c23d2b8770a10f457242338a06989a6ab94e1056ca18bfd929439"
+          "sha256": "0bf9d2f426ab1c6316dbe23e3c01f1aa2f2c509b39a57b07047616ab64fa5cbe"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/301314-301510.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/301314-301510.json",
           "count": 100,
-          "sha256": "21ede49d55512ef4a64a89c322e266ee8bbeb590bd32723358bdae6ebaeb75db"
+          "sha256": "017305f3c450270d75b9b58589dd7f0fb87cb3e31e9bf0e87a19e70c608208fc"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/301511-301697.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/301511-301697.json",
           "count": 100,
-          "sha256": "2e3a9b66894c54b0948cb8b48e6e7f65f0cdc366c1ac4a8a82358a633f63af48"
+          "sha256": "91ff27f79c2a69d13421364571963305ef9874e3d8fc9a3e8f5a8bffbade324d"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/301699-600127.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/301699-600127.json",
           "count": 100,
-          "sha256": "aea0695e8ffb476f7ca5e2998e4f1f4a6f8e4de2894ec3d6527e593174090134"
+          "sha256": "ec5cf3625428c3af476a663c5c5111081dd424fa0eaa7332da8e87441dc47a39"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600128-600259.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600128-600259.json",
           "count": 100,
-          "sha256": "895117aafe784aa9602e09e02bb057e91ccc148f70449a776cfc482188a1ac0a"
+          "sha256": "84198534f3b9b41503fa4e9bc13764cb595b2b0da69653474c42876d0560623e"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600261-600392.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600261-600392.json",
           "count": 100,
-          "sha256": "3be82543d11ec14219f819b39f0c3abf05481515c6d8c7dc3054acb6fb87390b"
+          "sha256": "21a8ce1fe9d4333aec93aecb15f110e692d86f30740d825142e7df5b15165fac"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600395-600539.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600395-600539.json",
           "count": 100,
-          "sha256": "d4d3cf9e3a412003508a3d5811fc06894a8c53ca3f9205e8d29ef2c11b275595"
+          "sha256": "f210fed1a6b2139e6f2815997176ea50ccc8bfa7e222e22bef9a50bec55a3a92"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600540-600664.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600540-600664.json",
           "count": 100,
-          "sha256": "66cf49d9360baa4b65d22d4383536d9220305af1b4d409e2238a4f57d4134cb4"
+          "sha256": "554d9a60746935376e9286f420d76fb80e9ea32e1ef2fcfc06df3be599334732"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600665-600784.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600665-600784.json",
           "count": 100,
-          "sha256": "177f831d07b9ca588b4c6ef95edf49f0b6ffa3ebbad6700ecf38dc9c387c2b05"
+          "sha256": "dd1ea2c1ef6221ada3bcd7c60d812c63aa9366bf166295e484abcc0aeb5826e2"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600785-600916.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600785-600916.json",
           "count": 100,
-          "sha256": "d3962f7c7a80992b52dc5295667ae7edb90236e4c9458761bfb853a83534e910"
+          "sha256": "18f0308ef7c036f5bc3548c2dec3baf645fad8afcd4448a4dc622231c00a0fc1"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/600917-601117.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/600917-601117.json",
           "count": 100,
-          "sha256": "b1f5a52be585804280dd6bc61433766ab5213ea01c392a072d43b2c0a75a6916"
+          "sha256": "fd18604cca5b9f9fb816a400b05de7a29c218d6d69c83a58881ec95cab7cc462"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/601118-601678.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/601118-601678.json",
           "count": 100,
-          "sha256": "dfa86871dffc664734f8adcada39fd07b99d6d6a11c4f70d9c20ec19fb4f00ae"
+          "sha256": "8b93cd5f4723534d93e239ac4b279465602a849f254cbb45e1c403cb42c13c4d"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/601686-603022.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/601686-603022.json",
           "count": 100,
-          "sha256": "6b86fd607ba39145ad6c9cc7daa383cfb0d467d0c6341e52745b05a3f4e81486"
+          "sha256": "72cabc18874db6d00ff6d6791ed0eddfbf0512bc6621e6f0132974b6b52efcc9"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603023-603137.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603023-603137.json",
           "count": 100,
-          "sha256": "2a0f03541fb4d634cfa57ff4e94f514256ce6bca40d05811b7a0728aea11f367"
+          "sha256": "f1cacd347a3347f64b2f722c6e0e93df17a5c50a42ed9c10fa5ddf84618a002a"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603138-603273.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603138-603273.json",
           "count": 100,
-          "sha256": "e508e9a83c653bee094dd362550fb3216d6dc09654d96019a1cd777c7b0bee35"
+          "sha256": "e00d7df6eca9b687f4f91106e6f75c35eae66adc9123a0878303e4d7ea0dad82"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603275-603398.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603275-603398.json",
           "count": 100,
-          "sha256": "30c96afcafbd2a2e1c391ca87e58e59448007967093fd8e7d471c6340e663739"
+          "sha256": "e56e404ae11bccbb46a571db6f8a1b8ff4b52662699b40525f24f3ec83ca67f7"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603399-603650.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603399-603650.json",
           "count": 100,
-          "sha256": "3d3cc724383f32481ee58d6d0483f7d2d7c94dc37ecb5e2cbe80bee41f1d10b3"
+          "sha256": "6f49e75f0cae401c56ae758534117559115cce6b28bf4293fe870bf0720ba63a"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603655-603833.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603655-603833.json",
           "count": 100,
-          "sha256": "08bb3851152368885b2e6eb1b2d2e4997751db48d2fb69de83f170f376122588"
+          "sha256": "911109422778df40148caac7f559bedf24dbc38b0bcee30e839221db1bf4f3ae"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/603836-605008.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/603836-605008.json",
           "count": 100,
-          "sha256": "8cffd823e37678b9388969a5d0f3265438e99e93c00e4f13fb2f03b4c523c669"
+          "sha256": "2ef740a0228f45dda1102f2c200b42b5a76d769439bd1d069bdb5e220b402829"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/605009-605567.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/605009-605567.json",
           "count": 100,
-          "sha256": "85ae82ab997991cabfeaf73691233f071a48d243aa07a6465b2b9973df646021"
+          "sha256": "cbca198befb6c93e5dcc5df627011ec2c4336b3d19b6e56cdb04d57e42123d98"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/605577-688107.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/605577-688107.json",
           "count": 100,
-          "sha256": "44549ca8dfbdcf60b3cae4ce822ed0c725614e43461ec7cb9a727bb9becf71fb"
+          "sha256": "9a32b8da5fd9d205b414ae71276c7a0f48d1d7e71d703a421372a417765a7831"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688108-688220.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688108-688220.json",
           "count": 100,
-          "sha256": "6bcac6696f699b3ae0ea8201a659aca6dc0064b8a14ef8de742b06282bcfc84f"
+          "sha256": "cb40f9f045c447be618a25316fbee2043ca9eac8a42a5d9b284c9e2f4cd37e5d"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688221-688336.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688221-688336.json",
           "count": 100,
-          "sha256": "c1c49123316c316d03dede0661b2d3c4b83f9a9212b9e2408d1c7b86b3c248cf"
+          "sha256": "1dcdfb90124a23eb4b4dcaf4727fd415128425374284fd28382f7af7ee83fa36"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688337-688505.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688337-688505.json",
           "count": 100,
-          "sha256": "e33d4beb608be55c3379e5b5b17489f6f54e53b158744639010b2653dd8f9ebc"
+          "sha256": "3426b4156075eb0eb24c9101285f9648d3b37a1efd2068fe5f6626b02da5e9fe"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688506-688627.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688506-688627.json",
           "count": 100,
-          "sha256": "6b9b28fb6931bc4579ea703a0c0500458bce7de4ca1e852040c1590d5056239d"
+          "sha256": "1fcf79b52d28bc359686ee0586df55c6ec1c1bc2bd1bd2da20b07f5369ec2c98"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688628-688797.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688628-688797.json",
           "count": 100,
-          "sha256": "f7959d4c2a416bdcee27230f023ca00dd0bcb7018da72d68bed22c2d8efd2c1c"
+          "sha256": "3613e0e7a337b177d0c5f6c4cd1461f2724e60594b6eed0d5ab3890e3b79095f"
         },
         {
-          "file": "output/boll/archive/2026-11-03/20261104T113344044217-noon/noon_comparisons/688798-688981.json",
+          "file": "output/boll/archive/2026-11-05/20261106T113919975347-noon/noon_comparisons/688798-688981.json",
           "count": 23,
-          "sha256": "85946b5001738be567f520a7c315a583db4f9ec86d285a814e4c83ec775de93a"
+          "sha256": "c439492575678f671899ec76a2f3be5edcd14c6dcedd6e1c4e96c35f060fe363"
         }
       ],
       "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1_fixed",
@@ -358,21 +370,26 @@
     "completed_daily_source": {
       "source": {
         "accepted": true,
-        "screen_file": "output/boll/archive/2026-11-03/20261104T113052285510-noon/screen.json",
-        "sha256": "74d865f340d35dd9bd2781fed77acf97cf2bd23b80ed0a1f5280e3c0e85a714e",
-        "run_id": "20261104T113052285510-noon",
-        "market_date": "2026-11-03",
-        "published_at": "2026-11-04T11:31:10.413875+08:00",
+        "screen_file": "output/boll/archive/2026-11-05/20261105T235027-close/screen.json",
+        "sha256": "5c9f0b9d7e7c8dd4dc4db198ee4d3ca54552cb5d3e92b7e5f7b67ffca88aa32f",
+        "run_id": "20261105T235027-close",
+        "market_date": "2026-11-05",
+        "published_at": "2026-11-05T23:52:56.515394+08:00",
         "record_shards_verified": 53,
         "reasons": []
       },
       "reused_count": 5027,
-      "gap_codes": [],
-      "repair_requested_count": 0,
-      "unresolved_codes": [],
+      "gap_codes": [
+        "300237"
+      ],
+      "repair_requested_count": 1,
+      "unresolved_codes": [
+        "300237"
+      ],
       "history_policy": "Reuse immutable completed indicators; fetch at most 24 actual gaps, never an unfinished daily bar."
     },
     "reasons": [
+      "noon_technicals_incomplete",
       "full_market_noon_quotes_incomplete"
     ]
   },
@@ -380,17 +397,18 @@
     "accepted": true,
     "status": "ready_a",
     "quality_grade": "A",
-    "selected_file": "output/archive/2026/11/04/noon/20261104-1131-noon-full-41767529924.json",
-    "snapshot_id": "20261104-1131-noon-full-41767529924",
+    "selected_file": "output/archive/2026/11/06/noon/20261106-1137-noon-full-42157528581.json",
+    "snapshot_id": "20261106-1137-noon-full-42157528581",
     "sha256_verified": true,
     "reasons": []
   },
   "status": "incomplete",
   "reasons": [
+    "noon_technicals_incomplete",
     "full_market_noon_quotes_incomplete"
   ],
-  "checked_at": "2026-11-04T11:33:54.574112+08:00",
+  "checked_at": "2026-11-06T11:39:38.670160+08:00",
   "policy": "Completed daily indicators and current 11:30 quotes are separate; no afternoon quotes or old dates relabeled as noon.",
-  "audit_file": "output/boll/noon_checks/2026-11-04/113354574112.json",
-  "audit_sha256": "8e93cf5487a580ce47174f130f55eb1dde04f84f089caf733732366bac05b5fd"
+  "audit_file": "output/boll/noon_checks/2026-11-06/113938670160.json",
+  "audit_sha256": "ac4ca21289a9b505eff8ae2d3d08c51334c7efab6d6338f338e94dff544ccd27"
 }
