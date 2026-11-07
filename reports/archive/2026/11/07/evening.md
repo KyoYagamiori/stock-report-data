@@ -16,7 +16,8 @@ focus_reason: "综合证据与入场空间不足"
 technical_stock_code: "600350"
 technical_status: "watch_for_trigger"
 technical_reason: "已核验范围内结构观察暂选；中轨收复及收口组合较优，近端空间窄，未确认入场"
-technical_first_issued_at: "2026-11-07T21:00:00+08:00"
+technical_first_issued_at: null
+technical_first_issued_at_note: "本篇首次公开；未绑定精确聊天可用时分，不填计划截点作为首次公开时间"
 technical_valid_until: "2026-11-10T15:00:00+08:00"
 technical_invalidation_price: 10.60
 entry_band: null
