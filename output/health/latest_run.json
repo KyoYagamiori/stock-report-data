@@ -1,5 +1,5 @@
 {
-  "attempt_role": "delayed-current-phase",
+  "attempt_role": "independent-noon-ingest",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -34,8 +34,8 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-11-10T06:40:45+08:00",
-  "planned_at": "2026-11-10T06:40:00+08:00",
+  "finished_at": "2026-11-10T11:39:17+08:00",
+  "planned_at": "2026-11-10T11:36:00+08:00",
   "point_in_time_recovered": false,
   "published": true,
   "quality_grade": "A",
@@ -45,35 +45,41 @@
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-11-10-early",
+  "report_cycle": "2026-11-10-noon",
   "report_date": "2026-11-10",
-  "schedule_delay_minutes": 0.75,
+  "schedule_delay_minutes": 0.18,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261110-0640-early-full-42713878375",
+  "snapshot_id": "20261110-1136-noon-full-42750406043",
   "snapshot_mode": "full",
-  "snapshot_type": "early",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
-      "errors": [],
-      "finished_at": "2026-11-10T06:40:45+08:00",
+      "errors": [
+        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      ],
+      "finished_at": "2026-11-10T11:39:17+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261109-1511-close-full-42577601057",
-      "started_at": "2026-11-10T06:40:45+08:00",
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
+      "started_at": "2026-11-10T11:36:11+08:00",
       "status": "success"
     },
     "stock_quotes": {
-      "errors": [],
-      "finished_at": "2026-11-10T06:40:45+08:00",
+      "errors": [
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
+      ],
+      "finished_at": "2026-11-10T11:38:53+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261109-1511-close-full-42577601057",
-      "started_at": "2026-11-10T06:40:45+08:00",
+      "source": "新浪实时行情接口",
+      "started_at": "2026-11-10T11:36:11+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-11-10T06:40:45+08:00",
+  "started_at": "2026-11-10T11:36:11+08:00",
   "status": "published"
 }
