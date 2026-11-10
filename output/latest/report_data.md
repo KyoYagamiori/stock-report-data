@@ -1,23 +1,23 @@
-# 股票行情快照 | 2026-11-10 evening
+# 股票行情快照 | 2026-11-11 early
 
 - Schema：1.6.1
-- Snapshot ID：`20261110-2340-evening-full-42846604087`
-- 报告周期：`2026-11-10-evening`
-- 质量等级：**B**
-- 质量 Profile：`trading_evening`
+- Snapshot ID：`20261111-0347-early-full-42888673135`
+- 报告周期：`2026-11-11-early`
+- 质量等级：**A**
+- 质量 Profile：`trading_preopen`
 - 行情日期：2026-11-10
 - 行情时间范围：2026-11-10T15:00:03+08:00 至 2026-11-10T15:35:57+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.47 分钟
-- 生成时间：2026-11-10T23:40:28+08:00
-- 适用报告：evening
+- 调度延迟：0.90 分钟
+- 生成时间：2026-11-11T03:47:54+08:00
+- 适用报告：early
 
 ## 读取结论
 
 - 核心字段缺失：无
 - 可选字段缺失：sectors_top；sectors_bottom
 - 阻断原因：无
-- 降级动作：cap capital_consistency_score at 60
+- 降级动作：无
 - 风险提示：本快照只提供公开行情数据核验，不构成投资建议。
 
 ## 市场概览
@@ -65,5 +65,5 @@
 
 ## 数据源状态
 
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=板块数据缺失：TimeoutError: collect_sectors exceeded 45s；市场汇总仅在沪深A股全页数量核对通过时提供。
-- `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
+- `stock_quotes`：success；来源=verified previous close snapshot 20261110-1939-close-full-42809144220；错误=无
+- `market_overview`：success；来源=verified previous close snapshot 20261110-1939-close-full-42809144220；错误=无

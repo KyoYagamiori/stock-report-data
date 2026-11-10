@@ -1,6 +1,6 @@
 {
   "attempt_role": "delayed-current-phase",
-  "based_on_snapshot_id": "20261110-1939-close-full-42809144220",
+  "based_on_snapshot_id": null,
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -35,11 +35,8 @@
       "valid": 14
     }
   },
-  "degradation_actions": [
-    "cap capital_consistency_score at 60"
-  ],
+  "degradation_actions": [],
   "market": {
-    "base_close_grade": "B",
     "breadth": {
       "down": 1149,
       "flat": 158,
@@ -155,7 +152,9 @@
       }
     ],
     "latest_completed_trading_day": "2026-11-10",
+    "market_asof": "2026-11-10",
     "market_scope": "沪深A股（不含北交所）",
+    "quote_source": "verified previous close snapshot 20261110-1939-close-full-42809144220",
     "sector_source": "unavailable",
     "sectors_bottom": [],
     "sectors_top": [],
@@ -164,60 +163,57 @@
   },
   "market_asof": null,
   "market_date": "2026-11-10",
-  "market_session": "evening_verified",
+  "market_session": "preopen",
   "missing_core_fields": [],
   "missing_optional_fields": [
     "sectors_top",
     "sectors_bottom"
   ],
-  "planned_at": "2026-11-10T23:40:00+08:00",
+  "planned_at": "2026-11-11T03:47:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-11-10T23:40:28+08:00",
-  "quality_grade": "B",
-  "quality_profile": "trading_evening",
+  "published_at": "2026-11-11T03:47:54+08:00",
+  "quality_grade": "A",
+  "quality_profile": "trading_preopen",
   "quality_reasons": [
-    "verified same-day B-grade close snapshot"
+    "quality profile thresholds met for grade A",
+    "indices coverage 3/3",
+    "core coverage 11/11"
   ],
   "quote_time_max": "2026-11-10T15:35:57+08:00",
   "quote_time_min": "2026-11-10T15:00:03+08:00",
-  "realtime_available": true,
+  "realtime_available": false,
   "realtime_expected": false,
-  "report_cycle": "2026-11-10-evening",
-  "report_date": "2026-11-10",
+  "report_cycle": "2026-11-11-early",
+  "report_date": "2026-11-11",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 0.47,
+  "schedule_delay_minutes": 0.9,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261110-2340-evening-full-42846604087",
+  "snapshot_id": "20261111-0347-early-full-42888673135",
   "snapshot_mode": "full",
-  "snapshot_type": "evening",
+  "snapshot_type": "early",
   "source_status": {
     "market_overview": {
-      "errors": [
-        "板块数据缺失：TimeoutError: collect_sectors exceeded 45s",
-        "市场汇总仅在沪深A股全页数量核对通过时提供。"
-      ],
-      "finished_at": "2026-11-10T19:40:46+08:00",
+      "errors": [],
+      "finished_at": "2026-11-11T03:47:54+08:00",
       "records_expected": 5,
-      "records_valid": 3,
+      "records_valid": 5,
       "retry_count": 0,
-      "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-10T19:39:42+08:00",
-      "status": "partial"
+      "source": "verified previous close snapshot 20261110-1939-close-full-42809144220",
+      "started_at": "2026-11-11T03:47:54+08:00",
+      "status": "success"
     },
     "stock_quotes": {
-      "errors": [
-        "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
-      ],
-      "finished_at": "2026-11-10T19:39:48+08:00",
+      "errors": [],
+      "finished_at": "2026-11-11T03:47:54+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
-      "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-10T19:39:42+08:00",
+      "source": "verified previous close snapshot 20261110-1939-close-full-42809144220",
+      "started_at": "2026-11-11T03:47:54+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-11-10T23:40:28+08:00",
+  "started_at": "2026-11-11T03:47:54+08:00",
   "stocks": [
     {
       "amount": 2760332695.0,
@@ -2784,20 +2780,15 @@
     }
   ],
   "suitable_reports": [
-    "evening"
+    "early"
   ],
   "validation": {
-    "base_snapshot_valid": true,
     "calendar_valid": true,
     "cross_field_valid": true,
     "schema_valid": true,
     "time_valid": true
   },
-  "warnings": [
-    "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。",
-    "板块数据缺失：TimeoutError: collect_sectors exceeded 45s",
-    "市场汇总仅在沪深A股全页数量核对通过时提供。"
-  ],
+  "warnings": [],
   "workflow_attempt": 1,
-  "workflow_run_id": "42846604087"
+  "workflow_run_id": "42888673135"
 }
