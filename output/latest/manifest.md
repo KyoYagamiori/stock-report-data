@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-10T15:45:41+08:00
+- 更新时间：2026-11-10T19:40:46+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-11-10
 
@@ -19,7 +19,7 @@
 |---|---|---|---|---|---|---|
 | early | A | 2026-11-10-early | 2026-11-09 | 2026-11-09T15:11:09+08:00 | output/archive/2026/11/10/early/20261110-0640-early-full-42713878375.json | `500c9f61bcc31b9f1d3ac1114437b16f7932f8a3b2fa990ebf4f19eadcf5c3fb` |
 | noon | A | 2026-11-10-noon | 2026-11-10 | 2026-11-10T11:30:00+08:00 | output/archive/2026/11/10/noon/20261110-1136-noon-full-42750406043.json | `91177893990f96b38e6d801a0fda815e9df18a875fdd8f44eb57dac4389fd71d` |
-| close | B | 2026-11-10-close | 2026-11-10 | 2026-11-10T15:35:57+08:00 | output/archive/2026/11/10/close/20261110-1544-close-full-42777303143.json | `d09d36ee97ed25ef8f067860b2071f409a8c510c204608c605facd61ae7af371` |
+| close | B | 2026-11-10-close | 2026-11-10 | 2026-11-10T15:35:57+08:00 | output/archive/2026/11/10/close/20261110-1939-close-full-42809144220.json | `3eac086da6611903230ad2644214b657fa7f70f844bec5e824da0fbf26884c95` |
 | evening | A | 2026-11-09-evening | 2026-11-09 | 2026-11-09T15:11:09+08:00 | output/archive/2026/11/09/evening/20261109-2103-evening-full-42622033123.json | `aa589fdfbf5b2f862978c200a89094da81ba95526aa0b27df6a2ed012cd67a76` |
 | intraday | B | 2026-11-09-intraday | 2026-11-09 | 2026-11-09T14:17:33+08:00 | output/archive/2026/11/09/intraday/20261109-1417-intraday-light-42572057254.json | `1581545dcb2314c2f5210525b2cc81de43965288a43dcf47b54b7c7fa5cb5262` |
 
