@@ -1,15 +1,15 @@
 # 股票行情快照 | 2026-11-11 close
 
 - Schema：1.6.1
-- Snapshot ID：`20261111-1746-close-full-42997737377`
+- Snapshot ID：`20261111-1924-close-full-43011558967`
 - 报告周期：`2026-11-11-close`
 - 质量等级：**B**
 - 质量 Profile：`trading_close`
 - 行情日期：2026-11-11
 - 行情时间范围：2026-11-11T15:00:03+08:00 至 2026-11-11T15:35:57+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.07 分钟
-- 生成时间：2026-11-11T17:46:51+08:00
+- 调度延迟：0.45 分钟
+- 生成时间：2026-11-11T19:25:07+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -30,8 +30,8 @@
 
 - 两市成交额：暂无
 - 市场宽度：上涨 暂无 / 下跌 暂无 / 平盘 暂无 / 涨停 暂无 / 跌停 暂无
-- 强势方向：其他数字媒体(7.27%)、通信网络设备及器件(7.19%)、通信线缆及配套(6.04%)、CPO概念(5.83%)、印制电路板(5.76%)
-- 弱势方向：纺织鞋类制造(-8.40%)、涂料(-3.17%)、白酒Ⅲ(-2.97%)、白酒Ⅱ(-2.97%)、光伏主材(-2.69%)
+- 强势方向：元件(5.01%)、通信设备(4.91%)、自动化设备(3.14%)、半导体(3.09%)、游戏(3.03%)
+- 弱势方向：白酒(-3.08%)、机场航运(-1.49%)、保险(-0.68%)、饮料制造(-0.62%)、食品加工制造(-0.53%)
 
 ## 观察池行情
 
@@ -66,4 +66,4 @@
 ## 数据源状态
 
 - `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=全市场采集未完整通过：RuntimeError: ValueError: incomplete market coverage: 5350/5341；市场汇总仅在沪深A股全页数量核对通过时提供。
+- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=全市场采集未完整通过：RuntimeError: ValueError: incomplete market coverage: 5350/5341；AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；市场汇总仅在沪深A股全页数量核对通过时提供。
