@@ -1,0 +1,592 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261111T144812-early",
+  "scope": "SSE/SZSE ordinary A-shares; all sectors; main board, ChiNext, STAR; BSE/B/CDR excluded",
+  "market_date": "2026-11-10",
+  "market_cutoff": "2026-11-10T15:00:00+08:00",
+  "report_date": "2026-11-11",
+  "phase": "early",
+  "planned_at": "2026-11-11T14:48:12.089727+08:00",
+  "planned_at_basis": "actual_collection_start_not_scheduler_due_time",
+  "started_at": "2026-11-11T14:48:12.089727+08:00",
+  "published_at": "2026-11-11T14:50:28.425012+08:00",
+  "elapsed_seconds": 131.76,
+  "point_in_time_recovered": true,
+  "universe_count": 5224,
+  "exchange_counts": {
+    "SZ": 2906,
+    "SH": 2318
+  },
+  "universe_fresh": false,
+  "universe_provenance": {
+    "schema_version": 1,
+    "mode": "same_day_immutable_official",
+    "asof": "2026-11-11",
+    "version_date": "2026-11-11",
+    "retrieved_at": "2026-11-11T14:17:47.209305+08:00",
+    "fresh": false,
+    "freshness_reasons": [
+      "official_refresh_failed: ValueError: sse_main: HTTPError: HTTP Error 403: Forbidden; sse_star: HTTPError: HTTP Error 403: Forbidden"
+    ],
+    "point_in_time_compatible": true,
+    "source_version_dates": {
+      "sse_main": null,
+      "sse_star": null,
+      "szse": "2026-11-11"
+    },
+    "sse_source_version_unknown": true,
+    "counts": {
+      "total": 5224,
+      "combined_total": 5224,
+      "exchange_counts": {
+        "SH": 2318,
+        "SZ": 2906
+      },
+      "board_counts": {
+        "SZ_main": 1495,
+        "SZ_chinext": 1411,
+        "SH_main": 1700,
+        "SH_star": 618
+      },
+      "unique_codes": 5224,
+      "duplicates": [],
+      "complete": true
+    },
+    "total": 5224,
+    "combined_total": 5224,
+    "official_reported_total_including_exclusions": 5225,
+    "source_counts": {
+      "sse_main": 1700,
+      "sse_star": 619,
+      "szse": 2906
+    },
+    "sources": {
+      "sse_main": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=1&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-11-11T14:17:41.754688+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Wed, 11 Nov 2026 06:17:40 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "1944407"
+        },
+        "bytes": 1944407,
+        "sha256": "9091532defee9e7e46d57d52b0efc9805d1d7325431ffd3200551693bce3bce2",
+        "raw_file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/sse_main.json",
+        "attempt_count": 1,
+        "earlier_errors": [],
+        "reported_total": 1700,
+        "downloaded_rows": 1700,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-11-11",
+        "original_raw_file": "output/boll/archive/2026-11-11/20261111T141734068411-membership/universe_sources/sse_main.json",
+        "raw_file_available": true
+      },
+      "sse_star": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=8&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-11-11T14:17:46.507743+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Wed, 11 Nov 2026 06:17:40 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "716454"
+        },
+        "bytes": 716454,
+        "sha256": "86371dca3d46f1d7a53de2b74e94d9dc3092340f36e65dcc8f1162b3bee246eb",
+        "raw_file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/sse_star.json",
+        "attempt_count": 1,
+        "earlier_errors": [],
+        "reported_total": 619,
+        "downloaded_rows": 619,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-11-11",
+        "original_raw_file": "output/boll/archive/2026-11-11/20261111T141734068411-membership/universe_sources/sse_star.json",
+        "raw_file_available": true
+      },
+      "szse_metadata": {
+        "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1110&TABKEY=tab1&PAGENO=1",
+        "retrieved_at": "2026-11-11T14:17:37.680691+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Wed, 11 Nov 2026 06:17:37 GMT",
+          "content-type": "application/json",
+          "content-length": "21478"
+        },
+        "bytes": 21478,
+        "sha256": "b4612f393ffa7f79d7169b26bcbe1c80f713872482886f199e4c82a2a8ad1ce3",
+        "raw_file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/szse_metadata.json",
+        "attempt_count": 2,
+        "earlier_errors": [
+          "URLError:<urlopen error [Errno 104] Connection reset by peer>"
+        ],
+        "reported_total": 2906,
+        "downloaded_rows": 2906,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-11",
+        "http_server_date": "2026-11-11",
+        "original_raw_file": "output/boll/archive/2026-11-11/20261111T141734068411-membership/universe_sources/szse_metadata.json",
+        "raw_file_available": true
+      },
+      "szse_xlsx": {
+        "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1",
+        "retrieved_at": "2026-11-11T14:17:39.477740+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Wed, 11 Nov 2026 06:17:37 GMT",
+          "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=GBK",
+          "content-length": "545422"
+        },
+        "bytes": 545422,
+        "sha256": "2b00365d92f963b14327d2dcf51567aa1d2a0f5677a48ce32bcf6c3dd72222a6",
+        "raw_file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/szse_xlsx.xlsx",
+        "attempt_count": 2,
+        "earlier_errors": [
+          "URLError:<urlopen error [Errno 104] Connection reset by peer>"
+        ],
+        "reported_total": 2906,
+        "downloaded_rows": 2906,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-11",
+        "http_server_date": "2026-11-11",
+        "original_raw_file": "output/boll/archive/2026-11-11/20261111T141734068411-membership/universe_sources/szse_xlsx.xlsx",
+        "raw_file_available": true
+      }
+    },
+    "source_audits": {
+      "sse_main": {
+        "reported_total": 1700,
+        "downloaded_rows": 1700,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+      },
+      "sse_star": {
+        "reported_total": 619,
+        "downloaded_rows": 619,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+      },
+      "szse": {
+        "reported_total": 2906,
+        "downloaded_rows": 2906,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-11"
+      }
+    },
+    "excluded": [
+      {
+        "code": "689009",
+        "reason": "CDR"
+      }
+    ],
+    "ordinary_A_share_policy": "All official listing states retained; ST, suspension, liquidity and history filtering occurs later.",
+    "universe_sha256": "3ad2a2fec73ad00b17c57e8c500d588c7f3cc5e2179d9e772aeb3be6f291cc39",
+    "frozen_source": {
+      "report_date": "2026-11-11",
+      "published_at": "2026-11-11T14:17:47.334170+08:00",
+      "universe_file": "output/boll/archive/2026-11-11/20261111T141734068411-membership/universe.json",
+      "universe_sha256": "85bba6bea5fdd7341ed123796d6d220a7dc6db63a59b9f2eb6df970a1dc185c2",
+      "universe_count": 5224,
+      "accepted": true
+    },
+    "source_bytes_verified": true,
+    "reuse_note": "Same-day official source evidence reused; not a new live refresh."
+  },
+  "universe_current": true,
+  "universe_source_evidence": {
+    "sse_main": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/sse_main.json",
+      "sha256": "9091532defee9e7e46d57d52b0efc9805d1d7325431ffd3200551693bce3bce2"
+    },
+    "sse_star": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/sse_star.json",
+      "sha256": "86371dca3d46f1d7a53de2b74e94d9dc3092340f36e65dcc8f1162b3bee246eb"
+    },
+    "szse_metadata": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/szse_metadata.json",
+      "sha256": "b4612f393ffa7f79d7169b26bcbe1c80f713872482886f199e4c82a2a8ad1ce3"
+    },
+    "szse_xlsx": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/universe_sources/szse_xlsx.xlsx",
+      "sha256": "2b00365d92f963b14327d2dcf51567aa1d2a0f5677a48ce32bcf6c3dd72222a6"
+    }
+  },
+  "universe_file": "output/boll/archive/2026-11-10/20261111T144812-early/universe.json",
+  "universe_sha256": "1357fe6d78d8d582e9b76715c8b878807ab5d954a80334b22ae34189592847ba",
+  "status_counts": {
+    "screened": 4970,
+    "excluded": 253,
+    "unresolved": 1
+  },
+  "unresolved_count": 1,
+  "unresolved_codes": [
+    "688053"
+  ],
+  "all_codes_accounted_for": true,
+  "technical_screen_complete": false,
+  "candidate_count": 20,
+  "parameters": {
+    "history_bars": 160,
+    "adjustment": "unadjusted",
+    "boll": {
+      "n": 20,
+      "stddev": 2,
+      "ddof": 0
+    },
+    "kdj": {
+      "n": 9,
+      "k": 3,
+      "d": 3,
+      "seed": 50
+    },
+    "macd": {
+      "fast": 12,
+      "slow": 26,
+      "signal": 9,
+      "histogram_multiplier": 2
+    }
+  },
+  "record_shards": [
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/000001-000518.json",
+      "count": 100,
+      "sha256": "b9a9abf88158715f13dbd9af3bc42c4290d4df259db029607d23169e5a647d1d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/000519-000672.json",
+      "count": 100,
+      "sha256": "fc4c26b66692da0e8d7d64843c5e85c254dc17e251ac33b3266a967f5c4c493f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/000676-000822.json",
+      "count": 100,
+      "sha256": "c6457fb91d7ddad450caa9bf727aea1566cb086359eca5eeada6a7d3052ee37c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/000823-000981.json",
+      "count": 100,
+      "sha256": "619f81399677f41fb028d992e729dd82d6011825a6906f0f107b6ea54a34f791"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/000983-001338.json",
+      "count": 100,
+      "sha256": "06e5cc5571151d0664cb1fefea2a44ce0a260fedd482bdc96d307b7a86732af5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/001339-002069.json",
+      "count": 100,
+      "sha256": "82aea6cee7bf649e4a858afce515e0a46e31ff23d16964725e8eab31343c85d1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002072-002177.json",
+      "count": 100,
+      "sha256": "3226defc11f0427db972770e8f0183c93eb6cd4df6bec98de28b5602e9ca0f7e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002178-002282.json",
+      "count": 100,
+      "sha256": "a5a18add47048b37726a50dc4e5c1074dd03d6ce82cfedc260a48cbaaf2b2a3b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002283-002388.json",
+      "count": 100,
+      "sha256": "eb8f11d820af19716d1de61b4638209a01fa43d4ab94f3eebdd4eb3d60da02ad"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002389-002497.json",
+      "count": 100,
+      "sha256": "87fe04f65aaed9617f8b5be165f0219e449342a12ff0dd3b0c920f99f31906d9"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002498-002605.json",
+      "count": 100,
+      "sha256": "9658b44010cd00f69e057cb4bd15eef2f72f7e1bf99096025fc12791e0b3ff7e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002606-002716.json",
+      "count": 100,
+      "sha256": "a2762bb29cb15c5a3eb6f8ed199bef478e7719f8e147cfa4bd0784825a5c992a"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002717-002831.json",
+      "count": 100,
+      "sha256": "961cf889607ab237916e25a28fbc5010854b6f6eab66fc5bf506ccdd88980e3c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002832-002941.json",
+      "count": 100,
+      "sha256": "522f1028988120a202a9af897c5b5be0a2cc76f36929cbe4c411130f51e097db"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/002942-300005.json",
+      "count": 100,
+      "sha256": "f9e82e52bc12f1acbc0a0c95c59d66161b1aa6ce7717062bd1086fd2e9b02292"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300006-300118.json",
+      "count": 100,
+      "sha256": "e3f1393254673cc130f90b7b4744b7691d42210904296ac468bb61fdf0cd16bc"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300119-300224.json",
+      "count": 100,
+      "sha256": "87ea07e736cc7aeee0558c540a2481c3754d25330c187d8cfc1b61461771dba8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300225-300333.json",
+      "count": 100,
+      "sha256": "891573f2039347476c3f182eec778fc3c3fd14fc9086b36bb54ad99b41eaeb72"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300334-300444.json",
+      "count": 100,
+      "sha256": "aa4acc34b4658f37c53434d4077f65e921fc5e65fb33eed794a081ce433e626a"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300445-300548.json",
+      "count": 100,
+      "sha256": "0f5b8e65a925d342af2f52aa4f891cbaa80fd19edab02211f7ee8f4e527310c5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300549-300651.json",
+      "count": 100,
+      "sha256": "a5088587b6fdcd7ff02428d62a42705bee26b51ae332dac21a55d3f2b3722056"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300652-300758.json",
+      "count": 100,
+      "sha256": "4d16a752b23cff237f206f85d8476668d36e65334a5b5fe90ccc58bc9fd02c67"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300759-300861.json",
+      "count": 100,
+      "sha256": "9bce22f72bb043037883d92e4f9fc56fb12ba6acbb46b8ca7362840d9391757f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300862-300967.json",
+      "count": 100,
+      "sha256": "eccbbc06eb3816dfcafda21b5b6b416419e506150f3dc86a809c15b4fb660ace"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/300968-301073.json",
+      "count": 100,
+      "sha256": "cf7edd192012db863f78f776db5ff52a1b06d39ef2717e3ad29be6ff8c30c72f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/301075-301192.json",
+      "count": 100,
+      "sha256": "03381b104f9c0f622f152ae8522c1008105e7b3b287987c08974ad48eee720b1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/301193-301313.json",
+      "count": 100,
+      "sha256": "9abf5aac7c6b134f1c9ea67ca0a2def63721c80b106c017ff4b3b3588f0a298a"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/301314-301510.json",
+      "count": 100,
+      "sha256": "a0f2f1747063fb3f1a69e2cd7b7d6cb25e0962facf84d0af66ab1bb700a61896"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/301511-301697.json",
+      "count": 100,
+      "sha256": "a1454f95b3464d9517607dfe40d4a9b607cd20ef08b12f7e470f53b79b711405"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/301699-600127.json",
+      "count": 100,
+      "sha256": "34b6ef19c21c20f10dab770844f1aee0fe8168500bd352fa4c1ee36fa71a67ba"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600128-600259.json",
+      "count": 100,
+      "sha256": "6144d04b8bcf72535229d9e1d6fa836d1db7d393dfaf979a19d57b8c00c16b21"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600261-600392.json",
+      "count": 100,
+      "sha256": "c36894724109556cba3921c69bc52592d3add73e07bf18ff89fbec3b5cc48f1f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600395-600539.json",
+      "count": 100,
+      "sha256": "6cacf779998fd0404051ca5c1e01b507812d77967e0be83697b99e26e2f04266"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600540-600664.json",
+      "count": 100,
+      "sha256": "985240b19ac24a109ec439dcdb2d154029aaaa2b5e00b36d85fa1d65f030b52b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600665-600784.json",
+      "count": 100,
+      "sha256": "459628937ec74b6fac012ce602062e9ead1434116216e9bc788b04e4d857578b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600785-600916.json",
+      "count": 100,
+      "sha256": "82accd18660723d90c977cfd85799e64287cefded334343783645a31d35ee907"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/600917-601117.json",
+      "count": 100,
+      "sha256": "544d8582524e196f709a71df2d24e2147694c35548c37f8a2c994b4b959fe0dd"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/601118-601678.json",
+      "count": 100,
+      "sha256": "637b2bd3b0f3b878a336fe44189bd4cae61d0b75a65323d14229c2721556f3ca"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/601686-603022.json",
+      "count": 100,
+      "sha256": "e2225d8f50d93e1b91ce7c948ba318a3e15f1d10aacc73c20da99b5a370c6af2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603023-603137.json",
+      "count": 100,
+      "sha256": "e49e59162b9cae75b65fa8a24987602f9cca9b364e3015fb008346808fd3bc82"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603138-603273.json",
+      "count": 100,
+      "sha256": "fe566e0f0ad362a61bcf0e1283cbb28f5322afb6ff3841a8982c42af5b605c07"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603275-603398.json",
+      "count": 100,
+      "sha256": "7afed1c2c7f9db73304415ac684fd9bb407893c72f6a7fe223c8dfe6478d6736"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603399-603650.json",
+      "count": 100,
+      "sha256": "97b1eb740bc197d471573f2d2e2e2fc75f76b19706789e53fe17b7cd36253c81"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603655-603833.json",
+      "count": 100,
+      "sha256": "8ac2ed8d81d9515a482bbf8db77068e10be91b89d3e54a425ae5c84f1d68c159"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/603836-605008.json",
+      "count": 100,
+      "sha256": "18678ba8be3f34f3ba30b1823ea6ada2038f2715691feebf46d8fd2ff94f64ef"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/605009-605567.json",
+      "count": 100,
+      "sha256": "9374c389c029456cef499347d392a0bcbd9d276e2f3cdbf8fd0e229a5f504e27"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/605577-688107.json",
+      "count": 100,
+      "sha256": "639e9cf94f8e662a25f845635c75644ca1143ea559d15e96044f3ea1e5b79f18"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688108-688220.json",
+      "count": 100,
+      "sha256": "9ea5b16ee6b8652dc8ae5aad3fe249ef094d89db56cde4d2d7c91956317114a4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688221-688336.json",
+      "count": 100,
+      "sha256": "336c6d9f75d78f81aba7ba72466623974eb41fca859b4773c649e1278b829e9e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688337-688505.json",
+      "count": 100,
+      "sha256": "0ba714ef02ba34cf4ae16927b20e5f78a9d02a9271a9a4461306510ba23e7245"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688506-688627.json",
+      "count": 100,
+      "sha256": "7eb438be0116679f71f3fa35832a0f6c106780d780720a9bfdc3710094890e7d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688628-688797.json",
+      "count": 100,
+      "sha256": "6ec5cd982d732efe30188843189e48d2074e274cd0cc27a926df59d54dbfdd6e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-10/20261111T144812-early/records/688798-688981.json",
+      "count": 24,
+      "sha256": "2c4328f98f6485bb01b063090b670645e3a02a176b9bbb3a45596379901825df"
+    }
+  ],
+  "candidate_file": "output/boll/archive/2026-11-10/20261111T144812-early/candidates.json",
+  "company_diligence_complete": false,
+  "focus_stock_code": null,
+  "recommendation_status": "partial_screen_candidate_review_required",
+  "quality_note": "Technical screen coverage and company research are separate. No automatic recommendation or statistical win rate.",
+  "update_methods": {
+    "cache_hit": 5026,
+    "risk_warning_exclusion": 194,
+    "verified_same_session_no_trade_reuse": 3,
+    "history_fetch": 1
+  },
+  "research_shadow": {
+    "selected_file": "output/boll/archive/2026-11-10/20261111T144812-early/research_shadow.json",
+    "sha256": "ef884b649368c75e89aefb0e23bba8096785e24497774d0a984195175752cf5b",
+    "reader_file": "output/boll/archive/2026-11-10/20261111T144812-early/research_queue.json",
+    "reader_sha256": "ee27a0632d7469cddcacc659a11baed19ab6762e26b5c1616c8836c95e944980",
+    "mode": "shadow",
+    "feature_version": "boll_context_atr_v2",
+    "evaluated_count": 5224,
+    "feature_available_count": 4970,
+    "pool_counts": {
+      "squeeze_breakout": 20,
+      "trend_pullback": 20,
+      "trend_repair": 20
+    },
+    "entry_qualified_count": 0,
+    "activation_status": "blocked_pending_historical_out_of_sample_and_20_session_shadow_review"
+  },
+  "early_signals": {
+    "reader_file": "output/boll/archive/2026-11-10/20261111T144812-early/early_queue.json",
+    "reader_sha256": "9894ec539d8f220caedddde08793212b8d7eb7487a6cf55eea7679dc190c6fae",
+    "method_version": "boll_early_v3_20261105",
+    "mode": "active_research_discovery_unvalidated_ranking",
+    "feature_available_count": 3795,
+    "evaluated_count": 5224,
+    "pool_counts": {
+      "fresh_mid_reclaim": 20,
+      "first_mid_retest": 5,
+      "squeeze_prepare": 20,
+      "first_expansion": 12
+    },
+    "model_status": "not_trained"
+  },
+  "candidate_sha256": "33d78bbf78e09a3beec0219f21c8e22ebb5f9e021f6e41f09f8cb27e86f1941f"
+}
