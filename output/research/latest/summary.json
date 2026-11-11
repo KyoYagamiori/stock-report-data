@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-11T17:39:22.652495+08:00",
+  "generated_at": "2026-11-11T17:44:19.729793+08:00",
   "experiment_id": "boll_multisetup_v2_20261103",
   "mode": "shadow",
   "production_strategy": "boll_v1",
@@ -262,7 +262,7 @@
     "corporate_action_adjusted_history": "not_supplied",
     "out_of_sample_model": "not_trained",
     "production_activation": false,
-    "pilot_model": "not_trained"
+    "pilot_model": "trained_pilot_only"
   },
   "screen_source": {
     "market_date": "2026-11-10",
@@ -350,15 +350,15 @@
       "audited_t_plus_1_limits_and_fills"
     ],
     "historical_pilot": {
-      "status": "blocked_source_or_dataset",
-      "model_status": "not_trained",
-      "generated_at": "2026-11-11T16:56:39.992053+08:00",
+      "status": "pilot_results_not_production_qualified",
+      "model_status": "trained_pilot_only",
+      "generated_at": "2026-11-11T17:43:18.091683+08:00",
       "sample_size": 32,
       "history_start": "2017-01-01",
       "history_end": "2026-11-10",
-      "feature_dates": null,
-      "training_rows": null,
-      "source_failures": null,
+      "feature_dates": 1195,
+      "training_rows": 2097,
+      "source_failures": {},
       "remaining_gaps": [
         "full_historical_universe_not_collected",
         "provider_index_needs_independent_official_tieout",
@@ -367,28 +367,30 @@
         "historical_signal_times_are_simulated_not_published",
         "live_feature_basis_and_market_reference_parity_pending",
         "censored_outcomes_prevent_full_strategy_performance_claim",
-        "risk_execution_and_forward_review_pending"
+        "risk_execution_and_forward_review_pending",
+        "historical_st_status_not_supplied",
+        "unobserved_price_dates_not_classified_as_verified_halts"
       ],
-      "next_action": "repair_reported_source_or_dataset_gap_then_resume_cached_requests",
-      "result_file": null,
-      "reason": "baostock_login:10002007:网络接收错误。",
-      "error_type": "RuntimeError",
+      "next_action": "expand_historical_universe_and_independently_audit_execution_and_sources",
+      "result_file": "output/history_pilot/experiments/b3348c81caf00074/model_result.json",
+      "reason": null,
+      "error_type": null,
       "formal_model_status": "not_trained",
-      "provider": null,
-      "label_scope": null,
-      "selected_model": null
+      "provider": "qlib_public_release",
+      "label_scope": "hypothetical_price_returns_st_status_unknown",
+      "selected_model": "ridge"
     }
   },
   "historical_training": {
-    "status": "blocked_source_or_dataset",
-    "model_status": "not_trained",
-    "generated_at": "2026-11-11T16:56:39.992053+08:00",
+    "status": "pilot_results_not_production_qualified",
+    "model_status": "trained_pilot_only",
+    "generated_at": "2026-11-11T17:43:18.091683+08:00",
     "sample_size": 32,
     "history_start": "2017-01-01",
     "history_end": "2026-11-10",
-    "feature_dates": null,
-    "training_rows": null,
-    "source_failures": null,
+    "feature_dates": 1195,
+    "training_rows": 2097,
+    "source_failures": {},
     "remaining_gaps": [
       "full_historical_universe_not_collected",
       "provider_index_needs_independent_official_tieout",
@@ -397,15 +399,17 @@
       "historical_signal_times_are_simulated_not_published",
       "live_feature_basis_and_market_reference_parity_pending",
       "censored_outcomes_prevent_full_strategy_performance_claim",
-      "risk_execution_and_forward_review_pending"
+      "risk_execution_and_forward_review_pending",
+      "historical_st_status_not_supplied",
+      "unobserved_price_dates_not_classified_as_verified_halts"
     ],
-    "next_action": "repair_reported_source_or_dataset_gap_then_resume_cached_requests",
-    "result_file": null,
-    "reason": "baostock_login:10002007:网络接收错误。",
-    "error_type": "RuntimeError",
+    "next_action": "expand_historical_universe_and_independently_audit_execution_and_sources",
+    "result_file": "output/history_pilot/experiments/b3348c81caf00074/model_result.json",
+    "reason": null,
+    "error_type": null,
     "formal_model_status": "not_trained",
-    "provider": null,
-    "label_scope": null,
-    "selected_model": null
+    "provider": "qlib_public_release",
+    "label_scope": "hypothetical_price_returns_st_status_unknown",
+    "selected_model": "ridge"
   }
 }
