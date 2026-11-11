@@ -3,6 +3,8 @@ from datetime import date, timedelta
 import json
 from pathlib import Path
 import tempfile
+import subprocess
+import textwrap
 import unittest
 
 from research_system.early_model import run_registered, validate
@@ -28,6 +30,40 @@ def bars(n=250):
 
 
 class HistoricalTrainingTests(unittest.TestCase):
+    def test_rebased_model_commit_is_actually_pushed_even_with_clean_index(self):
+        def git(cwd, *args):
+            return subprocess.check_output(["git", *args], cwd=cwd, text=True, stderr=subprocess.STDOUT)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote, producer, concurrent = root / "remote.git", root / "producer", root / "concurrent"
+            git(root, "init", "--bare", "--initial-branch=main", str(remote))
+            git(root, "clone", str(remote), str(producer))
+            git(producer, "config", "user.name", "test")
+            git(producer, "config", "user.email", "test@example.invalid")
+            write(producer / "output/research/latest/history_pilot_status.json", {"model_status": "not_trained"})
+            write(producer / "output/history_pilot/source.json", {"source": "fixture"})
+            git(producer, "add", ".")
+            git(producer, "commit", "-m", "initial")
+            git(producer, "push", "origin", "HEAD:main")
+            git(root, "clone", str(remote), str(concurrent))
+            git(concurrent, "config", "user.name", "test")
+            git(concurrent, "config", "user.email", "test@example.invalid")
+            (concurrent / "unrelated.txt").write_text("concurrent public report")
+            git(concurrent, "add", ".")
+            git(concurrent, "commit", "-m", "concurrent update")
+            git(concurrent, "push", "origin", "HEAD:main")
+            write(producer / "output/research/latest/history_pilot_status.json", {"model_status": "trained_pilot_only"})
+            write(producer / "output/history_pilot/model.json", {"kind": "fixture_model"})
+            workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/history-training.yml").read_text()
+            block = workflow.split("      - name: Preserve historical evidence", 1)[1].split("        run: |\n", 1)[1].split("\n      - name:", 1)[0]
+            completed = subprocess.run(["bash", "-euo", "pipefail", "-c", textwrap.dedent(block)],
+                                       cwd=producer, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            self.assertEqual(0, completed.returncode, completed.stdout)
+            actual = json.loads(git(root, "--git-dir=" + str(remote), "show", "main:output/research/latest/history_pilot_status.json"))
+            self.assertEqual("trained_pilot_only", actual["model_status"])
+            self.assertIn("fixture_model", git(root, "--git-dir=" + str(remote), "show", "main:output/history_pilot/model.json"))
+            self.assertIn("concurrent public report", git(root, "--git-dir=" + str(remote), "show", "main:unrelated.txt"))
+
     def test_selection_is_historical_and_independent_of_current_status_and_row_order(self):
         source = [{"code": c, "status": "0"} for c in ("sh.600001", "sh.600002", "sz.000001", "sz.002001", "sh.000300")]
         original = select_cohort(source, 3, "fixed")
