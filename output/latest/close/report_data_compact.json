@@ -226,9 +226,9 @@
     "total_turnover",
     "market_breadth"
   ],
-  "planned_at": "2026-11-11T17:37:00+08:00",
+  "planned_at": "2026-11-11T17:46:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-11-11T17:39:45+08:00",
+  "published_at": "2026-11-11T17:46:51+08:00",
   "quality_grade": "B",
   "quality_profile": "trading_close",
   "quality_reasons": [
@@ -243,53 +243,130 @@
   "report_cycle": "2026-11-11-close",
   "report_date": "2026-11-11",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 0.98,
+  "schedule_delay_minutes": 0.07,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261111-1737-close-full-42996637209",
+  "snapshot_id": "20261111-1746-close-full-42997737377",
   "snapshot_mode": "full",
   "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
-        "全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)",
+        "全市场采集未完整通过：RuntimeError: ValueError: incomplete market coverage: 5350/5341",
         "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-11-11T17:39:45+08:00",
+      "finished_at": "2026-11-11T17:46:51+08:00",
       "records_expected": 5,
       "records_valid": 1,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-11T17:37:59+08:00",
+      "started_at": "2026-11-11T17:46:04+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
         "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-11-11T17:38:36+08:00",
+      "finished_at": "2026-11-11T17:46:10+08:00",
       "records_expected": 25,
       "records_valid": 25,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-11T17:37:59+08:00",
+      "started_at": "2026-11-11T17:46:04+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-11-11T17:37:59+08:00",
+  "started_at": "2026-11-11T17:46:04+08:00",
   "stocks": [
     {
       "amount": 3616391630.0,
       "amount_unit": "CNY",
+      "boll_lower": 47.619554924908606,
+      "boll_mid": 54.158,
+      "boll_upper": 60.6964450750914,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 54.4,
+          "date": "2026-11-11",
+          "high": 54.65,
+          "low": 52.14,
+          "open": 52.69,
+          "volume": 67647176.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:34:59+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "600584",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 54.4,
+        "date": "2026-11-11",
+        "high": 54.65,
+        "low": 52.14,
+        "open": 52.69,
+        "volume": 67647176.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 47.4323192283868,
+      "kdj_j": 91.6542736434842,
+      "kdj_k": 62.17297070008593,
+      "kdj_previous_d": 40.06199349253723,
+      "kdj_previous_j": 76.7244448595798,
+      "kdj_previous_k": 52.28281061488476,
       "latest_price": 54.4,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 51.529999999999994,
+      "ma20": 54.158,
+      "ma5": 53.07000000000001,
+      "ma60": 65.45083333333335,
+      "ma_alignment": "mixed_or_converging",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -3.765668196851303,
+      "macd_dif": -3.1033178173174107,
+      "macd_hist": 1.3247007590677846,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "长电科技",
       "pct_change": 3.069344448654787,
       "pool": "core",
       "previous_close": 52.78,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:34:59+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 3616391630.0,
@@ -303,18 +380,31 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 659715007.0,
       "amount_unit": "CNY",
+      "close_quote_verified": false,
+      "close_verification": {
+        "daily_bar": {},
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:34:59+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "unverified"
+      },
       "code": "688820",
-      "indicator_status": "missing",
+      "indicator_adjustment": "unadjusted",
+      "indicator_history_rows": 137,
+      "indicator_is_completed_daily": true,
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "insufficient_history",
+      "indicator_warning": "Provider returned fewer than 160 completed bars; use the verified full-market daily record, not a short-window EMA/KDJ.",
       "latest_price": 84.63,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "market_asof": null,
       "name": "盛合晶微",
       "pct_change": 3.434368125152787,
       "pool": "core",
@@ -333,23 +423,98 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 3079573164.0,
       "amount_unit": "CNY",
+      "boll_lower": 95.25549382787979,
+      "boll_mid": 103.8425,
+      "boll_upper": 112.42950617212021,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 109.31,
+          "date": "2026-11-11",
+          "high": 109.39,
+          "low": 106.51,
+          "open": 106.9,
+          "volume": 28496458.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:34:59+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "688981",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 109.31,
+        "date": "2026-11-11",
+        "high": 109.39,
+        "low": 106.51,
+        "open": 106.9,
+        "volume": 28496458.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 71.97236029350881,
+      "kdj_j": 74.83406786364759,
+      "kdj_k": 72.92626281688841,
+      "kdj_previous_d": 71.49540903181902,
+      "kdj_previous_j": 74.05036232403032,
+      "kdj_previous_k": 72.34706012922278,
       "latest_price": 109.31,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 105.88700000000001,
+      "ma20": 103.8425,
+      "ma5": 109.53400000000002,
+      "ma60": 115.20416666666667,
+      "ma_alignment": "mixed_or_converging",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -2.4100219447813664,
+      "macd_dif": -0.8010057223742137,
+      "macd_hist": 3.2180324448143054,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "中芯国际",
       "pct_change": 1.4477958236658983,
       "pool": "core",
       "previous_close": 107.75,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:34:59+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 3079573164.0,
@@ -363,23 +528,98 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 2235306553.69,
       "amount_unit": "CNY",
+      "boll_lower": 53.07878964871796,
+      "boll_mid": 56.062,
+      "boll_upper": 59.04521035128204,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 56.56,
+          "date": "2026-11-11",
+          "high": 56.88,
+          "low": 54.95,
+          "open": 55.1,
+          "volume": 39973803.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:35:00+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "000977",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 56.56,
+        "date": "2026-11-11",
+        "high": 56.88,
+        "low": 54.95,
+        "open": 55.1,
+        "volume": 39973803.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 49.78060897524757,
+      "kdj_j": 85.59097335845341,
+      "kdj_k": 61.71739710298285,
+      "kdj_previous_d": 43.81221491137993,
+      "kdj_previous_j": 68.29013165046688,
+      "kdj_previous_k": 51.97152049107558,
       "latest_price": 56.56,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 55.15,
+      "ma20": 56.062,
+      "ma5": 55.836,
+      "ma60": 67.42,
+      "ma_alignment": "mixed_or_converging",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -3.3350511819091637,
+      "macd_dif": -2.646374228362305,
+      "macd_hist": 1.3773539070937177,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "浪潮信息",
       "pct_change": 1.81818181818183,
       "pool": "core",
       "previous_close": 55.55,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:35:00+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 2235306553.69,
@@ -393,23 +633,98 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 2031207281.09,
       "amount_unit": "CNY",
+      "boll_lower": 23.083913192653494,
+      "boll_mid": 24.857999999999997,
+      "boll_upper": 26.6320868073465,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 25.32,
+          "date": "2026-11-11",
+          "high": 25.4,
+          "low": 24.67,
+          "open": 24.75,
+          "volume": 81021730.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:35:15+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "000938",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 25.32,
+        "date": "2026-11-11",
+        "high": 25.4,
+        "low": 24.67,
+        "open": 24.75,
+        "volume": 81021730.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 52.82466720380427,
+      "kdj_j": 99.52001794317755,
+      "kdj_k": 68.3897841169287,
+      "kdj_previous_d": 45.042108747242054,
+      "kdj_previous_j": 84.85731103169496,
+      "kdj_previous_k": 58.31384284205969,
       "latest_price": 25.32,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 24.226,
+      "ma20": 24.858,
+      "ma5": 24.836000000000002,
+      "ma60": 31.240166666666664,
+      "ma_alignment": "mixed_or_converging",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -1.8925489755657596,
+      "macd_dif": -1.4732233397237025,
+      "macd_hist": 0.8386512716841144,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "紫光股份",
       "pct_change": 1.8094089264173663,
       "pool": "core",
       "previous_close": 24.87,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:35:15+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 2031207281.09,
@@ -423,23 +738,98 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 1340897836.0,
       "amount_unit": "CNY",
+      "boll_lower": 69.1684097147218,
+      "boll_mid": 75.56899999999999,
+      "boll_upper": 81.96959028527817,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 79.26,
+          "date": "2026-11-11",
+          "high": 79.56,
+          "low": 77.88,
+          "open": 78.0,
+          "volume": 16996213.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:34:59+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "603019",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 79.26,
+        "date": "2026-11-11",
+        "high": 79.56,
+        "low": 77.88,
+        "open": 78.0,
+        "volume": 16996213.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 74.77045839913174,
+      "kdj_j": 95.32729957370009,
+      "kdj_k": 81.62273879065452,
+      "kdj_previous_d": 71.34431820337035,
+      "kdj_previous_j": 92.00974942035108,
+      "kdj_previous_k": 78.23279527569726,
       "latest_price": 79.26,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 76.586,
+      "ma20": 75.56899999999999,
+      "ma5": 78.578,
+      "ma60": 80.48133333333335,
+      "ma_alignment": "mixed_or_converging",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -0.8405057504573669,
+      "macd_dif": -0.02033198715491835,
+      "macd_hist": 1.640347526604897,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "中科曙光",
       "pct_change": 0.8396946564885654,
       "pool": "core",
       "previous_close": 78.6,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:34:59+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 1340897836.0,
@@ -453,9 +843,7 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 10113114996.0,
@@ -1510,16 +1898,93 @@
     {
       "amount": 2663124038.45,
       "amount_unit": "CNY",
+      "boll_lower": 13.481407927492311,
+      "boll_mid": 14.816000000000003,
+      "boll_upper": 16.150592072507695,
+      "close_quote_verified": true,
+      "close_verification": {
+        "daily_bar": {
+          "close": 14.95,
+          "date": "2026-11-11",
+          "high": 14.98,
+          "low": 14.48,
+          "open": 14.48,
+          "volume": 180462432.0
+        },
+        "market_date": "2026-11-11",
+        "quote_time": "2026-11-11T15:35:45+08:00",
+        "source": "新浪240分钟未复权日线",
+        "status": "verified"
+      },
       "code": "002185",
-      "indicator_status": "missing",
+      "completed_daily_bar": {
+        "close": 14.95,
+        "date": "2026-11-11",
+        "high": 14.98,
+        "low": 14.48,
+        "open": 14.48,
+        "volume": 180462432.0
+      },
+      "indicator_adjustment": "unadjusted",
+      "indicator_asof": "2026-11-11",
+      "indicator_history_rows": 160,
+      "indicator_is_completed_daily": true,
+      "indicator_parameters": {
+        "boll": [
+          20,
+          2
+        ],
+        "histogram_multiplier": 2,
+        "history_bars": 160,
+        "kd_seed": 50,
+        "kdj": [
+          9,
+          3,
+          3
+        ],
+        "macd": [
+          12,
+          26,
+          9
+        ],
+        "std_ddof": 0
+      },
+      "indicator_required_rows": 160,
+      "indicator_source": "新浪240分钟日线（未复权，已完成日线）",
+      "indicator_status": "ready",
+      "kdj_d": 33.802794225386286,
+      "kdj_j": 48.43143026218381,
+      "kdj_k": 38.679006237652125,
+      "kdj_previous_d": 31.36468821925337,
+      "kdj_previous_j": 24.81821512299137,
+      "kdj_previous_k": 29.18253052049937,
       "latest_price": 14.95,
       "latest_trade_date": "2026-11-11",
       "locked": false,
+      "ma10": 14.73,
+      "ma20": 14.815999999999999,
+      "ma5": 14.674000000000001,
+      "ma60": 16.179833333333335,
+      "ma_alignment": "bearish_alignment",
+      "ma_data_source": "新浪已完成日线",
+      "ma_trend_signal": "unknown",
+      "macd_dea": -0.404737315279078,
+      "macd_dif": -0.3641131194774303,
+      "macd_hist": 0.08124839160329544,
+      "market_asof": "2026-11-11T15:00:00+08:00",
       "name": "华天科技",
       "pct_change": 2.32717316906228,
       "pool": "watch",
       "previous_close": 14.61,
       "price_data_source": "新浪证券批量行情（源日期时间）",
+      "price_vs_ma10_pct": null,
+      "price_vs_ma10_position": "unknown",
+      "price_vs_ma20_pct": null,
+      "price_vs_ma20_position": "unknown",
+      "price_vs_ma5_pct": null,
+      "price_vs_ma5_position": "unknown",
+      "price_vs_ma60_pct": null,
+      "price_vs_ma60_position": "unknown",
       "quote_time": "2026-11-11T15:35:45+08:00",
       "same_phase_amount_ratio": null,
       "today_amount": 2663124038.45,
@@ -1533,9 +1998,7 @@
       "valid_quote": true,
       "volume_comparison_valid": false,
       "volume_unit": "shares",
-      "warnings": [
-        "日线指标缺失：ReadTimeout: HTTPSConnectionPool(host='quotes.sina.cn', port=443): Read timed out. (read timeout=15)"
-      ]
+      "warnings": []
     },
     {
       "amount": 7164024405.06,
@@ -2389,9 +2852,9 @@
   },
   "warnings": [
     "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。",
-    "全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)",
+    "全市场采集未完整通过：RuntimeError: ValueError: incomplete market coverage: 5350/5341",
     "市场汇总仅在沪深A股全页数量核对通过时提供。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "42996637209"
+  "workflow_run_id": "42997737377"
 }
