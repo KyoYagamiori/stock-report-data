@@ -15,11 +15,12 @@ FEATURES = BASE_FEATURES + ("signal_age_sessions", "alpha101_101")
 MODELS = ("ridge", "lightgbm")
 
 
-def validate(data):
-    rows = validate_dataset(data)
+def validate(data, scope="formal"):
+    rows = validate_dataset(data, scope=scope)
     meta = data["metadata"]
-    if (meta.get("entry_policy") != "next_eligible_open_after_publication"
-            or meta.get("execution_limits_basis") != "dated_limits_halts_unfilled_audited"):
+    expected = ("next_eligible_open_after_publication", "dated_limits_halts_unfilled_audited") if scope == "formal" else (
+        "simulated_next_session_open_no_wait", "conservative_daily_proxy_not_official_limit_tape")
+    if (meta.get("entry_policy"), meta.get("execution_limits_basis")) != expected:
         raise ValueError("executable_point_in_time_labels_required")
     for row in rows:
         if row.get("setup") not in POOLS:
@@ -136,8 +137,8 @@ def split(rows, dates, test_start, purge=5):
     return train, valid
 
 
-def experiment(data, minimum_sessions=720, holdout_sessions=120, fitter=fit):
-    rows = validate(data)
+def experiment(data, minimum_sessions=720, holdout_sessions=120, fitter=fit, scope="formal"):
+    rows = validate(data, scope=scope)
     dates = sorted({r["date"] for r in rows})
     if len(dates) < minimum_sessions:
         return {"status": "blocked_insufficient_qualified_history", "feature_dates": len(dates),
@@ -161,7 +162,7 @@ def experiment(data, minimum_sessions=720, holdout_sessions=120, fitter=fit):
         folds.append({"train_start": min(r["date"] for r in train), "validation_start": min(r["date"] for r in valid),
                       "test_start": dates[t], "models": result})
     if not folds:
-        return {"status": "blocked_no_usable_rolling_folds", "production_activation": False}
+        return {"status": "blocked_no_usable_rolling_folds", "model_status": "not_trained", "production_activation": False}
     # Choose by DEVELOPMENT validation only. A tiny margin favours the simpler control.
     quality = {k: summarize(v)["paired_early_rule_improvement_pct"] for k, v in validation.items()}
     chosen = "lightgbm" if quality["lightgbm"] > quality["ridge"] + .02 else "ridge"
@@ -169,7 +170,9 @@ def experiment(data, minimum_sessions=720, holdout_sessions=120, fitter=fit):
     model = fitter(chosen, train, valid)
     holdout = [r for r in rows if r["date"] >= dates[boundary]]
     final = summarize(daily_results(holdout, predictions(model, holdout)))
-    return {"status": "research_results_require_execution_and_source_review", "selected_model": chosen,
+    return {"status": "pilot_results_not_production_qualified" if scope == "pilot" else "research_results_require_execution_and_source_review",
+        "model_status": "trained_pilot_only" if scope == "pilot" else "trained_research_only", "dataset_scope": scope,
+        "feature_dates": len(dates), "training_rows": len(rows), "selected_model": chosen,
         "selection_basis": "development_validation_only_simpler_model_margin_0.02_percentage_point",
         "validation_comparison": quality, "rolling_folds": folds, "locked_holdout_start": dates[boundary],
         "final_holdout": final, "model": model, "production_activation": False, "probabilities_enabled": False,
@@ -213,6 +216,12 @@ def run_registered(root):
             raise ValueError("registered_model_dataset_hash_mismatch")
         result = experiment(json.loads(raw))
         result["dataset_sha256"] = reference["sha256"]
+    pilot_path = root / "output/research/latest/history_pilot_status.json"
+    if pilot_path.exists():
+        pilot = json.loads(pilot_path.read_text())
+        result["historical_pilot"] = {k: pilot.get(k) for k in (
+            "status", "model_status", "generated_at", "sample_size", "history_start", "history_end",
+            "feature_dates", "training_rows", "source_failures", "remaining_gaps", "next_action", "result_file")}
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 

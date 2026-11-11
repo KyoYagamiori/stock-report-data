@@ -193,6 +193,13 @@ def run(root, now=None):
     except (OSError, ValueError, KeyError, TypeError, ImportError) as exc:
         summary["early_model_comparison"] = {"status": "blocked", "reason": str(exc)[:300],
                                             "production_activation": False, "probabilities_enabled": False}
+    comparison = summary["early_model_comparison"]
+    # Formal and pilot readiness must not be hard-coded to the same untrained state.
+    summary["readiness"]["out_of_sample_model"] = comparison.get("model_status", "not_trained")
+    pilot = comparison.get("historical_pilot")
+    if pilot:
+        summary["historical_training"] = pilot
+        summary["readiness"]["pilot_model"] = pilot.get("model_status", "not_trained")
     write_json(state_path, state)
     write_json(tape_index_path, tape_index)
     write_json(root / "output/research/latest/summary.json", summary)

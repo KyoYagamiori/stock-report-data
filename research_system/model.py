@@ -62,14 +62,25 @@ def metrics(rows, model):
             "note": "Date-balanced fixed-horizon labels; overlapping dates are not independent portfolio trades."}
 
 
-def validate_dataset(data):
+def validate_dataset(data, scope="formal"):
     import math
     from .ledger import stamp
     meta = data.get("metadata", {})
-    if meta.get("universe_basis") != "historical_point_in_time" or meta.get("benchmark_basis") != "verified_official":
-        raise ValueError("historical_universe_and_official_benchmark_required")
-    if meta.get("corporate_actions_basis") != "asof_adjusted_and_execution_prices_retained":
-        raise ValueError("point_in_time_corporate_actions_required")
+    if scope == "formal":
+        if meta.get("universe_basis") != "historical_point_in_time" or meta.get("benchmark_basis") != "verified_official":
+            raise ValueError("historical_universe_and_official_benchmark_required")
+        if meta.get("corporate_actions_basis") != "asof_adjusted_and_execution_prices_retained":
+            raise ValueError("point_in_time_corporate_actions_required")
+        if meta.get("scope") == "pilot":
+            raise ValueError("pilot_dataset_cannot_enter_formal_training")
+    elif scope == "pilot":
+        expected = {"scope": "pilot", "universe_basis": "fixed_historical_origin_cohort",
+                    "benchmark_basis": "provider_index_not_independently_verified",
+                    "corporate_actions_basis": "causal_preclose_chain_raw_execution_retained"}
+        if any(meta.get(k) != v for k, v in expected.items()):
+            raise ValueError("explicit_pilot_dataset_contract_required")
+    else:
+        raise ValueError("unknown_dataset_scope")
     if meta.get("primary_horizon_sessions") != 3 or meta.get("costs_in_target") is not True:
         raise ValueError("t_plus_3_net_excess_label_required")
     asof = stamp(meta["asof"])
