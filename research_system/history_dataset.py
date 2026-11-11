@@ -17,7 +17,7 @@ REMAINING_GAPS = ["full_historical_universe_not_collected", "provider_index_need
     "censored_outcomes_prevent_full_strategy_performance_claim", "risk_execution_and_forward_review_pending"]
 
 
-def normalize(rows, index=False):
+def normalize(rows, index=False, allow_unknown_status=False):
     result, seen = [], set()
     for source in rows:
         day = source["date"]
@@ -34,7 +34,8 @@ def normalize(rows, index=False):
         if not row["low"] <= min(row["open"], row["close"]) <= max(row["open"], row["close"]) <= row["high"]:
             raise ValueError("invalid_history_ohlc")
         if not index:
-            if source.get("adjustflag") != "3" or source.get("tradestatus") not in {"0", "1"} or source.get("isST") not in {"0", "1"}:
+            st_values = {"0", "1", "unknown"} if allow_unknown_status else {"0", "1"}
+            if source.get("adjustflag") != "3" or source.get("tradestatus") not in {"0", "1"} or source.get("isST") not in st_values:
                 raise ValueError("unadjusted_status_and_st_fields_required")
             row.update(preclose=float(source["preclose"]), tradestatus=source["tradestatus"], isST=source["isST"])
             if not math.isfinite(row["preclose"]) or row["preclose"] <= 0:
@@ -89,12 +90,12 @@ def points_for(rows):
     return points
 
 
-def entry_rejection(bar):
+def entry_rejection(bar, allow_unknown_status=False):
     if bar is None:
         return "missing_next_session_bar"
     if bar["tradestatus"] != "1" or bar["volume"] <= 0:
         return "halt_or_no_volume"
-    if bar["isST"] != "0":
+    if bar["isST"] != "0" and not (allow_unknown_status and bar["isST"] == "unknown"):
         return "risk_warning_at_entry"
     if bar["high"] == bar["low"]:
         return "one_price_bar"
@@ -104,16 +105,18 @@ def entry_rejection(bar):
     return None
 
 
-def labels(day, raw_by_day, adjusted_by_day, calendar, benchmark, cost_bps):
+def labels(day, raw_by_day, adjusted_by_day, calendar, benchmark, cost_bps, allow_unknown_status=False):
     t = calendar.index(day)
     if t + 6 >= len(calendar):
         return None, {"state": "immature_horizon", "signal_date": day}
     entry_day, exit_days = calendar[t + 1], {h: calendar[t + 1 + h] for h in (1, 3, 5)}
     entry = raw_by_day.get(entry_day)
-    rejection = entry_rejection(entry)
+    rejection = entry_rejection(entry, allow_unknown_status)
     evidence = {"signal_date": day, "entry_date": entry_day, "scheduled_exit_dates": exit_days,
                 "entry_rule": "next_session_open_no_wait", "limit_basis": "conservative_9.5pct_mainboard_proxy",
                 "raw_entry_bar": entry, "round_trip_cost_bps_assumption": cost_bps}
+    if allow_unknown_status:
+        evidence["status_basis"] = "st_status_unknown_price_only_research_not_verified_execution"
     if rejection:
         return {h: 0.0 for h in exit_days}, {**evidence, "state": "unfilled_cash_zero", "reason": rejection,
                 "label_end_date": exit_days[5]}
@@ -137,6 +140,9 @@ def labels(day, raw_by_day, adjusted_by_day, calendar, benchmark, cost_bps):
 def build(root, manifest):
     config = manifest["config"]
     origin, end = config["cohort_date"], config["history_end"]
+    price_only = manifest.get("status_basis") == "unavailable_st_price_only_research"
+    if price_only and manifest.get("provider") != "qlib_public_release":
+        raise ValueError("price_only_scope_requires_explicit_qlib_release_provenance")
     membership = read_capture(root, manifest["membership"])
     if membership["request"] != {"method": "query_all_stock", "kwargs": {"day": origin}}:
         raise ValueError("historical_membership_request_date_mismatch")
@@ -161,19 +167,19 @@ def build(root, manifest):
             expected = {"code": code, "start_date": config["history_start"], "end_date": end, "frequency": "d", "adjustflag": "3"}
             if source["request"]["method"] != "query_history_k_data_plus" or any(source["request"]["kwargs"].get(k) != v for k, v in expected.items()):
                 raise ValueError("stock_history_request_identity_invalid")
-            raw = normalize(source["rows"])
+            raw = normalize(source["rows"], allow_unknown_status=price_only)
             if any(r["code"] != code or not config["history_start"] <= r["day"] <= end for r in raw):
                 raise ValueError("stock_history_identity_or_range_invalid")
             observed = {r["day"] for r in raw}
             expected_dates = {d for d in calendar if raw[0]["day"] <= d <= raw[-1]["day"]}
-            if observed != expected_dates:
+            if observed - expected_dates or (observed != expected_dates and not price_only):
                 raise ValueError("stock_history_has_missing_or_off_calendar_sessions")
             adjusted = causal_adjust(raw)
             points = points_for(adjusted)
             raw_map, adjusted_map = {r["day"]: r for r in raw}, {r["day"]: r for r in adjusted}
             for i in range(159, len(raw)):
                 day, bar, point = raw[i]["day"], raw[i], points[i]
-                if day < origin or bar["tradestatus"] != "1" or bar["isST"] != "0" or bar["volume"] <= 0 or bar["high"] == bar["low"]:
+                if day < origin or bar["tradestatus"] != "1" or bar["isST"] not in ({"0", "unknown"} if price_only else {"0"}) or bar["volume"] <= 0 or bar["high"] == bar["low"]:
                     continue
                 if statistics.median(r["amount"] for r in raw[i - 19:i + 1]) < config["minimum_turnover_cny"]:
                     continue
@@ -186,7 +192,7 @@ def build(root, manifest):
                 for s in setups:
                     seen.add((code, s["pool"], s["origin"]))
                 signal_dates.add(day)
-                target, audit = labels(day, raw_map, adjusted_map, calendar, benchmark, config["round_trip_cost_bps"])
+                target, audit = labels(day, raw_map, adjusted_map, calendar, benchmark, config["round_trip_cost_bps"], price_only)
                 audit.update(code=code, setup=setup["pool"], origin=setup["origin"])
                 audit_hash = digest(canonical(audit))
                 audits.append({"sha256": audit_hash, "evidence": audit})
@@ -229,8 +235,14 @@ def build(root, manifest):
         "horizon_origin": "entry_day_zero_exit_h_trading_sessions_later", "unfilled_policy": "cash_zero_excess_exposure",
         "market_reference": "provider_csi300_index_not_live_cross_sectional_median",
         "config_sha256": manifest["config_sha256"], "remaining_gaps": REMAINING_GAPS}
+    if price_only:
+        metadata.update(execution_limits_basis="price_only_proxy_st_status_unknown",
+                        st_status="not_supplied_never_assumed_normal", sparse_dates="unobserved_never_imputed",
+                        source_provider="qlib_public_release", provenance=manifest.get("provenance"))
+        metadata["remaining_gaps"] = REMAINING_GAPS + ["historical_st_status_not_supplied", "unobserved_price_dates_not_classified_as_verified_halts"]
     receipt = {"sample_size": len(manifest["selected_codes"]), "source_code_count": len(manifest["stocks"]),
         "source_failures": errors, "training_rows": len(samples), "feature_dates": len({r["date"] for r in samples}),
         "detected_signal_dates": len(signal_dates), "execution_counts": dict(Counter(a["evidence"]["state"] for a in audits)),
-        "excluded_counts": dict(excluded), "remaining_gaps": REMAINING_GAPS, "full_market_complete": False}
+        "excluded_counts": dict(excluded), "remaining_gaps": metadata["remaining_gaps"], "full_market_complete": False,
+        "label_scope": "hypothetical_price_returns_st_status_unknown" if price_only else "conservative_daily_execution_proxy"}
     return {"metadata": metadata, "rows": sorted(samples, key=lambda r: (r["date"], r["code"]))}, audits, receipt

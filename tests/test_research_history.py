@@ -8,7 +8,7 @@ import unittest
 from research_system.early_model import run_registered, validate
 from research_system.history_dataset import causal_adjust, entry_rejection, labels, normalize, points_for
 from research_system.history_source import capture, read_capture, select_cohort, write
-from research_system.history_training import run
+from research_system.history_training import run, verify_completed
 from tests.test_research_early_model import early_dataset
 
 
@@ -155,6 +155,10 @@ class HistoricalTrainingTests(unittest.TestCase):
             self.assertEqual("not_trained", result["model_status"])
             self.assertTrue((root / result["dataset_file"]).exists())
             self.assertFalse((root / "config/early_model_dataset.json").exists())
+            verify_completed(root, result)
+            dataset_file = root / result["dataset_file"]
+            dataset_file.write_bytes(dataset_file.read_bytes() + b"tampered")
+            with self.assertRaises(ValueError): verify_completed(root, result)
 
 
 if __name__ == "__main__":

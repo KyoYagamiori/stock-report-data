@@ -31,10 +31,11 @@ def write(path, value):
     temp.replace(path)
 
 
-def capture(root, request, rows):
-    payload = {"schema_version": "1.0", "provider": "baostock", "request": request,
+def capture(root, request, rows, provider="baostock", provenance=None):
+    payload = {"schema_version": "1.0", "provider": provider, "request": request,
                "acquired_at": datetime.now(TZ).isoformat(), "rows": rows,
-               "evidence_kind": "captured_api_field_values_not_original_transport_bytes"}
+               "evidence_kind": "captured_api_field_values_not_original_transport_bytes" if provider == "baostock" else "normalized_release_fields_bound_to_original_binary_members",
+               "provenance": provenance}
     raw = canonical(payload)
     path = Path(root) / "output/history_pilot/raw" / (digest(raw) + ".json.gz")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -117,16 +118,19 @@ def collect(root, config, client):
     if not start <= origin < end or end >= datetime.now(TZ).date().isoformat():
         raise ValueError("history_requires_fixed_completed_date_range")
 
+    provider = getattr(client, "provider", "baostock")
+
     def acquire(method, **kwargs):
         request = {"method": method, "kwargs": kwargs}
-        key = digest(canonical(request))
+        key = digest(canonical({"provider": provider, **request}))
         cache = root / "output/history_pilot/cache" / (key + ".json")
         if cache.exists():
             ref = json.loads(cache.read_bytes())
             if read_capture(root, ref)["request"] != request:
                 raise ValueError("history_cache_request_identity_mismatch")
             return ref
-        ref = capture(root, request, client.query(request))
+        rows = client.query(request)
+        ref = capture(root, request, rows, provider=provider, provenance=getattr(client, "provenance", None))
         write(cache, ref)
         return ref
 
@@ -144,6 +148,8 @@ def collect(root, config, client):
             failures[code] = str(exc)[:250]
         print(json.dumps({"history_code": code, "acquired": len(sources), "failed": len(failures)}), flush=True)
     result = {"schema_version": "1.0", "config": config, "config_sha256": digest(canonical(config)),
+              "provider": provider, "status_basis": getattr(client, "status_basis", "provider_supplied"),
+              "provenance": getattr(client, "provenance", None),
               "membership": membership, "calendar": calendar, "benchmark": benchmark,
               "selected_codes": codes, "stocks": sources, "source_failures": failures,
               "cohort_complete": not failures, "production_activation": False}

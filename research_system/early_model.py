@@ -20,6 +20,10 @@ def validate(data, scope="formal"):
     meta = data["metadata"]
     expected = ("next_eligible_open_after_publication", "dated_limits_halts_unfilled_audited") if scope == "formal" else (
         "simulated_next_session_open_no_wait", "conservative_daily_proxy_not_official_limit_tape")
+    if (scope == "pilot" and meta.get("execution_limits_basis") == "price_only_proxy_st_status_unknown"
+            and meta.get("source_provider") == "qlib_public_release"
+            and meta.get("st_status") == "not_supplied_never_assumed_normal"):
+        expected = ("simulated_next_session_open_no_wait", "price_only_proxy_st_status_unknown")
     if (meta.get("entry_policy"), meta.get("execution_limits_basis")) != expected:
         raise ValueError("executable_point_in_time_labels_required")
     for row in rows:
@@ -222,7 +226,7 @@ def run_registered(root):
         result["historical_pilot"] = {k: pilot.get(k) for k in (
             "status", "model_status", "generated_at", "sample_size", "history_start", "history_end",
             "feature_dates", "training_rows", "source_failures", "remaining_gaps", "next_action", "result_file",
-            "reason", "error_type", "formal_model_status")}
+            "reason", "error_type", "formal_model_status", "provider", "label_scope", "selected_model")}
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 
