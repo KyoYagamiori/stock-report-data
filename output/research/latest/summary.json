@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-11T15:51:23.617032+08:00",
+  "generated_at": "2026-11-11T16:54:25.601285+08:00",
   "experiment_id": "boll_multisetup_v2_20261103",
   "mode": "shadow",
   "production_strategy": "boll_v1",
@@ -261,7 +261,8 @@
     "official_benchmark_history": "not_supplied",
     "corporate_action_adjusted_history": "not_supplied",
     "out_of_sample_model": "not_trained",
-    "production_activation": false
+    "production_activation": false,
+    "pilot_model": "not_trained"
   },
   "screen_source": {
     "market_date": "2026-11-10",
@@ -347,6 +348,52 @@
       "official_benchmarks",
       "asof_corporate_actions",
       "audited_t_plus_1_limits_and_fills"
-    ]
+    ],
+    "historical_pilot": {
+      "status": "blocked_source_or_dataset",
+      "model_status": "not_trained",
+      "generated_at": "2026-11-11T16:54:19.226271+08:00",
+      "sample_size": 32,
+      "history_start": "2017-01-01",
+      "history_end": "2026-11-10",
+      "feature_dates": null,
+      "training_rows": null,
+      "source_failures": null,
+      "remaining_gaps": [
+        "full_historical_universe_not_collected",
+        "provider_index_needs_independent_official_tieout",
+        "official_dated_limit_and_order_fill_tape_not_supplied",
+        "corporate_action_chain_requires_event_tieout",
+        "historical_signal_times_are_simulated_not_published",
+        "live_feature_basis_and_market_reference_parity_pending",
+        "censored_outcomes_prevent_full_strategy_performance_claim",
+        "risk_execution_and_forward_review_pending"
+      ],
+      "next_action": "repair_reported_source_or_dataset_gap_then_resume_cached_requests",
+      "result_file": null
+    }
+  },
+  "historical_training": {
+    "status": "blocked_source_or_dataset",
+    "model_status": "not_trained",
+    "generated_at": "2026-11-11T16:54:19.226271+08:00",
+    "sample_size": 32,
+    "history_start": "2017-01-01",
+    "history_end": "2026-11-10",
+    "feature_dates": null,
+    "training_rows": null,
+    "source_failures": null,
+    "remaining_gaps": [
+      "full_historical_universe_not_collected",
+      "provider_index_needs_independent_official_tieout",
+      "official_dated_limit_and_order_fill_tape_not_supplied",
+      "corporate_action_chain_requires_event_tieout",
+      "historical_signal_times_are_simulated_not_published",
+      "live_feature_basis_and_market_reference_parity_pending",
+      "censored_outcomes_prevent_full_strategy_performance_claim",
+      "risk_execution_and_forward_review_pending"
+    ],
+    "next_action": "repair_reported_source_or_dataset_gap_then_resume_cached_requests",
+    "result_file": null
   }
 }
