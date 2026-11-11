@@ -122,10 +122,11 @@ class HistoricalTrainingTests(unittest.TestCase):
     def test_pilot_status_does_not_change_formal_status(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            write(root / "output/research/latest/history_pilot_status.json", {"model_status": "trained_pilot_only", "status": "pilot_results_not_production_qualified"})
+            write(root / "output/research/latest/history_pilot_status.json", {"model_status": "trained_pilot_only", "status": "pilot_results_not_production_qualified", "reason": "source_detail_retained"})
             result = run_registered(root)
             self.assertEqual("not_trained", result["model_status"])
             self.assertEqual("trained_pilot_only", result["historical_pilot"]["model_status"])
+            self.assertEqual("source_detail_retained", result["historical_pilot"]["reason"])
             self.assertFalse(result["production_activation"])
 
     def test_complete_source_to_dataset_pipeline_keeps_short_history_blocked(self):

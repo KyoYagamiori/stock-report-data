@@ -221,7 +221,8 @@ def run_registered(root):
         pilot = json.loads(pilot_path.read_text())
         result["historical_pilot"] = {k: pilot.get(k) for k in (
             "status", "model_status", "generated_at", "sample_size", "history_start", "history_end",
-            "feature_dates", "training_rows", "source_failures", "remaining_gaps", "next_action", "result_file")}
+            "feature_dates", "training_rows", "source_failures", "remaining_gaps", "next_action", "result_file",
+            "reason", "error_type", "formal_model_status")}
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 
