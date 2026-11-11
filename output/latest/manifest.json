@@ -6,24 +6,24 @@
     "next_trading_day": "2026-11-12",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-11-11T19:58:48+08:00",
+  "generated_at": "2026-11-11T22:39:54+08:00",
   "health": {
     "last_attempt": {
       "blocking_reasons": [],
-      "finished_at": "2026-11-11T19:58:48+08:00",
-      "planned_at": "2026-11-11T19:58:00+08:00",
+      "finished_at": "2026-11-11T22:39:54+08:00",
+      "planned_at": "2026-11-11T22:39:00+08:00",
       "published": true,
       "quality_grade": "B",
       "reason": "published",
-      "report_cycle": "2026-11-11-close",
+      "report_cycle": "2026-11-11-evening",
       "report_date": "2026-11-11",
-      "snapshot_id": "20261111-1958-close-full-43016170058",
-      "snapshot_type": "close",
-      "started_at": "2026-11-11T19:58:07+08:00",
+      "snapshot_id": "20261111-2239-evening-full-43040487939",
+      "snapshot_type": "evening",
+      "started_at": "2026-11-11T22:39:54+08:00",
       "status": "published"
     },
     "last_grade_a_at": "2026-11-11T11:37:59+08:00",
-    "last_grade_b_at": "2026-11-11T19:58:48+08:00",
+    "last_grade_b_at": "2026-11-11T22:39:54+08:00",
     "latest_run": "output/health/latest_run.json"
   },
   "report_readiness": {
@@ -49,17 +49,23 @@
       "status": "ready_a"
     },
     "evening": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
-      "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
-      "reasons": [
-        "stale report cycle 2026-11-10-evening; expected 2026-11-11-evening"
+      "missing_optional_fields": [
+        "total_turnover",
+        "market_breadth"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "point_in_time_recovered": false,
+      "quality_grade": "B",
+      "quality_profile": "trading_evening",
+      "reasons": [
+        "verified same-day B-grade close snapshot"
+      ],
+      "schedule_delay_minutes": 0.9,
+      "selected_file": "output/archive/2026/11/11/evening/20261111-2239-evening-full-43040487939.json",
+      "selected_snapshot_id": "20261111-2239-evening-full-43040487939",
+      "sha256": "75ca61b4633653cd208a261254bc6b3d1a292f0eff855f6405e6391ef10e8345",
+      "status": "ready_b"
     },
     "noon": {
       "collection_mode": "live_or_latest_completed",
@@ -153,29 +159,29 @@
     "evening": {
       "collection_mode": "live_or_latest_completed",
       "core_effective_count": 11,
-      "effective_field_count": 33,
+      "effective_field_count": 38,
       "latest_alias": "output/latest/evening/report_data_compact.json",
       "market_asof": null,
-      "market_date": "2026-11-10",
+      "market_date": "2026-11-11",
       "missing_core_fields": [],
       "missing_optional_fields": [
-        "sectors_top",
-        "sectors_bottom"
+        "total_turnover",
+        "market_breadth"
       ],
       "point_in_time_recovered": false,
-      "published_at": "2026-11-10T23:40:28+08:00",
+      "published_at": "2026-11-11T22:39:54+08:00",
       "quality_grade": "B",
       "quality_profile": "trading_evening",
       "quality_reasons": [
         "verified same-day B-grade close snapshot"
       ],
-      "quote_time_max": "2026-11-10T15:35:57+08:00",
-      "report_cycle": "2026-11-10-evening",
-      "schedule_delay_minutes": 0.47,
+      "quote_time_max": "2026-11-11T15:35:57+08:00",
+      "report_cycle": "2026-11-11-evening",
+      "schedule_delay_minutes": 0.9,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/11/10/evening/20261110-2340-evening-full-42846604087.json",
-      "selected_snapshot_id": "20261110-2340-evening-full-42846604087",
-      "sha256": "7cc96d50d4912a6e23095993d12e4436ce0b8bf63a8e293077bd5fbfd9c7f072",
+      "selected_file": "output/archive/2026/11/11/evening/20261111-2239-evening-full-43040487939.json",
+      "selected_snapshot_id": "20261111-2239-evening-full-43040487939",
+      "sha256": "75ca61b4633653cd208a261254bc6b3d1a292f0eff855f6405e6391ef10e8345",
       "snapshot_type": "evening",
       "suitable_reports": [
         "evening"
