@@ -1,15 +1,15 @@
 # 股票行情快照 | 2026-11-11 close
 
 - Schema：1.6.1
-- Snapshot ID：`20261111-1949-close-full-43014925833`
+- Snapshot ID：`20261111-1958-close-full-43016170058`
 - 报告周期：`2026-11-11-close`
 - 质量等级：**B**
 - 质量 Profile：`trading_close`
 - 行情日期：2026-11-11
 - 行情时间范围：2026-11-11T15:00:03+08:00 至 2026-11-11T15:35:57+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0 分钟
-- 生成时间：2026-11-11T19:49:40+08:00
+- 调度延迟：0.12 分钟
+- 生成时间：2026-11-11T19:58:48+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -66,4 +66,4 @@
 ## 数据源状态
 
 - `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=全市场采集未完整通过：RuntimeError: ValueError: incomplete market coverage: 5350/5341；AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；市场汇总仅在沪深A股全页数量核对通过时提供。
+- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)；AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))；市场汇总仅在沪深A股全页数量核对通过时提供。
