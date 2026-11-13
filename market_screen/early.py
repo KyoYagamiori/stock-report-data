@@ -240,6 +240,8 @@ def build(records, dates, now, config=None, quotes=None):
             for h in (5, 20):
                 r["features"][f"relative_market_{h}d_pct"] = r["features"][f"return_{h}d_pct"] - medians[h]
             r["features"]["signal_age_sessions"] = min((s["signal_age_sessions"] for s in r["setups"]), default=None)
+            from .exits import candidate_plan
+            r["exit_plan"] = candidate_plan(r)
     def key(r):
         ages = [s["signal_age_sessions"] for s in r["setups"]]
         f = r["features"]
@@ -271,7 +273,7 @@ def build(records, dates, now, config=None, quotes=None):
             "entry_qualified_count": 0,
             "vcp_shadow": {"mode": "observation_only_no_ranking_weight", "eligible_count": len(vcp_rows),
                 "feature_available_count": sum(r.get("vcp_shadow", {}).get("available", False) for r in rows),
-                "watchlist": [{k: r[k] for k in ("code", "name", "price_asof", "vcp_shadow")} for r in vcp_rows[:10]],
+                "watchlist": [{k: r[k] for k in ("code", "name", "price_asof", "vcp_shadow", "exit_plan")} for r in vcp_rows[:10]],
                 "probabilities_enabled": False, "entry_qualified": False},
             "ranking_meaning": "age_then_entry_distance_within_setup_round_robin_not_expected_return",
             "market_reference": "same_available_cohort_median_proxy_not_official_index",

@@ -234,6 +234,12 @@ def run_registered(root):
         vcp = json.loads(vcp_path.read_text())
         result["vcp_research"] = {k: vcp.get(k) for k in ("status", "model_status", "generated_at", "feature_version",
             "sample_size", "training_rows", "selected_model", "deployment_decision", "reason", "ablation", "result_file")}
+    for name in ("exit_policy", "model_release"):
+        extra_path=root/("output/research/latest/"+name+"_status.json")
+        if extra_path.exists():
+            value=json.loads(extra_path.read_text())
+            result[name]={k:value.get(k) for k in ("status","generated_at","policy_version","production_activation",
+                "legacy_midline_rule_enabled","ready_for_assisted_ranking_review","result","gates","reason")}
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 

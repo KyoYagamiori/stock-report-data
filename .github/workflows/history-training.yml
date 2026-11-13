@@ -8,6 +8,8 @@ on:
       - "research_system/history_*.py"
       - "research_system/early_model.py"
       - "market_screen/vcp.py"
+      - "market_screen/exits.py"
+      - "config/model_release_policy.json"
       - "config/history_training.json"
       - "requirements-history.txt"
       - ".github/workflows/history-training.yml"
@@ -22,7 +24,7 @@ concurrency:
 jobs:
   pilot:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,11 +49,15 @@ jobs:
       - name: Install historical research dependencies
         run: python -m pip install --disable-pip-version-check -r requirements-research.txt -r requirements-history.txt
       - name: Test historical source, timing and outcome contracts
-        run: python -m unittest tests.test_research_history tests.test_research_history_qlib tests.test_research_history_review tests.test_research_early_model tests.test_research_model tests.test_boll_early_vcp
+        run: python -m unittest tests.test_research_history tests.test_research_history_qlib tests.test_research_history_review tests.test_research_early_model tests.test_research_model tests.test_boll_early_vcp tests.test_boll_early_exits tests.test_research_history_exits tests.test_research_history_release
       - name: Acquire immutable public history, build samples and fit pilot
-        run: timeout 1500 python -u -m research_system.history_training
+        run: timeout 2400 python -u -m research_system.history_training
       - name: Audit incremental VCP features on the same candidate cohort
-        run: timeout 300 python -u -m research_system.history_vcp
+        run: timeout 600 python -u -m research_system.history_vcp
+      - name: Replay explicit defensive and profit exit policies
+        run: timeout 600 python -u -m research_system.history_exits
+      - name: Check concrete assisted-ranking release requirements
+        run: python -u -m research_system.history_release
       - name: Preserve historical evidence without replacing other research state
         if: always()
         shell: bash
@@ -63,6 +69,8 @@ jobs:
             git add --sparse output/history_pilot output/research/latest/history_pilot_status.json
             if [ -f output/research/latest/history_price_crosscheck.json ]; then git add --sparse output/research/latest/history_price_crosscheck.json; fi
             if [ -f output/research/latest/vcp_pilot_status.json ]; then git add --sparse output/research/latest/vcp_pilot_status.json; fi
+            if [ -f output/research/latest/exit_policy_status.json ]; then git add --sparse output/research/latest/exit_policy_status.json; fi
+            if [ -f output/research/latest/model_release_status.json ]; then git add --sparse output/research/latest/model_release_status.json; fi
             if ! git diff --cached --quiet; then
               git commit -m "research: preserve historical pilot evidence and actual training status"
             fi
@@ -82,4 +90,5 @@ jobs:
         run: |
           python -c 'import json; from pathlib import Path; d=json.loads(Path("output/research/latest/history_pilot_status.json").read_text()); print(d); raise SystemExit(0 if d.get("model_status")=="trained_pilot_only" else 1)'
           python -c 'import json; from pathlib import Path; d=json.loads(Path("output/research/latest/vcp_pilot_status.json").read_text()); print(d); raise SystemExit(0 if d.get("model_status")=="trained_pilot_only" else 1)'
+          python -c 'import json; from pathlib import Path; d=json.loads(Path("output/research/latest/exit_policy_status.json").read_text()); print(d); raise SystemExit(0 if d.get("status")=="exit_policy_replay_completed_research_only" else 1)'
 

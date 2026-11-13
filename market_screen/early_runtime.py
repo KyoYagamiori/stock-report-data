@@ -79,9 +79,15 @@ def update_observations(data, state, calendar, now):
             if datetime.fromisoformat(ep["first_seen_at"]) > now:
                 raise ValueError("episode_first_seen_in_future")
             ep["last_seen_at"] = now.isoformat()
+            if row.get("exit_plan", {}).get("status") == "conditional_reference_plan" and "exit_plan" not in ep:
+                ep["exit_plan"] = {**row["exit_plan"], "first_issued_at": now.isoformat()}
             ep["state"] = "expired_untriggered" if now > datetime.fromisoformat(ep["valid_until"]) else "observing_unconfirmed"
             contracts.append({k: ep[k] for k in ("signal_id", "first_seen_at", "valid_until", "state")})
         row["original_contracts"] = contracts
+        plans = [episodes[c["signal_id"]].get("exit_plan") for c in contracts]
+        plans = [p for p in plans if p]
+        if plans:
+            row["exit_plan"] = min(plans, key=lambda p: p["first_issued_at"])
         row["actionable_window_open"] = any(x["state"] != "expired_untriggered" for x in contracts)
     original_count = len(data["shortlist"])
     data["shortlist"] = [r for r in data["shortlist"] if r["actionable_window_open"]]
@@ -106,6 +112,10 @@ def update_observations(data, state, calendar, now):
         if datetime.fromisoformat(ep["first_seen_at"]) > now:
             raise ValueError("vcp_episode_first_seen_in_future")
         ep["last_seen_at"] = now.isoformat()
+        if row.get("exit_plan", {}).get("status") == "conditional_reference_plan" and "exit_plan" not in ep:
+            ep["exit_plan"] = {**row["exit_plan"], "first_issued_at": now.isoformat()}
+        if ep.get("exit_plan"):
+            row["exit_plan"] = ep["exit_plan"]
         if now > datetime.fromisoformat(ep["valid_until"]):
             expired += 1
         else:
