@@ -62,8 +62,8 @@ def read_capture(root, reference):
 
 
 def select_cohort(rows, size, seed):
-    if not 2 <= size <= 128:
-        raise ValueError("pilot_size_must_be_between_2_and_128")
+    if not 2 <= size <= 512:
+        raise ValueError("pilot_size_must_be_between_2_and_512")
     codes = [r["code"] for r in rows]
     if len(codes) != len(set(codes)):
         raise ValueError("duplicate_historical_membership_code")
@@ -122,7 +122,11 @@ def collect(root, config, client):
 
     def acquire(method, **kwargs):
         request = {"method": method, "kwargs": kwargs}
-        key = digest(canonical({"provider": provider, **request}))
+        # Release revisions must not silently reuse a different vintage's prices.
+        identity = {"provider": provider, **request}
+        if provider == "qlib_public_release":
+            identity["archive_sha256"] = config["release_archive_sha256"]
+        key = digest(canonical(identity))
         cache = root / "output/history_pilot/cache" / (key + ".json")
         if cache.exists():
             ref = json.loads(cache.read_bytes())
@@ -155,3 +159,4 @@ def collect(root, config, client):
               "cohort_complete": not failures, "production_activation": False}
     write(root / "output/history_pilot/source_manifest.json", result)
     return result
+

@@ -13,7 +13,8 @@ SHA-256为47b62dab75cce922bb4d9086ed799bc212a3762ef796c04457030b04f4a68582。
 同时核验发行清单、Dolt来源提交、Qlib代码提交、镜像摘要、实际归档字节及日历语义。
 不能把哈希通过当成全部行情准确或模型有效。
 
-从包内历史证券起止区间重建2018-01-02名单，固定种子按代码SHA-256抽取32只沪深主板股票。
+从包内历史证券起止区间重建2018-01-02名单，固定种子按代码SHA-256抽取256只沪深主板股票。
+保持首轮32只的原排序前缀，不因为后来的退市、缺数或收益不佳换样。
 保留后来退市股票；不按今天存续状态或未来收益择样，不因缺数替换股票。
 采集2017-01-01至2026-11-10日线和沪深300指数。它是固定小样本，不代表沪深全市场。
 
@@ -43,16 +44,30 @@ Qlib归档使用float32。按其固定版本归一化代码重建未复权价格
 
 运行：python -m research_system.history_training。
 依赖requirements-research.txt与requirements-history.txt。
-至少720个有合格样本的特征日期；最后120个有样本日期封存测试，
-它们不一定是连续120个市场交易日。开发训练、验证、测试均按时间切分，
-按实际最晚标签结束日清除跨界；同一配置的云端复现不计作新增独立试验。
-Ridge与小型LightGBM按既有预登记规则比较，选择仅用开发验证，不根据最终留出结果改选。
+至少720个有合格样本的开发特征日期。首轮最后120个有样本日期已查看，
+本轮明确排除2026-01-20起的原测试区间，连结束日跨入该区间的标签也排除。
+开发训练、验证、滚动测试均按时间切分，按实际最晚标签结束日清除跨界。
+Ridge与小型LightGBM仅用开发验证选择；滚动测试和年份、形态、成本拆分均为回溯研究，
+不把任何旧日期重新命名为独立留出测试。前向研究起点登记为2026-11-16，尚无其结果。
+同一固定配置的重放或云端复现不计作新增独立试验。
+结果增加1/3/5日标签、10/20/40bp往返成本敏感性及按年份、形态的诊断；
+未成交不计费用，退出删失仍保留并披露，不能将这些标签当作可执行组合净值。
 
 Historical daily model pilot工作流在代码/配置发布或手动触发时运行，没有新增定时任务。
 原始所选二进制、捕获数据、训练集、标签审计和模型结果保存到output/history_pilot/。
 简明状态在output/research/latest/history_pilot_status.json，交叉核验在history_price_crosscheck.json。
 既有research evaluation读取它们，区分正式模型与试验模型，并保留具体失败原因。
 完成的固定配置复用结果时重新核对训练集、模型、标签审计和来源闭包的实际文件哈希。
+提取清单和行情交叉核验凭证改为内容寻址，扩样不会覆盖旧试验凭证；
+来源缓存键绑定发行包SHA-256，同请求不能跨数据版本借用旧缓存。
+
+## VCP增量试验
+
+详见docs/vcp-shadow.md。实时工具新增独立VCP观察名单，不改变原四类入口的排序。
+history_vcp在相同股票、日期、形态、成本和成交假设下增添7个VCP字段，
+分别比较Ridge和LightGBM加入前后的滚动测试，仍排除已查看的2026-01-20起区间。
+简明状态在output/research/latest/vcp_pilot_status.json。
+这是既有布林候选池内的特征增量检验，不代表全市场独立VCP策略或J LAW业绩复现。
 
 训练成功仅记trained_pilot_only。正式状态仍可为not_trained；不创建正式训练集登记文件，
 不自动替换日报推荐，不输出上涨概率。尚需完整历史股票池、ST、官方基准及成交限制核对、
@@ -64,3 +79,4 @@ Historical daily model pilot工作流在代码/配置发布或手动触发时运
 - https://github.com/chenditc/investment_data
 - https://github.com/chenditc/investment_data/releases/tag/2026-11-10
 - https://github.com/microsoft/qlib/blob/b87a2c294d364a33fb739359886acffe8ec907d1/scripts/data_collector/yahoo/collector.py
+

@@ -57,7 +57,9 @@ def completed_state(bars, series):
                 if statistics.median([r["volume"] for r in bars[i - 20:i]]) > 0 else None,
             "mid_turn_up_close_threshold": bars[i - 20]["close"],
         })
+    from .vcp import analyze, prepare
     return {"version": VERSION, "available": True, "asof": bars[-1]["day"],
+            "vcp_completed": analyze(bars), "vcp_next_session": prepare(bars),
             "points": points[-16:], "closes": [r["close"] for r in bars[-21:]],
             "width_reference": [s["width"] for s in series[-120:]],
             "last19_true_ranges": ranges[-19:]}
@@ -197,10 +199,16 @@ def evaluate(row, dates, now, config=None, quote=None):
                  "same_time_volume_reference_required"]
     if stage == "preparing":
         gaps.append("squeeze_direction_not_confirmed")
+    from .vcp import VERSION as VCP_VERSION, observe
+    if intraday and state.get("vcp_next_session", {}).get("version") == VCP_VERSION:
+        vcp = observe(state["vcp_next_session"], {**quote, "day": quote["date"]}, completed=False)
+    else:
+        vcp = state.get("vcp_completed", {"version": VCP_VERSION, "available": False,
+                    "matched": False, "stage": "unavailable", "reason": "completed_vcp_state_not_hydrated"})
     return {"code": row["code"], "name": row.get("name"), "industry": row.get("industry"),
             "daily_asof": dates["market_date"], "price_asof": price_asof,
             "band_status": "provisional" if intraday else "completed", "price": p["close"],
-            "stage": stage, "setups": setups, "structure_eligible": not reasons,
+            "stage": stage, "setups": setups, "structure_eligible": not reasons, "vcp_shadow": vcp,
             "rejection_reasons": reasons, "entry_status": "observation_wait_direction" if stage == "preparing" else "confirmation_and_diligence_required",
             "entry_qualified": False, "evidence_gaps": gaps,
             "boll": {k: p[k] for k in ("mid", "upper", "lower", "width")},
@@ -246,6 +254,12 @@ def build(records, dates, now, config=None, quotes=None):
                 r = pools[p][n]
                 if r["code"] not in seen and len(shortlist) < c["shortlist_limit"]:
                     shortlist.append(r); seen.add(r["code"])
+    # VCP is an independent shadow watchlist, including stocks outside BOLL's four pools.
+    vcp_rows = [r for r in rows if r.get("vcp_shadow", {}).get("matched")
+                and set(r["rejection_reasons"]) <= {"no_early_setup"}
+                and r["vcp_shadow"]["stage"] in {"preparing", "near_pivot", "breakout_provisional",
+                    "breakout_close_volume_confirmed", "breakout_volume_unconfirmed"}]
+    vcp_rows.sort(key=lambda r: (abs(r["vcp_shadow"].get("distance_to_pivot_atr") or 0), r["code"]))
     return {"schema_version": "1.0", "method_version": VERSION,
             "mode": "active_research_discovery_unvalidated_ranking", "model_status": "not_trained",
             "probabilities_enabled": False, "production_prediction_activation": False,
@@ -255,6 +269,10 @@ def build(records, dates, now, config=None, quotes=None):
             "pool_counts": {p: len(v) for p, v in pools.items()}, "shortlist": shortlist,
             "pool_codes": {p: [r["code"] for r in v] for p, v in pools.items()},
             "entry_qualified_count": 0,
+            "vcp_shadow": {"mode": "observation_only_no_ranking_weight", "eligible_count": len(vcp_rows),
+                "feature_available_count": sum(r.get("vcp_shadow", {}).get("available", False) for r in rows),
+                "watchlist": [{k: r[k] for k in ("code", "name", "price_asof", "vcp_shadow")} for r in vcp_rows[:10]],
+                "probabilities_enabled": False, "entry_qualified": False},
             "ranking_meaning": "age_then_entry_distance_within_setup_round_robin_not_expected_return",
             "market_reference": "same_available_cohort_median_proxy_not_official_index",
             "parameter_status": "preregistered_hypotheses_not_empirical_optimum",

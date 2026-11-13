@@ -15,16 +15,19 @@ from .history import canonical_bytes, import_seed, load_cache, write_json
 from .runner import TZ, resolve_dates
 
 
-def hydrate_states(root, records, target):
+def hydrate_states(root, records, target, include_vcp=False):
     """Upgrade legacy records only from hash-verified local raw history."""
     from .technicals import calculate
     root = Path(root)
     path = root / "output/early/state/feature_cache.json.gz"
     cached = json.loads(gzip.decompress(path.read_bytes())) if path.exists() else {}
-    if cached.get("market_date") != target or cached.get("method_version") != VERSION:
-        cached = {"market_date": target, "method_version": VERSION, "records": {}}
+    from .vcp import VERSION as VCP_VERSION
+    if (cached.get("market_date") != target or cached.get("method_version") != VERSION
+            or (include_vcp and cached.get("vcp_version") != VCP_VERSION)):
+        cached = {"market_date": target, "method_version": VERSION, "vcp_version": VCP_VERSION, "records": {}}
     missing = [r for r in records if r.get("status") == "screened"
-               and not (r.get("indicators", {}).get("early_state") or {}).get("available")]
+               and (not (r.get("indicators", {}).get("early_state") or {}).get("available")
+                    or (include_vcp and r.get("indicators", {}).get("early_state", {}).get("vcp_next_session", {}).get("version") != VCP_VERSION))]
     if not missing:
         return {"rehydrated": 0, "unavailable": 0}
     cache_root = root / "output/boll/state/history"
@@ -87,8 +90,32 @@ def update_observations(data, state, calendar, now):
     for ep in episodes.values():
         if now > datetime.fromisoformat(ep["valid_until"]):
             ep["state"] = "expired_untriggered"
+    # VCP observations retain their first published pivot and expiry separately.
+    vcp_episodes = state.setdefault("vcp_episodes", {})
+    shadow = data.get("vcp_shadow", {})
+    active, expired = [], 0
+    for row in shadow.get("watchlist", []):
+        v = row["vcp_shadow"]
+        key = hashlib.sha256(canonical_bytes([v["version"], row["code"], v["origin"]])).hexdigest()[:24]
+        if key not in vcp_episodes:
+            vcp_episodes[key] = {"signal_id": key, "code": row["code"], "origin": v["origin"],
+                "first_seen_at": now.isoformat(), "first_stage": v["stage"], "original_pivot": v["pivot"],
+                "original_reference_low": v["invalidation_below"],
+                "valid_until": future[valid_sessions] + "T15:00:00+08:00", "observation_only": True}
+        ep = vcp_episodes[key]
+        if datetime.fromisoformat(ep["first_seen_at"]) > now:
+            raise ValueError("vcp_episode_first_seen_in_future")
+        ep["last_seen_at"] = now.isoformat()
+        if now > datetime.fromisoformat(ep["valid_until"]):
+            expired += 1
+        else:
+            row["original_contract"] = {k: ep[k] for k in ("signal_id", "first_seen_at", "original_pivot",
+                                                          "original_reference_low", "valid_until")}
+            active.append(row)
+    if shadow:
+        shadow.update(watchlist=active, active_watchlist_count=len(active), expired_suppressed_count=expired)
     data["episode_audit"] = {"episodes": len(episodes), "observation_only": True,
-                            "not_a_trade_success_or_win_rate": True}
+                            "vcp_episodes": len(vcp_episodes), "not_a_trade_success_or_win_rate": True}
     return state
 
 
@@ -121,7 +148,7 @@ def run(root, now=None, quote_collector=None, allow_closed=False):
         raise ValueError("early_current_membership_differs_from_completed_store")
     settings = {**json.loads((root / "config/boll_screen.json").read_text()),
                 **DEFAULTS, **json.loads((root / "config/early_signals.json").read_text())}
-    hydrated = hydrate_states(root, records, dates["market_date"])
+    hydrated = hydrate_states(root, records, dates["market_date"], include_vcp=True)
     directory = root / "output/early/archive" / dates["report_date"] / now.strftime("%H%M%S%f")
     directory.mkdir(parents=True, exist_ok=False)
     quotes, qmeta = ({}, {}) if dates["phase"] == "early" else (quote_collector or fetch_quotes)(

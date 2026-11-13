@@ -16,7 +16,7 @@ import time
 from urllib.request import urlopen
 from urllib.parse import urlencode
 
-from .history_source import TZ, digest, read_capture, select_cohort, write
+from .history_source import TZ, canonical, digest, read_capture, select_cohort, write
 
 FIELDS = ("open", "high", "low", "close", "volume", "amount", "factor")
 METADATA = ("calendars/day.txt", "calendars/day_future.txt", "instruments/all.txt",
@@ -108,8 +108,10 @@ def crosscheck_recent(root, manifest):
     receipt = {"status": "mismatch" if mismatch else "passed_sample_crosscheck" if complete else "partial_unverified",
         "generated_at": datetime.now(TZ).isoformat(), "results": results,
         "scope": "recent_sample_price_and_volume_units_only_not_full_history_or_exchange_audit"}
-    path = root / "output/research/latest/history_price_crosscheck.json"
+    # Status pointers can move; an experiment must reference immutable evidence.
+    path = root / "output/history_pilot/crosscheck" / (digest(canonical(receipt)) + ".json")
     write(path, receipt)
+    write(root / "output/research/latest/history_price_crosscheck.json", receipt)
     if mismatch:
         raise ValueError("public_history_independent_price_or_volume_mismatch")
     return {"status": receipt["status"], "file": path.relative_to(root).as_posix(), "sha256": file_digest(path)}
@@ -206,7 +208,7 @@ class QlibRelease:
                    "normalization_source": "microsoft/qlib@b87a2c294d364a33fb739359886acffe8ec907d1:scripts/data_collector/yahoo/collector.py",
                    "price_reconstruction": "normalized_price/factor; volume*factor*100; amount*1000",
                    "status_fields": "ST unavailable; positive-volume observations are not an exchange halt audit"}
-        receipt_path = directory / "extraction_receipt.json"
+        receipt_path = directory / ("extraction_receipt-" + digest(canonical(receipt)) + ".json")
         write(receipt_path, receipt)
         self.provenance = {"release_tag": c["release_tag"], "archive_sha256": c["release_archive_sha256"],
                            "extraction_receipt_file": receipt_path.relative_to(self.root).as_posix(),
@@ -247,3 +249,4 @@ class QlibRelease:
         if not rows:
             raise ValueError("public_release_history_empty:" + code)
         return rows
+

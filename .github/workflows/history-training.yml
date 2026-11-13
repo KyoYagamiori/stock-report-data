@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - "research_system/history_*.py"
+      - "research_system/early_model.py"
+      - "market_screen/vcp.py"
       - "config/history_training.json"
       - "requirements-history.txt"
       - ".github/workflows/history-training.yml"
@@ -20,7 +22,7 @@ concurrency:
 jobs:
   pilot:
     runs-on: ubuntu-latest
-    timeout-minutes: 22
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,9 +46,11 @@ jobs:
       - name: Install historical research dependencies
         run: python -m pip install --disable-pip-version-check -r requirements-research.txt -r requirements-history.txt
       - name: Test historical source, timing and outcome contracts
-        run: python -m unittest tests.test_research_history tests.test_research_history_qlib tests.test_research_early_model tests.test_research_model
+        run: python -m unittest tests.test_research_history tests.test_research_history_qlib tests.test_research_history_review tests.test_research_early_model tests.test_research_model tests.test_boll_early_vcp
       - name: Acquire immutable public history, build samples and fit pilot
-        run: timeout 900 python -u -m research_system.history_training
+        run: timeout 1500 python -u -m research_system.history_training
+      - name: Audit incremental VCP features on the same candidate cohort
+        run: timeout 300 python -u -m research_system.history_vcp
       - name: Preserve historical evidence without replacing other research state
         if: always()
         shell: bash
@@ -57,6 +61,7 @@ jobs:
           for attempt in 1 2 3; do
             git add --sparse output/history_pilot output/research/latest/history_pilot_status.json
             if [ -f output/research/latest/history_price_crosscheck.json ]; then git add --sparse output/research/latest/history_price_crosscheck.json; fi
+            if [ -f output/research/latest/vcp_pilot_status.json ]; then git add --sparse output/research/latest/vcp_pilot_status.json; fi
             if ! git diff --cached --quiet; then
               git commit -m "research: preserve historical pilot evidence and actual training status"
             fi
@@ -75,3 +80,5 @@ jobs:
       - name: Verify actual model completion separately from workflow publication
         run: |
           python -c 'import json; from pathlib import Path; d=json.loads(Path("output/research/latest/history_pilot_status.json").read_text()); print(d); raise SystemExit(0 if d.get("model_status")=="trained_pilot_only" else 1)'
+          python -c 'import json; from pathlib import Path; d=json.loads(Path("output/research/latest/vcp_pilot_status.json").read_text()); print(d); raise SystemExit(0 if d.get("model_status")=="trained_pilot_only" else 1)'
+

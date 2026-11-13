@@ -39,6 +39,12 @@ def verify_completed(root, status):
         path = bound(provenance["extraction_receipt_file"], provenance["extraction_receipt_sha256"])
         for ref in json.loads(path.read_bytes())["captured_members"].values():
             bound(ref["file"], ref["sha256"])
+    crosscheck = status.get("independent_price_check")
+    if crosscheck and "/history_pilot/" in crosscheck["file"]:
+        path = bound(crosscheck["file"], crosscheck["sha256"])
+        for item in json.loads(path.read_bytes())["results"]:
+            if item.get("quote_file"):
+                bound(item["quote_file"], item["quote_sha256"])
 
 
 def run(root, client_factory=None):
@@ -97,8 +103,13 @@ def run(root, client_factory=None):
                 raise ValueError("execution_evidence_identity_mismatch")
         status.update(status="dataset_ready", next_action="chronological_ridge_lightgbm_comparison")
         write(receipt_path, status)
-        from .early_model import experiment
-        result = experiment(dataset, scope="pilot")
+        policy = config.get("evaluation_policy")
+        if policy:
+            from .history_review import review
+            result = review(dataset, policy, scope="pilot")
+        else:
+            from .early_model import experiment
+            result = experiment(dataset, scope="pilot")
         path = archive / "model_result.json"
         write(path, result)
         status.update(status=result["status"], model_status=result["model_status"],
@@ -107,6 +118,15 @@ def run(root, client_factory=None):
             locked_holdout_start=result.get("locked_holdout_start"),
             next_action="expand_historical_universe_and_independently_audit_execution_and_sources"
                 if result["model_status"] == "trained_pilot_only" else "increase_fixed_origin_cohort_or_complete_missing_history")
+        if policy:
+            status.update(evaluation_mode=result.get("evaluation_mode"),
+                development_feature_dates=result.get("development_feature_dates"),
+                previously_reviewed_start_date=result.get("previously_reviewed_start_date"),
+                previously_reviewed_rows_excluded=result.get("previously_reviewed_rows_excluded"),
+                prospective_start_date=result.get("prospective_start_date"), prospective_status=result.get("prospective_status"),
+                development_comparison=result.get("development_comparison"),
+                deployment_decision=result.get("deployment_decision"), nonpromotion_reasons=result.get("nonpromotion_reasons"),
+                next_action="complete_execution_source_audits_and_collect_preregistered_forward_predictions")
         # A completed pilot is immutable and remains separate from formal registration.
         write(completed_path, status)
     except (ValueError, KeyError, OSError, RuntimeError, ImportError, TypeError) as exc:
@@ -128,3 +148,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

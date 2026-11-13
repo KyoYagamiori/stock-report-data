@@ -39,41 +39,41 @@ def validate(data, scope="formal"):
     return rows
 
 
-def matrix(rows):
+def matrix(rows, feature_names=FEATURES):
     import numpy as np
     # Setup identity is included, avoiding the assumption that a fresh reclaim
     # and a squeeze precursor have the same conditional return relationship.
-    x = np.asarray([[r["features"][f] for f in FEATURES] + [int(r["setup"] == p) for p in POOLS] for r in rows], dtype=float)
+    x = np.asarray([[r["features"][f] for f in feature_names] + [int(r["setup"] == p) for p in POOLS] for r in rows], dtype=float)
     y = np.asarray([r["target_t3_net_excess_pct"] for r in rows], dtype=float)
     return x, y
 
 
-def fit(kind, train, valid):
+def fit(kind, train, valid, feature_names=FEATURES):
     import numpy as np
-    x, y = matrix(train)
+    x, y = matrix(train, feature_names)
     if kind == "ridge":
         means, scales = x.mean(axis=0), x.std(axis=0)
         scales[scales == 0] = 1
         z = (x - means) / scales
         weights = np.linalg.solve(z.T @ z + 10 * np.eye(x.shape[1]), z.T @ (y - y.mean()))
-        return {"kind": kind, "means": means.tolist(), "scales": scales.tolist(),
+        return {"kind": kind, "features": list(feature_names), "means": means.tolist(), "scales": scales.tolist(),
                 "weights": weights.tolist(), "intercept": float(y.mean())}
     if kind != "lightgbm":
         raise ValueError("unknown_preregistered_model")
     import lightgbm as lgb
-    vx, vy = matrix(valid)
+    vx, vy = matrix(valid, feature_names)
     # Deliberately small trees; no copied CSI300 hyperparameter optimum.
     model = lgb.train({"objective": "regression", "metric": "l2", "learning_rate": .03,
         "num_leaves": 15, "max_depth": 4, "min_data_in_leaf": 50, "lambda_l2": 10,
         "seed": 20261105, "num_threads": 2, "verbosity": -1, "deterministic": True, "force_col_wise": True},
         lgb.Dataset(x, label=y), num_boost_round=200, valid_sets=[lgb.Dataset(vx, label=vy)],
         callbacks=[lgb.early_stopping(20, verbose=False)])
-    return {"kind": kind, "model_string": model.model_to_string(), "best_iteration": model.best_iteration}
+    return {"kind": kind, "features": list(feature_names), "model_string": model.model_to_string(), "best_iteration": model.best_iteration}
 
 
 def predictions(model, rows):
     import numpy as np
-    x, _ = matrix(rows)
+    x, _ = matrix(rows, model.get("features", FEATURES))
     if model["kind"] == "ridge":
         return (model["intercept"] + ((x - model["means"]) / model["scales"]) @ np.asarray(model["weights"])).tolist()
     import lightgbm as lgb
@@ -226,10 +226,18 @@ def run_registered(root):
         result["historical_pilot"] = {k: pilot.get(k) for k in (
             "status", "model_status", "generated_at", "sample_size", "history_start", "history_end",
             "feature_dates", "training_rows", "source_failures", "remaining_gaps", "next_action", "result_file",
-            "reason", "error_type", "formal_model_status", "provider", "label_scope", "selected_model")}
+            "reason", "error_type", "formal_model_status", "provider", "label_scope", "selected_model",
+            "evaluation_mode", "development_feature_dates", "previously_reviewed_start_date",
+            "prospective_start_date", "prospective_status", "deployment_decision", "nonpromotion_reasons")}
+    vcp_path = root / "output/research/latest/vcp_pilot_status.json"
+    if vcp_path.exists():
+        vcp = json.loads(vcp_path.read_text())
+        result["vcp_research"] = {k: vcp.get(k) for k in ("status", "model_status", "generated_at", "feature_version",
+            "sample_size", "training_rows", "selected_model", "deployment_decision", "reason", "ablation", "result_file")}
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 
 
 if __name__ == "__main__":
     main()
+

@@ -220,7 +220,8 @@ def build(root, manifest):
                     "signal_available_at": day + "T16:00:00+08:00", "features_known_at": day + "T15:30:00+08:00",
                     "label_end_date": audit["label_end_date"], "label_known_at": audit["label_end_date"] + "T16:00:00+08:00",
                     "source_sha256": manifest["stocks"][code]["sha256"], "execution_audit_sha256": audit_hash,
-                    "execution_state": audit["state"], "baseline_v1_eligible": baseline["eligible"], "baseline_v1_score": baseline["score"]})
+                    "execution_state": audit["state"], "round_trip_cost_bps_assumption": config["round_trip_cost_bps"],
+                    "baseline_v1_eligible": baseline["eligible"], "baseline_v1_score": baseline["score"]})
         except (ValueError, KeyError, TypeError, OSError) as exc:
             # Partial per-code samples must never survive a failed stock audit.
             samples = [r for r in samples if r["code"] != code.split(".")[1]]
@@ -246,3 +247,4 @@ def build(root, manifest):
         "excluded_counts": dict(excluded), "remaining_gaps": metadata["remaining_gaps"], "full_market_complete": False,
         "label_scope": "hypothetical_price_returns_st_status_unknown" if price_only else "conservative_daily_execution_proxy"}
     return {"metadata": metadata, "rows": sorted(samples, key=lambda r: (r["date"], r["code"]))}, audits, receipt
+

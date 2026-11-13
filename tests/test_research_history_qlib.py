@@ -15,10 +15,12 @@ from research_system.history_qlib import METADATA, FIELDS, QlibRelease, decode_b
 from tests.test_research_early_model import early_dataset
 
 
-def archive_fixture(root):
+def archive_fixture(root, extra=False):
     calendar = ["2018-01-02", "2018-01-03", "2018-01-04", "2018-01-05", "2018-01-08"]
     future = calendar + ["2018-01-09"]
     members = "SH600000\t2018-01-02\t2018-01-08\nSZ000001\t2018-01-02\t2018-01-08\n"
+    if extra:
+        members += "SH600001\t2018-01-02\t2018-01-08\n"
     archive = root / "qlib_bin.tar.gz"
     with tarfile.open(archive, "w:gz") as tar:
         for name in METADATA:
@@ -27,7 +29,7 @@ def archive_fixture(root):
             info = tarfile.TarInfo("qlib_bin/" + name)
             info.size = len(data)
             tar.addfile(info, io.BytesIO(data))
-        for symbol in ("sh600000", "sz000001", "sh000300"):
+        for symbol in ("sh600000", "sz000001", "sh000300") + (("sh600001",) if extra else ()):
             for field in FIELDS:
                 value = {"open": 5., "close": 5., "high": 5.1, "low": 4.9,
                          "volume": 20., "amount": 10., "factor": .5}[field]
@@ -48,6 +50,20 @@ def archive_fixture(root):
 
 
 class PublicQlibHistoryTests(unittest.TestCase):
+    def test_cohort_expansion_preserves_previous_extraction_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            archive, _, config, _ = archive_fixture(root, extra=True)
+            with patch.dict(os.environ, {"STOCK_QLIB_ARCHIVE": str(archive)}):
+                with QlibRelease(root, config) as first:
+                    old = deepcopy(first.provenance)
+                path = root / old["extraction_receipt_file"]
+                original = path.read_bytes()
+                with QlibRelease(root, {**config, "sample_size": 3}) as second:
+                    self.assertNotEqual(old["extraction_receipt_file"], second.provenance["extraction_receipt_file"])
+                self.assertEqual(original, path.read_bytes())
+                self.assertEqual(old["extraction_receipt_sha256"], file_digest(path))
+
     def test_original_binary_units_are_recovered_without_inventing_st_status(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -104,3 +120,4 @@ class PublicQlibHistoryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
