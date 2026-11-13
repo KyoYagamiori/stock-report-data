@@ -1,7 +1,7 @@
 from copy import deepcopy
 import unittest
 
-from research_system.early_model import fit
+from research_system.early_model import FEATURES, fit, predictions
 from research_system.history_review import diagnostic_table, review
 from research_system.history_source import select_cohort
 from tests.test_research_early_model import early_dataset
@@ -28,6 +28,14 @@ def ridge_only(kind, train, valid):
 
 
 class ExpandedReviewTests(unittest.TestCase):
+    def test_model_persists_vcp_feature_order_for_prediction(self):
+        rows = early_dataset(80)["rows"]
+        for i, row in enumerate(rows):
+            row["features"]["vcp_setup"] = i % 2
+        model = fit("ridge", rows[:120], rows[120:], feature_names=FEATURES+("vcp_setup",))
+        self.assertEqual("vcp_setup", model["features"][-1])
+        self.assertEqual(10, len(predictions(model, rows[:10])))
+
     def test_inspected_period_cannot_change_model_selection_scalers_or_diagnostics(self):
         data, policy = review_data()
         first = review(data, policy, fitter=ridge_only)

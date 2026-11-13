@@ -5,8 +5,6 @@ import unittest
 from market_screen.vcp import analyze, feature_values, observe, prepare, swings
 from market_screen.early import build
 from market_screen.early_runtime import update_observations
-from research_system.early_model import FEATURES, fit, predictions
-from tests.test_research_early_model import early_dataset
 
 
 def vcp_bars():
@@ -110,15 +108,6 @@ class VCPShadowTests(unittest.TestCase):
         rows = vcp_bars()
         with self.assertRaises(ValueError): prepare(list(reversed(rows)))
         with self.assertRaises(ValueError): observe(prepare(rows), rows[-1])
-
-    def test_model_persists_vcp_feature_order_for_prediction(self):
-        rows = early_dataset(80)["rows"]
-        for i, row in enumerate(rows):
-            row["features"]["vcp_setup"] = i % 2
-        model = fit("ridge", rows[:120], rows[120:], feature_names=FEATURES+("vcp_setup",))
-        self.assertEqual("vcp_setup", model["features"][-1])
-        self.assertEqual(10, len(predictions(model, rows[:10])))
-
 
 if __name__ == "__main__":
     unittest.main()
