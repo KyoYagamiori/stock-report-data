@@ -10,6 +10,10 @@ on:
       - "tests/test_boll_early*.py"
       - ".github/workflows/early-signals.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Shanghai Shenzhen BOLL screen", "Independent noon market ingestion"]
+    types: [completed]
+    branches: [main]
   schedule:
     # Best effort polling. Actual quote age is checked independently.
     - cron: "*/5 1-7 * * 1-5"
@@ -23,6 +27,7 @@ concurrency:
 
 jobs:
   discover:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     env:

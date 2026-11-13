@@ -21,6 +21,22 @@ def vcp_bars():
 
 
 class VCPShadowTests(unittest.TestCase):
+    def test_missing_completed_session_reports_the_date_instead_of_empty_reason(self):
+        from market_screen.completed_source import load_completed_records
+        from tests.test_boll_early import NOW
+        from pathlib import Path
+        import json
+        import tempfile
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "output/boll/latest/manifest.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(json.dumps({"latest_screen": {"market_date": "2026-10-13"}}))
+            records, source, _ = load_completed_records(root, "2026-10-14", NOW)
+            self.assertFalse(records)
+            self.assertFalse(source["accepted"])
+            self.assertEqual(["completed_store_missing_for_market_date:2026-10-14"], source["reasons"])
+
     def test_shadow_watchlist_neither_reorders_boll_nor_requires_boll_setup(self):
         from tests.test_boll_early import record, quote, DATES, NOW, CONFIG
         original = build([record()], DATES, NOW, CONFIG, {"600000": quote()})

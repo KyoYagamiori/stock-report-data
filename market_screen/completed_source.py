@@ -110,9 +110,11 @@ def load_completed_records(root, target, moment):
     try:
         manifest = json.loads((root / "output/boll/latest/manifest.json").read_text())
         pointers = [manifest.get(key, {}) for key in ("latest_complete_screen", "latest_screen")]
-        pointer = next((p for p in pointers if p.get("selected_file") == gate.get("screen_file")), None)
+        pointer = next((p for p in pointers if p.get("selected_file") and p.get("selected_file") == gate.get("screen_file")), None)
         if pointer is None:
-            pointer = next(p for p in reversed(pointers) if p.get("market_date") == target)
+            pointer = next((p for p in reversed(pointers) if p.get("market_date") == target), None)
+        if pointer is None:
+            raise ValueError("completed_store_missing_for_market_date:" + target)
         screen, path = read_hashed(root, {"file": pointer["selected_file"], "sha256": pointer["sha256"]}, root / "output/boll/archive")
         stamp = datetime.fromisoformat(screen["published_at"])
         if (screen.get("market_date") != target or stamp.tzinfo is None or stamp > moment
