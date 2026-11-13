@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-13T17:51:57.899012+08:00",
+  "generated_at": "2026-11-13T18:06:21.428095+08:00",
   "experiment_id": "boll_multisetup_v2_20261103",
   "mode": "shadow",
   "production_strategy": "boll_v1",
@@ -352,12 +352,12 @@
     "historical_pilot": {
       "status": "expanded_pilot_review_not_production_qualified",
       "model_status": "trained_pilot_only",
-      "generated_at": "2026-11-13T17:13:13.656188+08:00",
-      "sample_size": 256,
+      "generated_at": "2026-11-13T18:04:00.360372+08:00",
+      "sample_size": 512,
       "history_start": "2017-01-01",
       "history_end": "2026-11-10",
-      "feature_dates": 2083,
-      "training_rows": 15581,
+      "feature_dates": 2125,
+      "training_rows": 31327,
       "source_failures": {},
       "remaining_gaps": [
         "full_historical_universe_not_collected",
@@ -372,15 +372,15 @@
         "unobserved_price_dates_not_classified_as_verified_halts"
       ],
       "next_action": "complete_execution_source_audits_and_collect_preregistered_forward_predictions",
-      "result_file": "output/history_pilot/experiments/7659c4d2a360f24d/model_result.json",
+      "result_file": "output/history_pilot/experiments/69f0a0d7bf4527b5/model_result.json",
       "reason": null,
       "error_type": null,
       "formal_model_status": "not_trained",
       "provider": "qlib_public_release",
       "label_scope": "hypothetical_price_returns_st_status_unknown",
-      "selected_model": "lightgbm",
+      "selected_model": "ridge",
       "evaluation_mode": "development_only_prior_holdout_excluded",
-      "development_feature_dates": 1890,
+      "development_feature_dates": 1932,
       "previously_reviewed_start_date": "2026-01-20",
       "prospective_start_date": "2026-11-16",
       "prospective_status": "not_yet_evaluated",
@@ -396,10 +396,10 @@
     "vcp_research": {
       "status": "vcp_shadow_ablation_completed_not_production_qualified",
       "model_status": "trained_pilot_only",
-      "generated_at": "2026-11-13T17:13:13.885940+08:00",
+      "generated_at": "2026-11-13T18:04:00.711202+08:00",
       "feature_version": "vcp_shadow_20261113_v1",
-      "sample_size": 256,
-      "training_rows": 15581,
+      "sample_size": 512,
+      "training_rows": 31327,
       "selected_model": "lightgbm",
       "deployment_decision": "retain_existing_early_rules_vcp_observation_only",
       "reason": null,
@@ -409,84 +409,187 @@
         "models": {
           "lightgbm": {
             "incremental_5_signal_date_block_95_interval": [
-              -0.05939878596587668,
-              0.18643297534360548
+              -0.1625710765203421,
+              0.10351765352087293
             ],
-            "mean_incremental_net_excess_pct": 0.05918531888303574,
-            "paired_signal_dates": 1439,
+            "mean_incremental_net_excess_pct": -0.026153819702341218,
+            "paired_signal_dates": 1481,
             "with_vcp": {
-              "date_balanced_mean_net_excess_pct": 0.027288311638218533,
-              "mean_abs_mid_distance_atr": 0.3997690596382536,
-              "mean_signal_age_sessions": 2.1392170488765347,
+              "date_balanced_mean_net_excess_pct": 0.006009648971752261,
+              "mean_abs_mid_distance_atr": 0.46580886645326525,
+              "mean_signal_age_sessions": 2.101282916948008,
               "measurement": "overlapping_fixed_horizon_labels_not_portfolio_pnl",
-              "paired_early_rule_improvement_pct": 0.10889091239416783,
+              "paired_early_rule_improvement_pct": 0.0037085735480187694,
               "paired_improvement_5_session_block_95_interval": [
-                -0.10338553705673642,
-                0.31987895512698605
+                -0.190567319843697,
+                0.18789162445106228
               ],
-              "signal_dates": 1439
+              "signal_dates": 1481
             },
             "without_vcp": {
-              "date_balanced_mean_net_excess_pct": -0.031897007244817206,
-              "mean_abs_mid_distance_atr": 0.39791612886152433,
-              "mean_signal_age_sessions": 2.1638869585360205,
+              "date_balanced_mean_net_excess_pct": 0.03216346867409348,
+              "mean_abs_mid_distance_atr": 0.46430643334980287,
+              "mean_signal_age_sessions": 2.1785955435516544,
               "measurement": "overlapping_fixed_horizon_labels_not_portfolio_pnl",
-              "paired_early_rule_improvement_pct": 0.049705593511132094,
+              "paired_early_rule_improvement_pct": 0.029862393250359987,
               "paired_improvement_5_session_block_95_interval": [
-                -0.15314160934224935,
-                0.2521040049863754
+                -0.1857619484661466,
+                0.22390521318687104
               ],
-              "signal_dates": 1439
+              "signal_dates": 1481
             }
           },
           "ridge": {
             "incremental_5_signal_date_block_95_interval": [
-              -0.06863222266161788,
-              0.21356038475117256
+              -0.09187129804953902,
+              0.16012647105126476
             ],
-            "mean_incremental_net_excess_pct": 0.07756640127518953,
-            "paired_signal_dates": 1439,
+            "mean_incremental_net_excess_pct": 0.02933037049999094,
+            "paired_signal_dates": 1481,
             "with_vcp": {
-              "date_balanced_mean_net_excess_pct": -0.06406814996791217,
-              "mean_abs_mid_distance_atr": 0.40125714477736285,
-              "mean_signal_age_sessions": 2.309647903636785,
+              "date_balanced_mean_net_excess_pct": -0.030595075735565146,
+              "mean_abs_mid_distance_atr": 0.453370807219683,
+              "mean_signal_age_sessions": 2.283986045464776,
               "measurement": "overlapping_fixed_horizon_labels_not_portfolio_pnl",
-              "paired_early_rule_improvement_pct": 0.01753445078803713,
+              "paired_early_rule_improvement_pct": -0.03289615115929864,
               "paired_improvement_5_session_block_95_interval": [
-                -0.19650882373738776,
-                0.22514024171117178
+                -0.2390917816284449,
+                0.17442661476006777
               ],
-              "signal_dates": 1439
+              "signal_dates": 1481
             },
             "without_vcp": {
-              "date_balanced_mean_net_excess_pct": -0.1416345512431017,
-              "mean_abs_mid_distance_atr": 0.40342288826613026,
-              "mean_signal_age_sessions": 2.3387769284225155,
+              "date_balanced_mean_net_excess_pct": -0.05992544623555609,
+              "mean_abs_mid_distance_atr": 0.45044324143777864,
+              "mean_signal_age_sessions": 2.3259059194238128,
               "measurement": "overlapping_fixed_horizon_labels_not_portfolio_pnl",
-              "paired_early_rule_improvement_pct": -0.06003195048715241,
+              "paired_early_rule_improvement_pct": -0.06222652165928958,
               "paired_improvement_5_session_block_95_interval": [
-                -0.2764416551466472,
-                0.15746781128931925
+                -0.29281931248719184,
+                0.14962191243961162
               ],
-              "signal_dates": 1439
+              "signal_dates": 1481
             }
           }
         },
         "production_activation": false,
         "selection": "descriptive_ablation_not_used_to_activate_or_tune_thresholds"
       },
-      "result_file": "output/history_pilot/experiments/7659c4d2a360f24d/vcp/f6bcd432a414c8f7/model_result.json"
+      "result_file": "output/history_pilot/experiments/69f0a0d7bf4527b5/vcp/9930f920aea27089/model_result.json"
+    },
+    "exit_policy": {
+      "status": "exit_policy_replay_completed_research_only",
+      "generated_at": "2026-11-13T18:04:48.309694+08:00",
+      "policy_version": "risk_exit_20261113_v1",
+      "production_activation": false,
+      "legacy_midline_rule_enabled": false,
+      "ready_for_assisted_ranking_review": null,
+      "result": {
+        "fill_reason_counts": {
+          "early_breakout_failed": 1,
+          "partial_profit_at_2r": 578,
+          "preexisting_stop_touched_daily_next_open_proxy": 2197,
+          "study_horizon_liquidation_not_live_rule": 1811
+        },
+        "fixed3_mean_net_excess_pct": -0.04906682015604409,
+        "independent_final_test": false,
+        "mean_net_excess_pct": -0.1292744944928514,
+        "mean_paired_improvement_pct": -0.0802076743368073,
+        "measurement": "retrospective_variable_horizon_trade_labels_not_executable_portfolio_pnl",
+        "paired_5_signal_date_block_95_interval": [
+          -0.32729359257775087,
+          0.15117941786069633
+        ],
+        "paired_signal_dates": 1475,
+        "production_activation": false,
+        "round_trip_cost_bps_sensitivity": {
+          "20": -0.1292744944928514,
+          "40": -0.3276586752838118
+        },
+        "state_counts": {
+          "censored_missing_path": 6,
+          "censored_unresolved_exit": 23,
+          "completed_daily_proxy": 4009,
+          "immature_or_cross_review_boundary": 17,
+          "invalid_before_entry": 15,
+          "unfilled": 12
+        }
+      },
+      "gates": null,
+      "reason": null
+    },
+    "model_release": {
+      "status": "blocked_pending_evidence_or_performance",
+      "generated_at": "2026-11-13T18:05:19.365012+08:00",
+      "policy_version": "assisted_ranking_release_20261113_v1",
+      "production_activation": false,
+      "legacy_midline_rule_enabled": false,
+      "ready_for_assisted_ranking_review": false,
+      "result": null,
+      "gates": {
+        "cost_and_stability": {
+          "checks": {
+            "positive_at_all_required_costs": false,
+            "positive_improvement_interval_lower_bound": false,
+            "positive_net_interval_lower_bound": false,
+            "rolling_improvement_consistency": false
+          },
+          "cost_means_pct": {
+            "20": 0.006009648971752261,
+            "40": -0.19315758037778635
+          },
+          "improvement_5_signal_date_block_95_interval": [
+            -0.190567319843697,
+            0.18789162445106228
+          ],
+          "net_5_signal_date_block_95_interval": [
+            -0.22545593987337698,
+            0.23438914149447285
+          ],
+          "positive_fold_fraction": 0.5,
+          "scope": "retrospective_development_screen_not_independent_final_test",
+          "state": "failed"
+        },
+        "exit_policy_replay": {
+          "live_execution_approved": false,
+          "reference_levels_available": true,
+          "research_replay_completed": true,
+          "state": "failed",
+          "unresolved_or_censored_paths": 29
+        },
+        "sealed_forward_validation": {
+          "reason": "need_real_frozen_model_predictions_and_matured_outcomes; elapsed_time_alone_is_not_evidence",
+          "state": "missing"
+        },
+        "source_execution_and_portfolio_risk": {
+          "missing_checks": [
+            "T_plus_1_and_gap_fills",
+            "corporate_actions",
+            "historical_ST_halts_limits",
+            "historical_universe_scope",
+            "live_feature_parity",
+            "official_benchmark",
+            "portfolio_overlap_cash_and_drawdown"
+          ],
+          "state": "missing"
+        },
+        "training_and_artifacts": {
+          "development_feature_dates": 1932,
+          "state": "passed"
+        }
+      },
+      "reason": null
     }
   },
   "historical_training": {
     "status": "expanded_pilot_review_not_production_qualified",
     "model_status": "trained_pilot_only",
-    "generated_at": "2026-11-13T17:13:13.656188+08:00",
-    "sample_size": 256,
+    "generated_at": "2026-11-13T18:04:00.360372+08:00",
+    "sample_size": 512,
     "history_start": "2017-01-01",
     "history_end": "2026-11-10",
-    "feature_dates": 2083,
-    "training_rows": 15581,
+    "feature_dates": 2125,
+    "training_rows": 31327,
     "source_failures": {},
     "remaining_gaps": [
       "full_historical_universe_not_collected",
@@ -501,15 +604,15 @@
       "unobserved_price_dates_not_classified_as_verified_halts"
     ],
     "next_action": "complete_execution_source_audits_and_collect_preregistered_forward_predictions",
-    "result_file": "output/history_pilot/experiments/7659c4d2a360f24d/model_result.json",
+    "result_file": "output/history_pilot/experiments/69f0a0d7bf4527b5/model_result.json",
     "reason": null,
     "error_type": null,
     "formal_model_status": "not_trained",
     "provider": "qlib_public_release",
     "label_scope": "hypothetical_price_returns_st_status_unknown",
-    "selected_model": "lightgbm",
+    "selected_model": "ridge",
     "evaluation_mode": "development_only_prior_holdout_excluded",
-    "development_feature_dates": 1890,
+    "development_feature_dates": 1932,
     "previously_reviewed_start_date": "2026-01-20",
     "prospective_start_date": "2026-11-16",
     "prospective_status": "not_yet_evaluated",
