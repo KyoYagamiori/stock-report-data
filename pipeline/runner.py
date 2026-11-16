@@ -20,7 +20,7 @@ from pipeline.adapters.point_in_time import recover_fixed_point_in_time
 from pipeline.adapters.stock_quotes import collect_stock_quotes
 from pipeline.adapters.bounded import call_with_timeout
 from pipeline.calendar import CalendarInfo, resolve_calendar
-from pipeline.contracts import ContractError, load_json, load_report_pools
+from pipeline.contracts import ContractError, load_json, load_report_pools, report_quote_gaps, required_report_codes
 from pipeline.publisher import PublishResult, publish_snapshot, verify_pointer, write_health, refresh_manifest
 from pipeline.quality import apply_quality_result, evaluate_quality
 
@@ -154,7 +154,7 @@ def run_pipeline(
         _verified_previous_close_snapshot(root, market_date)
         if profile in {"trading_preopen", "non_trading"} else None
     )
-    if previous_close and _previous_close_covers_pool(previous_close):
+    if previous_close and _previous_close_covers_pool(previous_close, report_date):
         stock_result = _stocks_from_previous_close(previous_close, started)
         market_result = _market_from_previous_close(previous_close, started)
     else:
@@ -415,7 +415,7 @@ def _build_snapshot(
             pass
     quote_times.sort()
     coverage = _coverage(stocks, market)
-    pools = load_report_pools()
+    pools = load_report_pools(report_date)
     present_codes = {record.get("code") for record in stocks}
     missing_core = [f"{record['code']}:quote" for record in stocks if record.get("pool") == "core" and not record.get("valid_quote")]
     missing_core.extend(f"{record['code']}:missing_record" for record in pools["core"]
@@ -425,8 +425,12 @@ def _build_snapshot(
         for record in stocks
         if record.get("pool") in {"watch", "supplemental"} and not record.get("valid_quote")
     ]
-    missing_optional.extend(f"{record['code']}:missing_record" for record in pools["watch"]
+    missing_optional.extend(f"{record['code']}:missing_record" for record in pools["watch"] + pools["supplemental"]
                             if record["code"] not in present_codes)
+    active_codes = required_report_codes({"report_date": report_date}, pools)
+    active_gaps = report_quote_gaps({"report_date": report_date, "stocks": stocks}, pools)
+    coverage["report_active"] = _coverage_item(len(active_codes) - len(active_gaps), len(active_codes))
+    missing_optional.extend(f"{code}:active_report_quote" for code in active_gaps)
     if not market.get("turnover_valid"):
         missing_optional.append("total_turnover")
     if not market.get("breadth_valid"):
@@ -610,14 +614,14 @@ def _verified_previous_close_snapshot(root: Path, market_date: str) -> dict[str,
     return close
 
 
-def _previous_close_covers_pool(close: dict[str, Any]) -> bool:
-    pools = load_report_pools()
+def _previous_close_covers_pool(close: dict[str, Any], report_date: str | None = None) -> bool:
+    pools = load_report_pools(report_date or close.get("report_date"))
     expected = {item["code"] for group in ("core", "watch", "supplemental") for item in pools[group]}
     return expected.issubset({item["code"] for item in close.get("stocks", [])})
 
 
 def _stocks_from_previous_close(close: dict[str, Any], started: datetime) -> AdapterResult:
-    pools = load_report_pools()
+    pools = load_report_pools(started.date().isoformat())
     configured = {item["code"]: (group, item) for group in ("core", "watch", "supplemental") for item in pools[group]}
     stocks = []
     for base in close["stocks"]:

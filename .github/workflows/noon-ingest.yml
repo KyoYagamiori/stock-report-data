@@ -129,8 +129,13 @@ jobs:
             noon) python -m market_screen.noon --max-seconds 480 ;;
             replay) python -m market_screen.noon_probe ;;
           esac
+      - name: Record a missed current-day noon window
+        id: noon_audit
+        if: always() && steps.stage.outcome == 'success'
+        continue-on-error: true
+        run: python -m market_screen.noon --audit-missed
       - name: Publish immutable evidence and merge concurrent pointers
-        if: always() && steps.collect.outcome != 'skipped' && steps.collect.outcome != ''
+        if: always() && ((steps.collect.outcome != 'skipped' && steps.collect.outcome != '') || steps.noon_audit.outcome == 'failure' || steps.noon_audit.outcome == 'success')
         env:
           PHASE: ${{ steps.stage.outputs.phase }}
         run: |
@@ -138,7 +143,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python -m market_screen.workflow_io publish --phase "$PHASE"
       - name: Surface remaining data gaps
-        if: always() && steps.collect.outcome == 'failure'
+        if: always() && (steps.collect.outcome == 'failure' || steps.noon_audit.outcome == 'failure')
         run: |
           echo "::error::Independent data acceptance remains incomplete. Actual counts and source failures were preserved; no historical audit was relabeled."
           exit 1

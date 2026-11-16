@@ -6,7 +6,7 @@ from datetime import datetime, time
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from pipeline.contracts import ContractError, load_quality_profiles
+from pipeline.contracts import ContractError, load_quality_profiles, report_quote_gaps
 from pipeline.close_verification import completed_close_window_verified
 
 
@@ -39,15 +39,22 @@ def evaluate_quality(snapshot: dict[str, Any], quality_profile: str) -> QualityR
     if blocking:
         return QualityResult("F", (), tuple(blocking), ())
 
+    active_gaps = report_quote_gaps(snapshot)
     if quality_profile == "trading_evening":
-        return _evaluate_evening(snapshot)
+        result = _evaluate_evening(snapshot)
+        if active_gaps and result.grade == "A":
+            return QualityResult("B", result.reasons, (),
+                                 ("active report quotes missing: " + ",".join(active_gaps),))
+        return result
 
     locked_missing = any(x.get("locked") and not x.get("valid_quote") for x in snapshot.get("stocks", []))
-    if not locked_missing and _meets_thresholds(snapshot, profile["grade_a"]):
+    if not locked_missing and not active_gaps and _meets_thresholds(snapshot, profile["grade_a"]):
         return QualityResult("A", tuple(_success_reasons(snapshot, "A")), (), ())
 
     if _meets_thresholds(snapshot, profile["grade_b"]):
         actions = ["cap capital_consistency_score at 60"]
+        if active_gaps:
+            actions.append("active report quotes missing: " + ",".join(active_gaps))
         if locked_missing:
             actions.append("locked symbol quote missing; report explicit gap")
         if not snapshot.get("market", {}).get("turnover_valid"):

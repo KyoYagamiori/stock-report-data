@@ -12,7 +12,7 @@ import pandas as pd
 from pipeline import SCHEMA_VERSION
 from pipeline.adapters import AdapterResult
 from pipeline.calendar import CalendarInfo, resolve_calendar
-from pipeline.contracts import ContractError, load_report_pools
+from pipeline.contracts import ContractError, load_report_pools, report_quote_gaps
 from pipeline.publisher import verify_pointer, write_health
 from pipeline.quality import evaluate_quality
 from pipeline.runner import RunOptions, RunResult, run_pipeline
@@ -23,7 +23,7 @@ TIMEZONE = ZoneInfo("Asia/Shanghai")
 
 def _recovery_stocks(root, moment, market_date, mode):
     del root, market_date, mode
-    pools = load_report_pools()
+    pools = load_report_pools(moment.date().isoformat())
     stocks = [dict(entry, pool=group, valid_quote=False, quote_time=None,
                    warnings=[], errors=[])
               for group in ("core", "watch", "supplemental") for entry in pools[group]]
@@ -92,6 +92,7 @@ def _same_day_noon_ready(root: Path, report_date: str) -> bool:
         return (snapshot.get("snapshot_type") == "noon"
                 and snapshot.get("report_date") == report_date
                 and snapshot.get("market_date") == report_date
+                and not report_quote_gaps(snapshot)
                 and evaluate_quality(snapshot, "trading_noon").grade in {"A", "B"})
     except (ContractError, OSError, KeyError, TypeError, ValueError):
         return False
