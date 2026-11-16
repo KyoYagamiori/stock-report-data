@@ -26,7 +26,7 @@ def collect_stock_quotes(
         from pipeline.adapters.direct_quotes import collect_direct
         return collect_direct(root, moment, market_date, mode)
     started = moment.astimezone(TIMEZONE)
-    pools = load_report_pools()
+    pools = load_report_pools(moment.date().isoformat())
     pool_by_code = {
         record["code"]: pool_name
         for pool_name in ("core", "watch", "supplemental")

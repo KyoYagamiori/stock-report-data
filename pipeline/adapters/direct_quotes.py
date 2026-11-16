@@ -139,7 +139,7 @@ def daily_indicators(code, market_date, quote_time, quote_symbol=None):
 def collect_direct(root, moment, market_date, mode):
     del root
     started = moment.astimezone(TZ)
-    pools = load_report_pools()
+    pools = load_report_pools(moment.date().isoformat())
     entries = [(group, entry) for group in ("core", "watch", "supplemental") for entry in pools[group]]
     symbols = [symbol(entry["code"]) for _, entry in entries] + list(INDEX_SYMBOLS)
     quotes = fetch_quotes(symbols)

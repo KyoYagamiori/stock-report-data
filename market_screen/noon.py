@@ -270,21 +270,43 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
     result["audit_file"] = archive.relative_to(root).as_posix()
     result["audit_sha256"] = hashlib.sha256(archive.read_bytes()).hexdigest()
     latest = root / "output/boll/latest/noon_update.json"
-    # A late cron is a diagnostic, not permission to erase an earlier audit.
-    if result["status"] not in {"outside_collection_window", "not_applicable"} or not latest.exists():
+    # Preserve a SAME-DAY audit. A stale earlier date must not hide today's miss.
+    prior = json.loads(latest.read_text()) if latest.exists() else {}
+    if (result["status"] not in {"outside_collection_window", "not_applicable"}
+            or prior.get("report_date", "") < result["report_date"]):
         write_json(latest, result)
     print(json.dumps(result, ensure_ascii=False), flush=True)
     return result
+
+
+def audit_missed_noon(root: Path, *, moment=None):
+    """Record a missed current-day window without issuing any quote requests."""
+    now = moment or datetime.now(TZ)
+    if now.time().replace(tzinfo=None) < time(12, 20):
+        return None
+    dates = resolve_dates(Path(root), now, "noon")
+    if not dates["is_trading_day"]:
+        return None
+    latest = Path(root) / "output/boll/latest/noon_update.json"
+    if latest.exists():
+        prior = json.loads(latest.read_text())
+        if prior.get("report_date", "") >= dates["report_date"]:
+            return prior
+    return ensure_noon(Path(root), max_seconds=1, moment=now)
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--max-seconds", type=int, default=600)
+    parser.add_argument("--audit-missed", action="store_true")
     args = parser.parse_args()
     if args.max_seconds <= 0:
         parser.error("--max-seconds must be positive")
-    result = ensure_noon(args.root, max_seconds=args.max_seconds)
+    result = audit_missed_noon(args.root) if args.audit_missed else ensure_noon(args.root, max_seconds=args.max_seconds)
+    if result is None:
+        print("No missed current-day noon audit to record.")
+        return 0
     return 0 if result["accepted"] or result["status"] == "not_applicable" else 2
 
 

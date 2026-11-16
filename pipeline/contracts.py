@@ -41,12 +41,29 @@ def load_quality_profiles() -> dict[str, Any]:
     return payload
 
 
-def load_report_pools() -> dict[str, Any]:
+def load_report_pools(report_date: str | None = None) -> dict[str, Any]:
     payload = load_json(CONFIG_DIR / "report_pools.json")
     if payload.get("schema_version") != SCHEMA_VERSION:
         raise ContractError("report_pools.json schema_version mismatch")
     _validate_report_pools(payload)
+    if report_date:
+        payload["supplemental"] = [row for row in payload["supplemental"]
+                                   if row.get("report_required_from", "") <= report_date]
     return payload
+
+
+def required_report_codes(snapshot: dict[str, Any], pools: dict[str, Any] | None = None) -> set[str]:
+    """Apply the explicitly dated active-list contract without regrading older reports."""
+    pools = pools or load_report_pools()
+    day = str(snapshot.get("report_date", ""))
+    return {row["code"] for group in ("core", "watch", "supplemental")
+            for row in pools[group]
+            if row.get("report_required_from") and row["report_required_from"] <= day}
+
+
+def report_quote_gaps(snapshot: dict[str, Any], pools: dict[str, Any] | None = None) -> list[str]:
+    present = {row.get("code") for row in snapshot.get("stocks", []) if row.get("valid_quote")}
+    return sorted(required_report_codes(snapshot, pools) - present)
 
 
 def _validate_report_pools(payload: dict[str, Any]) -> None:
