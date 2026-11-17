@@ -2,6 +2,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 import gzip
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import tempfile
@@ -191,6 +192,7 @@ class DailyModelTests(unittest.TestCase):
         self.assertEqual(0, result["paired_complete_cohorts"])
         self.assertIsNone(result["paired_model_minus_rule_price_proxy_pct"])
 
+    @unittest.skipUnless(importlib.util.find_spec("lightgbm"), "optional training dependency is exercised by the daily-model workflow")
     def test_real_fit_purges_reviewed_and_future_labels(self):
         from tests.test_research_history_review import review_data
         data, policy = review_data()
