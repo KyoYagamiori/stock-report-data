@@ -240,6 +240,14 @@ def run_registered(root):
             value=json.loads(extra_path.read_text())
             result[name]={k:value.get(k) for k in ("status","generated_at","policy_version","production_activation",
                 "legacy_midline_rule_enabled","ready_for_assisted_ranking_review","result","gates","reason")}
+    daily_path = root / "output/research/latest/daily_model_status.json"
+    if daily_path.exists():
+        daily = json.loads(daily_path.read_bytes())
+        result["daily_report_trial"] = {k: daily.get(k) for k in (
+            "version", "mode", "model_status", "generated_at", "market_date", "coverage",
+            "new_predictions", "unique_prediction_count", "matured_feedback_rows",
+            "formal_production_promotion", "intraday_model_status")}
+        result["daily_report_trial"]["reader_manifest"] = "output/research/latest/daily_model_manifest.json"
     write_json(root / "output/research/latest/early_model_status.json", result)
     return {k: v for k, v in result.items() if k not in {"model", "rolling_folds"}}
 

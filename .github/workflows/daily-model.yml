@@ -1,0 +1,87 @@
+name: Daily model forward trial
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "research_system/daily_model*.py"
+      - "config/daily_model.json"
+      - "tests/test_research_daily_model.py"
+      - ".github/workflows/daily-model.yml"
+  workflow_run:
+    workflows: ["Early BOLL discovery", "Shanghai Shenzhen BOLL screen", "Independent noon market ingestion"]
+    types: [completed]
+    branches: [main]
+  schedule:
+    # China 08:47, 12:17, 15:47, 20:47. Upstream completions also trigger it.
+    - cron: "47 0,7,12 * * 1-5"
+    - cron: "17 4 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-model-forward-main
+  cancel-in-progress: false
+
+jobs:
+  trial:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /research_system/
+            /market_screen/
+            /pipeline/
+            /report_support/
+            /tests/
+            /config/
+            /requirements-research.txt
+            /output/boll/latest/
+            /output/cache/trade_calendar.json
+            /output/research/daily_model/
+            /output/research/latest/daily_model*.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install model runtime
+        run: python -m pip install --disable-pip-version-check -r requirements-research.txt
+      - name: Verify frozen predictions, timing, own data and outcome contracts
+        run: python -m unittest tests.test_research_daily_model
+      - name: Hydrate hash-bound historical training and current own data
+        run: python -m research_system.daily_model hydrate
+      - name: Score daily candidates and settle future price proxies
+        id: run
+        continue-on-error: true
+        run: python -u -m research_system.daily_model run
+      - name: Publish frozen predictions and small report reader
+        if: always() && steps.run.outcome != 'skipped'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git add --sparse output/research/daily_model output/research/latest/daily_model*.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "research: freeze daily model trial predictions and own-data feedback"
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            # Rebuild from published state: never rebase conflicting episode counters.
+            git reset --hard origin/main
+            python -m research_system.daily_model hydrate
+            python -m research_system.daily_model run
+          done
+          exit 1
+      - name: Surface actual trial failures
+        if: steps.run.outcome == 'failure'
+        run: exit 1
