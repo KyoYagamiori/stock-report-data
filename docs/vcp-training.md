@@ -1,6 +1,7 @@
 # VCP独立候选集训练
 
 2026-11-17完成首轮研究候选版本 `vcp_independent_daily_20261117_v1`。
+同日完成的触发条件研究训练另见`docs/vcp-trigger-training.md`；两个版本及原在用模型分开保存。
 入口为 `output/research/latest/vcp_training_status.json`，其中的dataset、audits、models和result
 均绑定不可变路径与SHA-256。复现命令为 `python -m research_system.vcp_training --workers 4`；
 需先取回配置绑定的原始历史字段档案。已完成的同一实验只核验并复用结果，不反复训练成新测试。
