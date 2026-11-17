@@ -54,6 +54,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements-research.txt
       - name: Install model runtime
         run: python -m pip install --disable-pip-version-check -r requirements-research.txt
       - name: Verify frozen predictions, timing, own data and outcome contracts
