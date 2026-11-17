@@ -86,16 +86,15 @@ def load_queue(root, now, calendar):
     manifest = json.loads((root / "output/boll/latest/manifest.json").read_bytes())
     pointer = manifest.get("latest_complete_screen") or manifest["latest_screen"]
     screen = json.loads(checked(root, pointer, "output/boll/archive"))
-    if (screen.get("phase") != "close" or not screen.get("technical_screen_complete")
-            or screen.get("unresolved_count") != 0 or datetime.fromisoformat(screen["published_at"]) > now):
-        raise ValueError("daily_model_requires_completed_verified_close_screen")
+    validate_completed_screen(screen, now)
     completed = [d for d in calendar if datetime.fromisoformat(d + "T15:00:00+08:00") <= now]
     if not completed or screen["market_date"] != completed[-1]:
         raise ValueError("daily_model_daily_baseline_stale:" + screen["market_date"])
     source = screen["early_signals"]
     ref = {"file": source["reader_file"], "sha256": source["reader_sha256"]}
     queue = json.loads(checked(root, ref, "output/boll/archive"))
-    if queue["market_date"] != screen["market_date"] or queue["phase"] != "close":
+    if (queue["market_date"] != screen["market_date"] or queue["phase"] != screen["phase"]
+            or queue.get("published_at") != screen["published_at"]):
         raise ValueError("daily_model_queue_identity_mismatch")
     # Report queues retain pool code lists, not all duplicate feature rows.
     # Reconstitute only those bounded candidates from producer record shards.
@@ -118,6 +117,15 @@ def load_queue(root, now, calendar):
                 records[row["code"]] = row
     if set(records) != wanted:
         raise ValueError("daily_model_candidate_records_missing")
+    for row in records.values():
+        indicators = row.get("indicators") or {}
+        if (indicators.get("bar_date") != screen["market_date"]
+                or not indicators.get("history_current")
+                or indicators.get("last_bar", {}).get("day") != screen["market_date"]
+                or indicators.get("early_state", {}).get("asof") != screen["market_date"]
+                or not indicators.get("early_state", {}).get("points")
+                or indicators["early_state"]["points"][-1].get("day") != screen["market_date"]):
+            raise ValueError("daily_model_candidate_daily_date_mismatch")
     from market_screen.early import build
     settings = json.loads((root / "config/early_signals.json").read_bytes())
     rebuilt = build(list(records.values()), {"phase": "close", "market_date": screen["market_date"],
@@ -125,7 +133,24 @@ def load_queue(root, now, calendar):
     evaluated = {r["code"]: r for r in rebuilt["evaluations"]}
     queue["pools"] = {p: [evaluated[code] for code in codes] for p, codes in queue.get("pool_codes", {}).items()}
     return queue, {**ref, "published_at": screen["published_at"],
-        "screen_file": pointer["selected_file"], "screen_sha256": pointer["sha256"]}, screen
+        "screen_file": pointer["selected_file"], "screen_sha256": pointer["sha256"],
+        "producer_phase": screen["phase"], "bar_contract": "completed_1500_daily_not_intraday"}, screen
+
+
+def validate_completed_screen(screen, now):
+    """The producer's early role can publish completed daily bars after 15:00.
+
+    Its role label is not bar status. Require the exact completed daily cutoff,
+    publication after that cutoff and all-code accounting; never accept overlays.
+    """
+    cutoff = datetime.fromisoformat(screen["market_date"] + "T15:00:00+08:00")
+    published = datetime.fromisoformat(screen["published_at"])
+    if (screen.get("phase") not in {"early", "close"}
+            or not screen.get("technical_screen_complete") or screen.get("unresolved_count") != 0
+            or not screen.get("all_codes_accounted_for")
+            or screen.get("market_cutoff") != cutoff.isoformat()
+            or published.tzinfo is None or not cutoff <= published <= now):
+        raise ValueError("daily_model_requires_completed_verified_daily_screen")
 
 
 def candidates(queue, config):

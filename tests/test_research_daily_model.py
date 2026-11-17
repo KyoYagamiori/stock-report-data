@@ -12,7 +12,7 @@ from unittest.mock import patch
 from market_screen.history import canonical_bytes, write_json
 from market_screen.vcp import FEATURES as VCP_FEATURES
 from research_system.daily_model import (FEATURES, VERSION, candidates, ensure_models, immutable,
-    load_calendar, load_queue, register, score_rows, verify_predictions)
+    load_calendar, load_queue, register, score_rows, verify_predictions, validate_completed_screen)
 from research_system.daily_model_data import (checked, feedback, load_bars, next_entry, price_outcome,
     settle, summarize)
 
@@ -72,6 +72,39 @@ class DailyModelTests(unittest.TestCase):
         write_json(self.root / "output/cache/trade_calendar.json", {"trade_dates": CALENDAR, "source": "weekday_fallback"})
         with self.assertRaisesRegex(ValueError, "calendar_unverified"):
             load_calendar(self.root, NOW)
+
+    def test_completed_daily_evidence_accepts_early_producer_but_not_noon_overlay(self):
+        screen = {"market_date": "2026-11-16", "market_cutoff": "2026-11-16T15:00:00+08:00",
+            "published_at": "2026-11-16T16:10:00+08:00", "phase": "early",
+            "technical_screen_complete": True, "unresolved_count": 0, "all_codes_accounted_for": True}
+        validate_completed_screen(screen, NOW)
+        for change in ({"phase": "noon"}, {"phase": "intraday"}, {"unresolved_count": 1},
+                {"market_cutoff": "2026-11-16T11:30:00+08:00"}, {"all_codes_accounted_for": False},
+                {"published_at": "2026-11-16T14:59:00+08:00"},
+                {"published_at": "2026-11-17T16:10:00+08:00"}):
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, "completed_verified_daily"):
+                validate_completed_screen({**screen, **change}, NOW)
+
+    def test_source_reader_rejects_mixed_dates_before_rebuilding_candidates(self):
+        day = "2026-11-16"
+        directory = self.root / "output/boll/archive" / day / "test"
+        queue = {"market_date": day, "phase": "early", "published_at": day + "T16:10:00+08:00",
+            "pool_codes": {"fresh_mid_reclaim": ["600000"]}}
+        qref = immutable(self.root, directory / "early_queue.json", queue)
+        record = {"code": "600000", "market_date": day, "indicators": {"bar_date": day,
+            "last_bar": {"day": day}, "history_current": True,
+            "early_state": {"asof": day, "points": [{"day": "2026-11-13"}]}}}
+        rref = immutable(self.root, directory / "records/600000-600000.json", {"records": [record]})
+        screen = {"market_date": day, "market_cutoff": day + "T15:00:00+08:00", "phase": "early",
+            "published_at": queue["published_at"], "all_codes_accounted_for": True,
+            "technical_screen_complete": True, "unresolved_count": 0,
+            "early_signals": {"reader_file": qref["file"], "reader_sha256": qref["sha256"]},
+            "record_shards": [{**rref, "count": 1}]}
+        sref = immutable(self.root, directory / "screen.json", screen)
+        write_json(self.root / "output/boll/latest/manifest.json", {"latest_complete_screen": {
+            "selected_file": sref["file"], "sha256": sref["sha256"]}})
+        with self.assertRaisesRegex(ValueError, "candidate_daily_date_mismatch"):
+            load_queue(self.root, NOW, CALENDAR)
 
     def test_source_byte_hash_and_path_are_verified(self):
         path = self.root / "output/research/daily_model/models/test.json"
