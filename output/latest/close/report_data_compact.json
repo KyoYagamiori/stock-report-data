@@ -26,13 +26,13 @@
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "watch": {
       "expected": 14,
@@ -40,9 +40,7 @@
       "valid": 14
     }
   },
-  "degradation_actions": [
-    "cap capital_consistency_score at 60"
-  ],
+  "degradation_actions": [],
   "market": {
     "breadth": {
       "down": 4119,
@@ -160,9 +158,71 @@
     ],
     "latest_completed_trading_day": "2026-11-17",
     "market_scope": "沪深A股（不含北交所）",
-    "sector_source": "unavailable",
-    "sectors_bottom": [],
-    "sectors_top": [],
+    "sector_source": "AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
+    "sectors_bottom": [
+      {
+        "category": "industry",
+        "name": "其他数字媒体",
+        "pct_change": -11.21,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "影视动漫制作",
+        "pct_change": -9.4,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "影视院线",
+        "pct_change": -9.02,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "文字媒体",
+        "pct_change": -8.67,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "电视广播Ⅲ",
+        "pct_change": -8.13,
+        "source": "AKShare stock_board_industry_name_em"
+      }
+    ],
+    "sectors_top": [
+      {
+        "category": "industry",
+        "name": "集成电路制造",
+        "pct_change": 5.82,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "concept",
+        "name": "反转股",
+        "pct_change": 4.09,
+        "source": "AKShare stock_board_concept_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "橡胶助剂",
+        "pct_change": 3.32,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "industry",
+        "name": "厨房小家电",
+        "pct_change": 3.2,
+        "source": "AKShare stock_board_industry_name_em"
+      },
+      {
+        "category": "concept",
+        "name": "光刻胶",
+        "pct_change": 3.12,
+        "source": "AKShare stock_board_concept_name_em"
+      }
+    ],
     "total_turnover": 1467232016628.0,
     "turnover_valid": true
   },
@@ -170,17 +230,14 @@
   "market_date": "2026-11-17",
   "market_session": "market_close",
   "missing_core_fields": [],
-  "missing_optional_fields": [
-    "sectors_top",
-    "sectors_bottom"
-  ],
-  "planned_at": "2026-11-17T15:50:00+08:00",
+  "missing_optional_fields": [],
+  "planned_at": "2026-11-17T16:29:00+08:00",
   "point_in_time_recovered": false,
-  "published_at": "2026-11-17T15:51:54+08:00",
-  "quality_grade": "B",
+  "published_at": "2026-11-17T16:30:54+08:00",
+  "quality_grade": "A",
   "quality_profile": "trading_close",
   "quality_reasons": [
-    "quality profile thresholds met for grade B",
+    "quality profile thresholds met for grade A",
     "indices coverage 3/3",
     "core coverage 11/11"
   ],
@@ -191,39 +248,38 @@
   "report_cycle": "2026-11-17-close",
   "report_date": "2026-11-17",
   "risk_notice": "本快照只提供公开行情数据核验，不构成投资建议。",
-  "schedule_delay_minutes": 0.6,
+  "schedule_delay_minutes": 0.93,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261117-1550-close-full-44041635397",
+  "snapshot_id": "20261117-1629-close-full-44047032475",
   "snapshot_mode": "full",
   "snapshot_type": "close",
   "source_status": {
     "market_overview": {
       "errors": [
-        "板块数据缺失：TimeoutError: collect_sectors exceeded 45s",
         "市场汇总仅在沪深A股全页数量核对通过时提供。"
       ],
-      "finished_at": "2026-11-17T15:51:54+08:00",
+      "finished_at": "2026-11-17T16:30:54+08:00",
       "records_expected": 5,
       "records_valid": 3,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-17T15:50:36+08:00",
+      "started_at": "2026-11-17T16:29:56+08:00",
       "status": "partial"
     },
     "stock_quotes": {
       "errors": [
         "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。"
       ],
-      "finished_at": "2026-11-17T15:50:46+08:00",
+      "finished_at": "2026-11-17T16:30:02+08:00",
       "records_expected": 30,
       "records_valid": 30,
       "retry_count": 0,
       "source": "新浪证券批量行情（源日期时间）",
-      "started_at": "2026-11-17T15:50:36+08:00",
+      "started_at": "2026-11-17T16:29:56+08:00",
       "status": "success"
     }
   },
-  "started_at": "2026-11-17T15:50:36+08:00",
+  "started_at": "2026-11-17T16:29:56+08:00",
   "stocks": [
     {
       "amount": 3680177046.0,
@@ -3325,9 +3381,8 @@
   },
   "warnings": [
     "批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。",
-    "板块数据缺失：TimeoutError: collect_sectors exceeded 45s",
     "市场汇总仅在沪深A股全页数量核对通过时提供。"
   ],
   "workflow_attempt": 1,
-  "workflow_run_id": "44041635397"
+  "workflow_run_id": "44047032475"
 }
