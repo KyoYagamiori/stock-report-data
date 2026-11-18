@@ -1,5 +1,5 @@
 {
-  "attempt_role": "delayed-current-phase",
+  "attempt_role": "independent-noon-ingest",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -20,8 +20,8 @@
     },
     "report_active": {
       "expected": 8,
-      "ratio": 1.0,
-      "valid": 8
+      "ratio": 0.375,
+      "valid": 3
     },
     "sectors_bottom": {
       "expected": 5,
@@ -39,46 +39,49 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-11-18T05:18:01+08:00",
-  "planned_at": "2026-11-18T05:18:00+08:00",
+  "finished_at": "2026-11-18T11:34:21+08:00",
+  "planned_at": "2026-11-18T11:32:00+08:00",
   "point_in_time_recovered": false,
   "published": true,
-  "quality_grade": "A",
+  "quality_grade": "B",
   "quality_reasons": [
-    "quality profile thresholds met for grade A",
+    "quality profile thresholds met for grade B",
     "indices coverage 3/3",
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-11-18-early",
+  "report_cycle": "2026-11-18-noon",
   "report_date": "2026-11-18",
-  "schedule_delay_minutes": 0.0,
+  "schedule_delay_minutes": 0.1,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261118-0518-early-full-44178081298",
+  "snapshot_id": "20261118-1132-noon-full-44230968360",
   "snapshot_mode": "full",
-  "snapshot_type": "early",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
       "errors": [],
-      "finished_at": "2026-11-18T05:18:00+08:00",
+      "finished_at": "2026-11-18T11:34:21+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261117-1747-close-full-44058530332",
-      "started_at": "2026-11-18T05:18:00+08:00",
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_name_em; AKShare stock_board_concept_name_em",
+      "started_at": "2026-11-18T11:32:06+08:00",
       "status": "success"
     },
     "stock_quotes": {
-      "errors": [],
-      "finished_at": "2026-11-18T05:18:00+08:00",
+      "errors": [
+        "观察池配置缺少代码：001965, 002746, 003816, 301071, 600967",
+        "行业信息获取失败：Length mismatch: Expected axis has 3 elements, new values have 2 elements 已使用观察池 theme 作为行业/主题兜底。"
+      ],
+      "finished_at": "2026-11-18T11:33:45+08:00",
       "records_expected": 30,
-      "records_valid": 30,
+      "records_valid": 25,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261117-1747-close-full-44058530332",
-      "started_at": "2026-11-18T05:18:00+08:00",
-      "status": "success"
+      "source": "新浪实时行情接口",
+      "started_at": "2026-11-18T11:32:06+08:00",
+      "status": "partial"
     }
   },
-  "started_at": "2026-11-18T05:18:00+08:00",
+  "started_at": "2026-11-18T11:32:06+08:00",
   "status": "published"
 }
