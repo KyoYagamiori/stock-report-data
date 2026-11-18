@@ -121,8 +121,10 @@ class QlibRelease:
     provider = "qlib_public_release"
     status_basis = "unavailable_st_price_only_research"
 
-    def __init__(self, root, config):
+    def __init__(self, root, config, *, archive=None, cohort_selector=None):
         self.root, self.config = Path(root).resolve(), config
+        self.archive = Path(archive) if archive is not None else None
+        self.cohort_selector = cohort_selector
         date.fromisoformat(config["release_tag"])
         self.base_url = "https://github.com/chenditc/investment_data/releases/download/" + config["release_tag"] + "/"
 
@@ -130,7 +132,7 @@ class QlibRelease:
         c = self.config
         cache = self.root / ".work/public_history" / c["release_tag"]
         cache.mkdir(parents=True, exist_ok=True)
-        archive = Path(os.environ.get("STOCK_QLIB_ARCHIVE", cache / "qlib_bin.tar.gz"))
+        archive = self.archive or Path(os.environ.get("STOCK_QLIB_ARCHIVE", cache / "qlib_bin.tar.gz"))
         manifest_path = archive.with_name("qlib_bin.manifest.json")
         if not manifest_path.exists():
             with urlopen(self.base_url + "qlib_bin.manifest.json", timeout=30) as response:
@@ -178,7 +180,8 @@ class QlibRelease:
             self.intervals.append((symbol, first, last))
         origin = c["cohort_date"]
         members = [{"code": s[:2].lower() + "." + s[2:]} for s in sorted({s for s, a, z in self.intervals if a <= origin <= z})]
-        codes = select_cohort(members, c["sample_size"], c["seed"])
+        codes = (select_cohort(members, c["sample_size"], c["seed"]) if self.cohort_selector is None
+                 else self.cohort_selector(members))
         symbols = {code.replace(".", "") for code in codes + [c["benchmark_code"]]}
         refs = {}
         for relative, raw in blobs.items():
