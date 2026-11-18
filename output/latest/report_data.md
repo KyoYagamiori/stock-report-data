@@ -1,16 +1,16 @@
-# 股票行情快照 | 2026-11-18 evening
+# 股票行情快照 | 2026-11-19 early
 
 - Schema：1.6.1
-- Snapshot ID：`20261118-2355-evening-full-44340976514`
-- 报告周期：`2026-11-18-evening`
+- Snapshot ID：`20261119-0033-early-full-44348439564`
+- 报告周期：`2026-11-19-early`
 - 质量等级：**A**
-- 质量 Profile：`trading_evening`
+- 质量 Profile：`trading_preopen`
 - 行情日期：2026-11-18
 - 行情时间范围：2026-11-18T15:00:03+08:00 至 2026-11-18T15:36:00+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.83 分钟
-- 生成时间：2026-11-18T23:55:50+08:00
-- 适用报告：evening
+- 调度延迟：0.92 分钟
+- 生成时间：2026-11-19T00:33:56+08:00
+- 适用报告：early
 
 ## 读取结论
 
@@ -70,5 +70,5 @@
 
 ## 数据源状态
 
-- `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=市场汇总仅在沪深A股全页数量核对通过时提供。
-- `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
+- `stock_quotes`：success；来源=verified previous close snapshot 20261118-1557-close-full-44262695244；错误=无
+- `market_overview`：success；来源=verified previous close snapshot 20261118-1557-close-full-44262695244；错误=无
