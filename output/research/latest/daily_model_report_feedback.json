@@ -1,10 +1,11 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-20T21:04:32.395840+08:00",
-  "total_calls": 5,
+  "generated_at": "2026-11-20T21:05:18.769055+08:00",
+  "total_calls": 8,
   "statuses": {
     "hit": 3,
-    "miss": 2
+    "miss": 2,
+    "pending": 3
   },
   "model": {
     "state": "shadow_calibration",
@@ -27,6 +28,110 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "b831597f36d4c17503ed0838",
+      "code": "601318",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-20T21:04:56+08:00",
+      "quote_asof": "2026-11-20T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 54.65,
+      "high": 55.9,
+      "etf_context": "supportive",
+      "reference_price": 55.46,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": 54.89,
+        "buy_high": 54.9,
+        "reduce_low": 55.35,
+        "reduce_high": 55.46,
+        "stop": 54.62,
+        "profit_target": 55.46,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "09:45–11:00回踩54.65–54.88，完成15分钟收复54.88且量≥前一根1.2倍，510880保持相对强。仅价带内考虑。",
+        "exit_rule": "仅可卖仓位触区后首个完成15分钟收低于55.35减1/3，收破54.62退出，55.32启动保护。"
+      },
+      "source": "reports/forecasts/2026/11/20/evening.json",
+      "source_sha256": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
+      "seen_at": "2026-11-20T21:05:18.769055+08:00"
+    },
+    {
+      "signal_id": "b789deec337784a9bbf47ead",
+      "code": "600089",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-20T21:04:56+08:00",
+      "quote_asof": "2026-11-20T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 17.95,
+      "high": 18.45,
+      "etf_context": "unknown",
+      "reference_price": 18.1,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T11:15:00+08:00",
+        "buy_low": 18.06,
+        "buy_high": 18.08,
+        "reduce_low": 18.4,
+        "reduce_high": 18.45,
+        "stop": 17.9,
+        "profit_target": 18.41,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "09:45–11:15回踩17.94–18.06守住，完整15分钟收回18.06且量≥前一根1.2倍。保留原观察至25日15:00。",
+        "exit_rule": "可卖仓位触带后首根完成15分钟低于18.40减1/3，完成15分钟破17.90退出，18.33启动保护。"
+      },
+      "source": "reports/forecasts/2026/11/20/evening.json",
+      "source_sha256": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
+      "seen_at": "2026-11-20T21:05:18.769055+08:00"
+    },
+    {
+      "signal_id": "5876b324c6e6001e564c8ae3",
+      "code": "600970",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-20T21:04:56+08:00",
+      "quote_asof": "2026-11-20T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 7.69,
+      "high": 7.9,
+      "etf_context": "unknown",
+      "reference_price": 7.77,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 7.95,
+        "reduce_high": 8.1,
+        "stop": 7.69,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "无新入场，仅承接原窗口。15:00核完成日线是否超过8.10和2444万股；当日窗口届满。",
+        "exit_rule": "可卖仓位触带后首根完整15分钟低于7.95减1/3，完整15分钟破7.69退出。",
+        "vcp_checks": {
+          "stop_below_15m": true,
+          "reduce_after_band_below_15m": true,
+          "daily_breakout": {
+            "pivot": 8.1,
+            "min_volume_shares": 24440000
+          }
+        }
+      },
+      "source": "reports/forecasts/2026/11/20/evening.json",
+      "source_sha256": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
+      "seen_at": "2026-11-20T21:05:18.769055+08:00"
+    },
     {
       "signal_id": "700687b86bcdde6aef73b4f8",
       "code": "688981",
@@ -277,10 +382,11 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-20T21:04:32.470490+08:00",
-    "plans": 2,
+    "evaluated_at": "2026-11-20T21:05:18.919562+08:00",
+    "plans": 3,
     "statuses": {
-      "window_open": 2
+      "window_open": 2,
+      "waiting_for_close": 1
     },
     "verified_security_sessions": 1,
     "collection_error": null,
@@ -288,6 +394,44 @@
     "trade_execution_labels": 0,
     "formal_training_rows": 0,
     "recent_calls": [
+      {
+        "signal_id": "5876b324c6e6001e564c8ae3",
+        "code": "600970",
+        "phase": "evening",
+        "issued_at": "2026-11-20T21:04:56+08:00",
+        "seen_at": "2026-11-20T21:05:18.769055+08:00",
+        "check_day": "2026-11-23",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/20/evening.json",
+        "forecast_sha256": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
+        "status": "waiting_for_close",
+        "observed_days": [],
+        "pending_days": [
+          "2026-11-23"
+        ],
+        "missing_days": {},
+        "price_events": {},
+        "sources": [],
+        "condition_checks": {
+          "status": "defined_conditions_checked",
+          "daily_breakout": {
+            "state": "awaiting_evidence",
+            "pivot": 8.1,
+            "min_volume_shares": 24440000
+          },
+          "stop_below_15m": {
+            "state": "not_observed_in_reviewed_sessions",
+            "event": null
+          },
+          "reduce_after_band_below_15m": {
+            "state": "not_observed_in_reviewed_sessions",
+            "touch": null,
+            "event": null
+          }
+        },
+        "entry_condition_state": "original_additional_conditions_require_review",
+        "fill_state": "no_execution_evidence"
+      },
       {
         "signal_id": "aef9e3acc015a40ffe30ec8c",
         "code": "600970",
