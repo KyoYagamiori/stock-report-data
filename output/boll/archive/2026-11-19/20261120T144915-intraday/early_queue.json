@@ -1,0 +1,2846 @@
+{
+  "schema_version": "1.0",
+  "method_version": "boll_early_v3_20261105",
+  "mode": "active_research_discovery_unvalidated_ranking",
+  "model_status": "not_trained",
+  "probabilities_enabled": false,
+  "production_prediction_activation": false,
+  "report_date": "2026-11-20",
+  "market_date": "2026-11-19",
+  "phase": "intraday",
+  "published_at": "2026-11-20T14:50:48.422494+08:00",
+  "evaluated_count": 5223,
+  "feature_available_count": 3706,
+  "pool_counts": {
+    "fresh_mid_reclaim": 12,
+    "first_mid_retest": 3,
+    "squeeze_prepare": 20,
+    "first_expansion": 3
+  },
+  "shortlist": [
+    {
+      "code": "600977",
+      "name": "中国电影",
+      "industry": "文化、体育和娱乐业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:32+08:00",
+      "band_status": "provisional",
+      "price": 15.43,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-17",
+        "pivot": 17.34,
+        "invalidation_below": 15.05,
+        "contraction_depths_pct": [
+          13.206459054209919
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-16",
+            "low": "2026-11-17",
+            "known_on": "2026-11-19"
+          }
+        ],
+        "atr20": 0.7974999999999998,
+        "reference_volume": 34525753.0,
+        "dry_volume_ratio": 2.4277382161657703,
+        "tight5_range_pct": 15.21594684385381,
+        "trend_pass": true,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": true,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 15.26,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 15.43,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 2.3949843260188097,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 13.206459054209919
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 15.415,
+        "upper": 16.777622471559894,
+        "lower": 14.052377528440102,
+        "width": 0.17679175758156293
+      },
+      "features": {
+        "atr20": 0.7939999999999998,
+        "distance_to_mid_atr": 0.01889168765743145,
+        "distance_to_mid_pct": 0.09730781706129843,
+        "bandwidth_percentile_120": 0.7833333333333333,
+        "mid_slope_5d_atr": 0.3979848866498728,
+        "return_5d_pct": -9.501466275659832,
+        "return_20d_pct": 4.397834912043308,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.37218413320274163,
+        "relative_market_5d_pct": 1.8717254958991845,
+        "relative_market_20d_pct": 19.34375896168776,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 14.78,
+        "mid_reclaim_close_threshold": 15.41421052631579,
+        "structural_reference_low": 14.6,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 15.43,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 14.4,
+        "initial_risk_per_share": 1.0299999999999994,
+        "initial_risk_pct": 6.67530784186649,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.7939999999999998,
+        "profit_protection_arms_at": 16.975,
+        "partial_profit_at": 17.49,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "603887",
+      "name": "城地香江",
+      "industry": "信息传输、软件和信息技术服务业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:31+08:00",
+      "band_status": "provisional",
+      "price": 7.71,
+      "stage": "first_retest",
+      "setups": [
+        {
+          "pool": "first_mid_retest",
+          "origin": "2026-11-18",
+          "signal_age_sessions": 2
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-10-30",
+        "pivot": 8.59,
+        "invalidation_below": 6.88,
+        "contraction_depths_pct": [
+          14.640198511166258
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-21",
+            "low": "2026-10-30",
+            "known_on": "2026-11-03"
+          }
+        ],
+        "atr20": 0.4185,
+        "reference_volume": 17355427.5,
+        "dry_volume_ratio": 1.1482805594964458,
+        "tight5_range_pct": 11.989100817438715,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 7.94,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 7.71,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 2.102747909199522,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 19.90686845168801
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 7.6235,
+        "upper": 8.188204347424385,
+        "lower": 7.058795652575616,
+        "width": 0.1481483170261388
+      },
+      "features": {
+        "atr20": 0.41500000000000004,
+        "distance_to_mid_atr": 0.20843373493975906,
+        "distance_to_mid_pct": 1.134649439233959,
+        "bandwidth_percentile_120": 0.11666666666666667,
+        "mid_slope_5d_atr": -0.019277108433734955,
+        "return_5d_pct": -0.12953367875647714,
+        "return_20d_pct": -0.3875968992248069,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.14260249554367202,
+        "relative_market_5d_pct": 11.243658092802539,
+        "relative_market_20d_pct": 14.558327150419647,
+        "signal_age_sessions": 2
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 7.74,
+        "mid_reclaim_close_threshold": 7.618947368421053,
+        "structural_reference_low": 7.34,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 7.71,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 7.23,
+        "initial_risk_per_share": 0.47999999999999954,
+        "initial_risk_pct": 6.225680933852134,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.41500000000000004,
+        "profit_protection_arms_at": 8.43,
+        "partial_profit_at": 8.67,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "601688",
+      "name": "华泰证券",
+      "industry": "金融业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:32+08:00",
+      "band_status": "provisional",
+      "price": 17.51,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        },
+        {
+          "pool": "squeeze_prepare",
+          "origin": "2026-11-17",
+          "signal_age_sessions": 3,
+          "signal_age_is_lower_bound": false
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-16",
+        "pivot": 17.96,
+        "invalidation_below": 16.68,
+        "contraction_depths_pct": [
+          7.126948775055686
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-05",
+            "low": "2026-11-16",
+            "known_on": "2026-11-18"
+          }
+        ],
+        "atr20": 0.3959999999999999,
+        "reference_volume": 48544152.0,
+        "dry_volume_ratio": 0.793679494082006,
+        "tight5_range_pct": 4.136690647482033,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 17.35,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 17.51,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.136363636363635,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 7.126948775055686
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 17.4065,
+        "upper": 17.99015315042412,
+        "lower": 16.822846849575882,
+        "width": 0.06706151729803458
+      },
+      "features": {
+        "atr20": 0.38649999999999984,
+        "distance_to_mid_atr": 0.26778783958602953,
+        "distance_to_mid_pct": 0.5946054634762943,
+        "bandwidth_percentile_120": 0.041666666666666664,
+        "mid_slope_5d_atr": -0.03622250970245628,
+        "return_5d_pct": 2.6979472140762573,
+        "return_20d_pct": 1.5072463768116107,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.6304728546409857,
+        "relative_market_5d_pct": 14.071138985635272,
+        "relative_market_20d_pct": 16.453170426456065,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 17.25,
+        "mid_reclaim_close_threshold": 17.40105263157895,
+        "structural_reference_low": 16.68,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 17.51,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 16.58,
+        "initial_risk_per_share": 0.9300000000000033,
+        "initial_risk_pct": 5.3112507138778025,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.38649999999999984,
+        "profit_protection_arms_at": 18.905,
+        "partial_profit_at": 19.37,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "300561",
+      "name": "汇金科技",
+      "industry": "I 信息技术",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 16.48,
+      "stage": "initial_expansion",
+      "setups": [
+        {
+          "pool": "first_expansion",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-13",
+        "pivot": 17.1,
+        "invalidation_below": 14.2,
+        "contraction_depths_pct": [
+          16.959064327485397
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-04",
+            "low": "2026-11-13",
+            "known_on": "2026-11-17"
+          }
+        ],
+        "atr20": 1.2884999999999998,
+        "reference_volume": 21206470.5,
+        "dry_volume_ratio": 1.5785494337683397,
+        "tight5_range_pct": 18.873239436619716,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 15.33,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 16.48,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 0.4811796662786194,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 16.959064327485397
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 15.18,
+        "upper": 16.52159606439494,
+        "lower": 13.838403935605056,
+        "width": 0.176758374755592
+      },
+      "features": {
+        "atr20": 1.2524999999999997,
+        "distance_to_mid_atr": 1.0379241516966076,
+        "distance_to_mid_pct": 8.563899868247704,
+        "bandwidth_percentile_120": 0.125,
+        "mid_slope_5d_atr": 0.39321357285429126,
+        "return_5d_pct": 11.880515953835701,
+        "return_20d_pct": 5.641025641025643,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.5440742302825818,
+        "relative_market_5d_pct": 23.25370772539472,
+        "relative_market_20d_pct": 20.586949690670096,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 15.6,
+        "mid_reclaim_close_threshold": 15.111578947368422,
+        "structural_reference_low": 14.4,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 16.48,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 14.08,
+        "initial_risk_per_share": 2.4000000000000004,
+        "initial_risk_pct": 14.563106796116507,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 1.2524999999999997,
+        "profit_protection_arms_at": 20.08,
+        "partial_profit_at": 21.28,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "000593",
+      "name": "德龙汇能",
+      "industry": "D 水电煤气",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:27+08:00",
+      "band_status": "provisional",
+      "price": 17.51,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-04",
+        "pivot": 20.99,
+        "invalidation_below": 15.7,
+        "contraction_depths_pct": [
+          18.229166666666664
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-27",
+            "low": "2026-11-04",
+            "known_on": "2026-11-06"
+          }
+        ],
+        "atr20": 1.2009999999999996,
+        "reference_volume": 10212722.5,
+        "dry_volume_ratio": 0.8037410200854865,
+        "tight5_range_pct": 25.886075949367093,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 15.92,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 17.51,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 2.897585345545377,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 25.20247737017627
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 17.464,
+        "upper": 19.78880020646936,
+        "lower": 15.139199793530635,
+        "width": 0.2662391441215488
+      },
+      "features": {
+        "atr20": 1.2334999999999996,
+        "distance_to_mid_atr": 0.03729225780300198,
+        "distance_to_mid_pct": 0.26339899221257124,
+        "bandwidth_percentile_120": 0.325,
+        "mid_slope_5d_atr": -0.19700040535063007,
+        "return_5d_pct": -5.351351351351341,
+        "return_20d_pct": -1.6292134831460636,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.8958038661008965,
+        "relative_market_5d_pct": 6.021840420207675,
+        "relative_market_20d_pct": 13.31671056649839,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 17.8,
+        "mid_reclaim_close_threshold": 17.461578947368423,
+        "structural_reference_low": 15.39,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 17.51,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 15.08,
+        "initial_risk_per_share": 2.4300000000000015,
+        "initial_risk_pct": 13.877784123358088,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 1.2334999999999996,
+        "profit_protection_arms_at": 21.155,
+        "partial_profit_at": 22.37,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "688775",
+      "name": "影石创新",
+      "industry": "制造业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:32+08:00",
+      "band_status": "provisional",
+      "price": 109.33,
+      "stage": "first_retest",
+      "setups": [
+        {
+          "pool": "first_mid_retest",
+          "origin": "2026-11-17",
+          "signal_age_sessions": 3
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-16",
+        "pivot": 120.84,
+        "invalidation_below": 97.95,
+        "contraction_depths_pct": [
+          21.584905660377352,
+          14.73711699164345
+        ],
+        "contraction_count": 2,
+        "contraction_ratio": 0.6827510494380272,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-20",
+            "low": "2026-11-02",
+            "known_on": "2026-11-04"
+          },
+          {
+            "high": "2026-11-10",
+            "low": "2026-11-16",
+            "known_on": "2026-11-18"
+          }
+        ],
+        "atr20": 8.418000000000001,
+        "reference_volume": 8776239.0,
+        "dry_volume_ratio": 1.0931365930212247,
+        "tight5_range_pct": 23.36906584992342,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": true,
+          "base_long_enough": true,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 108.52,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 109.33,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.3673081492040868,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 18.942403177755708
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 103.461,
+        "upper": 118.20603428276787,
+        "lower": 88.71596571723212,
+        "width": 0.28503560342095824
+      },
+      "features": {
+        "atr20": 8.0165,
+        "distance_to_mid_atr": 0.7321150127861286,
+        "distance_to_mid_pct": 5.672668928388469,
+        "bandwidth_percentile_120": 0.5916666666666667,
+        "mid_slope_5d_atr": 0.3108588536144208,
+        "return_5d_pct": 9.625990173468368,
+        "return_20d_pct": 3.248654263858719,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.5305550691647705,
+        "relative_market_5d_pct": 20.999181945027384,
+        "relative_market_20d_pct": 18.194578313503172,
+        "signal_age_sessions": 3
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 105.89,
+        "mid_reclaim_close_threshold": 103.15210526315789,
+        "structural_reference_low": 97.95,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 109.33,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 95.94,
+        "initial_risk_per_share": 13.39,
+        "initial_risk_pct": 12.247324613555293,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 8.0165,
+        "profit_protection_arms_at": 129.415,
+        "partial_profit_at": 136.11,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "603036",
+      "name": "如通股份",
+      "industry": "制造业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:33+08:00",
+      "band_status": "provisional",
+      "price": 12.92,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        },
+        {
+          "pool": "squeeze_prepare",
+          "origin": "2026-11-16",
+          "signal_age_sessions": 4,
+          "signal_age_is_lower_bound": false
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-02",
+        "pivot": 13.65,
+        "invalidation_below": 11.96,
+        "contraction_depths_pct": [
+          8.562691131498468
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-27",
+            "low": "2026-11-02",
+            "known_on": "2026-11-04"
+          }
+        ],
+        "atr20": 0.6059999999999999,
+        "reference_volume": 3505350.0,
+        "dry_volume_ratio": 1.9164354486713167,
+        "tight5_range_pct": 11.793611793611781,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 12.55,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 12.92,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.2046204620462055,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 12.380952380952381
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 12.68,
+        "upper": 13.316333246027583,
+        "lower": 12.043666753972417,
+        "width": 0.10036801987816765
+      },
+      "features": {
+        "atr20": 0.6335,
+        "distance_to_mid_atr": 0.3788476716653516,
+        "distance_to_mid_pct": 1.8927444794952786,
+        "bandwidth_percentile_120": 0.058333333333333334,
+        "mid_slope_5d_atr": 0.1767955801104974,
+        "return_5d_pct": -4.154302670623144,
+        "return_20d_pct": 4.109589041095885,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.628122769450393,
+        "relative_market_5d_pct": 7.218889100935872,
+        "relative_market_20d_pct": 19.055513090740337,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 12.41,
+        "mid_reclaim_close_threshold": 12.667368421052632,
+        "structural_reference_low": 11.91,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 12.92,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 11.75,
+        "initial_risk_per_share": 1.17,
+        "initial_risk_pct": 9.055727554179565,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 0.6335,
+        "profit_protection_arms_at": 14.675,
+        "partial_profit_at": 15.26,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "300287",
+      "name": "飞利信",
+      "industry": "I 信息技术",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 3.62,
+      "stage": "initial_expansion",
+      "setups": [
+        {
+          "pool": "first_expansion",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-17",
+        "pivot": 3.64,
+        "invalidation_below": 3.31,
+        "contraction_depths_pct": [
+          7.799442896935926
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-13",
+            "low": "2026-11-17",
+            "known_on": "2026-11-19"
+          }
+        ],
+        "atr20": 0.15449999999999994,
+        "reference_volume": 26949329.0,
+        "dry_volume_ratio": 1.72200083349014,
+        "tight5_range_pct": 9.969788519637458,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 3.46,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 3.62,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 0.12944983818770242,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 9.065934065934067
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 3.44,
+        "upper": 3.605891530826622,
+        "lower": 3.274108469173378,
+        "width": 0.09644856443408245
+      },
+      "features": {
+        "atr20": 0.15999999999999995,
+        "distance_to_mid_atr": 1.1250000000000013,
+        "distance_to_mid_pct": 5.232558139534893,
+        "bandwidth_percentile_120": 0.2,
+        "mid_slope_5d_atr": 0.14375000000000088,
+        "return_5d_pct": 3.72492836676217,
+        "return_20d_pct": 3.72492836676217,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.5422993492407809,
+        "relative_market_5d_pct": 15.098120138321185,
+        "relative_market_20d_pct": 18.670852416406625,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 3.49,
+        "mid_reclaim_close_threshold": 3.4305263157894736,
+        "structural_reference_low": 3.31,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 3.62,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 3.27,
+        "initial_risk_per_share": 0.3500000000000001,
+        "initial_risk_pct": 9.66850828729282,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 0.15999999999999995,
+        "profit_protection_arms_at": 4.145,
+        "partial_profit_at": 4.32,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "industry": "金融业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 25.33,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-16",
+        "pivot": 26.2,
+        "invalidation_below": 24.8,
+        "contraction_depths_pct": [
+          5.343511450381677
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-04",
+            "low": "2026-11-16",
+            "known_on": "2026-11-18"
+          }
+        ],
+        "atr20": 0.49250000000000005,
+        "reference_volume": 118902753.5,
+        "dry_volume_ratio": 0.5963201348402751,
+        "tight5_range_pct": 1.9354838709677358,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": true,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 25.19,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 25.33,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.7664974619289358,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 5.343511450381677
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 25.305500000000002,
+        "upper": 26.211909951401683,
+        "lower": 24.39909004859832,
+        "width": 0.07163738724006105
+      },
+      "features": {
+        "atr20": 0.48100000000000004,
+        "distance_to_mid_atr": 0.050935550935543014,
+        "distance_to_mid_pct": 0.0968168975123751,
+        "bandwidth_percentile_120": 0.43333333333333335,
+        "mid_slope_5d_atr": -0.15904365904365766,
+        "return_5d_pct": 1.3199999999999878,
+        "return_20d_pct": -0.4715127701375277,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.5728314238952508,
+        "relative_market_5d_pct": 12.693191771559004,
+        "relative_market_20d_pct": 14.474411279506926,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 25.45,
+        "mid_reclaim_close_threshold": 25.30421052631579,
+        "structural_reference_low": 24.76,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 25.33,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 24.63,
+        "initial_risk_per_share": 0.6999999999999993,
+        "initial_risk_pct": 2.7635215159889435,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.48100000000000004,
+        "profit_protection_arms_at": 26.38,
+        "partial_profit_at": 26.73,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "002078",
+      "name": "太阳纸业",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 13.91,
+      "stage": "first_retest",
+      "setups": [
+        {
+          "pool": "first_mid_retest",
+          "origin": "2026-11-13",
+          "signal_age_sessions": 5
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-13",
+        "pivot": 14.23,
+        "invalidation_below": 13.2,
+        "contraction_depths_pct": [
+          9.248554913294793,
+          7.238229093464521
+        ],
+        "contraction_count": 2,
+        "contraction_ratio": 0.7826335207308517,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-19",
+            "low": "2026-10-28",
+            "known_on": "2026-10-30"
+          },
+          {
+            "high": "2026-11-06",
+            "low": "2026-11-13",
+            "known_on": "2026-11-17"
+          }
+        ],
+        "atr20": 0.4044999999999999,
+        "reference_volume": 20516989.5,
+        "dry_volume_ratio": 0.907968734886763,
+        "tight5_range_pct": 6.818181818181812,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": true,
+          "base_long_enough": true,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 14.01,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 13.91,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 0.7911001236093952,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 7.238229093464521
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 13.6415,
+        "upper": 14.424552360956788,
+        "lower": 12.858447639043213,
+        "width": 0.11480443660254194
+      },
+      "features": {
+        "atr20": 0.4054999999999998,
+        "distance_to_mid_atr": 0.6621454993834763,
+        "distance_to_mid_pct": 1.9682586225854948,
+        "bandwidth_percentile_120": 0.4,
+        "mid_slope_5d_atr": 0.41800246609124825,
+        "return_5d_pct": 2.8846153846153966,
+        "return_20d_pct": 7.829457364341086,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.09063444108761183,
+        "relative_market_5d_pct": 14.257807156174412,
+        "relative_market_20d_pct": 22.77538141398554,
+        "signal_age_sessions": 5
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 12.9,
+        "mid_reclaim_close_threshold": 13.627368421052632,
+        "structural_reference_low": 13.4,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 83.206,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 13.91,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 13.29,
+        "initial_risk_per_share": 0.620000000000001,
+        "initial_risk_pct": 4.457225017972688,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.4054999999999998,
+        "profit_protection_arms_at": 14.84,
+        "partial_profit_at": 15.15,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "600039",
+      "name": "四川路桥",
+      "industry": "建筑业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 8.8,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        },
+        {
+          "pool": "squeeze_prepare",
+          "origin": "2026-11-18",
+          "signal_age_sessions": 2,
+          "signal_age_is_lower_bound": false
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-12",
+        "pivot": 9.28,
+        "invalidation_below": 8.66,
+        "contraction_depths_pct": [
+          12.06896551724137,
+          6.695938529088908,
+          3.1319910514541305
+        ],
+        "contraction_count": 3,
+        "contraction_ratio": 0.25950782997762817,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-14",
+            "low": "2026-10-30",
+            "known_on": "2026-11-03"
+          },
+          {
+            "high": "2026-11-04",
+            "low": "2026-11-06",
+            "known_on": "2026-11-10"
+          },
+          {
+            "high": "2026-11-09",
+            "low": "2026-11-12",
+            "known_on": "2026-11-16"
+          }
+        ],
+        "atr20": 0.27649999999999986,
+        "reference_volume": 21833190.0,
+        "dry_volume_ratio": 1.0206218605709931,
+        "tight5_range_pct": 5.1401869158878455,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": true,
+          "base_long_enough": true,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 8.6,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 8.8,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.7359855334538838,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 6.681034482758608
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 8.673,
+        "upper": 9.067213140318788,
+        "lower": 8.278786859681212,
+        "width": 0.09090583196559147
+      },
+      "features": {
+        "atr20": 0.2764999999999998,
+        "distance_to_mid_atr": 0.45931283905967724,
+        "distance_to_mid_pct": 1.4643145393750778,
+        "bandwidth_percentile_120": 0.19166666666666668,
+        "mid_slope_5d_atr": 0.16998191681736213,
+        "return_5d_pct": 0.3420752565564511,
+        "return_20d_pct": 5.769230769230771,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.7279693486590093,
+        "relative_market_5d_pct": 11.715267028115466,
+        "relative_market_20d_pct": 20.715154818875224,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 8.32,
+        "mid_reclaim_close_threshold": 8.666315789473684,
+        "structural_reference_low": 8.56,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 8.8,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 8.49,
+        "initial_risk_per_share": 0.3100000000000005,
+        "initial_risk_pct": 3.5227272727272783,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.2764999999999998,
+        "profit_protection_arms_at": 9.265,
+        "partial_profit_at": 9.42,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "002157",
+      "name": "正邦科技",
+      "industry": "A 农林牧渔",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 2.98,
+      "stage": "initial_expansion",
+      "setups": [
+        {
+          "pool": "first_expansion",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-13",
+        "pivot": 2.97,
+        "invalidation_below": 2.83,
+        "contraction_depths_pct": [
+          8.47457627118644,
+          4.067796610169494
+        ],
+        "contraction_count": 2,
+        "contraction_ratio": 0.48000000000000037,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-22",
+            "low": "2026-11-02",
+            "known_on": "2026-11-04"
+          },
+          {
+            "high": "2026-11-09",
+            "low": "2026-11-13",
+            "known_on": "2026-11-17"
+          }
+        ],
+        "atr20": 0.06400000000000008,
+        "reference_volume": 93066889.0,
+        "dry_volume_ratio": 1.1230933055041734,
+        "tight5_range_pct": 4.946996466431108,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": true,
+          "base_long_enough": true,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 2.88,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 2.98,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": -0.15624999999999648,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 4.7138047138047146
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 2.8685,
+        "upper": 2.974570731118438,
+        "lower": 2.762429268881562,
+        "width": 0.07395553851730044
+      },
+      "features": {
+        "atr20": 0.06750000000000009,
+        "distance_to_mid_atr": 1.6518518518518488,
+        "distance_to_mid_pct": 3.887048980303298,
+        "bandwidth_percentile_120": 0.38333333333333336,
+        "mid_slope_5d_atr": 0.19259259259259087,
+        "return_5d_pct": 2.758620689655178,
+        "return_20d_pct": 3.114186851211076,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.6629834254143646,
+        "relative_market_5d_pct": 14.131812461214194,
+        "relative_market_20d_pct": 18.06011090085553,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 2.89,
+        "mid_reclaim_close_threshold": 2.862631578947368,
+        "structural_reference_low": 2.82,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 2.98,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 2.8,
+        "initial_risk_per_share": 0.18000000000000016,
+        "initial_risk_pct": 6.040268456375844,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.06750000000000009,
+        "profit_protection_arms_at": 3.25,
+        "partial_profit_at": 3.34,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "603466",
+      "name": "风语筑",
+      "industry": "文化、体育和娱乐业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:33+08:00",
+      "band_status": "provisional",
+      "price": 14.3,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-02",
+        "pivot": 18.35,
+        "invalidation_below": 11.11,
+        "contraction_depths_pct": [
+          30.475594493116397
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-26",
+            "low": "2026-11-02",
+            "known_on": "2026-11-04"
+          }
+        ],
+        "atr20": 1.357,
+        "reference_volume": 99465278.0,
+        "dry_volume_ratio": 0.7966746848080996,
+        "tight5_range_pct": 35.780525502318405,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": false,
+          "tight_last_five": false,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 13.0,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 14.3,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 2.9845246868091384,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 39.455040871934614
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 14.224,
+        "upper": 16.647719455712647,
+        "lower": 11.800280544287356,
+        "width": 0.3407929493409231
+      },
+      "features": {
+        "atr20": 1.3565,
+        "distance_to_mid_atr": 0.05602653888684151,
+        "distance_to_mid_pct": 0.5343082114735775,
+        "bandwidth_percentile_120": 0.8333333333333334,
+        "mid_slope_5d_atr": 0.0022115739034280235,
+        "return_5d_pct": -13.33333333333333,
+        "return_20d_pct": -2.654867256637161,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.8225729316116694,
+        "relative_market_5d_pct": -1.9601415617743143,
+        "relative_market_20d_pct": 12.291056793007293,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 14.69,
+        "mid_reclaim_close_threshold": 14.22,
+        "structural_reference_low": 12.21,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 14.3,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 11.87,
+        "initial_risk_per_share": 2.4300000000000015,
+        "initial_risk_pct": 16.993006993007004,
+        "entry_risk_acceptable": false,
+        "entry_decision": "skip_entry_structure_too_wide",
+        "pivot": null,
+        "initial_atr": 1.3565,
+        "profit_protection_arms_at": 17.945,
+        "partial_profit_at": 19.16,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "601216",
+      "name": "君正集团",
+      "industry": "制造业",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:32+08:00",
+      "band_status": "provisional",
+      "price": 4.64,
+      "stage": "preparing",
+      "setups": [
+        {
+          "pool": "squeeze_prepare",
+          "origin": "2026-11-18",
+          "signal_age_sessions": 2,
+          "signal_age_is_lower_bound": false
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": false,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-16",
+        "pivot": 4.77,
+        "invalidation_below": 4.52,
+        "contraction_depths_pct": [
+          5.241090146750526
+        ],
+        "contraction_count": 1,
+        "contraction_ratio": 1.0,
+        "confirmed_swings": [
+          {
+            "high": "2026-11-04",
+            "low": "2026-11-16",
+            "known_on": "2026-11-18"
+          }
+        ],
+        "atr20": 0.11549999999999994,
+        "reference_volume": 51810596.5,
+        "dry_volume_ratio": 0.8814675005720114,
+        "tight5_range_pct": 4.2035398230088505,
+        "trend_pass": false,
+        "checks": {
+          "multiple_contracting_pullbacks": false,
+          "base_long_enough": false,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": false,
+          "rising_ma50_context": false,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 4.65,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 4.64,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "no_vcp_setup",
+        "distance_to_pivot_atr": 1.1255411255411252,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 5.241090146750526
+      },
+      "rejection_reasons": [],
+      "entry_status": "observation_wait_direction",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required",
+        "squeeze_direction_not_confirmed"
+      ],
+      "boll": {
+        "mid": 4.635,
+        "upper": 4.739211323760904,
+        "lower": 4.530788676239095,
+        "width": 0.044967129993917686
+      },
+      "features": {
+        "atr20": 0.11249999999999996,
+        "distance_to_mid_atr": 0.04444444444444351,
+        "distance_to_mid_pct": 0.10787486515642097,
+        "bandwidth_percentile_120": 0.0,
+        "mid_slope_5d_atr": 0.11111111111111273,
+        "return_5d_pct": 1.978021978021971,
+        "return_20d_pct": 1.978021978021971,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.2469135802469081,
+        "relative_market_5d_pct": 13.351213749580987,
+        "relative_market_20d_pct": 16.923946027666425,
+        "signal_age_sessions": 2
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 4.55,
+        "mid_reclaim_close_threshold": 4.634736842105263,
+        "structural_reference_low": 4.52,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 4.64,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 4.49,
+        "initial_risk_per_share": 0.14999999999999947,
+        "initial_risk_pct": 3.2327586206896437,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": null,
+        "initial_atr": 0.11249999999999996,
+        "profit_protection_arms_at": 4.865,
+        "partial_profit_at": 4.94,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    },
+    {
+      "code": "300761",
+      "name": "立华股份",
+      "industry": "A 农林牧渔",
+      "daily_asof": "2026-11-19",
+      "price_asof": "2026-11-20T14:49:30+08:00",
+      "band_status": "provisional",
+      "price": 22.24,
+      "stage": "initial_reclaim",
+      "setups": [
+        {
+          "pool": "fresh_mid_reclaim",
+          "origin": "2026-11-20",
+          "signal_age_sessions": 0
+        }
+      ],
+      "structure_eligible": true,
+      "vcp_shadow": {
+        "version": "vcp_shadow_20261113_v1",
+        "available": true,
+        "matched": true,
+        "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+        "production_activation": false,
+        "base_asof": "2026-11-19",
+        "origin": "2026-11-12",
+        "pivot": 23.58,
+        "invalidation_below": 22.33,
+        "contraction_depths_pct": [
+          10.250671441360781,
+          5.30110262934691
+        ],
+        "contraction_count": 2,
+        "contraction_ratio": 0.5171468678585591,
+        "confirmed_swings": [
+          {
+            "high": "2026-10-20",
+            "low": "2026-10-30",
+            "known_on": "2026-11-03"
+          },
+          {
+            "high": "2026-11-06",
+            "low": "2026-11-12",
+            "known_on": "2026-11-16"
+          }
+        ],
+        "atr20": 0.8299999999999995,
+        "reference_volume": 9214776.0,
+        "dry_volume_ratio": 0.7394111370694199,
+        "tight5_range_pct": 7.505720823798612,
+        "trend_pass": true,
+        "checks": {
+          "multiple_contracting_pullbacks": true,
+          "base_long_enough": true,
+          "final_low_recent": true,
+          "initial_depth_controlled": true,
+          "last_depth_tight": true,
+          "tight_last_five": true,
+          "volume_dry": true,
+          "rising_ma50_context": true,
+          "atr_and_volume_available": true
+        },
+        "previous_close": 22.0,
+        "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+        "observation_asof": "2026-11-20",
+        "price": 22.24,
+        "bar_status": "provisional",
+        "entry_qualified": false,
+        "stage": "invalidated",
+        "distance_to_pivot_atr": 1.614457831325302,
+        "completed_volume_ratio": null,
+        "same_time_volume_confirmation": "not_supplied",
+        "risk_from_pivot_pct": 5.30110262934691
+      },
+      "rejection_reasons": [],
+      "entry_status": "confirmation_and_diligence_required",
+      "entry_qualified": false,
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "company_catalyst_review_required",
+        "dated_subsector_benchmark_unavailable",
+        "unfinished_daily_band_requires_close_confirmation",
+        "completed_5_15_minute_confirmation_unavailable",
+        "same_time_volume_reference_required"
+      ],
+      "boll": {
+        "mid": 22.123,
+        "upper": 23.839334466239027,
+        "lower": 20.406665533760975,
+        "width": 0.15516290432934285
+      },
+      "features": {
+        "atr20": 0.8529999999999995,
+        "distance_to_mid_atr": 0.13716295427901218,
+        "distance_to_mid_pct": 0.528861365999167,
+        "bandwidth_percentile_120": 0.49166666666666664,
+        "mid_slope_5d_atr": 0.3118405627198147,
+        "return_5d_pct": -3.555941023417175,
+        "return_20d_pct": 1.8781493357764578,
+        "volume_vs_previous20_median": null,
+        "alpha101_101": 0.6098843322818073,
+        "relative_market_5d_pct": 7.817250748141841,
+        "relative_market_20d_pct": 16.82407338542091,
+        "signal_age_sessions": 0
+      },
+      "conditional_prices": {
+        "mid_turns_up_if_close_above": 21.83,
+        "mid_reclaim_close_threshold": 22.116842105263157,
+        "structural_reference_low": 21.66,
+        "meaning": "algebraic_close_scenarios_not_a_price_forecast"
+      },
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "exit_plan": {
+        "status": "conditional_reference_plan",
+        "version": "risk_exit_20261113_v1",
+        "entry_price": 23.59,
+        "entry_date": null,
+        "price_basis": "same_basis_required_for_entry_structure_and_observation",
+        "entry_basis": "reference_only_not_a_recorded_fill",
+        "initial_stop": 22.11,
+        "initial_risk_per_share": 1.4800000000000004,
+        "initial_risk_pct": 6.273844849512507,
+        "entry_risk_acceptable": true,
+        "entry_decision": "risk_budget_review_required",
+        "pivot": 23.58,
+        "initial_atr": 0.8529999999999995,
+        "profit_protection_arms_at": 25.81,
+        "partial_profit_at": 26.55,
+        "partial_fraction_of_original": 0.3333333333333333,
+        "time_review_sessions": 3,
+        "policy": {
+          "initial_stop_buffer_atr": 0.25,
+          "maximum_initial_risk_pct": 8.0,
+          "protect_after_r": 1.5,
+          "partial_at_r": 2.0,
+          "partial_fraction": 0.3333333333333333,
+          "trailing_atr": 2.0,
+          "time_review_sessions": 3,
+          "minimum_progress_r": 0.5,
+          "time_stop_action": "review",
+          "early_pivot_failure_sessions": 3,
+          "pivot_failure_buffer_atr": 0.25,
+          "round_trip_cost_bps_assumption": 20.0,
+          "legacy_midline_rule_enabled": false
+        },
+        "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+        "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+        "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+        "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+        "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+        "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+      }
+    }
+  ],
+  "pool_codes": {
+    "fresh_mid_reclaim": [
+      "600977",
+      "000593",
+      "600030",
+      "603466",
+      "300761",
+      "002100",
+      "601688",
+      "601857",
+      "002086",
+      "603036",
+      "600039",
+      "002077"
+    ],
+    "first_mid_retest": [
+      "603887",
+      "688775",
+      "002078"
+    ],
+    "squeeze_prepare": [
+      "601688",
+      "603036",
+      "600039",
+      "601216",
+      "600535",
+      "601228",
+      "300920",
+      "000088",
+      "601916",
+      "600016",
+      "601330",
+      "600033",
+      "688506",
+      "301285",
+      "002839",
+      "600866",
+      "688605",
+      "601816",
+      "601077",
+      "603889"
+    ],
+    "first_expansion": [
+      "300561",
+      "300287",
+      "002157"
+    ]
+  },
+  "entry_qualified_count": 0,
+  "vcp_shadow": {
+    "mode": "observation_only_no_ranking_weight",
+    "eligible_count": 2,
+    "feature_available_count": 3706,
+    "watchlist": [
+      {
+        "code": "000513",
+        "name": "丽珠集团",
+        "price_asof": "2026-11-20T14:49:30+08:00",
+        "vcp_shadow": {
+          "version": "vcp_shadow_20261113_v1",
+          "available": true,
+          "matched": true,
+          "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+          "production_activation": false,
+          "base_asof": "2026-11-19",
+          "origin": "2026-11-11",
+          "pivot": 32.18,
+          "invalidation_below": 30.72,
+          "contraction_depths_pct": [
+            11.531841652323582,
+            5.1273107778165405,
+            3.305004721435323
+          ],
+          "contraction_count": 3,
+          "contraction_ratio": 0.2865981706199884,
+          "confirmed_swings": [
+            {
+              "high": "2026-10-16",
+              "low": "2026-10-23",
+              "known_on": "2026-10-27"
+            },
+            {
+              "high": "2026-10-27",
+              "low": "2026-10-30",
+              "known_on": "2026-11-03"
+            },
+            {
+              "high": "2026-11-06",
+              "low": "2026-11-11",
+              "known_on": "2026-11-13"
+            }
+          ],
+          "atr20": 0.9480000000000004,
+          "reference_volume": 11063532.5,
+          "dry_volume_ratio": 0.6621935624991385,
+          "tight5_range_pct": 3.141025641025652,
+          "trend_pass": true,
+          "checks": {
+            "multiple_contracting_pullbacks": true,
+            "base_long_enough": true,
+            "final_low_recent": true,
+            "initial_depth_controlled": true,
+            "last_depth_tight": true,
+            "tight_last_five": true,
+            "volume_dry": true,
+            "rising_ma50_context": true,
+            "atr_and_volume_available": true
+          },
+          "previous_close": 31.28,
+          "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+          "observation_asof": "2026-11-20",
+          "price": 30.91,
+          "bar_status": "provisional",
+          "entry_qualified": false,
+          "stage": "preparing",
+          "distance_to_pivot_atr": 1.339662447257383,
+          "completed_volume_ratio": null,
+          "same_time_volume_confirmation": "not_supplied",
+          "risk_from_pivot_pct": 4.536979490366688
+        },
+        "exit_plan": {
+          "status": "conditional_reference_plan",
+          "version": "risk_exit_20261113_v1",
+          "entry_price": 32.19,
+          "entry_date": null,
+          "price_basis": "same_basis_required_for_entry_structure_and_observation",
+          "entry_basis": "reference_only_not_a_recorded_fill",
+          "initial_stop": 30.49,
+          "initial_risk_per_share": 1.6999999999999993,
+          "initial_risk_pct": 5.281143212177693,
+          "entry_risk_acceptable": true,
+          "entry_decision": "risk_budget_review_required",
+          "pivot": 32.18,
+          "initial_atr": 0.9170000000000005,
+          "profit_protection_arms_at": 34.74,
+          "partial_profit_at": 35.59,
+          "partial_fraction_of_original": 0.3333333333333333,
+          "time_review_sessions": 3,
+          "policy": {
+            "initial_stop_buffer_atr": 0.25,
+            "maximum_initial_risk_pct": 8.0,
+            "protect_after_r": 1.5,
+            "partial_at_r": 2.0,
+            "partial_fraction": 0.3333333333333333,
+            "trailing_atr": 2.0,
+            "time_review_sessions": 3,
+            "minimum_progress_r": 0.5,
+            "time_stop_action": "review",
+            "early_pivot_failure_sessions": 3,
+            "pivot_failure_buffer_atr": 0.25,
+            "round_trip_cost_bps_assumption": 20.0,
+            "legacy_midline_rule_enabled": false
+          },
+          "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+          "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+          "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+          "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+          "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+          "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+        }
+      },
+      {
+        "code": "600970",
+        "name": "中材国际",
+        "price_asof": "2026-11-20T14:49:33+08:00",
+        "vcp_shadow": {
+          "version": "vcp_shadow_20261113_v1",
+          "available": true,
+          "matched": true,
+          "scope": "vcp_inspired_price_volume_proxy_not_jlaw_proprietary_rules",
+          "production_activation": false,
+          "base_asof": "2026-11-19",
+          "origin": "2026-11-13",
+          "pivot": 8.1,
+          "invalidation_below": 7.69,
+          "contraction_depths_pct": [
+            13.892365456821032,
+            5.061728395061715
+          ],
+          "contraction_count": 2,
+          "contraction_ratio": 0.36435324213101883,
+          "confirmed_swings": [
+            {
+              "high": "2026-10-19",
+              "low": "2026-10-23",
+              "known_on": "2026-10-27"
+            },
+            {
+              "high": "2026-11-04",
+              "low": "2026-11-13",
+              "known_on": "2026-11-17"
+            }
+          ],
+          "atr20": 0.19250000000000012,
+          "reference_volume": 16290401.5,
+          "dry_volume_ratio": 0.6880861714795673,
+          "tight5_range_pct": 3.641092327698292,
+          "trend_pass": true,
+          "checks": {
+            "multiple_contracting_pullbacks": true,
+            "base_long_enough": true,
+            "final_low_recent": true,
+            "initial_depth_controlled": true,
+            "last_depth_tight": true,
+            "tight_last_five": true,
+            "volume_dry": true,
+            "rising_ma50_context": true,
+            "atr_and_volume_available": true
+          },
+          "previous_close": 7.92,
+          "risk_note": "reference_low_is_not_a_guaranteed_stop_fill",
+          "observation_asof": "2026-11-20",
+          "price": 7.78,
+          "bar_status": "provisional",
+          "entry_qualified": false,
+          "stage": "preparing",
+          "distance_to_pivot_atr": 1.6623376623376582,
+          "completed_volume_ratio": null,
+          "same_time_volume_confirmation": "not_supplied",
+          "risk_from_pivot_pct": 5.061728395061715
+        },
+        "exit_plan": {
+          "status": "conditional_reference_plan",
+          "version": "risk_exit_20261113_v1",
+          "entry_price": 8.11,
+          "entry_date": null,
+          "price_basis": "same_basis_required_for_entry_structure_and_observation",
+          "entry_basis": "reference_only_not_a_recorded_fill",
+          "initial_stop": 7.64,
+          "initial_risk_per_share": 0.46999999999999975,
+          "initial_risk_pct": 5.795314426633783,
+          "entry_risk_acceptable": true,
+          "entry_decision": "risk_budget_review_required",
+          "pivot": 8.1,
+          "initial_atr": 0.1825000000000001,
+          "profit_protection_arms_at": 8.815,
+          "partial_profit_at": 9.05,
+          "partial_fraction_of_original": 0.3333333333333333,
+          "time_review_sessions": 3,
+          "policy": {
+            "initial_stop_buffer_atr": 0.25,
+            "maximum_initial_risk_pct": 8.0,
+            "protect_after_r": 1.5,
+            "partial_at_r": 2.0,
+            "partial_fraction": 0.3333333333333333,
+            "trailing_atr": 2.0,
+            "time_review_sessions": 3,
+            "minimum_progress_r": 0.5,
+            "time_stop_action": "review",
+            "early_pivot_failure_sessions": 3,
+            "pivot_failure_buffer_atr": 0.25,
+            "round_trip_cost_bps_assumption": 20.0,
+            "legacy_midline_rule_enabled": false
+          },
+          "execution_note": "T_plus_1_halts_limits_and_gaps_may_prevent_exit_at_reference_price",
+          "parameter_status": "fixed_research_hypotheses_not_jlaw_private_rules_or_empirical_optimum",
+          "current_holding_action": "requires_actual_entry_date_price_and_remaining_position",
+          "trailing_stop_rule": "after_1.5R_raise_only_max_previous_stop_cost_breakeven_highest_completed_close_minus_2ATR",
+          "time_stop_rule": "review_after_3_sessions_if_best_completed_close_advance_below_0.5R; no_forced_time_exit_without_validation",
+          "legacy_midline_two_day_rule": "disabled_not_a_required_exit"
+        }
+      }
+    ],
+    "probabilities_enabled": false,
+    "entry_qualified": false
+  },
+  "ranking_meaning": "age_then_entry_distance_within_setup_round_robin_not_expected_return",
+  "market_reference": "same_available_cohort_median_proxy_not_official_index",
+  "parameter_status": "preregistered_hypotheses_not_empirical_optimum",
+  "valid_sessions": 3,
+  "stage_counts": {
+    "no_early_setup": 3413,
+    "unavailable": 1517,
+    "mature_extension": 237,
+    "preparing": 38,
+    "initial_reclaim": 12,
+    "first_retest": 3,
+    "initial_expansion": 3
+  },
+  "rejection_counts": {
+    "no_early_setup": 3650,
+    "low_liquidity_proxy": 1459,
+    "completed_history_not_eligible": 251,
+    "daily_record_not_screened": 251,
+    "early_state_missing_or_wrong_date": 243,
+    "quote_previous_close_basis_conflict": 206,
+    "risk_warning_name": 193,
+    "no_trades": 8,
+    "stale_intraday_quote": 1,
+    "corporate_action_basis_conflict": 5,
+    "no_volume_or_one_price_bar": 2
+  },
+  "feature_hydration": {
+    "rehydrated": 0,
+    "unavailable": 0
+  },
+  "record_shards": [
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/000001-000518.json",
+      "count": 100,
+      "sha256": "2a89af6fe4907ba513ed5c9b14f9edb0dabd8230b9eb39ca20d859e2ab0f50b5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/000519-000672.json",
+      "count": 100,
+      "sha256": "4101ea1a73ea1807ced74ad98bb9381802acae0d8af9ed740f3dc04d02f77a80"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/000676-000822.json",
+      "count": 100,
+      "sha256": "cb2cafd79fc589e874f5d1860a11c3280c64672ed93296fbe73c1111a4a40668"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/000823-000981.json",
+      "count": 100,
+      "sha256": "2a83a879e71307cc975f769ad2dc1c02875b1b68bfb46bad394366388faf5acb"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/000983-001338.json",
+      "count": 100,
+      "sha256": "bc9a544be2f702a000a7d214bd3d8587d15797ef06d873587c4049b7835aba02"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/001339-002069.json",
+      "count": 100,
+      "sha256": "573afc38644205f3977fb7ec19914614c4023e6923e38f0ed9a7ae23ce7cf264"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002072-002177.json",
+      "count": 100,
+      "sha256": "602d7bd68ee7db90373414c4b0124835f6da74df9c434a100e1b70a1f9651169"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002178-002282.json",
+      "count": 100,
+      "sha256": "1dba51222b81daa2a1000c1fa227d7d2b7ca941ab24d0142bb40d3ac771f29f6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002283-002388.json",
+      "count": 100,
+      "sha256": "6d878a290ca539897861b3e4cdef3595595f8e477de429687e24f999845462f0"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002389-002497.json",
+      "count": 100,
+      "sha256": "2d69023f165b6c415ee580c4eb0c9cbf4d36742c88d1d29ca17537709a2dce35"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002498-002605.json",
+      "count": 100,
+      "sha256": "9b22086f6c61af93b1af108209d2b808cc45a81b111dfe833deed05832e55784"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002606-002716.json",
+      "count": 100,
+      "sha256": "3d9336998d3d713a5babbc029668cb6c5682998315a22a79447cc9125c4aed36"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002717-002832.json",
+      "count": 100,
+      "sha256": "e3ab04c5775bd2226918916dc9db811d4b70b5fb74aaf95d03e65e1012bab406"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002833-002942.json",
+      "count": 100,
+      "sha256": "dc92707e7e2e0aa4c5d47dbab43f49be4fb3519c2a3404e5a8bbc22d0446aaeb"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/002943-300006.json",
+      "count": 100,
+      "sha256": "b5b7e2acaa9ffcc79b62473107e028bca44c1f324e05a298a78acac2ca09ec8e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300007-300119.json",
+      "count": 100,
+      "sha256": "4d6401df6fc7d1c0ec3cd4b3ff9fb47fa16c201468c27e44f967d04a4adc05ca"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300120-300225.json",
+      "count": 100,
+      "sha256": "e7440debe1157ae25ffd766e4e424578671158c3da0f66e2c7e1d2d9a8c0613f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300226-300334.json",
+      "count": 100,
+      "sha256": "2b9f69d82247fd6cc6ea5cc73ca58db0f8eb2bd03f697f1641af8c45db4268df"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300335-300445.json",
+      "count": 100,
+      "sha256": "4e191ce9958f1d82102e49716897989ab0dd0ea5b4a85a4a03465cf1718583e2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300446-300549.json",
+      "count": 100,
+      "sha256": "592abf98613325c43ae2ed550387311cc416ab4a4fd3b214bdadb8db0564870b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300550-300652.json",
+      "count": 100,
+      "sha256": "888930e176d6217338ec6811933425811ff3c8a465159ebb258c68fbb1882835"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300653-300759.json",
+      "count": 100,
+      "sha256": "7e27379e6c87306fed1482e00f782da904679dc3be265809b13b76cfd6e6b041"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300760-300862.json",
+      "count": 100,
+      "sha256": "a9eae1dc666f7f171056e64be08b067e3fb1f309a59e50bd6a54cc8a4b18a823"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300863-300968.json",
+      "count": 100,
+      "sha256": "36f3a58d41831fc1b3ceb9e5ce1b9916e4fb7a5c98bda40ed4a89bdef8bbbef8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/300969-301075.json",
+      "count": 100,
+      "sha256": "91e07aeab167c0e61f2d29b7c07847d379ccaf217251fb7a401566f64a7409a6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/301076-301193.json",
+      "count": 100,
+      "sha256": "ad29d1a3db49bce94d1eb89116bc85b1ffa42d555eeefe8a5b3ead7e1f7e775d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/301195-301314.json",
+      "count": 100,
+      "sha256": "c8fa867af1c1b36c51ed988ca1ada4ce331d305025187c695efb545947fe88b1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/301315-301511.json",
+      "count": 100,
+      "sha256": "ce404c2412311d8b2efe726199938a99fe1a973e4a8721bd5b1b1e4b8ea29f1b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/301512-301699.json",
+      "count": 100,
+      "sha256": "0c1ee96d94ff68bb6b44cbf156f61ea4a243f9fddc18f790aa41ffc58dbfcf5c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/301707-600128.json",
+      "count": 100,
+      "sha256": "25325082540078aa080da9f8f0648b0e2854067fbca96bf76870b0e5ee6bb055"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600129-600261.json",
+      "count": 100,
+      "sha256": "bf608685a06ee7f44458460194bdf9712aa1a97a1b309b841d716b9a81646363"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600262-600395.json",
+      "count": 100,
+      "sha256": "eb570d0d509ae4a62fc579423e6e9ec7ed7ec2feb25fb2561977115a835f3248"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600396-600540.json",
+      "count": 100,
+      "sha256": "ba6da33d4f20ca5a30607b9b1f2f1b215003b4acc7ad44d6b15b5a6b60996e63"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600543-600665.json",
+      "count": 100,
+      "sha256": "e312559828890f98097fc1246fcbe3e68abf4d5c2b06316981aabf69caebb16f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600666-600785.json",
+      "count": 100,
+      "sha256": "f16e94cec337247d62bc83b728219e5ddf5db0fb62a337df108ba3b6c8a62c08"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600787-600917.json",
+      "count": 100,
+      "sha256": "612b5b0f3c9fd801f35206656e860d74abbcb9af8a54bc518aa2f64c637a3613"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/600918-601118.json",
+      "count": 100,
+      "sha256": "1390f408a0d94d67dd9396319765dda500b1df7be7f70560c0df421353df91b9"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/601121-601686.json",
+      "count": 100,
+      "sha256": "c93c21f22dd9e6861fe160bf3e686879066658d704ca791b0cd33074d58168ea"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/601688-603023.json",
+      "count": 100,
+      "sha256": "e220e7c52c08f97a72845646599277730a92b759d0837d07485581236627e51d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603025-603138.json",
+      "count": 100,
+      "sha256": "47699e0d32090e8507be22fae5820c8790395ebee7739cfca16baeb4c36ed3f2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603139-603275.json",
+      "count": 100,
+      "sha256": "0c24662b518e177422a630ff87d9a6aa65e7d75a2309234c99308d3b7ed90fa4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603276-603399.json",
+      "count": 100,
+      "sha256": "15ce782370c9b76e0bdc1068362ace867f16c4fcf2d6637e2c576a1b05bd7b97"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603400-603655.json",
+      "count": 100,
+      "sha256": "700b7a9a99e2aacb0d8abf535a03a4bad7bf08aa7a964eaadfd306b05307f6a6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603656-603836.json",
+      "count": 100,
+      "sha256": "ee2e26f35f2dc9533e55cef33a0375122686363407c67ffa12edcb8054324485"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/603838-605009.json",
+      "count": 100,
+      "sha256": "e3f662d8ec2573696fa8a5808605fe40144dd2bbb72d2a2b96e92cd31e009cba"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/605011-605577.json",
+      "count": 100,
+      "sha256": "61696fd6594e4fec97a3a2c20ee4346579c7420cd67c8e1cd7627d1a3dfc2d23"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/605580-688108.json",
+      "count": 100,
+      "sha256": "63d325f0480eef67d7e46c61fab63213a61e420786dcff4af9afb3a34ecd6cc6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688109-688221.json",
+      "count": 100,
+      "sha256": "c89e779be45210243ee2ed630b241115e3aecf084213b4850d50365089854e45"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688222-688337.json",
+      "count": 100,
+      "sha256": "a81a1c90cd967a2b1e805c6c7dac474c7237fa844bcc6802bcf4298842ff0d8c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688338-688506.json",
+      "count": 100,
+      "sha256": "9d7757f6a77ce50ae5c7c91e549ded460628d5c4456e7d5eb124d63143b861a8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688507-688628.json",
+      "count": 100,
+      "sha256": "654c3c20fdc4db3b71bb3424182657b45a2f02efb5afbdc74e4df04f1d4ce715"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688629-688798.json",
+      "count": 100,
+      "sha256": "4b81134ae1b90c820f32c6e2eb98dff1e7e60d88aab3af24b7cd6022680f4b86"
+    },
+    {
+      "file": "output/boll/archive/2026-11-19/20261120T144915-intraday/early_records/688799-688981.json",
+      "count": 23,
+      "sha256": "4cb9cf355d319b8b223c92537891643eccbb06761add7532aede0de511cfddf6"
+    }
+  ]
+}
