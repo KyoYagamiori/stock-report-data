@@ -37,6 +37,18 @@ def _number(value):
     return number
 
 
+def sina_minute_url(symbol):
+    return "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData?" + urlencode({
+        "symbol": symbol, "scale": 1, "ma": "no", "datalen": 1970})
+
+
+def sina_minute_rows(raw):
+    match = re.search(r"\(\s*(\[.*\])\s*\)", raw.decode("utf-8"), re.S)
+    if not match:
+        raise ValueError("minute_sina_bar_array_missing")
+    return json.loads(match.group(1))
+
+
 def minute_quote(raw, provider, stock, target, reference=None):
     """Aggregate 09:30/09:31--11:30 bars; never sum an incomplete morning.
 
@@ -44,10 +56,9 @@ def minute_quote(raw, provider, stock, target, reference=None):
     Sina interval volume is shares and amount is required, never estimated by
     close*volume. The aggregate amount/volume must lie inside its price range.
     """
-    text = raw.decode("utf-8")
     previous = None
     if provider == "eastmoney":
-        data = json.loads(text).get("data") or {}
+        data = json.loads(raw).get("data") or {}
         if str(data.get("code", "")) != stock["code"]:
             raise ValueError("minute_security_identity_mismatch")
         if data.get("market") is not None and str(data["market"]) != ("1" if stock["exchange"] == "SH" else "0"):
@@ -62,10 +73,7 @@ def minute_quote(raw, provider, stock, target, reference=None):
             previous = _number(data["preClose"])
         volume_scale = 100
     elif provider == "sina":
-        match = re.search(r"\(\s*(\[.*\])\s*\)", text, re.S)
-        if not match:
-            raise ValueError("minute_sina_bar_array_missing")
-        rows = json.loads(match.group(1))
+        rows = sina_minute_rows(raw)
         volume_scale = 1
     else:
         raise ValueError("unsupported_minute_provider")
@@ -160,8 +168,7 @@ def recover_quote(stock, original, root, directory, target, *, timeout=8, moment
     eastmoney = "https://push2his.eastmoney.com/api/qt/stock/trends2/get?" + urlencode({
         "secid": secid, "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58", "ndays": 5, "iscr": 0, "iscca": 0})
-    sina = "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData?" + urlencode({
-        "symbol": prefix + stock["code"], "scale": 1, "ma": "no", "datalen": 1970})
+    sina = sina_minute_url(prefix + stock["code"])
     attempts = []
     sources = directory / "quote_sources"
     sources.mkdir(parents=True, exist_ok=True)

@@ -31,6 +31,25 @@ def load_state(root):
     return json.loads(path.read_bytes()) if path.exists() else {"sources": {}, "calls": {}}
 
 
+def normalize_vcp_checks(value, plan):
+    if not isinstance(value, dict) or not set(value) <= {
+            "daily_breakout", "stop_below_15m", "reduce_after_band_below_15m"}:
+        raise ValueError("unsupported_vcp_check")
+    result = {}
+    for field, anchor in (("stop_below_15m", "stop"), ("reduce_after_band_below_15m", "reduce_low")):
+        if field in value:
+            if value[field] is not True or plan[anchor] is None:
+                raise ValueError("vcp_check_requires_explicit_price")
+            result[field] = True
+    if "daily_breakout" in value:
+        gate = value["daily_breakout"]
+        volume = number(gate["min_volume_shares"])
+        if volume != int(volume):
+            raise ValueError("vcp_breakout_volume_requires_whole_shares")
+        result["daily_breakout"] = {"pivot": number(gate["pivot"]), "min_volume_shares": int(volume)}
+    return result
+
+
 def normalize_plan(raw, issued):
     action = raw["action"]
     expiry = stamp(raw["valid_until"])
@@ -51,6 +70,11 @@ def normalize_plan(raw, issued):
         if not isinstance(value, str) or len(value) > 260:
             raise ValueError("invalid_public_plan_rule")
         out[field] = value
+    if "vcp_checks" in raw:
+        try:
+            out["vcp_checks"] = normalize_vcp_checks(raw["vcp_checks"], out)
+        except (ValueError, TypeError, KeyError) as exc:
+            out["vcp_checks_error"] = str(exc)[:120]
     return out
 
 

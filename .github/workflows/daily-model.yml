@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "research_system/daily_model*.py"
+      - "market_screen/noon_repair.py"
       - "config/daily_model.json"
       - "tests/test_research_daily_model*.py"
       - "reports/forecasts/**"
@@ -66,6 +67,9 @@ jobs:
       - name: Register published report plans and fit the close-call calibration
         continue-on-error: true
         run: python -m research_system.daily_model_report_feedback
+      - name: Review frozen VCP windows with completed minute evidence
+        continue-on-error: true
+        run: python -m research_system.daily_model_vcp_feedback
       - name: Score daily candidates and settle future price proxies
         id: run
         continue-on-error: true
@@ -90,6 +94,9 @@ jobs:
             python -m research_system.daily_model hydrate
             if ! python -m research_system.daily_model_report_feedback; then
               echo '::warning::Forecast feedback could not be refreshed.'
+            fi
+            if ! python -m research_system.daily_model_vcp_feedback; then
+              echo '::warning::VCP minute feedback could not be refreshed.'
             fi
             trial_status=0
             python -m research_system.daily_model run || trial_status=$?
