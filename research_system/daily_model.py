@@ -16,6 +16,8 @@ from market_screen.vcp import FEATURES as VCP_FEATURES, feature_values
 from .daily_model_data import checked, feedback, load_bars, next_entry, settle, summarize
 
 VERSION = "daily_forward_trial_20261117_v1"
+DATA_ERRORS = (ValueError, OSError, KeyError, TypeError)
+RUN_ERRORS = (*DATA_ERRORS, ImportError, StopIteration)
 # Relative-market fields use incompatible index/median references. Alpha101's
 # additive .001 denominator changes with the historical adjustment scale.
 # Exclude both rather than silently scoring different definitions.
@@ -82,14 +84,50 @@ def ensure_models(root, config, now):
     return ref, artifact
 
 
+def completed_market_date(calendar, now):
+    return next((day for day in reversed(calendar)
+                 if datetime.fromisoformat(day + "T15:00:00+08:00") <= now), None)
+
+
+def screen_pointers(root, target, now):
+    """Bounded references for one completed session, including legacy manifests."""
+    try:
+        manifest = json.loads((root / "output/boll/latest/manifest.json").read_bytes())
+    except (OSError, ValueError):
+        manifest = {}
+    for key in ("latest_completed_daily_screen", "latest_complete_screen", "latest_screen"):
+        pointer = manifest.get(key) if isinstance(manifest, dict) else None
+        if (isinstance(pointer, dict) and pointer.get("market_date", target) == target
+                and pointer.get("phase", "early") in {"early", "close"}
+                and isinstance(pointer.get("selected_file"), str) and pointer.get("sha256")):
+            yield pointer
+    # Before the producer publishes its independent pointer, reuse the exact
+    # same-session input of the last successful model run and recheck its bytes.
+    try:
+        prior = json.loads((root / "output/research/latest/daily_model_status.json").read_bytes())
+        if prior["market_date"] == target and datetime.fromisoformat(prior["published_at"]) <= now:
+            source = prior["source"]
+            yield {"selected_file": source["screen_file"], "sha256": source["screen_sha256"]}
+    except DATA_ERRORS:
+        return
+
+
 def load_queue(root, now, calendar):
-    manifest = json.loads((root / "output/boll/latest/manifest.json").read_bytes())
-    pointer = manifest.get("latest_complete_screen") or manifest["latest_screen"]
-    screen = json.loads(checked(root, pointer, "output/boll/archive"))
-    validate_completed_screen(screen, now)
-    completed = [d for d in calendar if datetime.fromisoformat(d + "T15:00:00+08:00") <= now]
-    if not completed or screen["market_date"] != completed[-1]:
-        raise ValueError("daily_model_daily_baseline_stale:" + screen["market_date"])
+    target = completed_market_date(calendar, now)
+    errors = []
+    for pointer in screen_pointers(root, target, now):
+        try:
+            screen = json.loads(checked(root, pointer, "output/boll/archive"))
+            validate_completed_screen(screen, now)
+            if screen["market_date"] != target:
+                raise ValueError("daily_model_daily_baseline_stale:" + screen["market_date"])
+        except DATA_ERRORS as exc:
+            errors.append(str(exc))
+            continue
+        break
+    else:
+        detail = ("; " + errors[0]) if errors else ""
+        raise ValueError(f"daily_model_requires_completed_verified_daily_screen:{target}{detail}")
     source = screen["early_signals"]
     ref = {"file": source["reader_file"], "sha256": source["reader_sha256"]}
     queue = json.loads(checked(root, ref, "output/boll/archive"))
@@ -242,6 +280,13 @@ def register(root, rows, state, model_ref, queue_ref, calendar, now, config):
     return new
 
 
+def publish_failure(root, exc, now, **details):
+    result = {"status": "blocked", "reason": str(exc)[:400], "checked_at": now.isoformat(),
+              "automatic_trading": False, "probabilities_enabled": False, **details}
+    write_json(root / "output/research/latest/daily_model_last_failure.json", result)
+    return result
+
+
 def run(root, now=None):
     root = Path(root).resolve()
     now = now or datetime.now(TZ)
@@ -250,24 +295,28 @@ def run(root, now=None):
     now = now.astimezone(TZ)
     config = json.loads((root / "config/daily_model.json").read_bytes())
     calendar = load_calendar(root, now)
-    model_ref, artifact = ensure_models(root, config, now)
-    if datetime.fromisoformat(artifact["model_frozen_at"]) > now:
-        raise ValueError("daily_model_model_frozen_in_future")
     state_path = root / "output/research/daily_model/state.json"
     state = json.loads(state_path.read_bytes()) if state_path.exists() else {"version": VERSION, "episodes": {}}
     verify_predictions(root, state["episodes"], now)
     for ep in state["episodes"].values():
-        frozen = json.loads(checked(root, ep["prediction_file"], "output/research/daily_model/predictions"))
-        if any(ep.get(key) != value for key, value in frozen.items() if key != "outcomes"):
-            raise ValueError("daily_model_registered_prediction_was_modified")
         if datetime.fromisoformat(ep["prediction_registered_at"]) > now:
             raise ValueError("daily_model_prediction_registered_in_future")
-    queue, queue_ref, screen = load_queue(root, now, calendar)
-    rows, rejections, pool_size = candidates(queue, config)
-    # First freeze future predictions; no label data is read by the scoring path.
-    rows = score_rows(rows, artifact)
-    new = register(root, rows, state, model_ref, queue_ref, calendar, now, config)
-    histories, own_ref = load_bars(root, {ep["code"] for ep in state["episodes"].values()}, now)
+    scoring_error = None
+    needed = {ep["code"] for ep in state["episodes"].values()}
+    try:
+        queue, queue_ref, screen = load_queue(root, now, calendar)
+        model_ref, artifact = ensure_models(root, config, now)
+        if datetime.fromisoformat(artifact["model_frozen_at"]) > now:
+            raise ValueError("daily_model_model_frozen_in_future")
+        rows, rejections, pool_size = candidates(queue, config)
+        # The frozen scoring path has no access to forward label data.
+        rows = score_rows(rows, artifact)
+        needed.update(row["code"] for row in rows)
+    except RUN_ERRORS as exc:
+        scoring_error = exc
+    histories, own_ref = load_bars(root, needed, now)
+    if scoring_error is None:
+        new = register(root, rows, state, model_ref, queue_ref, calendar, now, config)
     settle(state["episodes"], histories, calendar, now, config, own_ref)
     results = summarize(state["episodes"])
     samples = feedback(state["episodes"])
@@ -275,6 +324,12 @@ def run(root, now=None):
     feedback_path.parent.mkdir(parents=True, exist_ok=True)
     feedback_path.write_bytes(gzip.compress(b"".join(canonical_bytes(r) + b"\n" for r in samples), mtime=0))
     write_json(state_path, state)
+    if scoring_error is not None:
+        return publish_failure(root, scoring_error, now, settlement={
+            "status": "completed", "history_market_date": own_ref["market_date"],
+            "unique_prediction_count": len(state["episodes"]), "matured_feedback_rows": len(samples),
+            "outcomes": {h: item["states"] for h, item in results["horizons"].items()},
+        })
     active = [r for r in rows if r["active"]]
     active.sort(key=lambda r: (r["ranks"][config["primary_model"]], POOLS.index(r["setup"]), r["code"]))
     watch = [{**{k: r[k] for k in ("code", "name", "setup", "stage", "price", "price_asof", "vcp_stage",
@@ -334,12 +389,19 @@ def verify_predictions(root, episodes, now):
 
 def hydrate(root):
     """Only referenced current source versions, frozen model and rolling own history."""
-    root = Path(root)
-    config = json.loads((root / "config/daily_model.json").read_bytes())
-    patterns = {"/" + config["training_dataset"]["file"], "/output/boll/bootstrap/"}
-    manifest = json.loads((root / "output/boll/latest/manifest.json").read_bytes())
-    pointer = manifest.get("latest_complete_screen") or manifest["latest_screen"]
-    patterns.add("/" + str(Path(pointer["selected_file"]).parent) + "/")
+    from market_screen.workflow_io import archive_directory
+    root = Path(root).resolve()
+    patterns = {"/output/boll/bootstrap/"}
+    if not (root / "output/research/daily_model/active_model.json").exists():
+        config = json.loads((root / "config/daily_model.json").read_bytes())
+        patterns.add("/" + config["training_dataset"]["file"])
+    now = datetime.now(TZ)
+    target = completed_market_date(load_calendar(root, now), now)
+    for pointer in screen_pointers(root, target, now):
+        try:
+            patterns.add(archive_directory(pointer["selected_file"]))
+        except ValueError:
+            continue
     import subprocess
     sparse = subprocess.run(["git", "config", "--bool", "core.sparseCheckout"], cwd=root, capture_output=True, text=True)
     if sparse.stdout.strip() == "true":
@@ -357,10 +419,8 @@ def main():
         return 0
     try:
         result = run(args.root)
-    except (ValueError, OSError, KeyError, TypeError, ImportError, StopIteration) as exc:
-        result = {"status": "blocked", "reason": str(exc)[:400], "checked_at": datetime.now(TZ).isoformat(),
-                  "automatic_trading": False, "probabilities_enabled": False}
-        write_json(args.root / "output/research/latest/daily_model_last_failure.json", result)
+    except RUN_ERRORS as exc:
+        result = publish_failure(args.root, exc, datetime.now(TZ))
     print(json.dumps(result, ensure_ascii=False), flush=True)
     return 2 if result["status"] == "blocked" else 0
 

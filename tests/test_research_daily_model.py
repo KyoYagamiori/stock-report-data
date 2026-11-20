@@ -12,7 +12,7 @@ from unittest.mock import patch
 from market_screen.history import canonical_bytes, write_json
 from market_screen.vcp import FEATURES as VCP_FEATURES
 from research_system.daily_model import (FEATURES, VERSION, candidates, ensure_models, immutable,
-    load_calendar, load_queue, register, score_rows, verify_predictions, validate_completed_screen)
+    load_calendar, load_queue, register, run, score_rows, verify_predictions, validate_completed_screen)
 from research_system.daily_model_data import (checked, feedback, load_bars, next_entry, price_outcome,
     settle, summarize)
 
@@ -105,6 +105,76 @@ class DailyModelTests(unittest.TestCase):
             "selected_file": sref["file"], "sha256": sref["sha256"]}})
         with self.assertRaisesRegex(ValueError, "candidate_daily_date_mismatch"):
             load_queue(self.root, NOW, CALENDAR)
+
+    def test_noon_pointer_preserves_exact_session_scoring_with_legacy_and_current_manifests(self):
+        day = "2026-11-16"
+        directory = self.root / "output/boll/archive" / day
+        queue = {"market_date": day, "phase": "early", "published_at": day + "T16:10:00+08:00",
+                 "pool_codes": {}}
+        qref = immutable(self.root, directory / "close/early_queue.json", queue)
+        screen = {**queue, "report_date": day, "market_cutoff": day + "T15:00:00+08:00",
+                  "technical_screen_complete": True, "unresolved_count": 0, "all_codes_accounted_for": True,
+                  "early_signals": {"reader_file": qref["file"], "reader_sha256": qref["sha256"]}}
+        sref = immutable(self.root, directory / "close/screen.json", screen)
+        noon = {**screen, "phase": "noon", "published_at": "2026-11-17T11:34:00+08:00"}
+        nref = immutable(self.root, directory / "noon/screen.json", noon)
+        noon_pointer = {"selected_file": nref["file"], "sha256": nref["sha256"],
+                        "market_date": day, "phase": "noon"}
+        manifest = {"latest_complete_screen": noon_pointer, "latest_screen": noon_pointer}
+        path = self.root / "output/boll/latest/manifest.json"
+        now = NOW.replace(hour=12)
+        write_json(self.root / "config/early_signals.json", {})
+        write_json(path, manifest)
+        status_path = self.root / "output/research/latest/daily_model_status.json"
+        write_json(status_path, {"market_date": day, "published_at": NOW.isoformat(),
+                                 "source": {"screen_file": sref["file"], "screen_sha256": sref["sha256"]}})
+        for use_legacy in (True, False):
+            with self.subTest(use_legacy=use_legacy):
+                if not use_legacy:
+                    status_path.unlink()
+                    write_json(path, {**manifest, "latest_completed_daily_screen": {
+                        "selected_file": sref["file"], "sha256": sref["sha256"],
+                        "market_date": day, "phase": "early",
+                    }})
+                _, source, selected = load_queue(self.root, now, CALENDAR)
+                self.assertEqual(screen, selected)
+                self.assertEqual(sref["sha256"], source["screen_sha256"])
+                with self.assertRaisesRegex(ValueError, "completed_verified_daily_screen"):
+                    load_queue(self.root, now.replace(hour=16), CALENDAR)
+
+    def test_due_predictions_settle_while_scoring_has_no_verified_session(self):
+        row = sample()
+        row.update(scores={"lightgbm": .2}, ranks={}, selected_by=["lightgbm"])
+        state = {"version": VERSION, "episodes": {}}
+        [signal] = register(self.root, [row], state, {"sha256": "a" * 64}, {"sha256": "b" * 64},
+                            CALENDAR, NOW, self.config)
+        episode = state["episodes"][signal]
+        frozen_path = self.root / episode["prediction_file"]["file"]
+        frozen = frozen_path.read_bytes()
+        episode["public_available_by"] = NOW.isoformat()
+        state_path = self.root / "output/research/daily_model/state.json"
+        write_json(state_path, state)
+        manifest_path = self.root / "output/research/latest/daily_model_manifest.json"
+        write_json(manifest_path, {"latest": "previous_scoring_reader"})
+        write_json(self.root / "config/daily_model.json", self.config)
+        write_json(self.root / "output/cache/trade_calendar.json", {"trade_dates": CALENDAR, "source": "verified_fixture"})
+        bars = [bar(day) for day in CALENDAR[:6]]
+        payload = {"code": "600000", "adjustment": "unadjusted", "bars": bars,
+                   "history_sha256": hashlib.sha256(canonical_bytes(bars)).hexdigest()}
+        raw = gzip.compress(canonical_bytes(payload) + b"\n", mtime=0)
+        history = self.root / "output/boll/bootstrap"
+        write_json(history / "manifest.json", {"adjustment": "unadjusted", "market_date": "2026-11-23",
+                   "record_count": 1, "sha256": hashlib.sha256(raw).hexdigest()})
+        (history / "history.jsonl.gz").write_bytes(raw)
+        result = run(self.root, datetime.fromisoformat("2026-11-23T16:00:00+08:00"))
+        outcomes = json.loads(state_path.read_bytes())["episodes"][signal]["outcomes"]
+        self.assertEqual("blocked", result["status"])
+        self.assertIn("completed_verified_daily_screen", result["reason"])
+        self.assertEqual(1, result["settlement"]["matured_feedback_rows"])
+        self.assertEqual("matured_price_proxy", outcomes["3"]["state"])
+        self.assertEqual("pending", outcomes["5"]["state"])
+        self.assertEqual(frozen, frozen_path.read_bytes())
+        self.assertEqual({"latest": "previous_scoring_reader"}, json.loads(manifest_path.read_bytes()))
 
     def test_source_byte_hash_and_path_are_verified(self):
         path = self.root / "output/research/daily_model/models/test.json"

@@ -65,6 +65,17 @@ class PointerMergeTests(unittest.TestCase):
         partial = {**ready, "published_at": "2026-11-02T12:10:00+08:00", "full_market_overlay_complete": False, "valid_quotes": 5218}
         self.assertEqual(ready, merge_boll_manifest({"latest_noon_overlay": ready}, {"latest_noon_overlay": partial})["latest_noon_overlay"])
 
+    def test_concurrent_publication_keeps_newest_completed_daily_pointer(self):
+        key = "latest_completed_daily_screen"
+        close = {"market_date": "2026-11-02", "published_at": "2026-11-02T16:00:00+08:00",
+                 "phase": "early", "technical_screen_complete": True, "unresolved_count": 0}
+        noon = {**close, "phase": "noon", "published_at": "2026-11-03T11:34:00+08:00"}
+        newer = {**close, "market_date": "2026-11-03", "published_at": "2026-11-03T16:00:00+08:00"}
+        self.assertNotIn(key, merge_boll_manifest({}, {key: noon}))
+        self.assertEqual(close, merge_boll_manifest({key: close}, {key: noon})[key])
+        self.assertEqual(newer, merge_boll_manifest({key: close}, {key: newer})[key])
+        self.assertEqual(newer, merge_boll_manifest({key: newer}, {key: close})[key])
+
     def test_input_hydration_cannot_expand_to_arbitrary_paths_or_shell_patterns(self):
         self.assertEqual("/output/boll/archive/2026-11-02/run-noon/", archive_directory("output/boll/archive/2026-11-02/run-noon/screen.json"))
         for value in ("../../secret", "/output/boll/archive/a/b", "output/boll/archive/*/screen.json", "config/private.json"):

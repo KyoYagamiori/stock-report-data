@@ -79,10 +79,15 @@ def hydrate_inputs(root, phase="noon"):
 def merge_boll_manifest(remote, incoming):
     merged = deepcopy(remote)
     for key, value in incoming.items():
+        if key == "latest_completed_daily_screen" and (
+                value.get("phase") not in {"early", "close"} or not value.get("technical_screen_complete")
+                or value.get("unresolved_count") != 0):
+            continue
         if key == "schema_version" or key not in merged:
             merged[key] = deepcopy(value)
             continue
-        if key not in {"latest_screen", "latest_complete_screen", "latest_overlay", "latest_noon_overlay", "latest_universe", "last_attempt"}:
+        if key not in {"latest_screen", "latest_complete_screen", "latest_completed_daily_screen",
+                       "latest_overlay", "latest_noon_overlay", "latest_universe", "last_attempt"}:
             continue
         old = merged[key]
         if key == "latest_complete_screen" and not value.get("technical_screen_complete"):
@@ -91,7 +96,7 @@ def merge_boll_manifest(remote, incoming):
             continue
         if key == "latest_universe":
             rank = lambda p: (p.get("report_date", ""), p.get("published_at", ""))
-        elif key in {"latest_screen", "latest_complete_screen"}:
+        elif key in {"latest_screen", "latest_complete_screen", "latest_completed_daily_screen"}:
             rank = lambda p: (p.get("market_date", ""), bool(p.get("technical_screen_complete")), p.get("published_at", ""))
         elif key == "latest_noon_overlay":
             rank = lambda p: (p.get("market_date", ""), bool(p.get("full_market_overlay_complete")), p.get("valid_quotes", 0), p.get("published_at", ""))

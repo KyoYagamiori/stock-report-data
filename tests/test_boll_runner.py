@@ -200,14 +200,15 @@ class PublicationAccountingTests(unittest.TestCase):
                          "status": "screened", "ranking": {"eligible": False},
                          "update_method": "fixture"} for s in self.universe]
 
-    def publish(self, run_id, *, market_date=TARGET, records=None, fresh=True):
+    def publish(self, run_id, *, market_date=TARGET, records=None, fresh=True, phase="early", moment=None):
         run_dir = self.root / "output/boll/archive" / market_date / run_id
         run_dir.mkdir(parents=True)
         return runner.publish(
-            self.root, run_dir, self.records if records is None else records, self.universe,
+            self.root, run_dir, [{**row, "market_date": market_date} for row in
+                                 (self.records if records is None else records)], self.universe,
             {"fresh": fresh, "version_date": "2026-10-15"},
-            {"market_date": market_date, "report_date": "2026-10-15", "phase": "early",
-             "is_trading_day": True}, {}, {}, "2026-10-15T10:15:00+08:00", 1.0, CONFIG)
+            {"market_date": market_date, "report_date": "2026-10-15", "phase": phase, "expected_sessions": [TARGET],
+             "is_trading_day": True}, {}, {}, "2026-10-15T10:15:00+08:00", 1.0, CONFIG, moment=moment)
 
     def manifest(self):
         return json.loads((self.root / "output/boll/latest/manifest.json").read_text())
@@ -246,6 +247,17 @@ class PublicationAccountingTests(unittest.TestCase):
         self.assertEqual(manifest["latest_screen"]["run_id"], "20261015T100000-early")
         self.assertEqual(manifest["latest_complete_screen"]["run_id"], "20261015T100000-early")
         self.assertEqual(manifest["last_attempt"]["run_id"], "20261015T101000-early")
+
+    def test_noon_cannot_replace_completed_daily_screen(self):
+        self.publish("completed-daily", moment=datetime.fromisoformat("2026-10-15T08:20:00+08:00"))
+        self.publish("noon", phase="noon", moment=datetime.fromisoformat("2026-10-15T11:34:00+08:00"))
+        self.publish("premature-close", market_date="2026-10-15", phase="close",
+                     moment=datetime.fromisoformat("2026-10-15T14:50:00+08:00"))
+        manifest = self.manifest()
+        self.assertEqual("completed-daily", manifest["latest_completed_daily_screen"]["run_id"])
+        self.publish("next-daily", market_date="2026-10-15", phase="close",
+                     moment=datetime.fromisoformat("2026-10-15T15:34:00+08:00"))
+        self.assertEqual("next-daily", self.manifest()["latest_completed_daily_screen"]["run_id"])
 
     def test_older_market_date_cannot_replace_newer_complete_screen(self):
         self.publish("newer-complete", market_date="2026-10-15")

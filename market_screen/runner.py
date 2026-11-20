@@ -312,6 +312,12 @@ def publish(root, run_dir, records, universe, universe_meta, dates, quotes, quot
         manifest["latest_screen"] = selected
     if complete and dates["market_date"] >= manifest.get("latest_complete_screen", {}).get("market_date", ""):
         manifest["latest_complete_screen"] = selected
+    if (complete and phase in {"early", "close"}
+            and datetime.fromisoformat(summary["published_at"]) >= datetime.fromisoformat(summary["market_cutoff"])):
+        prior_daily = manifest.get("latest_completed_daily_screen", {})
+        if (selected["market_date"], selected["published_at"]) > (
+                prior_daily.get("market_date", ""), prior_daily.get("published_at", "")):
+            manifest["latest_completed_daily_screen"] = selected
     if overlay:
         prior_overlay = manifest.get("latest_overlay", {})
         overlay_pointer = {"market_date": dates["report_date"], "phase": phase,

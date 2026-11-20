@@ -71,16 +71,19 @@ jobs:
         continue-on-error: true
         run: python -u -m research_system.daily_model run
       - name: Publish frozen predictions and small report reader
+        id: publish
         if: always() && steps.run.outcome != 'skipped'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          trial_failed="${{ steps.run.outcome == 'failure' }}"
           for attempt in 1 2 3; do
             git add --sparse output/research/daily_model output/research/latest/daily_model*.json
-            if git diff --cached --quiet; then exit 0; fi
+            if git diff --cached --quiet; then break; fi
             git commit -m "research: freeze daily model trial predictions and own-data feedback"
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then break; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
             git fetch origin main
             # Rebuild from published state: never rebase conflicting episode counters.
             git reset --hard origin/main
@@ -88,9 +91,15 @@ jobs:
             if ! python -m research_system.daily_model_report_feedback; then
               echo '::warning::Forecast feedback could not be refreshed.'
             fi
-            python -m research_system.daily_model run
+            trial_status=0
+            python -m research_system.daily_model run || trial_status=$?
+            case "$trial_status" in
+              0) trial_failed=false ;;
+              2) trial_failed=true ;;
+              *) exit "$trial_status" ;;
+            esac
           done
-          exit 1
+          echo "trial_failed=$trial_failed" >> "$GITHUB_OUTPUT"
       - name: Surface actual trial failures
-        if: steps.run.outcome == 'failure'
+        if: steps.publish.outputs.trial_failed == 'true'
         run: exit 1
