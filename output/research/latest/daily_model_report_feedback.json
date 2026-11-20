@@ -1,8 +1,10 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-20T10:59:10.659150+08:00",
-  "total_calls": 0,
-  "statuses": {},
+  "generated_at": "2026-11-20T11:01:15.777507+08:00",
+  "total_calls": 2,
+  "statuses": {
+    "pending": 2
+  },
   "model": {
     "state": "waiting_for_verified_closes",
     "rows": 0,
@@ -12,7 +14,72 @@
   },
   "rejected_sources": [],
   "history_error": null,
-  "recent_calls": [],
+  "recent_calls": [
+    {
+      "signal_id": "6ce9b68e6801c4205ee2dd35",
+      "code": "603369",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-20",
+      "issued_at": "2026-11-20T11:00:52+08:00",
+      "quote_asof": "2026-11-20T10:25:00+08:00",
+      "phase": "manual",
+      "relation": "between",
+      "price": 32.0,
+      "high": 33.06,
+      "etf_context": "unknown",
+      "reference_price": 32.35,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-24T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 33.06,
+        "reduce_high": 33.18,
+        "stop": 31.8,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "先等待。若收复33.18并出现新的已核实回踩防守，重算入场区间。",
+        "exit_rule": "假设已有可卖仓位，触及33.06–33.18后，首根完成的15分钟K线收回33.06下方则减三分之一。完成15分钟K线收破31.80则退出可卖仓位。"
+      },
+      "source": "reports/forecasts/2026/11/20/manual.json",
+      "source_sha256": "78306a3991c47cb46a0182ea90d15e91bd3d48a879152c104fa5c5970731c70a",
+      "seen_at": "2026-11-20T11:01:15.777507+08:00"
+    },
+    {
+      "signal_id": "2897a3a589d6e7e13ecdf3b6",
+      "code": "600970",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-20",
+      "issued_at": "2026-11-20T11:00:52+08:00",
+      "quote_asof": "2026-11-20T10:25:00+08:00",
+      "phase": "manual",
+      "relation": "between",
+      "price": 7.69,
+      "high": 7.95,
+      "etf_context": "unknown",
+      "reference_price": 7.8,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": 8.11,
+        "buy_high": 8.21,
+        "reduce_low": 7.95,
+        "reduce_high": 8.1,
+        "stop": 7.69,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "今日15:00核日线收过8.10且日量达到基准1.5倍。确认后下个有效时段回踩守住8.10，在8.11–8.21且上方空间合格才考虑买入。超过8.21跳过。",
+        "exit_rule": "假设已有可卖仓位，触及7.95–8.10后，首根完成的15分钟K线收回7.95下方则减三分之一。完成15分钟K线收破7.69则退出可卖仓位。"
+      },
+      "source": "reports/forecasts/2026/11/20/manual.json",
+      "source_sha256": "78306a3991c47cb46a0182ea90d15e91bd3d48a879152c104fa5c5970731c70a",
+      "seen_at": "2026-11-20T11:01:15.777507+08:00"
+    }
+  ],
   "trade_execution_labels": 0,
   "formal_production_promotion": false
 }
