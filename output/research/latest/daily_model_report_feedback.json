@@ -1,6 +1,6 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-20T14:23:10.738998+08:00",
+  "generated_at": "2026-11-20T14:47:37.015875+08:00",
   "total_calls": 5,
   "statuses": {
     "pending": 5
@@ -177,5 +177,73 @@
     }
   ],
   "trade_execution_labels": 0,
-  "formal_production_promotion": false
+  "formal_production_promotion": false,
+  "vcp_minute_feedback": {
+    "version": "vcp_minute_price_review_v1",
+    "evaluated_at": "2026-11-20T14:47:37.102325+08:00",
+    "plans": 2,
+    "statuses": {
+      "waiting_for_close": 2
+    },
+    "verified_security_sessions": 0,
+    "collection_error": null,
+    "price_evidence_only": true,
+    "trade_execution_labels": 0,
+    "formal_training_rows": 0,
+    "recent_calls": [
+      {
+        "signal_id": "aef9e3acc015a40ffe30ec8c",
+        "code": "600970",
+        "phase": "noon",
+        "issued_at": "2026-11-20T12:49:20+08:00",
+        "seen_at": "2026-11-20T12:49:50.784562+08:00",
+        "check_day": "2026-11-20",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/20/noon.json",
+        "forecast_sha256": "d4c80cd2295cf9374058be62c7ac0553dc03916c4f5121ddc0eb930a1c25bfd2",
+        "status": "waiting_for_close",
+        "observed_days": [],
+        "pending_days": [
+          "2026-11-20",
+          "2026-11-23"
+        ],
+        "missing_days": {},
+        "price_events": {},
+        "sources": [],
+        "condition_checks": {
+          "status": "price_evidence_only",
+          "error": null
+        },
+        "entry_condition_state": "original_additional_conditions_require_review",
+        "fill_state": "no_execution_evidence"
+      },
+      {
+        "signal_id": "2897a3a589d6e7e13ecdf3b6",
+        "code": "600970",
+        "phase": "manual",
+        "issued_at": "2026-11-20T11:00:52+08:00",
+        "seen_at": "2026-11-20T11:01:15.777507+08:00",
+        "check_day": "2026-11-20",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/20/manual.json",
+        "forecast_sha256": "78306a3991c47cb46a0182ea90d15e91bd3d48a879152c104fa5c5970731c70a",
+        "status": "waiting_for_close",
+        "observed_days": [],
+        "pending_days": [
+          "2026-11-20",
+          "2026-11-23"
+        ],
+        "missing_days": {},
+        "price_events": {},
+        "sources": [],
+        "condition_checks": {
+          "status": "price_evidence_only",
+          "error": null
+        },
+        "entry_condition_state": "original_additional_conditions_require_review",
+        "fill_state": "no_execution_evidence"
+      }
+    ],
+    "file": "output/research/latest/daily_model_vcp_feedback.json"
+  }
 }
