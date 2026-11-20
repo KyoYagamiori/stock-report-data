@@ -1,15 +1,15 @@
-# 股票行情快照 | 2026-11-20 close
+# 股票行情快照 | 2026-11-20 evening
 
 - Schema：1.6.1
-- Snapshot ID：`20261120-1546-close-full-44697171675`
-- 报告周期：`2026-11-20-close`
+- Snapshot ID：`20261120-2006-evening-full-44732773873`
+- 报告周期：`2026-11-20-evening`
 - 质量等级：**B**
-- 质量 Profile：`trading_close`
+- 质量 Profile：`trading_evening`
 - 行情日期：2026-11-20
 - 行情时间范围：2026-11-20T15:00:03+08:00 至 2026-11-20T15:36:00+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.13 分钟
-- 生成时间：2026-11-20T15:48:00+08:00
+- 调度延迟：0.12 分钟
+- 生成时间：2026-11-20T20:06:07+08:00
 - 适用报告：evening
 
 ## 读取结论
@@ -17,7 +17,7 @@
 - 核心字段缺失：无
 - 可选字段缺失：total_turnover；market_breadth；sectors_top；sectors_bottom
 - 阻断原因：无
-- 降级动作：cap capital_consistency_score at 60；market turnover unavailable; no market volume inference
+- 降级动作：cap capital_consistency_score at 60
 - 风险提示：本快照只提供公开行情数据核验，不构成投资建议。
 
 ## 市场概览
@@ -70,5 +70,5 @@
 
 ## 数据源状态
 
-- `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。
 - `market_overview`：partial；来源=新浪证券批量行情（源日期时间）；错误=全市场采集未完整通过：RuntimeError: ReadTimeout: HTTPSConnectionPool(host='vip.stock.finance.sina.com.cn', port=443): Read timed out. (read timeout=15)；板块数据缺失：TimeoutError: collect_sectors exceeded 45s；市场汇总仅在沪深A股全页数量核对通过时提供。
+- `stock_quotes`：success；来源=新浪证券批量行情（源日期时间）；错误=批量接口仅覆盖配置池；全市场成交额、宽度及板块排名缺失，禁止以池内汇总替代。

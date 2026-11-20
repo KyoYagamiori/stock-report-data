@@ -6,24 +6,24 @@
     "next_trading_day": "2026-11-23",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-11-20T15:48:00+08:00",
+  "generated_at": "2026-11-20T20:06:07+08:00",
   "health": {
     "last_attempt": {
       "blocking_reasons": [],
-      "finished_at": "2026-11-20T15:48:00+08:00",
-      "planned_at": "2026-11-20T15:46:00+08:00",
+      "finished_at": "2026-11-20T20:06:07+08:00",
+      "planned_at": "2026-11-20T20:06:00+08:00",
       "published": true,
       "quality_grade": "B",
       "reason": "published",
-      "report_cycle": "2026-11-20-close",
+      "report_cycle": "2026-11-20-evening",
       "report_date": "2026-11-20",
-      "snapshot_id": "20261120-1546-close-full-44697171675",
-      "snapshot_type": "close",
-      "started_at": "2026-11-20T15:46:08+08:00",
+      "snapshot_id": "20261120-2006-evening-full-44732773873",
+      "snapshot_type": "evening",
+      "started_at": "2026-11-20T20:06:07+08:00",
       "status": "published"
     },
     "last_grade_a_at": "2026-11-20T04:57:20+08:00",
-    "last_grade_b_at": "2026-11-20T15:48:00+08:00",
+    "last_grade_b_at": "2026-11-20T20:06:07+08:00",
     "latest_run": "output/health/latest_run.json"
   },
   "report_readiness": {
@@ -46,17 +46,25 @@
       "status": "ready_a"
     },
     "evening": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
-      "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
-      "reasons": [
-        "stale report cycle 2026-11-19-evening; expected 2026-11-20-evening"
+      "missing_optional_fields": [
+        "total_turnover",
+        "market_breadth",
+        "sectors_top",
+        "sectors_bottom"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "point_in_time_recovered": false,
+      "quality_grade": "B",
+      "quality_profile": "trading_evening",
+      "reasons": [
+        "verified same-day B-grade close snapshot"
+      ],
+      "schedule_delay_minutes": 0.12,
+      "selected_file": "output/archive/2026/11/20/evening/20261120-2006-evening-full-44732773873.json",
+      "selected_snapshot_id": "20261120-2006-evening-full-44732773873",
+      "sha256": "ef25e43b9cd9ad73db9b4b42ccd2a60302f8067bc2679c4862033c570d340a72",
+      "status": "ready_b"
     },
     "noon": {
       "collection_mode": "historical_point_in_time_recovery",
@@ -152,26 +160,31 @@
     "evening": {
       "collection_mode": "live_or_latest_completed",
       "core_effective_count": 11,
-      "effective_field_count": 51,
+      "effective_field_count": 36,
       "latest_alias": "output/latest/evening/report_data_compact.json",
       "market_asof": null,
-      "market_date": "2026-11-19",
+      "market_date": "2026-11-20",
       "missing_core_fields": [],
-      "missing_optional_fields": [],
+      "missing_optional_fields": [
+        "total_turnover",
+        "market_breadth",
+        "sectors_top",
+        "sectors_bottom"
+      ],
       "point_in_time_recovered": false,
-      "published_at": "2026-11-19T23:59:44+08:00",
-      "quality_grade": "A",
+      "published_at": "2026-11-20T20:06:07+08:00",
+      "quality_grade": "B",
       "quality_profile": "trading_evening",
       "quality_reasons": [
-        "verified same-day A-grade close snapshot"
+        "verified same-day B-grade close snapshot"
       ],
-      "quote_time_max": "2026-11-19T15:36:00+08:00",
-      "report_cycle": "2026-11-19-evening",
-      "schedule_delay_minutes": 0.72,
+      "quote_time_max": "2026-11-20T15:36:00+08:00",
+      "report_cycle": "2026-11-20-evening",
+      "schedule_delay_minutes": 0.12,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/11/19/evening/20261119-2359-evening-full-44560790783.json",
-      "selected_snapshot_id": "20261119-2359-evening-full-44560790783",
-      "sha256": "bb2ad866255a4badfb4cd04f50f5ec608b64e506b129adfdb0f9602f7ffc2074",
+      "selected_file": "output/archive/2026/11/20/evening/20261120-2006-evening-full-44732773873.json",
+      "selected_snapshot_id": "20261120-2006-evening-full-44732773873",
+      "sha256": "ef25e43b9cd9ad73db9b4b42ccd2a60302f8067bc2679c4862033c570d340a72",
       "snapshot_type": "evening",
       "suitable_reports": [
         "evening"
