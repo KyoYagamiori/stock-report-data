@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "issued_at": "2026-11-20T11:00:52+08:00",
+  "calls": [
+    {
+      "code": "603369",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-20",
+      "quote_asof": "2026-11-20T10:25:00+08:00",
+      "reference_price": 32.35,
+      "relation": "between",
+      "price": 32,
+      "high": 33.06,
+      "etf_context": "unknown",
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-24T15:00:00+08:00",
+        "reduce_low": 33.06,
+        "reduce_high": 33.18,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 31.8,
+        "entry_rule": "先等待。若收复33.18并出现新的已核实回踩防守，重算入场区间。",
+        "exit_rule": "假设已有可卖仓位，触及33.06–33.18后，首根完成的15分钟K线收回33.06下方则减三分之一。完成15分钟K线收破31.80则退出可卖仓位。"
+      }
+    },
+    {
+      "code": "600970",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-20",
+      "quote_asof": "2026-11-20T10:25:00+08:00",
+      "reference_price": 7.8,
+      "relation": "between",
+      "price": 7.69,
+      "high": 7.95,
+      "etf_context": "unknown",
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": 8.11,
+        "buy_high": 8.21,
+        "stop": 7.69,
+        "reduce_low": 7.95,
+        "reduce_high": 8.1,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "今日15:00核日线收过8.10且日量达到基准1.5倍。确认后下个有效时段回踩守住8.10，在8.11–8.21且上方空间合格才考虑买入。超过8.21跳过。",
+        "exit_rule": "假设已有可卖仓位，触及7.95–8.10后，首根完成的15分钟K线收回7.95下方则减三分之一。完成15分钟K线收破7.69则退出可卖仓位。"
+      }
+    }
+  ]
+}
