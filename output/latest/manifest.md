@@ -1,23 +1,23 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-20T23:42:56+08:00
-- 交易日状态：交易日
+- 更新时间：2026-11-21T00:14:59+08:00
+- 交易日状态：非交易日
 - 最近已完成交易日：2026-11-20
 
 ## 报告就绪状态
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261120-0457-early-full-44613586765 | output/archive/2026/11/20/early/20261120-0457-early-full-44613586765.json |
-| noon | ready_b | B | 20261120-1135-noon-full-44686789647 | output/archive/2026/11/20/noon/20261120-1135-noon-full-44686789647.json |
-| evening | ready_b | B | 20261120-2342-evening-full-44765758348 | output/archive/2026/11/20/evening/20261120-2342-evening-full-44765758348.json |
+| early | not_applicable | A | 20261121-0014-early-full-44771171635 | output/archive/2026/11/21/early/20261121-0014-early-full-44771171635.json |
+| noon | not_ready | 暂无 | 暂无 | 暂无 |
+| evening | not_ready | 暂无 | 暂无 | 暂无 |
 
 ## 权威快照指针
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-11-20-early | 2026-11-19 | 2026-11-19T15:36:00+08:00 | output/archive/2026/11/20/early/20261120-0457-early-full-44613586765.json | `4f8623c54ba62ef22a5091cd43dd061e545d672e4395687a7b772fdefe6c61c9` |
+| early | A | 2026-11-21-early | 2026-11-20 | 2026-11-20T15:36:00+08:00 | output/archive/2026/11/21/early/20261121-0014-early-full-44771171635.json | `1066d679a4f9e84bdc2f9cb42c4c160e79ab5ac260ca247a2850c351117f3c09` |
 | noon | B | 2026-11-20-noon | 2026-11-20 | 2026-11-20T11:30:00+08:00 | output/archive/2026/11/20/noon/20261120-1135-noon-full-44686789647.json | `3f7b98a0cd55d6537ce58e65ef721cb83d6b5a64d894f1da6c8a8fa4fa975938` |
 | close | B | 2026-11-20-close | 2026-11-20 | 2026-11-20T15:36:00+08:00 | output/archive/2026/11/20/close/20261120-1546-close-full-44697171675.json | `9a7f13204d471be97dd2d2434c232d7a7e27371979dd59060989151f105d630a` |
 | evening | B | 2026-11-20-evening | 2026-11-20 | 2026-11-20T15:36:00+08:00 | output/archive/2026/11/20/evening/20261120-2342-evening-full-44765758348.json | `9702eb6fa45e0b75ccb3e8b0e76fedbc82d427b9e56f4c5a46a67b24ff944cae` |
