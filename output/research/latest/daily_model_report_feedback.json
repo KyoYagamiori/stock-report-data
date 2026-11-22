@@ -1,11 +1,11 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-22T01:38:46.719577+08:00",
-  "total_calls": 8,
+  "generated_at": "2026-11-22T21:10:22.541548+08:00",
+  "total_calls": 9,
   "statuses": {
     "hit": 3,
     "miss": 2,
-    "pending": 3
+    "pending": 4
   },
   "model": {
     "state": "shadow_calibration",
@@ -28,6 +28,38 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "0d4db40c548d62a0d39817e8",
+      "code": "600089",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-22T21:09:59+08:00",
+      "quote_asof": "2026-11-20T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 17.95,
+      "high": 18.19,
+      "etf_context": "weak",
+      "reference_price": 18.1,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T11:15:00+08:00",
+        "buy_low": 18.06,
+        "buy_high": 18.08,
+        "reduce_low": 18.4,
+        "reduce_high": 18.45,
+        "stop": 17.9,
+        "profit_target": 18.41,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "23日09:45–11:15回踩17.94–18.06后，完成15分钟收回18.06且量≥前一根1.2倍；同一完成15分钟159326收盘≥1.329，600406、002028、601179至少两只较20日收盘上涨。仅18.06–18.08复核，超价放过，收破17.90撤销。原日线观察至25日15:00。",
+        "exit_rule": "仅可卖仓位触18.40–18.45后首根完成15分钟收低于18.40减1/3，完成15分钟收破17.90退出，18.33启保护。"
+      },
+      "source": "reports/forecasts/2026/11/22/evening.json",
+      "source_sha256": "e24bf8a29b5d9a740e44f673f80c0b2ed7248434b0e06abdaf838a3393d0ad85",
+      "seen_at": "2026-11-22T21:10:22.541548+08:00"
+    },
     {
       "signal_id": "b831597f36d4c17503ed0838",
       "code": "601318",
@@ -382,7 +414,7 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-22T01:38:46.806826+08:00",
+    "evaluated_at": "2026-11-22T21:10:22.646272+08:00",
     "plans": 3,
     "statuses": {
       "window_open": 2,
