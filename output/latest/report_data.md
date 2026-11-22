@@ -1,15 +1,15 @@
-# 股票行情快照 | 2026-11-22 early
+# 股票行情快照 | 2026-11-23 early
 
 - Schema：1.6.1
-- Snapshot ID：`20261122-0345-early-full-44942451109`
-- 报告周期：`2026-11-22-early`
-- 质量等级：**A**
-- 质量 Profile：`non_trading`
+- Snapshot ID：`20261123-0345-early-full-45062423237`
+- 报告周期：`2026-11-23-early`
+- 质量等级：**B**
+- 质量 Profile：`trading_preopen`
 - 行情日期：2026-11-20
 - 行情时间范围：2026-11-20T15:00:03+08:00 至 2026-11-20T15:36:00+08:00
 - 采集模式：live_or_latest_completed
-- 调度延迟：0.07 分钟
-- 生成时间：2026-11-22T03:45:04+08:00
+- 调度延迟：0.45 分钟
+- 生成时间：2026-11-23T03:45:27+08:00
 - 适用报告：early
 
 ## 读取结论
@@ -17,7 +17,7 @@
 - 核心字段缺失：无
 - 可选字段缺失：total_turnover；market_breadth；sectors_top；sectors_bottom
 - 阻断原因：无
-- 降级动作：无
+- 降级动作：cap capital_consistency_score at 60；market turnover unavailable; no market volume inference
 - 风险提示：本快照只提供公开行情数据核验，不构成投资建议。
 
 ## 市场概览
