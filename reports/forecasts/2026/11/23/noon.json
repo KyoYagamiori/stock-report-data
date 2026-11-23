@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "issued_at": "2026-11-23T12:49:29+08:00",
+  "calls": [
+    {
+      "check_day": "2026-11-23",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "relation": "between",
+      "code": "601318",
+      "roles": [
+        "comprehensive"
+      ],
+      "reference_price": 54.18,
+      "price": 53.86,
+      "high": 54.65,
+      "etf_context": "weak",
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "entry_rule": "原A风险观察，上午介入窗已结束。下午完整15分钟收回54.88且510880相对强再复核修复。",
+        "reduce_low": 55.35,
+        "reduce_high": 55.46,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 54.62,
+        "exit_rule": "仅可卖仓位触带后完整15分钟收低于55.35减1/3，完整15分钟收低于54.62核原退出。"
+      }
+    },
+    {
+      "check_day": "2026-11-23",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "relation": "between",
+      "code": "300059",
+      "roles": [
+        "technical"
+      ],
+      "reference_price": 18.51,
+      "price": 18.46,
+      "high": 18.6,
+      "etf_context": "weak",
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": 18.47,
+        "buy_high": 18.48,
+        "entry_rule": "13:15–14:15回踩18.43–18.46，完整15分钟收≥18.47且量≥前一完整下午15分钟1.2倍，并验512000≥0.473及300059、600030、601211至少两只涨，随后仅18.47–18.48复核，18.47优先，超价放过。",
+        "reduce_low": 18.58,
+        "reduce_high": 18.61,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 18.41,
+        "profit_target": 18.59,
+        "exit_rule": "可卖仓位触18.58–18.61后首根完整15分钟收低于18.58减1/3，完整15分钟收低于18.41退出。18.56启动保护。"
+      }
+    },
+    {
+      "check_day": "2026-11-23",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "relation": "between",
+      "code": "600970",
+      "roles": [
+        "vcp"
+      ],
+      "reference_price": 7.51,
+      "price": 7.41,
+      "high": 7.68,
+      "etf_context": "unknown",
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "entry_rule": "原VCP风险观察，15:00原窗到期。验严格收过8.10且全日至少2444万股，延伸上限8.21。无新入场。",
+        "reduce_low": 7.95,
+        "reduce_high": 8.1,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 7.69,
+        "exit_rule": "可卖仓位触原带后首根完整15分钟收低于7.95减1/3，完整15分钟低于7.69核原退出。",
+        "vcp_checks": {
+          "daily_breakout": {
+            "pivot": 8.1,
+            "min_volume_shares": 24440000
+          },
+          "stop_below_15m": true,
+          "reduce_after_band_below_15m": true
+        }
+      }
+    }
+  ]
+}
