@@ -1,0 +1,1098 @@
+{
+  "market_date": "2026-11-23",
+  "phase": "noon",
+  "daily_baseline_date": "2026-11-20",
+  "valid_quotes": 5212,
+  "no_trade_quotes": 9,
+  "universe_count": 5223,
+  "full_market_overlay_complete": false,
+  "daily_boll_overlays": 5023,
+  "coverage_note": "Quote coverage counts all official codes, separately from whether a daily BOLL overlay is available.",
+  "source": {
+    "source": "independent_noon_gap_merge",
+    "reused_verified_quotes": 5221,
+    "primary_requested_codes": [
+      "688121",
+      "688798"
+    ],
+    "prior_proof_errors": [],
+    "membership_reuse_errors": [],
+    "minute_repairs": [
+      {
+        "code": "688798",
+        "provider": "eastmoney",
+        "source_url": "https://push2his.eastmoney.com/api/qt/stock/trends2/get?secid=1.688798&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf11%2Cf12%2Cf13&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58&ndays=5&iscr=0&iscca=0",
+        "accepted": false,
+        "error": "RemoteDisconnected:Remote end closed connection without response"
+      },
+      {
+        "code": "688798",
+        "provider": "sina",
+        "source_url": "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData?symbol=sh688798&scale=1&ma=no&datalen=1970",
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/sina_minute_688798_844f4d16161e4f08b8ed9ea333004a9a.raw",
+        "raw_sha256": "6520b91eafcc66eaf14f8953930ace968d4a82231338632a5f3941def4d8bc2c",
+        "retrieved_at": "2026-11-23T11:34:14.940435+08:00",
+        "bytes": 263872,
+        "accepted": false,
+        "error": "ValueError:complete_0931_to_1130_minutes_required"
+      },
+      {
+        "code": "688121",
+        "provider": "eastmoney",
+        "source_url": "https://push2his.eastmoney.com/api/qt/stock/trends2/get?secid=1.688121&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf11%2Cf12%2Cf13&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58&ndays=5&iscr=0&iscca=0",
+        "accepted": false,
+        "error": "RemoteDisconnected:Remote end closed connection without response"
+      },
+      {
+        "code": "688121",
+        "provider": "sina",
+        "source_url": "https://quotes.sina.cn/cn/api/jsonp_v2.php/var%20_data=/CN_MarketDataService.getKLineData?symbol=sh688121&scale=1&ma=no&datalen=1970",
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/sina_minute_688121_249ab02e3a8a4205847e22328956d81b.raw",
+        "raw_sha256": "ec7ae494c6ab10a0f308986c3a5fc0e030a10ba5852a743bb60b28835b939c42",
+        "retrieved_at": "2026-11-23T11:34:17.139358+08:00",
+        "bytes": 252826,
+        "accepted": false,
+        "error": "ValueError:complete_0931_to_1130_minutes_required"
+      }
+    ],
+    "primary_collection": {
+      "source": "Sina hq.sinajs.cn",
+      "started_at": "2026-11-23T11:34:11.962374+08:00",
+      "completed_at": "2026-11-23T11:34:12.542067+08:00",
+      "requested_count": 2,
+      "returned_count": 2,
+      "status_counts": {
+        "valid": 0,
+        "no_trades": 2,
+        "invalid": 0,
+        "missing": 0
+      },
+      "batch_size": 100,
+      "batch_count": 1,
+      "workers": 6,
+      "timeout_seconds": 8,
+      "max_attempts": 2,
+      "shared_max_seconds": 280.158996128,
+      "failed_batches": 0,
+      "errors": [],
+      "batches": [
+        {
+          "batch": 0,
+          "requested_count": 2,
+          "returned_count": 2,
+          "failed": false,
+          "source_url": "https://hq.sinajs.cn/list=sh688121,sh688798",
+          "attempts": [
+            {
+              "attempt": 1,
+              "source_url": "https://hq.sinajs.cn/list=sh688121,sh688798",
+              "retrieved_at": "2026-11-23T11:34:12.541417+08:00",
+              "http_status": 200,
+              "raw_file": "/home/runner/work/stock-report-data/stock-report-data/output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/sina_20261123T113411962386_e52bdaf8_batch_0000_attempt_1.raw",
+              "raw_sha256": "bd85176a2855a255ed55a65e11f4610f450a688925f3e1f5bbcf6daa148caf72",
+              "bytes": 373,
+              "error": null
+            }
+          ]
+        }
+      ],
+      "units": {
+        "volume": "shares",
+        "amount": "CNY",
+        "price": "CNY per share, unadjusted"
+      },
+      "time_policy": "Provider date/time retained; validate exact target date and report phase separately.",
+      "activity_policy": "Cumulative quote volume; no same-time volume strength or suspension inference."
+    },
+    "unattempted_gap_codes": []
+  },
+  "candidate_overlays": [
+    {
+      "code": "000410",
+      "name": "沈阳机床",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "000410",
+        "name": "沈阳机床",
+        "open": 5.72,
+        "prev_close": 5.87,
+        "close": 6.19,
+        "high": 6.45,
+        "low": 5.66,
+        "volume": 133647403.0,
+        "amount": 797206485.02,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sz000001,sz000002,sz000006,sz000007,sz000008,sz000009,sz000010,sz000011,sz000012,sz000014,sz000017,sz000019,sz000020,sz000021,sz000025,sz000026,sz000027,sz000028,sz000029,sz000030,sz000031,sz000032,sz000034,sz000035,sz000036,sz000037,sz000039,sz000042,sz000045,sz000048,sz000049,sz000050,sz000055,sz000056,sz000058,sz000059,sz000060,sz000061,sz000062,sz000063,sz000065,sz000066,sz000068,sz000069,sz000070,sz000078,sz000088,sz000089,sz000090,sz000096,sz000099,sz000100,sz000151,sz000153,sz000155,sz000156,sz000157,sz000158,sz000159,sz000166,sz000301,sz000333,sz000338,sz000400,sz000401,sz000402,sz000403,sz000404,sz000407,sz000408,sz000409,sz000410,sz000411,sz000415,sz000417,sz000419,sz000420,sz000421,sz000422,sz000423,sz000425,sz000426,sz000428,sz000429,sz000430,sz000488,sz000498,sz000501,sz000503,sz000504,sz000505,sz000506,sz000507,sz000509,sz000510,sz000513,sz000514,sz000516,sz000517,sz000518",
+        "raw_sha256": "7d479b305ff98885e3a39b09348965783bc29d08dffd474a598096631e9f8348",
+        "retrieved_at": "2026-11-23T11:31:13.917939+08:00",
+        "status": "valid",
+        "symbol": "sz000410",
+        "field_count": 33,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_7d479b305ff98885e3a39b09348965783bc29d08dffd474a598096631e9f8348.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_7d479b305ff98885e3a39b09348965783bc29d08dffd474a598096631e9f8348.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": 5.4514480408858645,
+      "daily_boll_position": "above_upper",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "002233",
+      "name": "塔牌集团",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "002233",
+        "name": "塔牌集团",
+        "open": 7.77,
+        "prev_close": 7.9,
+        "close": 7.82,
+        "high": 7.91,
+        "low": 7.76,
+        "volume": 7113000.0,
+        "amount": 55753523.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sz002178,sz002179,sz002180,sz002181,sz002182,sz002183,sz002184,sz002185,sz002186,sz002187,sz002188,sz002189,sz002190,sz002191,sz002192,sz002193,sz002194,sz002195,sz002196,sz002197,sz002198,sz002199,sz002200,sz002201,sz002202,sz002203,sz002204,sz002205,sz002206,sz002207,sz002208,sz002209,sz002210,sz002211,sz002212,sz002213,sz002214,sz002215,sz002216,sz002217,sz002218,sz002219,sz002221,sz002222,sz002223,sz002224,sz002225,sz002226,sz002227,sz002228,sz002229,sz002230,sz002232,sz002233,sz002234,sz002235,sz002236,sz002237,sz002238,sz002239,sz002240,sz002241,sz002242,sz002243,sz002244,sz002245,sz002246,sz002247,sz002248,sz002249,sz002250,sz002251,sz002252,sz002253,sz002254,sz002255,sz002256,sz002258,sz002259,sz002261,sz002262,sz002263,sz002264,sz002265,sz002266,sz002267,sz002268,sz002269,sz002270,sz002271,sz002272,sz002273,sz002274,sz002275,sz002276,sz002277,sz002278,sz002279,sz002281,sz002282",
+        "raw_sha256": "633d4d6b811c4d19f473ea8f3c6af917dd4a26d2f9e215c515e1c43ea4d802cd",
+        "retrieved_at": "2026-11-23T11:31:14.489843+08:00",
+        "status": "valid",
+        "symbol": "sz002233",
+        "field_count": 33,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_633d4d6b811c4d19f473ea8f3c6af917dd4a26d2f9e215c515e1c43ea4d802cd.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_633d4d6b811c4d19f473ea8f3c6af917dd4a26d2f9e215c515e1c43ea4d802cd.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.0126582278481067,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "600019",
+      "name": "宝钢股份",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "600019",
+        "name": "宝钢股份",
+        "open": 6.3,
+        "prev_close": 6.34,
+        "close": 6.23,
+        "high": 6.31,
+        "low": 6.2,
+        "volume": 49834968.0,
+        "amount": 311366791.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sz301707,sz301716,sz301717,sz301718,sz302132,sh600000,sh600004,sh600006,sh600007,sh600008,sh600009,sh600010,sh600011,sh600012,sh600015,sh600016,sh600017,sh600018,sh600019,sh600020,sh600021,sh600022,sh600023,sh600025,sh600026,sh600027,sh600028,sh600029,sh600030,sh600031,sh600032,sh600033,sh600035,sh600036,sh600037,sh600038,sh600039,sh600048,sh600050,sh600051,sh600052,sh600053,sh600054,sh600055,sh600056,sh600057,sh600058,sh600059,sh600060,sh600061,sh600062,sh600063,sh600064,sh600066,sh600067,sh600071,sh600072,sh600073,sh600075,sh600076,sh600078,sh600079,sh600080,sh600081,sh600082,sh600084,sh600085,sh600088,sh600089,sh600094,sh600095,sh600096,sh600097,sh600098,sh600099,sh600100,sh600101,sh600103,sh600104,sh600105,sh600106,sh600107,sh600108,sh600109,sh600110,sh600111,sh600113,sh600114,sh600115,sh600116,sh600117,sh600118,sh600119,sh600120,sh600121,sh600123,sh600125,sh600126,sh600127,sh600128",
+        "raw_sha256": "8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08",
+        "retrieved_at": "2026-11-23T11:31:16.194919+08:00",
+        "status": "valid",
+        "symbol": "sh600019",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.7350157728706517,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "600031",
+      "name": "三一重工",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "600031",
+        "name": "三一重工",
+        "open": 19.0,
+        "prev_close": 19.1,
+        "close": 18.25,
+        "high": 19.0,
+        "low": 18.21,
+        "volume": 34590381.0,
+        "amount": 637519879.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sz301707,sz301716,sz301717,sz301718,sz302132,sh600000,sh600004,sh600006,sh600007,sh600008,sh600009,sh600010,sh600011,sh600012,sh600015,sh600016,sh600017,sh600018,sh600019,sh600020,sh600021,sh600022,sh600023,sh600025,sh600026,sh600027,sh600028,sh600029,sh600030,sh600031,sh600032,sh600033,sh600035,sh600036,sh600037,sh600038,sh600039,sh600048,sh600050,sh600051,sh600052,sh600053,sh600054,sh600055,sh600056,sh600057,sh600058,sh600059,sh600060,sh600061,sh600062,sh600063,sh600064,sh600066,sh600067,sh600071,sh600072,sh600073,sh600075,sh600076,sh600078,sh600079,sh600080,sh600081,sh600082,sh600084,sh600085,sh600088,sh600089,sh600094,sh600095,sh600096,sh600097,sh600098,sh600099,sh600100,sh600101,sh600103,sh600104,sh600105,sh600106,sh600107,sh600108,sh600109,sh600110,sh600111,sh600113,sh600114,sh600115,sh600116,sh600117,sh600118,sh600119,sh600120,sh600121,sh600123,sh600125,sh600126,sh600127,sh600128",
+        "raw_sha256": "8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08",
+        "retrieved_at": "2026-11-23T11:31:16.194919+08:00",
+        "status": "valid",
+        "symbol": "sh600031",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_8d75103180064ea5cc976ba0c75a2ebd3e3e13ac5b3d5f938ef33d3ffa97ce08.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -4.450261780104714,
+      "daily_boll_position": "below_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "600298",
+      "name": "安琪酵母",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "600298",
+        "name": "安琪酵母",
+        "open": 37.94,
+        "prev_close": 38.35,
+        "close": 37.91,
+        "high": 38.28,
+        "low": 37.49,
+        "volume": 4383291.0,
+        "amount": 166054314.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh600262,sh600265,sh600266,sh600267,sh600268,sh600269,sh600271,sh600272,sh600273,sh600276,sh600278,sh600279,sh600280,sh600281,sh600282,sh600283,sh600284,sh600285,sh600287,sh600288,sh600289,sh600292,sh600293,sh600295,sh600298,sh600299,sh600300,sh600301,sh600302,sh600303,sh600305,sh600307,sh600308,sh600309,sh600310,sh600312,sh600313,sh600315,sh600316,sh600318,sh600319,sh600320,sh600322,sh600323,sh600325,sh600326,sh600327,sh600328,sh600329,sh600330,sh600331,sh600332,sh600333,sh600335,sh600336,sh600337,sh600338,sh600339,sh600340,sh600343,sh600345,sh600346,sh600348,sh600350,sh600351,sh600352,sh600353,sh600354,sh600356,sh600358,sh600359,sh600360,sh600361,sh600362,sh600363,sh600365,sh600366,sh600367,sh600368,sh600369,sh600370,sh600371,sh600372,sh600373,sh600375,sh600376,sh600377,sh600378,sh600379,sh600380,sh600381,sh600382,sh600383,sh600386,sh600388,sh600389,sh600390,sh600391,sh600392,sh600395",
+        "raw_sha256": "07ceb7f634e9f91a2508bd590bc5e6fb04df6273b9a9eb25987098a6835bc057",
+        "retrieved_at": "2026-11-23T11:31:16.747011+08:00",
+        "status": "valid",
+        "symbol": "sh600298",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_07ceb7f634e9f91a2508bd590bc5e6fb04df6273b9a9eb25987098a6835bc057.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_07ceb7f634e9f91a2508bd590bc5e6fb04df6273b9a9eb25987098a6835bc057.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.1473272490221786,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "600428",
+      "name": "中远海特",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "600428",
+        "name": "中远海特",
+        "open": 11.21,
+        "prev_close": 11.33,
+        "close": 11.18,
+        "high": 11.43,
+        "low": 11.13,
+        "volume": 19474597.0,
+        "amount": 219149256.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh600396,sh600397,sh600398,sh600399,sh600400,sh600403,sh600405,sh600406,sh600408,sh600409,sh600410,sh600415,sh600416,sh600418,sh600419,sh600420,sh600422,sh600423,sh600425,sh600426,sh600428,sh600429,sh600433,sh600435,sh600436,sh600438,sh600439,sh600444,sh600446,sh600448,sh600449,sh600452,sh600455,sh600456,sh600458,sh600459,sh600460,sh600461,sh600463,sh600467,sh600468,sh600469,sh600470,sh600475,sh600476,sh600477,sh600478,sh600479,sh600480,sh600481,sh600482,sh600483,sh600486,sh600487,sh600488,sh600489,sh600490,sh600491,sh600493,sh600495,sh600496,sh600497,sh600498,sh600499,sh600500,sh600501,sh600502,sh600503,sh600505,sh600506,sh600507,sh600508,sh600509,sh600510,sh600511,sh600512,sh600513,sh600515,sh600516,sh600517,sh600518,sh600519,sh600520,sh600521,sh600522,sh600523,sh600525,sh600526,sh600527,sh600528,sh600529,sh600530,sh600531,sh600533,sh600535,sh600536,sh600537,sh600538,sh600539,sh600540",
+        "raw_sha256": "007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1",
+        "retrieved_at": "2026-11-23T11:31:16.753854+08:00",
+        "status": "valid",
+        "symbol": "sh600428",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.3239187996469615,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "600519",
+        "name": "贵州茅台",
+        "open": 1475.35,
+        "prev_close": 1485.75,
+        "close": 1444.84,
+        "high": 1478.0,
+        "low": 1428.0,
+        "volume": 3774439.0,
+        "amount": 5458564486.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh600396,sh600397,sh600398,sh600399,sh600400,sh600403,sh600405,sh600406,sh600408,sh600409,sh600410,sh600415,sh600416,sh600418,sh600419,sh600420,sh600422,sh600423,sh600425,sh600426,sh600428,sh600429,sh600433,sh600435,sh600436,sh600438,sh600439,sh600444,sh600446,sh600448,sh600449,sh600452,sh600455,sh600456,sh600458,sh600459,sh600460,sh600461,sh600463,sh600467,sh600468,sh600469,sh600470,sh600475,sh600476,sh600477,sh600478,sh600479,sh600480,sh600481,sh600482,sh600483,sh600486,sh600487,sh600488,sh600489,sh600490,sh600491,sh600493,sh600495,sh600496,sh600497,sh600498,sh600499,sh600500,sh600501,sh600502,sh600503,sh600505,sh600506,sh600507,sh600508,sh600509,sh600510,sh600511,sh600512,sh600513,sh600515,sh600516,sh600517,sh600518,sh600519,sh600520,sh600521,sh600522,sh600523,sh600525,sh600526,sh600527,sh600528,sh600529,sh600530,sh600531,sh600533,sh600535,sh600536,sh600537,sh600538,sh600539,sh600540",
+        "raw_sha256": "007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1",
+        "retrieved_at": "2026-11-23T11:31:16.753854+08:00",
+        "status": "valid",
+        "symbol": "sh600519",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_007c0b05cf7940626e0c0603aa05a69b90b084f83577a851eeb24293545016a1.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -2.7534915026081186,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601018",
+      "name": "宁波港",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601018",
+        "name": "宁波港",
+        "open": 3.65,
+        "prev_close": 3.65,
+        "close": 3.63,
+        "high": 3.65,
+        "low": 3.6,
+        "volume": 31180673.0,
+        "amount": 112959071.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh600918,sh600919,sh600925,sh600926,sh600927,sh600928,sh600929,sh600930,sh600933,sh600935,sh600936,sh600938,sh600939,sh600941,sh600955,sh600956,sh600958,sh600959,sh600960,sh600961,sh600962,sh600963,sh600965,sh600966,sh600967,sh600968,sh600969,sh600970,sh600971,sh600973,sh600975,sh600976,sh600977,sh600979,sh600980,sh600981,sh600982,sh600983,sh600984,sh600985,sh600986,sh600987,sh600988,sh600989,sh600990,sh600992,sh600993,sh600995,sh600996,sh600997,sh600998,sh600999,sh601000,sh601001,sh601002,sh601003,sh601005,sh601006,sh601007,sh601008,sh601009,sh601010,sh601011,sh601012,sh601015,sh601016,sh601018,sh601019,sh601020,sh601021,sh601022,sh601026,sh601033,sh601038,sh601058,sh601061,sh601065,sh601066,sh601068,sh601069,sh601077,sh601083,sh601086,sh601088,sh601089,sh601091,sh601096,sh601098,sh601099,sh601100,sh601101,sh601106,sh601107,sh601108,sh601111,sh601112,sh601113,sh601116,sh601117,sh601118",
+        "raw_sha256": "a59ffdd13041d1ecbfc5b9bad4557b83570c6381371b99a34d25e2d70cd00e9a",
+        "retrieved_at": "2026-11-23T11:31:17.310138+08:00",
+        "status": "valid",
+        "symbol": "sh601018",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_a59ffdd13041d1ecbfc5b9bad4557b83570c6381371b99a34d25e2d70cd00e9a.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_a59ffdd13041d1ecbfc5b9bad4557b83570c6381371b99a34d25e2d70cd00e9a.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -0.5479452054794498,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601211",
+      "name": "国泰海通",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601211",
+        "name": "国泰海通",
+        "open": 16.59,
+        "prev_close": 16.6,
+        "close": 16.4,
+        "high": 16.59,
+        "low": 16.29,
+        "volume": 42438428.0,
+        "amount": 696742806.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601211",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.2048192771084487,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601288",
+      "name": "农业银行",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601288",
+        "name": "农业银行",
+        "open": 7.76,
+        "prev_close": 7.77,
+        "close": 7.86,
+        "high": 7.92,
+        "low": 7.68,
+        "volume": 272569859.0,
+        "amount": 2130882429.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601288",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": 1.1583011583011782,
+      "daily_boll_position": "above_upper",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601318",
+      "name": "中国平安",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601318",
+        "name": "中国平安",
+        "open": 54.99,
+        "prev_close": 55.46,
+        "close": 54.18,
+        "high": 55.1,
+        "low": 54.07,
+        "volume": 49435606.0,
+        "amount": 2691418421.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601318",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -2.3079697078975836,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601328",
+      "name": "交通银行",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601328",
+        "name": "交通银行",
+        "open": 8.95,
+        "prev_close": 8.98,
+        "close": 9.01,
+        "high": 9.07,
+        "low": 8.87,
+        "volume": 166936073.0,
+        "amount": 1497685760.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601328",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": 0.33407572383072903,
+      "daily_boll_position": "above_upper",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601601",
+      "name": "中国太保",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601601",
+        "name": "中国太保",
+        "open": 32.97,
+        "prev_close": 32.98,
+        "close": 31.94,
+        "high": 32.97,
+        "low": 31.7,
+        "volume": 25145589.0,
+        "amount": 804978555.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601601",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -3.1534263189811895,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601658",
+      "name": "邮储银行",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601658",
+        "name": "邮储银行",
+        "open": 5.79,
+        "prev_close": 5.8,
+        "close": 5.86,
+        "high": 5.92,
+        "low": 5.75,
+        "volume": 149114857.0,
+        "amount": 870273449.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601121,sh601123,sh601126,sh601127,sh601128,sh601133,sh601136,sh601137,sh601138,sh601139,sh601155,sh601156,sh601158,sh601162,sh601163,sh601166,sh601168,sh601169,sh601177,sh601179,sh601186,sh601187,sh601188,sh601199,sh601200,sh601208,sh601211,sh601212,sh601216,sh601218,sh601222,sh601225,sh601226,sh601228,sh601229,sh601231,sh601233,sh601236,sh601238,sh601279,sh601288,sh601298,sh601311,sh601318,sh601319,sh601326,sh601328,sh601330,sh601333,sh601336,sh601339,sh601360,sh601366,sh601368,sh601369,sh601375,sh601377,sh601388,sh601390,sh601398,sh601399,sh601456,sh601500,sh601512,sh601515,sh601518,sh601519,sh601528,sh601555,sh601566,sh601567,sh601568,sh601577,sh601579,sh601588,sh601595,sh601598,sh601599,sh601600,sh601601,sh601606,sh601607,sh601608,sh601609,sh601611,sh601615,sh601616,sh601618,sh601619,sh601628,sh601633,sh601636,sh601658,sh601665,sh601666,sh601668,sh601669,sh601677,sh601678,sh601686",
+        "raw_sha256": "ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c",
+        "retrieved_at": "2026-11-23T11:31:17.313370+08:00",
+        "status": "valid",
+        "symbol": "sh601658",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_ba44c2cacd025739963fe62ed804f4ca99b1a3daa066826adb0fad5d2e5fee4c.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": 1.0344827586207028,
+      "daily_boll_position": "above_upper",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601766",
+      "name": "中国中车",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601766",
+        "name": "中国中车",
+        "open": 6.65,
+        "prev_close": 6.73,
+        "close": 6.63,
+        "high": 6.7,
+        "low": 6.56,
+        "volume": 112624415.0,
+        "amount": 746840136.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601688,sh601689,sh601696,sh601698,sh601699,sh601700,sh601702,sh601717,sh601718,sh601727,sh601728,sh601766,sh601777,sh601778,sh601788,sh601789,sh601798,sh601799,sh601800,sh601801,sh601808,sh601811,sh601816,sh601818,sh601825,sh601827,sh601828,sh601838,sh601857,sh601858,sh601860,sh601865,sh601866,sh601868,sh601869,sh601872,sh601877,sh601878,sh601880,sh601881,sh601882,sh601886,sh601888,sh601890,sh601898,sh601899,sh601900,sh601901,sh601908,sh601916,sh601918,sh601919,sh601921,sh601928,sh601929,sh601933,sh601939,sh601949,sh601952,sh601956,sh601958,sh601963,sh601965,sh601966,sh601968,sh601969,sh601975,sh601985,sh601988,sh601990,sh601991,sh601992,sh601995,sh601996,sh601997,sh601998,sh601999,sh603000,sh603001,sh603002,sh603004,sh603005,sh603006,sh603007,sh603008,sh603009,sh603010,sh603011,sh603012,sh603013,sh603014,sh603015,sh603016,sh603017,sh603018,sh603019,sh603020,sh603021,sh603022,sh603023",
+        "raw_sha256": "7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351",
+        "retrieved_at": "2026-11-23T11:31:17.320656+08:00",
+        "status": "valid",
+        "symbol": "sh601766",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.4858841010401247,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601816",
+      "name": "京沪高铁",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601816",
+        "name": "京沪高铁",
+        "open": 5.42,
+        "prev_close": 5.43,
+        "close": 5.31,
+        "high": 5.42,
+        "low": 5.28,
+        "volume": 126552939.0,
+        "amount": 673387198.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601688,sh601689,sh601696,sh601698,sh601699,sh601700,sh601702,sh601717,sh601718,sh601727,sh601728,sh601766,sh601777,sh601778,sh601788,sh601789,sh601798,sh601799,sh601800,sh601801,sh601808,sh601811,sh601816,sh601818,sh601825,sh601827,sh601828,sh601838,sh601857,sh601858,sh601860,sh601865,sh601866,sh601868,sh601869,sh601872,sh601877,sh601878,sh601880,sh601881,sh601882,sh601886,sh601888,sh601890,sh601898,sh601899,sh601900,sh601901,sh601908,sh601916,sh601918,sh601919,sh601921,sh601928,sh601929,sh601933,sh601939,sh601949,sh601952,sh601956,sh601958,sh601963,sh601965,sh601966,sh601968,sh601969,sh601975,sh601985,sh601988,sh601990,sh601991,sh601992,sh601995,sh601996,sh601997,sh601998,sh601999,sh603000,sh603001,sh603002,sh603004,sh603005,sh603006,sh603007,sh603008,sh603009,sh603010,sh603011,sh603012,sh603013,sh603014,sh603015,sh603016,sh603017,sh603018,sh603019,sh603020,sh603021,sh603022,sh603023",
+        "raw_sha256": "7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351",
+        "retrieved_at": "2026-11-23T11:31:17.320656+08:00",
+        "status": "valid",
+        "symbol": "sh601816",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -2.209944751381221,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601985",
+      "name": "中国核电",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601985",
+        "name": "中国核电",
+        "open": 9.95,
+        "prev_close": 9.98,
+        "close": 9.8,
+        "high": 9.95,
+        "low": 9.77,
+        "volume": 65760714.0,
+        "amount": 647210668.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601688,sh601689,sh601696,sh601698,sh601699,sh601700,sh601702,sh601717,sh601718,sh601727,sh601728,sh601766,sh601777,sh601778,sh601788,sh601789,sh601798,sh601799,sh601800,sh601801,sh601808,sh601811,sh601816,sh601818,sh601825,sh601827,sh601828,sh601838,sh601857,sh601858,sh601860,sh601865,sh601866,sh601868,sh601869,sh601872,sh601877,sh601878,sh601880,sh601881,sh601882,sh601886,sh601888,sh601890,sh601898,sh601899,sh601900,sh601901,sh601908,sh601916,sh601918,sh601919,sh601921,sh601928,sh601929,sh601933,sh601939,sh601949,sh601952,sh601956,sh601958,sh601963,sh601965,sh601966,sh601968,sh601969,sh601975,sh601985,sh601988,sh601990,sh601991,sh601992,sh601995,sh601996,sh601997,sh601998,sh601999,sh603000,sh603001,sh603002,sh603004,sh603005,sh603006,sh603007,sh603008,sh603009,sh603010,sh603011,sh603012,sh603013,sh603014,sh603015,sh603016,sh603017,sh603018,sh603019,sh603020,sh603021,sh603022,sh603023",
+        "raw_sha256": "7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351",
+        "retrieved_at": "2026-11-23T11:31:17.320656+08:00",
+        "status": "valid",
+        "symbol": "sh601985",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.8036072144288595,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "601998",
+      "name": "中信银行",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "601998",
+        "name": "中信银行",
+        "open": 9.61,
+        "prev_close": 9.66,
+        "close": 9.65,
+        "high": 9.68,
+        "low": 9.43,
+        "volume": 34303124.0,
+        "amount": 329537985.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh601688,sh601689,sh601696,sh601698,sh601699,sh601700,sh601702,sh601717,sh601718,sh601727,sh601728,sh601766,sh601777,sh601778,sh601788,sh601789,sh601798,sh601799,sh601800,sh601801,sh601808,sh601811,sh601816,sh601818,sh601825,sh601827,sh601828,sh601838,sh601857,sh601858,sh601860,sh601865,sh601866,sh601868,sh601869,sh601872,sh601877,sh601878,sh601880,sh601881,sh601882,sh601886,sh601888,sh601890,sh601898,sh601899,sh601900,sh601901,sh601908,sh601916,sh601918,sh601919,sh601921,sh601928,sh601929,sh601933,sh601939,sh601949,sh601952,sh601956,sh601958,sh601963,sh601965,sh601966,sh601968,sh601969,sh601975,sh601985,sh601988,sh601990,sh601991,sh601992,sh601995,sh601996,sh601997,sh601998,sh601999,sh603000,sh603001,sh603002,sh603004,sh603005,sh603006,sh603007,sh603008,sh603009,sh603010,sh603011,sh603012,sh603013,sh603014,sh603015,sh603016,sh603017,sh603018,sh603019,sh603020,sh603021,sh603022,sh603023",
+        "raw_sha256": "7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351",
+        "retrieved_at": "2026-11-23T11:31:17.320656+08:00",
+        "status": "valid",
+        "symbol": "sh601998",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_7e97d8d9b8df94b652843adb801293debc1669008632031c7ff4cff6ea18d351.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -0.10351966873706209,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "603568",
+      "name": "伟明环保",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "603568",
+        "name": "伟明环保",
+        "open": 13.0,
+        "prev_close": 13.13,
+        "close": 12.98,
+        "high": 13.13,
+        "low": 12.82,
+        "volume": 4704256.0,
+        "amount": 60983523.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh603400,sh603402,sh603406,sh603407,sh603408,sh603409,sh603416,sh603418,sh603421,sh603429,sh603435,sh603439,sh603444,sh603448,sh603456,sh603458,sh603459,sh603466,sh603468,sh603477,sh603486,sh603488,sh603489,sh603496,sh603499,sh603500,sh603501,sh603505,sh603506,sh603507,sh603508,sh603511,sh603515,sh603516,sh603517,sh603518,sh603519,sh603520,sh603527,sh603528,sh603529,sh603530,sh603533,sh603535,sh603536,sh603538,sh603551,sh603556,sh603557,sh603558,sh603559,sh603565,sh603566,sh603567,sh603568,sh603569,sh603577,sh603578,sh603579,sh603580,sh603583,sh603585,sh603586,sh603587,sh603588,sh603589,sh603590,sh603595,sh603596,sh603598,sh603599,sh603600,sh603601,sh603602,sh603605,sh603606,sh603607,sh603608,sh603609,sh603610,sh603611,sh603612,sh603613,sh603615,sh603616,sh603617,sh603618,sh603619,sh603626,sh603628,sh603629,sh603630,sh603633,sh603636,sh603637,sh603638,sh603639,sh603648,sh603650,sh603655",
+        "raw_sha256": "3fc5aae9f05a95c6797e618454942281ce4e74fa1c37fd31a1d9c545b2ee1bff",
+        "retrieved_at": "2026-11-23T11:31:17.873203+08:00",
+        "status": "valid",
+        "symbol": "sh603568",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_3fc5aae9f05a95c6797e618454942281ce4e74fa1c37fd31a1d9c545b2ee1bff.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_3fc5aae9f05a95c6797e618454942281ce4e74fa1c37fd31a1d9c545b2ee1bff.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -1.1424219345011477,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    },
+    {
+      "code": "688009",
+      "name": "中国通号",
+      "completed_daily_asof": "2026-11-20",
+      "quote": {
+        "code": "688009",
+        "name": "中国通号",
+        "open": 5.1,
+        "prev_close": 5.13,
+        "close": 5.11,
+        "high": 5.18,
+        "low": 5.08,
+        "volume": 22292637.0,
+        "amount": 114687112.0,
+        "date": "2026-11-23",
+        "time": "11:30:00",
+        "source_url": "https://hq.sinajs.cn/list=sh605580,sh605588,sh605589,sh605598,sh605599,sh688001,sh688002,sh688003,sh688004,sh688005,sh688006,sh688007,sh688008,sh688009,sh688010,sh688011,sh688012,sh688013,sh688015,sh688016,sh688017,sh688018,sh688019,sh688020,sh688021,sh688022,sh688023,sh688025,sh688026,sh688027,sh688028,sh688029,sh688030,sh688031,sh688032,sh688033,sh688035,sh688036,sh688037,sh688038,sh688039,sh688041,sh688045,sh688046,sh688047,sh688048,sh688049,sh688050,sh688051,sh688052,sh688053,sh688055,sh688056,sh688057,sh688058,sh688059,sh688060,sh688061,sh688062,sh688063,sh688065,sh688066,sh688067,sh688068,sh688069,sh688070,sh688071,sh688072,sh688073,sh688075,sh688076,sh688077,sh688078,sh688079,sh688080,sh688081,sh688082,sh688083,sh688084,sh688085,sh688087,sh688088,sh688089,sh688090,sh688091,sh688092,sh688093,sh688095,sh688096,sh688097,sh688098,sh688099,sh688100,sh688101,sh688102,sh688103,sh688105,sh688106,sh688107,sh688108",
+        "raw_sha256": "d21edb0c7e067eac94b59a17856b0399df5d6a2fe756a46754ed455f8cf304f7",
+        "retrieved_at": "2026-11-23T11:31:17.887834+08:00",
+        "status": "valid",
+        "symbol": "sh688009",
+        "field_count": 34,
+        "provider_status": "00",
+        "parse_errors": [],
+        "raw_file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quote_sources/retained_d21edb0c7e067eac94b59a17856b0399df5d6a2fe756a46754ed455f8cf304f7.raw",
+        "original_raw_file": "output/boll/archive/2026-11-20/20261123T113107477311-noon/quote_sources/retained_d21edb0c7e067eac94b59a17856b0399df5d6a2fe756a46754ed455f8cf304f7.raw"
+      },
+      "is_completed_daily_indicator": false,
+      "quote_status": "valid",
+      "errors": [],
+      "status": "valid",
+      "return_vs_source_previous_close_pct": -0.3898635477582735,
+      "daily_boll_position": "above_middle",
+      "corporate_action_basis_changed": false,
+      "note": "Intraday price overlay on completed daily BOLL; not a completed daily indicator. Volume is absolute, not compared to prior full day."
+    }
+  ],
+  "quote_shards": [
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/000001-000518.json",
+      "count": 100,
+      "sha256": "eb11bf1117d6c48370ca8e49e97c8cd09efccb9a5fee29eef823818a33340d39"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/000519-000672.json",
+      "count": 100,
+      "sha256": "9e0a2b23233adaac8da0822bf4472222f9e35a17e824f6455c0d8f8bd0848cc8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/000676-000822.json",
+      "count": 100,
+      "sha256": "8e312fa7ff9ee79490f357a7017d72253144bff968afe852b2997bb90de78b35"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/000823-000981.json",
+      "count": 100,
+      "sha256": "eb3d46f9c106c19c3434d9c717e21a2195864368b8586cb9897f73397e13e489"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/000983-001338.json",
+      "count": 100,
+      "sha256": "925a0e06bc9e55c60f8fef4f3515d116c631ce9e3a9340bc629a4da2c7bbd873"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/001339-002069.json",
+      "count": 100,
+      "sha256": "f12f70c237ef360f54b89eb8203c89c510bd0e996d6bebfff935cd5191f8a877"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002072-002177.json",
+      "count": 100,
+      "sha256": "2635e83dcaaf74b821e7f3524e7df07da09f1ab996d6e9633dfdc996b7b1e735"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002178-002282.json",
+      "count": 100,
+      "sha256": "a97f7a2ed596b709c7ea3e8fba5030e9dd773be83cd668b79c7d5f8d577f976d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002283-002388.json",
+      "count": 100,
+      "sha256": "d4c86ee738497abcd9c313eb7e5bbf4b43a26c40eb01119f2cd2d5562d929897"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002389-002497.json",
+      "count": 100,
+      "sha256": "e3bcce985c6a35f34881df8e79b1badc1582327ba334b36db0740491fbcdd50f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002498-002605.json",
+      "count": 100,
+      "sha256": "05493e62de6f2b8e597e43534a61a853c1771ac2fddb05e0efabbcc8951e58ea"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002606-002716.json",
+      "count": 100,
+      "sha256": "58c3bbe5a8ca328440b42c33c09a5ed5b23d98bafa03789840c5f018347e6562"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002717-002832.json",
+      "count": 100,
+      "sha256": "de22a0bb00151812637602ddc262aa838abb52581a537a0ce0c13c20e07ae843"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002833-002942.json",
+      "count": 100,
+      "sha256": "9cc63831ef8bd91ca7b07eaaff6b6f8d2d2acca240f387f6c5188bb134b6e9e5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/002943-300006.json",
+      "count": 100,
+      "sha256": "9da3ddd8d5aef68185efb3190169714250e3ea311f9ac69fe6a21e928222c9b1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300007-300119.json",
+      "count": 100,
+      "sha256": "f390f4c1b6a9e48831a557a811ea0f3028dea044056db946b6d010ab702181ec"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300120-300225.json",
+      "count": 100,
+      "sha256": "ccedbb66cb3e937535335f3e8a4a26d202ea13e557146c4d9a6d99324a4605c6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300226-300334.json",
+      "count": 100,
+      "sha256": "1de1984fc65952f71067eb8700cfa132c81edb4cfa999bd4d058e5d0bc08146b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300335-300445.json",
+      "count": 100,
+      "sha256": "300ddbb32c8f5490d3aa4d990ff326447012273bb8fcd3d52880e3b7e7ab7177"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300446-300549.json",
+      "count": 100,
+      "sha256": "f00ef6ef77e2ac93291114266f4b465c3eeb5d16008fe8665b896e36f04672ba"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300550-300652.json",
+      "count": 100,
+      "sha256": "c70bd640930cbfdcf1c7201ad0490236f7457a75a3e56370ef147588c2adad93"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300653-300759.json",
+      "count": 100,
+      "sha256": "892c8dd1ad77b1886b26cdacc10240e2e221dda94075a8d36f2995399c7effe7"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300760-300862.json",
+      "count": 100,
+      "sha256": "b1f96b97e0b62613952a61a8f2a53ab5e1f1fe5c88d0946e093447a4e4db5684"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300863-300968.json",
+      "count": 100,
+      "sha256": "fffef6a61ba1c6c96d1aed553edc0a897454df851a0acb0e2a4ce1817cfd812b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/300969-301075.json",
+      "count": 100,
+      "sha256": "88d49ee22b91f848b125e723204d317856ece900322acce50010501faa9f1c5b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/301076-301193.json",
+      "count": 100,
+      "sha256": "51ca8e2beaa1051da62d0434f8d1cffd16ab2d96c6b5e0aebabc3a6ebbe8a355"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/301195-301314.json",
+      "count": 100,
+      "sha256": "64baa9bdc3bd548258cd79d82f6d9a6f305abc21f050fce8bceadb998f5785c4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/301315-301511.json",
+      "count": 100,
+      "sha256": "af70e7aec362439c63198d47725798b6f2f44525366a01bc0103f6e9841d11cd"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/301512-301699.json",
+      "count": 100,
+      "sha256": "40c2ee1e038e6a6ccdb982867b51a151320150cd3c577f9b741d9e202a29b0ec"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/301707-600128.json",
+      "count": 100,
+      "sha256": "d1f3329da16e4936cd6f5493a5ddc041245f095896966ba14ca64012a5bf3c91"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600129-600261.json",
+      "count": 100,
+      "sha256": "9aa6a86eeb5329ff7e85e7ecdde476a1d0db691d23dfecd5ccfe3a71c95f07af"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600262-600395.json",
+      "count": 100,
+      "sha256": "d91479d60b3b3432a2d32dd9f9d4742305cc9703433b4a7e633c0c0ee1b243f5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600396-600540.json",
+      "count": 100,
+      "sha256": "7a121b21d7c2b3f9b1e15230c41a7f44b764004c1632e87556c0720d1a13fcd2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600543-600665.json",
+      "count": 100,
+      "sha256": "90427ba0bd52563074068bfcd999d301b7471930f46e92e4af99389f65a20e9d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600666-600785.json",
+      "count": 100,
+      "sha256": "481ba9b933fd10fc037c4943ca01e84acc1335198ca5ade420834bc5dac56a3c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600787-600917.json",
+      "count": 100,
+      "sha256": "489dbf4186be599587b92f4b29fb88097c34511c5c43a63fced2697c8983401d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/600918-601118.json",
+      "count": 100,
+      "sha256": "9da932090fd219ab0c9d8252cb0f806f651ea9cfe48af444103e5a0cf1b8d59e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/601121-601686.json",
+      "count": 100,
+      "sha256": "1d100cc5e1984033a73fe8edc9f0612c9b6b41c66628bd12e88f81866ae3fce5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/601688-603023.json",
+      "count": 100,
+      "sha256": "c171cfd414313cf61104d268f13ab4eabb6dea83b87246e425deba138b6b24df"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603025-603138.json",
+      "count": 100,
+      "sha256": "62e601d0357638acdbab4c011f062ab16abf57f50187f15c23cc3aab47d9550f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603139-603275.json",
+      "count": 100,
+      "sha256": "412d61211eb65cd6b585bdbe155f1e93a07391db1969909c35db8895c65e37f8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603276-603399.json",
+      "count": 100,
+      "sha256": "7cd0dc6cfcfee4777f2c321ac739a26cd768bf62bbe4f2b5da8f03c0e1e7dc3b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603400-603655.json",
+      "count": 100,
+      "sha256": "e4d36b6eb697cad431ef5e712954444a78ca825de38f29586a063bab85b0c1e5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603656-603836.json",
+      "count": 100,
+      "sha256": "70276f310280b964c78dbb49b1fcf935810388ef2c3c7a2607f57e89aa0a3252"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/603838-605009.json",
+      "count": 100,
+      "sha256": "3e4846017397f69e19dcfb7802eedb228ff13868d20ad1f386c40a84b63e3939"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/605011-605577.json",
+      "count": 100,
+      "sha256": "27594eac362ac999eec66f005aac8b5c86583d93580794b59164c6f9db30c15d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/605580-688108.json",
+      "count": 100,
+      "sha256": "1dbc418ac1813bd2ba1d5efe371048d5b3cd6381a6a3b4fbc16f376ecfc8cab6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688109-688221.json",
+      "count": 100,
+      "sha256": "3ac5a908be716bafa665edb1b0c737c87051ed77378e2116bb77bc22b5bf197c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688222-688337.json",
+      "count": 100,
+      "sha256": "37ec6b8c3ed1f498d7bffcc7730f39569ccaad82aaeec7adbe89e924b021bc47"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688338-688506.json",
+      "count": 100,
+      "sha256": "96b0518aab0bf9aef31fcf7f454d75e4610b4898c22c5e64243419231797cee2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688507-688628.json",
+      "count": 100,
+      "sha256": "aadf1be1423ceaca7c6347134e135dd059bf68a202799298c6c5854853eb099c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688629-688798.json",
+      "count": 100,
+      "sha256": "b5cf096fb2286627d6ebf4200d2a9da04a3d03c05f3fdb66c56be2a398bcb92b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-20/20261123T113411118148-noon/quotes/688799-688981.json",
+      "count": 23,
+      "sha256": "20db8490cc53a1d4e11defbdb3666d4ad9f65e2398ad36ecfcf4aad5f5f0be37"
+    }
+  ]
+}

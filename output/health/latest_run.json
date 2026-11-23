@@ -1,5 +1,5 @@
 {
-  "attempt_role": "delayed-current-phase",
+  "attempt_role": "independent-noon-ingest",
   "blocking_reasons": [],
   "collection_mode": "live_or_latest_completed",
   "coverage": {
@@ -15,23 +15,23 @@
     },
     "market_breadth": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "report_active": {
       "expected": 8,
-      "ratio": 1.0,
-      "valid": 8
+      "ratio": 0.375,
+      "valid": 3
     },
     "sectors_bottom": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "sectors_top": {
       "expected": 5,
-      "ratio": 0.0,
-      "valid": 0
+      "ratio": 1.0,
+      "valid": 5
     },
     "watch": {
       "expected": 14,
@@ -39,8 +39,8 @@
       "valid": 14
     }
   },
-  "finished_at": "2026-11-23T03:57:43+08:00",
-  "planned_at": "2026-11-23T03:57:00+08:00",
+  "finished_at": "2026-11-23T11:34:11+08:00",
+  "planned_at": "2026-11-23T11:31:00+08:00",
   "point_in_time_recovered": false,
   "published": true,
   "quality_grade": "B",
@@ -50,35 +50,42 @@
     "core coverage 11/11"
   ],
   "reason": "published",
-  "report_cycle": "2026-11-23-early",
+  "report_cycle": "2026-11-23-noon",
   "report_date": "2026-11-23",
-  "schedule_delay_minutes": 0.72,
+  "schedule_delay_minutes": 0.55,
   "schema_version": "1.6.1",
-  "snapshot_id": "20261123-0357-early-full-45063546311",
+  "snapshot_id": "20261123-1131-noon-full-45106401659",
   "snapshot_mode": "full",
-  "snapshot_type": "early",
+  "snapshot_type": "noon",
   "source_status": {
     "market_overview": {
-      "errors": [],
-      "finished_at": "2026-11-23T03:57:43+08:00",
+      "errors": [
+        "AKShare stock_board_industry_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+        "AKShare stock_board_concept_name_em failed: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      ],
+      "finished_at": "2026-11-23T11:34:10+08:00",
       "records_expected": 5,
       "records_valid": 5,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261120-1546-close-full-44697171675",
-      "started_at": "2026-11-23T03:57:43+08:00",
+      "source": "新浪实时行情接口; AKShare stock_zh_index_spot_sina; AKShare stock_board_industry_summary_ths",
+      "started_at": "2026-11-23T11:31:33+08:00",
       "status": "success"
     },
     "stock_quotes": {
-      "errors": [],
-      "finished_at": "2026-11-23T03:57:43+08:00",
+      "errors": [
+        "观察池配置缺少代码：001965, 002746, 003816, 301071, 600967",
+        "东方财富主日线接口失败：('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')) 已使用新浪备用日线接口。",
+        "行业信息获取失败：Expecting value: line 1 column 1 (char 0) 已使用观察池 theme 作为行业/主题兜底。"
+      ],
+      "finished_at": "2026-11-23T11:33:46+08:00",
       "records_expected": 30,
-      "records_valid": 30,
+      "records_valid": 25,
       "retry_count": 0,
-      "source": "verified previous close snapshot 20261120-1546-close-full-44697171675",
-      "started_at": "2026-11-23T03:57:43+08:00",
-      "status": "success"
+      "source": "新浪实时行情接口",
+      "started_at": "2026-11-23T11:31:33+08:00",
+      "status": "partial"
     }
   },
-  "started_at": "2026-11-23T03:57:43+08:00",
+  "started_at": "2026-11-23T11:31:33+08:00",
   "status": "published"
 }
