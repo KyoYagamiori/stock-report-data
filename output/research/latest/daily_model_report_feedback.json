@@ -1,11 +1,11 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-23T09:03:58.900296+08:00",
-  "total_calls": 10,
+  "generated_at": "2026-11-23T12:49:53.480897+08:00",
+  "total_calls": 13,
   "statuses": {
     "hit": 3,
     "miss": 2,
-    "pending": 5
+    "pending": 8
   },
   "model": {
     "state": "shadow_calibration",
@@ -28,6 +28,110 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "808b66ec2dd1e25f492140cf",
+      "code": "601318",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-23T12:49:29+08:00",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 53.86,
+      "high": 54.65,
+      "etf_context": "weak",
+      "reference_price": 54.18,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 55.35,
+        "reduce_high": 55.46,
+        "stop": 54.62,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "原A风险观察，上午介入窗已结束。下午完整15分钟收回54.88且510880相对强再复核修复。",
+        "exit_rule": "仅可卖仓位触带后完整15分钟收低于55.35减1/3，完整15分钟收低于54.62核原退出。"
+      },
+      "source": "reports/forecasts/2026/11/23/noon.json",
+      "source_sha256": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
+      "seen_at": "2026-11-23T12:49:53.480897+08:00"
+    },
+    {
+      "signal_id": "a2417125a8c5c048ad2f60bd",
+      "code": "300059",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-23T12:49:29+08:00",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 18.46,
+      "high": 18.6,
+      "etf_context": "weak",
+      "reference_price": 18.51,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": 18.47,
+        "buy_high": 18.48,
+        "reduce_low": 18.58,
+        "reduce_high": 18.61,
+        "stop": 18.41,
+        "profit_target": 18.59,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "13:15–14:15回踩18.43–18.46，完整15分钟收≥18.47且量≥前一完整下午15分钟1.2倍，并验512000≥0.473及300059、600030、601211至少两只涨，随后仅18.47–18.48复核，18.47优先，超价放过。",
+        "exit_rule": "可卖仓位触18.58–18.61后首根完整15分钟收低于18.58减1/3，完整15分钟收低于18.41退出。18.56启动保护。"
+      },
+      "source": "reports/forecasts/2026/11/23/noon.json",
+      "source_sha256": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
+      "seen_at": "2026-11-23T12:49:53.480897+08:00"
+    },
+    {
+      "signal_id": "1af55ec50287dc21c2ddc15d",
+      "code": "600970",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-23",
+      "issued_at": "2026-11-23T12:49:29+08:00",
+      "quote_asof": "2026-11-23T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 7.41,
+      "high": 7.68,
+      "etf_context": "unknown",
+      "reference_price": 7.51,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 7.95,
+        "reduce_high": 8.1,
+        "stop": 7.69,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "原VCP风险观察，15:00原窗到期。验严格收过8.10且全日至少2444万股，延伸上限8.21。无新入场。",
+        "exit_rule": "可卖仓位触原带后首根完整15分钟收低于7.95减1/3，完整15分钟低于7.69核原退出。",
+        "vcp_checks": {
+          "stop_below_15m": true,
+          "reduce_after_band_below_15m": true,
+          "daily_breakout": {
+            "pivot": 8.1,
+            "min_volume_shares": 24440000
+          }
+        }
+      },
+      "source": "reports/forecasts/2026/11/23/noon.json",
+      "source_sha256": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
+      "seen_at": "2026-11-23T12:49:53.480897+08:00"
+    },
     {
       "signal_id": "72990e9dcbaa04e54b412e6a",
       "code": "601318",
@@ -446,11 +550,11 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-23T09:03:58.974052+08:00",
-    "plans": 3,
+    "evaluated_at": "2026-11-23T12:49:53.569676+08:00",
+    "plans": 4,
     "statuses": {
       "window_open": 2,
-      "waiting_for_close": 1
+      "waiting_for_close": 2
     },
     "verified_security_sessions": 1,
     "collection_error": null,
@@ -458,6 +562,44 @@
     "trade_execution_labels": 0,
     "formal_training_rows": 0,
     "recent_calls": [
+      {
+        "signal_id": "1af55ec50287dc21c2ddc15d",
+        "code": "600970",
+        "phase": "noon",
+        "issued_at": "2026-11-23T12:49:29+08:00",
+        "seen_at": "2026-11-23T12:49:53.480897+08:00",
+        "check_day": "2026-11-23",
+        "valid_until": "2026-11-23T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/23/noon.json",
+        "forecast_sha256": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
+        "status": "waiting_for_close",
+        "observed_days": [],
+        "pending_days": [
+          "2026-11-23"
+        ],
+        "missing_days": {},
+        "price_events": {},
+        "sources": [],
+        "condition_checks": {
+          "status": "defined_conditions_checked",
+          "daily_breakout": {
+            "state": "awaiting_evidence",
+            "pivot": 8.1,
+            "min_volume_shares": 24440000
+          },
+          "stop_below_15m": {
+            "state": "not_observed_in_reviewed_sessions",
+            "event": null
+          },
+          "reduce_after_band_below_15m": {
+            "state": "not_observed_in_reviewed_sessions",
+            "touch": null,
+            "event": null
+          }
+        },
+        "entry_condition_state": "original_additional_conditions_require_review",
+        "fill_state": "no_execution_evidence"
+      },
       {
         "signal_id": "5876b324c6e6001e564c8ae3",
         "code": "600970",
