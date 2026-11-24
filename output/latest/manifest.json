@@ -6,23 +6,23 @@
     "next_trading_day": "2026-11-25",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-11-24T18:27:08+08:00",
+  "generated_at": "2026-11-24T22:12:04+08:00",
   "health": {
     "last_attempt": {
       "blocking_reasons": [],
-      "finished_at": "2026-11-24T18:27:08+08:00",
-      "planned_at": "2026-11-24T18:26:00+08:00",
+      "finished_at": "2026-11-24T22:12:04+08:00",
+      "planned_at": "2026-11-24T22:12:00+08:00",
       "published": true,
       "quality_grade": "A",
       "reason": "published",
-      "report_cycle": "2026-11-24-close",
+      "report_cycle": "2026-11-24-evening",
       "report_date": "2026-11-24",
-      "snapshot_id": "20261124-1826-close-full-45374552981",
-      "snapshot_type": "close",
-      "started_at": "2026-11-24T18:26:29+08:00",
+      "snapshot_id": "20261124-2212-evening-full-45411143254",
+      "snapshot_type": "evening",
+      "started_at": "2026-11-24T22:12:03+08:00",
       "status": "published"
     },
-    "last_grade_a_at": "2026-11-24T18:27:08+08:00",
+    "last_grade_a_at": "2026-11-24T22:12:03+08:00",
     "last_grade_b_at": "2026-11-24T17:47:37+08:00",
     "latest_run": "output/health/latest_run.json"
   },
@@ -49,17 +49,20 @@
       "status": "ready_b"
     },
     "evening": {
+      "collection_mode": "live_or_latest_completed",
       "missing_core_fields": [],
       "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
+      "point_in_time_recovered": false,
+      "quality_grade": "A",
+      "quality_profile": "trading_evening",
       "reasons": [
-        "stale report cycle 2026-11-23-evening; expected 2026-11-24-evening"
+        "verified same-day A-grade close snapshot"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "schedule_delay_minutes": 0.05,
+      "selected_file": "output/archive/2026/11/24/evening/20261124-2212-evening-full-45411143254.json",
+      "selected_snapshot_id": "20261124-2212-evening-full-45411143254",
+      "sha256": "bd9d0882eb6a7efd4db41b4466dbe71b863b2e789692a177d70e91c2e0d68274",
+      "status": "ready_a"
     },
     "noon": {
       "collection_mode": "historical_point_in_time_recovery",
@@ -153,29 +156,26 @@
     "evening": {
       "collection_mode": "live_or_latest_completed",
       "core_effective_count": 11,
-      "effective_field_count": 46,
+      "effective_field_count": 51,
       "latest_alias": "output/latest/evening/report_data_compact.json",
       "market_asof": null,
-      "market_date": "2026-11-23",
+      "market_date": "2026-11-24",
       "missing_core_fields": [],
-      "missing_optional_fields": [
-        "total_turnover",
-        "market_breadth"
-      ],
+      "missing_optional_fields": [],
       "point_in_time_recovered": false,
-      "published_at": "2026-11-23T22:57:55+08:00",
-      "quality_grade": "B",
+      "published_at": "2026-11-24T22:12:03+08:00",
+      "quality_grade": "A",
       "quality_profile": "trading_evening",
       "quality_reasons": [
-        "verified same-day B-grade close snapshot"
+        "verified same-day A-grade close snapshot"
       ],
-      "quote_time_max": "2026-11-23T15:35:57+08:00",
-      "report_cycle": "2026-11-23-evening",
-      "schedule_delay_minutes": 0.92,
+      "quote_time_max": "2026-11-24T15:36:00+08:00",
+      "report_cycle": "2026-11-24-evening",
+      "schedule_delay_minutes": 0.05,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/11/23/evening/20261123-2257-evening-full-45199613309.json",
-      "selected_snapshot_id": "20261123-2257-evening-full-45199613309",
-      "sha256": "97ce7b12e9b78bc1ae20a47e2874871145b1a385ca930818388a1b3efa0eff2c",
+      "selected_file": "output/archive/2026/11/24/evening/20261124-2212-evening-full-45411143254.json",
+      "selected_snapshot_id": "20261124-2212-evening-full-45411143254",
+      "sha256": "bd9d0882eb6a7efd4db41b4466dbe71b863b2e789692a177d70e91c2e0d68274",
       "snapshot_type": "evening",
       "suitable_reports": [
         "evening"
