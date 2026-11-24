@@ -36,3 +36,25 @@ LightGBM为固定试运行分支，Ridge和早期规则并行对照。删除历�
 VCP独立历史候选集的下一轮研究见`docs/vcp-training.md`和
 `output/research/latest/vcp_training_status.json`。它与本页已冻结的日报模型分开保存，
 不扩大本版评分范围，不覆盖原模型、公开预测或旧日报。
+
+## 自动重训
+
+在 `config/daily_model.json` 启用 `automatic_retraining` 后，现有日线工作流结算完毕就会检查重训条件。
+最新结果在 `output/research/latest/daily_model_retraining.json`，也随当期日线模型读取器发布。
+从首个公开可核验的预测入场日累计前向交易日，按 `config/model_release_policy.json` 检查
+60 个交易日、100 条新合格样本和 30 个新合格信号日。每只股票每个信号日只计一次。
+早午报方向校准和买卖条件复盘继续分别计算。日线价格代理只用于研究反馈。
+
+审核完成的公开市场回放结果按信号落在 `output/research/daily_model/feedback/audited/<signal_id>.json`。
+记录须有 `schema_version=1`、`scope=audited_public_market_execution`、`signal_id`、
+`prediction_sha256`、`entry_date`、`exit_date`、`label_known_at`、`benchmark_code`、
+`gross_adjusted_stock_return_pct`、`gross_benchmark_return_pct`、`round_trip_cost_bps` 与 `evidence`。
+`evidence` 中的 `official_benchmark`、`corporate_actions`、`execution_and_costs` 分别绑定
+`audited/sources/` 下的证据文件及其 SHA-256。指数收益使用相同区间和统一指数口径。
+执行证据须覆盖 T+1、日期对应的 ST、停牌、涨跌停、开盘与退出可成交性及费用。此入口接收已核验材料，
+原始核验来源缺失时继续等待。只能写入公开市场证据。
+
+达标后在按日期切分、隔离跨界标签的开发验证中比较模型和规则，再将 Ridge 与 LightGBM 冻结为新研究候选。
+候选存于 `output/research/daily_model/retraining/`。文件实际发布后，随新信号冻结候选评分，
+待同池入选对象的合格标签齐备后，与现行模型和早期规则对照。后续批次从候选上次纳入的最后信号日之后重新累计。
+正式晋级须另行完成独立前向检验、成本、可成交性及风险审核，候选训练结果不会激活正式模型。

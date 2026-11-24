@@ -156,6 +156,23 @@ class IndependentNoonTests(unittest.TestCase):
         self.execute(moment=NOW.replace(minute=45), quote_collector=Mock(side_effect=AssertionError("quotes already complete")))
         self.assertTrue(accepted_noon(self.root, NOW.replace(minute=45))["accepted"])
 
+    def test_today_name_change_preserves_the_completed_risk_warning(self):
+        from market_screen.completed_source import reuse_daily_records
+
+        prior = {**self.universe[0], "name": "ST示例", "market_date": TARGET,
+                 "status": "excluded", "reasons": ["risk_warning_name"], "ranking": {"eligible": False}}
+        source = {"accepted": True, "screen_file": "completed.json", "sha256": "a" * 64}
+        fetcher = Mock(side_effect=AssertionError("completed risk warning is already known"))
+        with patch("market_screen.completed_source.load_completed_records",
+                   return_value=({prior["code"]: prior}, source, None)):
+            [row], details = reuse_daily_records(self.root, self.universe[:1],
+                {"market_date": TARGET, "expected_sessions": self.sessions}, self.config, NOW, fetcher=fetcher)
+        fetcher.assert_not_called()
+        self.assertEqual(self.universe[0]["name"], row["name"])
+        self.assertEqual("ST示例", row["completed_session_name"])
+        self.assertEqual(["risk_warning_on_completed_session"], row["reasons"])
+        self.assertEqual([], details["unresolved_codes"])
+
     def test_republished_daily_store_keeps_zero_trade_proof_self_contained_for_noon(self):
         from market_screen.completed import reuse_completed_exclusions
         self.publish_baseline(no_trade=["600000"])

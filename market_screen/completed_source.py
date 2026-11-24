@@ -185,6 +185,12 @@ def reuse_daily_records(root, universe, dates, config, moment, *, max_seconds=12
                 listed = stock.get("listing_date")
                 if not listed or sum(listed <= day <= dates["market_date"] for day in dates["expected_sessions"]) >= 160:
                     reasons.append("completed_new_listing_exclusion_invalid")
+            elif why == ["risk_warning_name"] and source["accepted"] and (
+                    "ST" in row["name"].upper() or "退" in row["name"]):
+                # A rename today does not change the eligibility recorded for
+                # the completed session that supplies all noon indicators.
+                row["completed_session_name"] = row["name"]
+                row["reasons"] = ["risk_warning_on_completed_session"]
             else:
                 reasons.append("completed_exclusion_requires_current_review")
         else:

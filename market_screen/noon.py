@@ -203,11 +203,17 @@ def accepted_snapshot(root: Path, moment: datetime) -> dict:
 
 
 def _collect_snapshot(root, now):
+    from pipeline.adapters.direct_quotes import collect_direct
     from pipeline.runner import RunOptions, run_pipeline
 
     return run_pipeline(RunOptions(snapshot_type="noon", mode="full",
                         planned_at=now.strftime("%H:%M"), attempt_role="independent-noon-ingest",
-                        report_date=now.date().isoformat(), moment=now), root)
+                        report_date=now.date().isoformat(), moment=now), root, stock_collector=collect_direct)
+
+
+def _remaining_seconds(current, started, max_seconds):
+    cutoff = current.replace(hour=12, minute=20, second=0, microsecond=0)
+    return min(max_seconds - (monotonic() - started), (cutoff - current).total_seconds())
 
 
 def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, snapshot_collector=None) -> dict:
@@ -230,8 +236,7 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
         for number in (1, 2):
             current = moment or datetime.now(TZ)
             # Finish with room for publication before the 12:40 report.
-            wall_remaining = (current.replace(hour=12, minute=20, second=0, microsecond=0) - current).total_seconds()
-            remaining = min(max_seconds - (monotonic() - start), wall_remaining)
+            remaining = _remaining_seconds(current, start, max_seconds)
             if remaining <= 0:
                 break
             if not scan_gate["accepted"]:
@@ -245,10 +250,16 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
                                                "error": type(exc).__name__ + ":" + str(exc)[:500]})
                 scan_gate = accepted_noon(root, moment or datetime.now(TZ))
             current = moment or datetime.now(TZ)
-            if (not snapshot_gate["accepted"] and monotonic() - start < max_seconds
-                    and current.time().replace(tzinfo=None) < time(12, 20)):
+            remaining = _remaining_seconds(current, start, max_seconds)
+            if not snapshot_gate["accepted"] and remaining > 5:
                 try:
-                    snapshot = (snapshot_collector or _collect_snapshot)(root, current)
+                    if snapshot_collector is not None:
+                        snapshot = snapshot_collector(root, current)
+                    else:
+                        from pipeline.adapters.bounded import call_with_timeout
+                        # The snapshot runner can spawn its own bounded market adapters.
+                        snapshot = call_with_timeout(_collect_snapshot, args=(root, current),
+                                                     seconds=min(180, remaining - 5), daemon=False)
                     result["attempts"].append({"component": "report_snapshot", "attempt": number,
                                                "grade": snapshot.grade, "published": snapshot.published,
                                                "snapshot_id": snapshot.snapshot_id})
@@ -279,7 +290,7 @@ def ensure_noon(root: Path, *, max_seconds=600, moment=None, collector=None, sna
     return result
 
 
-def audit_missed_noon(root: Path, *, moment=None):
+def audit_missed_noon(root: Path, *, moment=None, include_prior=True):
     """Record a missed current-day window without issuing any quote requests."""
     now = moment or datetime.now(TZ)
     if now.time().replace(tzinfo=None) < time(12, 20):
@@ -291,7 +302,7 @@ def audit_missed_noon(root: Path, *, moment=None):
     if latest.exists():
         prior = json.loads(latest.read_text())
         if prior.get("report_date", "") >= dates["report_date"]:
-            return prior
+            return prior if include_prior else None
     return ensure_noon(Path(root), max_seconds=1, moment=now)
 
 
@@ -303,7 +314,8 @@ def main():
     args = parser.parse_args()
     if args.max_seconds <= 0:
         parser.error("--max-seconds must be positive")
-    result = audit_missed_noon(args.root) if args.audit_missed else ensure_noon(args.root, max_seconds=args.max_seconds)
+    result = (audit_missed_noon(args.root, include_prior=False) if args.audit_missed
+              else ensure_noon(args.root, max_seconds=args.max_seconds))
     if result is None:
         print("No missed current-day noon audit to record.")
         return 0

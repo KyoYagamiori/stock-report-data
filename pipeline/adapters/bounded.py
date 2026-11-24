@@ -11,10 +11,10 @@ def _worker(connection, function, args):
         connection.close()
 
 
-def call_with_timeout(function, args=(), seconds=45):
+def call_with_timeout(function, args=(), seconds=45, *, daemon=True):
     context = get_context("spawn")
     receive, send = context.Pipe(duplex=False)
-    process = context.Process(target=_worker, args=(send, function, args), daemon=True)
+    process = context.Process(target=_worker, args=(send, function, args), daemon=daemon)
     process.start()
     send.close()
     try:

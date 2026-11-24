@@ -16,6 +16,15 @@ from market_screen.history import canonical_bytes
 from market_screen.technicals import normalize_bars
 
 
+def immutable(root, path, payload):
+    raw = canonical_bytes(payload) + b"\n"
+    if path.exists() and path.read_bytes() != raw:
+        raise ValueError("refuse_to_replace_frozen_daily_model_evidence")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(raw)
+    return {"file": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(raw).hexdigest()}
+
+
 def checked(root, reference, prefix):
     relative = reference.get("file", reference.get("selected_file", ""))
     path = (root / relative).resolve()

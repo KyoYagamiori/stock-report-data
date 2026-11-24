@@ -13,7 +13,8 @@ from pathlib import Path
 from market_screen.early import POOLS
 from market_screen.history import TZ, canonical_bytes, write_json
 from market_screen.vcp import FEATURES as VCP_FEATURES, feature_values
-from .daily_model_data import checked, feedback, load_bars, next_entry, settle, summarize
+from . import daily_model_retraining
+from .daily_model_data import checked, feedback, immutable, load_bars, next_entry, settle, summarize
 
 VERSION = "daily_forward_trial_20261117_v1"
 DATA_ERRORS = (ValueError, OSError, KeyError, TypeError)
@@ -23,15 +24,6 @@ RUN_ERRORS = (*DATA_ERRORS, ImportError, StopIteration)
 # Exclude both rather than silently scoring different definitions.
 FEATURES = ("mid_slope_5d_atr", "distance_to_mid_atr", "bandwidth_percentile_120",
     "return_5d_pct", "return_20d_pct", "volume_vs_previous20_median", "signal_age_sessions") + VCP_FEATURES
-
-
-def immutable(root, path, payload):
-    raw = canonical_bytes(payload) + b"\n"
-    if path.exists() and path.read_bytes() != raw:
-        raise ValueError("refuse_to_replace_frozen_daily_model_evidence")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(raw)
-    return {"file": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(raw).hexdigest()}
 
 
 def load_calendar(root, now):
@@ -268,6 +260,8 @@ def register(root, rows, state, model_ref, queue_ref, calendar, now, config):
                 "entry_rule": "next_eligible_session_open_after_registration_plus_30min_daily_price_proxy",
                 "observation_only": True, "real_trade": False, "outcomes": {},
                 "reference_price": row["price"], "exit_plan": row["exit_plan"]}
+            if "research_candidate" in row:
+                ep["research_candidate"] = row["research_candidate"]
             ref = immutable(root, root / "output/research/daily_model/predictions" / (key + ".json"), ep)
             ep["prediction_file"] = ref
             episodes[key] = ep
@@ -315,7 +309,13 @@ def run(root, now=None):
     except RUN_ERRORS as exc:
         scoring_error = exc
     histories, own_ref = load_bars(root, needed, now)
+    shadow_error = None
     if scoring_error is None:
+        if config.get("automatic_retraining") is True:
+            try:
+                daily_model_retraining.attach_shadow_scores(root, rows, model_ref, now)
+            except daily_model_retraining.ERRORS as exc:
+                shadow_error = str(exc)[:400]
         new = register(root, rows, state, model_ref, queue_ref, calendar, now, config)
     settle(state["episodes"], histories, calendar, now, config, own_ref)
     results = summarize(state["episodes"])
@@ -324,8 +324,10 @@ def run(root, now=None):
     feedback_path.parent.mkdir(parents=True, exist_ok=True)
     feedback_path.write_bytes(gzip.compress(b"".join(canonical_bytes(r) + b"\n" for r in samples), mtime=0))
     write_json(state_path, state)
+    retraining = daily_model_retraining.run(root, config, state["episodes"], calendar, now,
+                                            proxy_rows=len(samples), shadow_error=shadow_error)
     if scoring_error is not None:
-        return publish_failure(root, scoring_error, now, settlement={
+        return publish_failure(root, scoring_error, now, retraining=retraining, settlement={
             "status": "completed", "history_market_date": own_ref["market_date"],
             "unique_prediction_count": len(state["episodes"]), "matured_feedback_rows": len(samples),
             "outcomes": {h: item["states"] for h, item in results["horizons"].items()},
@@ -353,8 +355,9 @@ def run(root, now=None):
         "report_use": "show_model_and_rule_rank_side_by_side_with_entry_and_exit_conditions;daily_scores_only_at_noon",
         "intraday_model_status": "not_trained_no_intraday_prediction_claim",
         "automatic_trading": False, "probabilities_enabled": False,
-        "formal_production_promotion": False, "automatic_retraining": False,
-        "next_action": "settle_future_1_3_5_session_prices_and_review_frozen_versions;benchmark_and_execution_audit_before_refit"}
+        "formal_production_promotion": False, "automatic_retraining": retraining["enabled"],
+        "retraining": retraining,
+        "next_action": "settle_future_1_3_5_session_prices_and_check_retraining_evidence"}
     # Every report can recover its exact cutoff from a small immutable version.
     run_id = now.strftime("%Y%m%dT%H%M%S%f")
     ref = immutable(root, root / "output/research/daily_model/readers" / (run_id + ".json"), receipt)

@@ -198,6 +198,20 @@ class NoonTests(unittest.TestCase):
         audit = json.loads((self.root / "output/boll/latest/noon_update.json").read_text())
         self.assertEqual(4, len(audit["attempts"]))
 
+    def test_snapshot_timeout_reserves_time_to_publish_audited_scan(self):
+        self.publish_scan()
+        with patch("pipeline.adapters.bounded.call_with_timeout", side_effect=TimeoutError("snapshot")) as bounded:
+            result = ensure_noon(self.root, moment=self.now, max_seconds=75)
+        self.assertTrue(result["full_market"]["accepted"])
+        self.assertFalse(result["report_snapshot"]["accepted"])
+        self.assertEqual(2, bounded.call_count)
+        for call in bounded.call_args_list:
+            self.assertLessEqual(call.kwargs["seconds"], 70)
+            self.assertFalse(call.kwargs["daemon"])
+        self.assertEqual(["TimeoutError:snapshot", "TimeoutError:snapshot"],
+                         [attempt["error"] for attempt in result["attempts"]])
+        self.assertTrue((self.root / result["audit_file"]).is_file())
+
     def test_holiday_early_and_late_requests_never_collect(self):
         collect, report = Mock(), Mock()
         for moment, status in ((datetime(2026, 7, 18, 11, 40, tzinfo=runner.TZ), "not_applicable"),

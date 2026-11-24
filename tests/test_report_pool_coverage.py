@@ -85,6 +85,7 @@ class MissedWindowTests(unittest.TestCase):
                 with patch("market_screen.noon.resolve_dates", return_value={"report_date": "2026-11-16", "is_trading_day": True}), \
                      patch("market_screen.noon.ensure_noon", side_effect=AssertionError("preserve original audit")):
                     self.assertEqual(accepted, audit_missed_noon(root, moment=now)["accepted"])
+                    self.assertIsNone(audit_missed_noon(root, moment=now, include_prior=False))
                 self.assertEqual(raw, latest.read_text())
 
     def test_audit_does_not_run_before_deadline(self):
