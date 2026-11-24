@@ -1,11 +1,12 @@
 {
   "version": "vcp_minute_price_review_v1",
-  "evaluated_at": "2026-11-24T17:44:49.827629+08:00",
+  "evaluated_at": "2026-11-24T17:50:58.873510+08:00",
   "plans": 5,
   "statuses": {
-    "data_gap": 5
+    "data_gap": 4,
+    "window_reviewed": 1
   },
-  "verified_security_sessions": 1,
+  "verified_security_sessions": 2,
   "collection_error": null,
   "price_evidence_only": true,
   "trade_execution_labels": 0,
@@ -21,14 +22,42 @@
       "valid_until": "2026-11-24T15:00:00+08:00",
       "forecast_file": "reports/forecasts/2026/11/24/noon.json",
       "forecast_sha256": "fc4389c7243af14eff2a57e393fe0f094beb705ae287a02c14922cc2853e958a",
-      "status": "data_gap",
-      "observed_days": [],
+      "status": "window_reviewed",
+      "observed_days": [
+        "2026-11-24"
+      ],
       "pending_days": [],
-      "missing_days": {
-        "2026-11-24": "awaiting_verified_minute_and_daily_evidence"
+      "missing_days": {},
+      "price_events": {
+        "minute_below_stop": {
+          "at": "2026-11-24T13:01:00+08:00",
+          "low": 22.3
+        }
       },
-      "price_events": {},
-      "sources": [],
+      "sources": [
+        {
+          "day": "2026-11-24",
+          "minute_source": {
+            "file": "output/research/daily_model/vcp_feedback/sources/f39618819ba87dbe18a0387907158a1c5b704a0116697ea307578a1f35d522e8.json.gz",
+            "sha256": "d51935c40328ed591ef1bd3876dce85ec10d6dfe024f253fc06edaf2ec256e3f",
+            "raw_sha256": "f39618819ba87dbe18a0387907158a1c5b704a0116697ea307578a1f35d522e8"
+          },
+          "minute_retrieved_at": "2026-11-24T17:50:58.837949+08:00",
+          "daily_source": {
+            "file": "output/boll/bootstrap/history.jsonl.gz",
+            "sha256": "29b9b83bd931d775f1991cec0cbead52064c270f75147de362cb17b928dbdbdf",
+            "market_date": "2026-11-24",
+            "codes": 5223,
+            "bars": 934677,
+            "earliest_bar": "2025-11-20",
+            "latest_bar": "2026-11-24",
+            "requested_codes": 1,
+            "available_requested_codes": 1,
+            "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history",
+            "commit": "740705f0468b6bb833b6773ed33381ccfc0ca763"
+          }
+        }
+      ],
       "condition_checks": {
         "status": "price_evidence_only",
         "error": null
