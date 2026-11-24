@@ -1,10 +1,11 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-24T20:27:50.614239+08:00",
-  "total_calls": 18,
+  "generated_at": "2026-11-24T21:08:56.924241+08:00",
+  "total_calls": 21,
   "statuses": {
     "hit": 9,
-    "miss": 9
+    "miss": 9,
+    "pending": 3
   },
   "model": {
     "state": "shadow_calibration",
@@ -42,6 +43,102 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "aae5ab2d935b5b151c3d703c",
+      "code": "688981",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-24T21:08:32+08:00",
+      "quote_asof": "2026-11-24T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 124.35,
+      "high": 129.2,
+      "etf_context": "supportive",
+      "reference_price": 126.51,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 126.8,
+        "reduce_high": 127.85,
+        "stop": 124.35,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "25日09:45–11:15观察124.50–125.10、守124.35，随后完整15分钟收≥125.68、量≥前根1.2倍，159516≥0.515且华虹、晶合至少一涨。无可执行区。超127.85不追。",
+        "exit_rule": "25日09:45–15:00仅可卖仓：触126.80–127.85后首根完整15分钟收<126.80减1/3，完整15分钟收<124.35退出，收>127.85保护移至125.68。"
+      },
+      "source": "reports/forecasts/2026/11/24/evening.json",
+      "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
+      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+    },
+    {
+      "signal_id": "b978e954960819f68176e00a",
+      "code": "600089",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-24T21:08:32+08:00",
+      "quote_asof": "2026-11-24T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 18.22,
+      "high": 18.66,
+      "etf_context": "unknown",
+      "reference_price": 18.4,
+      "plan": {
+        "action": "buy",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": 18.1,
+        "buy_high": 18.12,
+        "reduce_low": 18.36,
+        "reduce_high": 18.45,
+        "stop": 18.03,
+        "profit_target": 18.45,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "25日09:45–11:15先回18.06–18.12且守18.04，随后完整15分钟收≥18.16、量≥前一完整同长K线1.2倍，平高或中国西电至少一只上涨。确认后同窗仅二次回18.10–18.12才复核买入，超18.12不追，破18.04、跳空穿风险线或到期撤计划。",
+        "exit_rule": "可卖仓触18.36–18.45后首根完整15分钟收<18.36减1/3，完整15分钟收<18.03退出，收≥18.30保护抬到18.12。旧日线17.37防守及25日15:00复核保留。"
+      },
+      "source": "reports/forecasts/2026/11/24/evening.json",
+      "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
+      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+    },
+    {
+      "signal_id": "c49bcd1db8de744a6810c4bd",
+      "code": "300761",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-24T21:08:32+08:00",
+      "quote_asof": "2026-11-24T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "below",
+      "price": 23.58,
+      "high": null,
+      "etf_context": "unknown",
+      "reference_price": 22.45,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": null,
+        "reduce_high": null,
+        "stop": 22.33,
+        "profit_target": null,
+        "reduce_fraction": null,
+        "entry_rule": "C空缺，此为独立观察。等待25日15:00完成日线复核23.58及原量阈值和延伸上限。",
+        "exit_rule": "完成日线收破22.33撤观察，无买卖执行合同。"
+      },
+      "source": "reports/forecasts/2026/11/24/evening.json",
+      "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
+      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+    },
     {
       "signal_id": "dbe96712ef7e78dfd1372ecd",
       "code": "002050",
@@ -945,11 +1042,12 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-24T20:27:50.679563+08:00",
-    "plans": 5,
+    "evaluated_at": "2026-11-24T21:09:05.821219+08:00",
+    "plans": 6,
     "statuses": {
       "data_gap": 4,
-      "window_reviewed": 1
+      "window_reviewed": 1,
+      "waiting_for_close": 1
     },
     "verified_security_sessions": 2,
     "collection_error": null,
@@ -957,6 +1055,31 @@
     "trade_execution_labels": 0,
     "formal_training_rows": 0,
     "recent_calls": [
+      {
+        "signal_id": "c49bcd1db8de744a6810c4bd",
+        "code": "300761",
+        "phase": "evening",
+        "issued_at": "2026-11-24T21:08:32+08:00",
+        "seen_at": "2026-11-24T21:08:56.924241+08:00",
+        "check_day": "2026-11-25",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/24/evening.json",
+        "forecast_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
+        "status": "waiting_for_close",
+        "observed_days": [],
+        "pending_days": [
+          "2026-11-25"
+        ],
+        "missing_days": {},
+        "price_events": {},
+        "sources": [],
+        "condition_checks": {
+          "status": "price_evidence_only",
+          "error": null
+        },
+        "entry_condition_state": "original_additional_conditions_require_review",
+        "fill_state": "no_execution_evidence"
+      },
       {
         "signal_id": "cc58866f2273a68931062acc",
         "code": "300761",
