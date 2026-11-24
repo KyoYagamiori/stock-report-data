@@ -5,7 +5,8 @@
     "reports/forecasts/2026/11/20/evening.json": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
     "reports/forecasts/2026/11/22/evening.json": "e24bf8a29b5d9a740e44f673f80c0b2ed7248434b0e06abdaf838a3393d0ad85",
     "reports/forecasts/2026/11/23/early.json": "aae672afa90732900f7fb2e577f7f27fddcbe913308fb0b6e9c0d2b0b98943fb",
-    "reports/forecasts/2026/11/23/noon.json": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35"
+    "reports/forecasts/2026/11/23/noon.json": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
+    "reports/forecasts/2026/11/24/early.json": "fa0059a4d4ede52e24b1a83bc2d89ed491260dbaf6a5497cdc6e8ed474fd9042"
   },
   "calls": {
     "6ce9b68e6801c4205ee2dd35": {
@@ -660,6 +661,70 @@
           "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
         }
       }
+    },
+    "e7ddb36ffef5b0f0c95a93a2": {
+      "signal_id": "e7ddb36ffef5b0f0c95a93a2",
+      "code": "002050",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-24",
+      "issued_at": "2026-11-24T09:07:00+08:00",
+      "quote_asof": "2026-11-23T15:00:00+08:00",
+      "phase": "early",
+      "relation": "between",
+      "price": 33.6,
+      "high": 35.1,
+      "etf_context": "supportive",
+      "reference_price": 33.88,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-24T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 34.15,
+        "reduce_high": 34.28,
+        "stop": 33.0,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "沿23日晚原24日09:45–11:30。观察33.20–33.50，完成15分钟收回33.50、量达前根1.2倍，159770同段不弱于510300且跟踪四只至少三涨才复核。可执行区空缺。",
+        "exit_rule": "仅可卖仓位触34.15–34.28后首根完整15分钟收低于34.15减1/3，完整15分钟收破33.00退出，放量收过34.28后保护上移至33.88，守住续持。"
+      },
+      "source": "reports/forecasts/2026/11/24/early.json",
+      "source_sha256": "fa0059a4d4ede52e24b1a83bc2d89ed491260dbaf6a5497cdc6e8ed474fd9042",
+      "seen_at": "2026-11-24T09:07:33.921789+08:00"
+    },
+    "c145f3aad7b5cfed92db5f49": {
+      "signal_id": "c145f3aad7b5cfed92db5f49",
+      "code": "688981",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-24",
+      "issued_at": "2026-11-24T09:07:00+08:00",
+      "quote_asof": "2026-11-23T15:00:00+08:00",
+      "phase": "early",
+      "relation": "between",
+      "price": 122.0,
+      "high": 125.5,
+      "etf_context": "mixed",
+      "reference_price": 121.6,
+      "plan": {
+        "action": "buy",
+        "valid_until": "2026-11-24T11:15:00+08:00",
+        "buy_low": 119.2,
+        "buy_high": 119.45,
+        "reduce_low": 124.35,
+        "reduce_high": 125.68,
+        "stop": 117.5,
+        "profit_target": 124.35,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "24日09:45–11:15，先回踩118.80–119.45且不破117.55，随后完整15分钟收≥119.55、量≥前一完整同长度交易K线1.2倍，同段159516收≥0.513且688347和688249至少一只较昨收上涨。确认后同窗仅二次回到119.20–119.45复核买入，超119.45不追，跌破117.55撤销，原窗到期即结束。",
+        "exit_rule": "可卖仓位完整15分钟收破117.50退出，完整15分钟收≥122.13后保护上移至119.45。触124.35–125.68后首根完整15分钟收破124.35减1/3，守住保护且未达减仓条件续持。"
+      },
+      "source": "reports/forecasts/2026/11/24/early.json",
+      "source_sha256": "fa0059a4d4ede52e24b1a83bc2d89ed491260dbaf6a5497cdc6e8ed474fd9042",
+      "seen_at": "2026-11-24T09:07:33.921789+08:00"
     }
   }
 }
