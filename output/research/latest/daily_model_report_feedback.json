@@ -1,22 +1,21 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-25T16:32:47.661577+08:00",
+  "generated_at": "2026-11-25T16:57:11.129939+08:00",
   "total_calls": 24,
   "statuses": {
-    "hit": 9,
-    "miss": 9,
-    "data_gap": 3,
+    "hit": 11,
+    "miss": 10,
     "publication_unverified_before_close": 3
   },
   "model": {
     "state": "shadow_calibration",
-    "rows": 11,
-    "dates": 3,
+    "rows": 14,
+    "dates": 4,
     "groups": {
       "below:unknown": {
-        "dates": 1,
-        "rows": 1,
-        "smoothed_close_call_score": 0.6666666666666666
+        "dates": 2,
+        "rows": 2,
+        "smoothed_close_call_score": 0.75
       },
       "between:mixed": {
         "dates": 1,
@@ -24,14 +23,14 @@
         "smoothed_close_call_score": 0.3333333333333333
       },
       "between:supportive": {
-        "dates": 2,
-        "rows": 2,
-        "smoothed_close_call_score": 0.5
+        "dates": 3,
+        "rows": 3,
+        "smoothed_close_call_score": 0.4
       },
       "between:unknown": {
-        "dates": 2,
-        "rows": 5,
-        "smoothed_close_call_score": 0.5416666666666666
+        "dates": 3,
+        "rows": 6,
+        "smoothed_close_call_score": 0.6333333333333333
       },
       "between:weak": {
         "dates": 2,
@@ -179,7 +178,24 @@
       },
       "source": "reports/forecasts/2026/11/24/evening.json",
       "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+      "seen_at": "2026-11-24T21:08:56.924241+08:00",
+      "outcome": {
+        "status": "miss",
+        "close": 122.0,
+        "settled_at": "2026-11-25T16:57:11.129939+08:00",
+        "source": {
+          "file": "output/boll/bootstrap/history.jsonl.gz",
+          "sha256": "622e0a92c275ab5015f3bc3325bfb8935477ca324af7603844f2d7d5657aa541",
+          "market_date": "2026-11-25",
+          "codes": 5223,
+          "bars": 934734,
+          "earliest_bar": "2025-11-20",
+          "latest_bar": "2026-11-25",
+          "requested_codes": 3,
+          "available_requested_codes": 3,
+          "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
+        }
+      }
     },
     {
       "signal_id": "b978e954960819f68176e00a",
@@ -211,7 +227,24 @@
       },
       "source": "reports/forecasts/2026/11/24/evening.json",
       "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+      "seen_at": "2026-11-24T21:08:56.924241+08:00",
+      "outcome": {
+        "status": "hit",
+        "close": 18.35,
+        "settled_at": "2026-11-25T16:57:11.129939+08:00",
+        "source": {
+          "file": "output/boll/bootstrap/history.jsonl.gz",
+          "sha256": "622e0a92c275ab5015f3bc3325bfb8935477ca324af7603844f2d7d5657aa541",
+          "market_date": "2026-11-25",
+          "codes": 5223,
+          "bars": 934734,
+          "earliest_bar": "2025-11-20",
+          "latest_bar": "2026-11-25",
+          "requested_codes": 3,
+          "available_requested_codes": 3,
+          "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
+        }
+      }
     },
     {
       "signal_id": "c49bcd1db8de744a6810c4bd",
@@ -243,7 +276,24 @@
       },
       "source": "reports/forecasts/2026/11/24/evening.json",
       "source_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-      "seen_at": "2026-11-24T21:08:56.924241+08:00"
+      "seen_at": "2026-11-24T21:08:56.924241+08:00",
+      "outcome": {
+        "status": "hit",
+        "close": 21.6,
+        "settled_at": "2026-11-25T16:57:11.129939+08:00",
+        "source": {
+          "file": "output/boll/bootstrap/history.jsonl.gz",
+          "sha256": "622e0a92c275ab5015f3bc3325bfb8935477ca324af7603844f2d7d5657aa541",
+          "market_date": "2026-11-25",
+          "codes": 5223,
+          "bars": 934734,
+          "earliest_bar": "2025-11-20",
+          "latest_bar": "2026-11-25",
+          "requested_codes": 3,
+          "available_requested_codes": 3,
+          "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
+        }
+      }
     },
     {
       "signal_id": "dbe96712ef7e78dfd1372ecd",
@@ -1148,14 +1198,14 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-25T16:33:00.069853+08:00",
+    "evaluated_at": "2026-11-25T16:57:20.759989+08:00",
     "plans": 7,
     "statuses": {
-      "data_gap": 5,
-      "window_reviewed": 1,
+      "data_gap": 4,
+      "window_reviewed": 2,
       "publication_window_unverified": 1
     },
-    "verified_security_sessions": 2,
+    "verified_security_sessions": 3,
     "collection_error": null,
     "price_evidence_only": true,
     "trade_execution_labels": 0,
@@ -1183,14 +1233,46 @@
         "valid_until": "2026-11-25T15:00:00+08:00",
         "forecast_file": "reports/forecasts/2026/11/24/evening.json",
         "forecast_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-        "status": "data_gap",
-        "observed_days": [],
+        "status": "window_reviewed",
+        "observed_days": [
+          "2026-11-25"
+        ],
         "pending_days": [],
-        "missing_days": {
-          "2026-11-25": "awaiting_verified_minute_and_daily_evidence"
+        "missing_days": {},
+        "price_events": {
+          "minute_below_stop": {
+            "at": "2026-11-25T09:33:00+08:00",
+            "low": 22.27
+          },
+          "completed_15m_close_below_stop": {
+            "at": "2026-11-25T09:45:00+08:00",
+            "close": 22.14
+          }
         },
-        "price_events": {},
-        "sources": [],
+        "sources": [
+          {
+            "day": "2026-11-25",
+            "minute_source": {
+              "file": "output/research/daily_model/vcp_feedback/sources/03b03f5a3b29d092a99b62884f692f91cce48673463ea25efdd0cbac24ba0ffd.json.gz",
+              "sha256": "eb3bc9e16f94d7b8eeeb35d8c7dfc6b38ff33907920170169e8ca27b5b72b9bf",
+              "raw_sha256": "03b03f5a3b29d092a99b62884f692f91cce48673463ea25efdd0cbac24ba0ffd"
+            },
+            "minute_retrieved_at": "2026-11-25T16:57:20.733911+08:00",
+            "daily_source": {
+              "file": "output/boll/bootstrap/history.jsonl.gz",
+              "sha256": "622e0a92c275ab5015f3bc3325bfb8935477ca324af7603844f2d7d5657aa541",
+              "market_date": "2026-11-25",
+              "codes": 5223,
+              "bars": 934734,
+              "earliest_bar": "2025-11-20",
+              "latest_bar": "2026-11-25",
+              "requested_codes": 1,
+              "available_requested_codes": 1,
+              "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history",
+              "commit": "a5ac2be821f16e44cefe4d1512b49939842ff961"
+            }
+          }
+        ],
         "condition_checks": {
           "status": "price_evidence_only",
           "error": null

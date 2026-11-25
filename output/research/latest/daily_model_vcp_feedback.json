@@ -1,13 +1,13 @@
 {
   "version": "vcp_minute_price_review_v1",
-  "evaluated_at": "2026-11-25T16:33:00.069853+08:00",
+  "evaluated_at": "2026-11-25T16:57:20.759989+08:00",
   "plans": 7,
   "statuses": {
-    "data_gap": 5,
-    "window_reviewed": 1,
+    "data_gap": 4,
+    "window_reviewed": 2,
     "publication_window_unverified": 1
   },
-  "verified_security_sessions": 2,
+  "verified_security_sessions": 3,
   "collection_error": null,
   "price_evidence_only": true,
   "trade_execution_labels": 0,
@@ -35,14 +35,46 @@
       "valid_until": "2026-11-25T15:00:00+08:00",
       "forecast_file": "reports/forecasts/2026/11/24/evening.json",
       "forecast_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-      "status": "data_gap",
-      "observed_days": [],
+      "status": "window_reviewed",
+      "observed_days": [
+        "2026-11-25"
+      ],
       "pending_days": [],
-      "missing_days": {
-        "2026-11-25": "awaiting_verified_minute_and_daily_evidence"
+      "missing_days": {},
+      "price_events": {
+        "minute_below_stop": {
+          "at": "2026-11-25T09:33:00+08:00",
+          "low": 22.27
+        },
+        "completed_15m_close_below_stop": {
+          "at": "2026-11-25T09:45:00+08:00",
+          "close": 22.14
+        }
       },
-      "price_events": {},
-      "sources": [],
+      "sources": [
+        {
+          "day": "2026-11-25",
+          "minute_source": {
+            "file": "output/research/daily_model/vcp_feedback/sources/03b03f5a3b29d092a99b62884f692f91cce48673463ea25efdd0cbac24ba0ffd.json.gz",
+            "sha256": "eb3bc9e16f94d7b8eeeb35d8c7dfc6b38ff33907920170169e8ca27b5b72b9bf",
+            "raw_sha256": "03b03f5a3b29d092a99b62884f692f91cce48673463ea25efdd0cbac24ba0ffd"
+          },
+          "minute_retrieved_at": "2026-11-25T16:57:20.733911+08:00",
+          "daily_source": {
+            "file": "output/boll/bootstrap/history.jsonl.gz",
+            "sha256": "622e0a92c275ab5015f3bc3325bfb8935477ca324af7603844f2d7d5657aa541",
+            "market_date": "2026-11-25",
+            "codes": 5223,
+            "bars": 934734,
+            "earliest_bar": "2025-11-20",
+            "latest_bar": "2026-11-25",
+            "requested_codes": 1,
+            "available_requested_codes": 1,
+            "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history",
+            "commit": "a5ac2be821f16e44cefe4d1512b49939842ff961"
+          }
+        }
+      ],
       "condition_checks": {
         "status": "price_evidence_only",
         "error": null
