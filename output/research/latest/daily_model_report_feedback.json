@@ -1,11 +1,12 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-25T06:45:37.139550+08:00",
-  "total_calls": 21,
+  "generated_at": "2026-11-25T16:32:47.661577+08:00",
+  "total_calls": 24,
   "statuses": {
     "hit": 9,
     "miss": 9,
-    "pending": 3
+    "data_gap": 3,
+    "publication_unverified_before_close": 3
   },
   "model": {
     "state": "shadow_calibration",
@@ -43,6 +44,111 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "8199da7a6db2fc3be2046f81",
+      "code": "600998",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-25T12:46:34+08:00",
+      "quote_asof": "2026-11-25T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 5.16,
+      "high": 5.28,
+      "etf_context": "supportive",
+      "reference_price": 5.23,
+      "plan": {
+        "action": "buy",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": 5.14,
+        "buy_high": 5.15,
+        "reduce_low": 5.24,
+        "reduce_high": 5.26,
+        "stop": 5.1,
+        "profit_target": 5.26,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "25日13:15–14:30先回5.14–5.16且守5.11，完整15分钟收≥5.20、量≥前根1.2倍、159929同期≥1.270、一心堂或人民同泰至少一涨，最早13:30确认；仅二次回5.14–5.15复核买入。超价不追，破5.11或窗到撤销。",
+        "exit_rule": "午后已有可卖仓触5.24–5.26后首根完整15分钟收<5.24减1/3，完整15分钟收<5.10退出，收>5.26保护上移至5.15。守保护且无减仓触发可续持。"
+      },
+      "source": "reports/forecasts/2026/11/25/noon.json",
+      "source_sha256": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
+      "seen_at": "2026-11-25T16:32:47.661577+08:00",
+      "outcome": {
+        "status": "publication_unverified_before_close"
+      }
+    },
+    {
+      "signal_id": "ad2a9ef9382effef7d58e1c0",
+      "code": "600089",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-25T12:46:34+08:00",
+      "quote_asof": "2026-11-25T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 18.15,
+      "high": 18.4,
+      "etf_context": "unknown",
+      "reference_price": 18.26,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 18.36,
+        "reduce_high": 18.45,
+        "stop": 18.03,
+        "profit_target": 18.45,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "25日09:45–11:15原买入窗未触及观察区，已到期。午后无新买区；沿原可卖仓条件，等待收盘。",
+        "exit_rule": "可卖仓触18.36–18.45后首根完整15分钟收<18.36减1/3，完整15分钟收<18.03退出，收≥18.30保护抬到18.12。旧日线17.37防守及25日15:00复核保留。"
+      },
+      "source": "reports/forecasts/2026/11/25/noon.json",
+      "source_sha256": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
+      "seen_at": "2026-11-25T16:32:47.661577+08:00",
+      "outcome": {
+        "status": "publication_unverified_before_close"
+      }
+    },
+    {
+      "signal_id": "2cc35d4bdf3292c8c23a6ae1",
+      "code": "600809",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-25",
+      "issued_at": "2026-11-25T12:46:34+08:00",
+      "quote_asof": "2026-11-25T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "below",
+      "price": 133.08,
+      "high": null,
+      "etf_context": "unknown",
+      "reference_price": 132.45,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": null,
+        "reduce_high": null,
+        "stop": 123.45,
+        "profit_target": null,
+        "reduce_fraction": null,
+        "entry_rule": "C空缺，本条仅形态对照；等待25日15:00完成日线和冻结枢纽133.08、原量能阈值及延伸上限复核。",
+        "exit_rule": "完成日线收破123.45为结构失效，无买卖执行合同。"
+      },
+      "source": "reports/forecasts/2026/11/25/noon.json",
+      "source_sha256": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
+      "seen_at": "2026-11-25T16:32:47.661577+08:00",
+      "outcome": {
+        "status": "publication_unverified_before_close"
+      }
+    },
     {
       "signal_id": "aae5ab2d935b5b151c3d703c",
       "code": "688981",
@@ -1042,12 +1148,12 @@
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-25T06:45:42.145756+08:00",
-    "plans": 6,
+    "evaluated_at": "2026-11-25T16:33:00.069853+08:00",
+    "plans": 7,
     "statuses": {
-      "data_gap": 4,
+      "data_gap": 5,
       "window_reviewed": 1,
-      "waiting_for_close": 1
+      "publication_window_unverified": 1
     },
     "verified_security_sessions": 2,
     "collection_error": null,
@@ -1055,6 +1161,18 @@
     "trade_execution_labels": 0,
     "formal_training_rows": 0,
     "recent_calls": [
+      {
+        "signal_id": "2cc35d4bdf3292c8c23a6ae1",
+        "code": "600809",
+        "phase": "noon",
+        "issued_at": "2026-11-25T12:46:34+08:00",
+        "seen_at": "2026-11-25T16:32:47.661577+08:00",
+        "check_day": "2026-11-25",
+        "valid_until": "2026-11-25T15:00:00+08:00",
+        "forecast_file": "reports/forecasts/2026/11/25/noon.json",
+        "forecast_sha256": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
+        "status": "publication_window_unverified"
+      },
       {
         "signal_id": "c49bcd1db8de744a6810c4bd",
         "code": "300761",
@@ -1065,12 +1183,12 @@
         "valid_until": "2026-11-25T15:00:00+08:00",
         "forecast_file": "reports/forecasts/2026/11/24/evening.json",
         "forecast_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-        "status": "waiting_for_close",
+        "status": "data_gap",
         "observed_days": [],
-        "pending_days": [
-          "2026-11-25"
-        ],
-        "missing_days": {},
+        "pending_days": [],
+        "missing_days": {
+          "2026-11-25": "awaiting_verified_minute_and_daily_evidence"
+        },
         "price_events": {},
         "sources": [],
         "condition_checks": {

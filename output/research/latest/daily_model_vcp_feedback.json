@@ -1,11 +1,11 @@
 {
   "version": "vcp_minute_price_review_v1",
-  "evaluated_at": "2026-11-25T06:45:42.145756+08:00",
-  "plans": 6,
+  "evaluated_at": "2026-11-25T16:33:00.069853+08:00",
+  "plans": 7,
   "statuses": {
-    "data_gap": 4,
+    "data_gap": 5,
     "window_reviewed": 1,
-    "waiting_for_close": 1
+    "publication_window_unverified": 1
   },
   "verified_security_sessions": 2,
   "collection_error": null,
@@ -13,6 +13,18 @@
   "trade_execution_labels": 0,
   "formal_training_rows": 0,
   "recent_calls": [
+    {
+      "signal_id": "2cc35d4bdf3292c8c23a6ae1",
+      "code": "600809",
+      "phase": "noon",
+      "issued_at": "2026-11-25T12:46:34+08:00",
+      "seen_at": "2026-11-25T16:32:47.661577+08:00",
+      "check_day": "2026-11-25",
+      "valid_until": "2026-11-25T15:00:00+08:00",
+      "forecast_file": "reports/forecasts/2026/11/25/noon.json",
+      "forecast_sha256": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
+      "status": "publication_window_unverified"
+    },
     {
       "signal_id": "c49bcd1db8de744a6810c4bd",
       "code": "300761",
@@ -23,12 +35,12 @@
       "valid_until": "2026-11-25T15:00:00+08:00",
       "forecast_file": "reports/forecasts/2026/11/24/evening.json",
       "forecast_sha256": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
-      "status": "waiting_for_close",
+      "status": "data_gap",
       "observed_days": [],
-      "pending_days": [
-        "2026-11-25"
-      ],
-      "missing_days": {},
+      "pending_days": [],
+      "missing_days": {
+        "2026-11-25": "awaiting_verified_minute_and_daily_evidence"
+      },
       "price_events": {},
       "sources": [],
       "condition_checks": {
