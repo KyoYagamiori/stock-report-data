@@ -1,0 +1,878 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261125T113240895046-noon",
+  "scope": "SSE/SZSE ordinary A-shares; all sectors; main board, ChiNext, STAR; BSE/B/CDR excluded",
+  "market_date": "2026-11-24",
+  "market_cutoff": "2026-11-24T15:00:00+08:00",
+  "report_date": "2026-11-25",
+  "phase": "noon",
+  "planned_at": "2026-11-25T11:32:40.895046+08:00",
+  "planned_at_basis": "actual_collection_start_not_scheduler_due_time",
+  "started_at": "2026-11-25T11:32:40.895046+08:00",
+  "published_at": "2026-11-25T11:32:54.011943+08:00",
+  "elapsed_seconds": 13.34,
+  "point_in_time_recovered": true,
+  "universe_count": 5222,
+  "exchange_counts": {
+    "SZ": 2905,
+    "SH": 2317
+  },
+  "universe_fresh": false,
+  "universe_provenance": {
+    "schema_version": 1,
+    "mode": "cache",
+    "asof": "2026-11-25",
+    "version_date": "2026-11-02",
+    "retrieved_at": "2026-11-02T17:57:02.657872+08:00",
+    "fresh": false,
+    "freshness_reasons": [
+      "official_refresh_failed: ValueError: sse_main: HTTPError: HTTP Error 403: Forbidden; sse_star: HTTPError: HTTP Error 403: Forbidden",
+      "same_day_frozen_universe_unavailable: same_day_frozen_universe_missing",
+      "same_day_official_source_contract_not_met"
+    ],
+    "point_in_time_compatible": true,
+    "source_version_dates": {
+      "sse_main": null,
+      "sse_star": null,
+      "szse": "2026-11-02"
+    },
+    "sse_source_version_unknown": true,
+    "counts": {
+      "total": 5222,
+      "combined_total": 5222,
+      "exchange_counts": {
+        "SH": 2317,
+        "SZ": 2905
+      },
+      "board_counts": {
+        "SZ_main": 1494,
+        "SZ_chinext": 1411,
+        "SH_main": 1700,
+        "SH_star": 617
+      },
+      "unique_codes": 5222,
+      "duplicates": [],
+      "complete": true
+    },
+    "total": 5222,
+    "combined_total": 5222,
+    "official_reported_total_including_exclusions": 5223,
+    "source_counts": {
+      "sse_main": 1700,
+      "sse_star": 618,
+      "szse": 2905
+    },
+    "sources": {
+      "sse_main": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=1&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-11-02T17:57:00.792449+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Mon, 02 Nov 2026 09:56:59 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "1944405"
+        },
+        "bytes": 1944405,
+        "sha256": "14cd2ee2ffa0ac31c169ac31e68cd206b2b9827468656a4de7fba7b72fa5ce26",
+        "raw_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/sse_main.json",
+        "attempt_count": 1,
+        "earlier_errors": [],
+        "reported_total": 1700,
+        "downloaded_rows": 1700,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-11-02",
+        "original_raw_file": "output/boll/state/universe_sources/20261102T175657444801+0800/sse_main.json",
+        "raw_file_available": true
+      },
+      "sse_star": {
+        "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?STOCK_TYPE=8&REG_PROVINCE=&CSRC_CODE=&STOCK_CODE=&sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&COMPANY_STATUS=2%2C4%2C5%2C7%2C8&type=inParams&isPagination=true&pageHelp.cacheSize=1&pageHelp.beginPage=1&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.endPage=1",
+        "retrieved_at": "2026-11-02T17:57:00.521778+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Mon, 02 Nov 2026 09:56:59 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "715280"
+        },
+        "bytes": 715280,
+        "sha256": "575d73e4bb7495812aa6a7b3487d4d6b09d7f361814b832a49327e89e92c7b68",
+        "raw_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/sse_star.json",
+        "attempt_count": 1,
+        "earlier_errors": [],
+        "reported_total": 618,
+        "downloaded_rows": 618,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate.",
+        "http_server_date": "2026-11-02",
+        "original_raw_file": "output/boll/state/universe_sources/20261102T175657444801+0800/sse_star.json",
+        "raw_file_available": true
+      },
+      "szse_metadata": {
+        "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1110&TABKEY=tab1&PAGENO=1",
+        "retrieved_at": "2026-11-02T17:57:00.148626+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Mon, 02 Nov 2026 09:56:59 GMT",
+          "content-type": "application/json",
+          "content-length": "21478"
+        },
+        "bytes": 21478,
+        "sha256": "5a31c3be5a5e94221a4313393f5529807748dc0d4fa0bdedcdf5cade4231cdf2",
+        "raw_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/szse_metadata.json",
+        "attempt_count": 2,
+        "earlier_errors": [
+          "URLError:<urlopen error [Errno 104] Connection reset by peer>"
+        ],
+        "reported_total": 2905,
+        "downloaded_rows": 2905,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-02",
+        "http_server_date": "2026-11-02",
+        "original_raw_file": "output/boll/state/universe_sources/20261102T175657444801+0800/szse_metadata.json",
+        "raw_file_available": true
+      },
+      "szse_xlsx": {
+        "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1",
+        "retrieved_at": "2026-11-02T17:57:01.889139+08:00",
+        "http_status": 200,
+        "http_headers": {
+          "date": "Mon, 02 Nov 2026 09:56:59 GMT",
+          "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=GBK",
+          "content-length": "545182"
+        },
+        "bytes": 545182,
+        "sha256": "0c737e5ffa0614654a86d2c28f274127832ad3b696d4fe29e327920bac33a36e",
+        "raw_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/szse_xlsx.xlsx",
+        "attempt_count": 2,
+        "earlier_errors": [
+          "URLError:<urlopen error [Errno 104] Connection reset by peer>"
+        ],
+        "reported_total": 2905,
+        "downloaded_rows": 2905,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-02",
+        "http_server_date": "2026-11-02",
+        "original_raw_file": "output/boll/state/universe_sources/20261102T175657444801+0800/szse.xlsx",
+        "raw_file_available": true
+      }
+    },
+    "source_audits": {
+      "sse_main": {
+        "reported_total": 1700,
+        "downloaded_rows": 1700,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+      },
+      "sse_star": {
+        "reported_total": 618,
+        "downloaded_rows": 618,
+        "page_no": 1,
+        "page_count": 1,
+        "pages_complete": true,
+        "source_version_date": null,
+        "source_version_note": "SSE response supplies no version date; retrieval date is separate."
+      },
+      "szse": {
+        "reported_total": 2905,
+        "downloaded_rows": 2905,
+        "page_no": 1,
+        "page_count": 146,
+        "page_size": 20,
+        "xlsx_complete": true,
+        "json_sample_rows": 20,
+        "json_xlsx_sample_agrees": true,
+        "source_version_date": "2026-11-02"
+      }
+    },
+    "excluded": [
+      {
+        "code": "689009",
+        "reason": "CDR"
+      }
+    ],
+    "ordinary_A_share_policy": "All official listing states retained; ST, suspension, liquidity and history filtering occurs later.",
+    "universe_sha256": "476d6df4019d1fba112411a18763a501ea3984ba99cae7944d4ee4f104ed15c4",
+    "loaded_at": "2026-11-25T11:32:43.538772+08:00",
+    "cached_original_mode": "official_live"
+  },
+  "universe_current": false,
+  "universe_source_evidence": {
+    "sse_main": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/sse_main.json",
+      "sha256": "14cd2ee2ffa0ac31c169ac31e68cd206b2b9827468656a4de7fba7b72fa5ce26"
+    },
+    "sse_star": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/sse_star.json",
+      "sha256": "575d73e4bb7495812aa6a7b3487d4d6b09d7f361814b832a49327e89e92c7b68"
+    },
+    "szse_metadata": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/szse_metadata.json",
+      "sha256": "5a31c3be5a5e94221a4313393f5529807748dc0d4fa0bdedcdf5cade4231cdf2"
+    },
+    "szse_xlsx": {
+      "status": "archived",
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe_sources/szse_xlsx.xlsx",
+      "sha256": "0c737e5ffa0614654a86d2c28f274127832ad3b696d4fe29e327920bac33a36e"
+    }
+  },
+  "universe_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/universe.json",
+  "universe_sha256": "dfc01e2263a0d6ef855730588ae563b061a46b0a4e49d8f54af97ff226f65ade",
+  "status_counts": {
+    "screened": 4972,
+    "excluded": 250
+  },
+  "unresolved_count": 0,
+  "unresolved_codes": [],
+  "all_codes_accounted_for": true,
+  "technical_screen_complete": false,
+  "candidate_count": 20,
+  "parameters": {
+    "history_bars": 160,
+    "adjustment": "unadjusted",
+    "boll": {
+      "n": 20,
+      "stddev": 2,
+      "ddof": 0
+    },
+    "kdj": {
+      "n": 9,
+      "k": 3,
+      "d": 3,
+      "seed": 50
+    },
+    "macd": {
+      "fast": 12,
+      "slow": 26,
+      "signal": 9,
+      "histogram_multiplier": 2
+    }
+  },
+  "record_shards": [
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/000001-000518.json",
+      "count": 100,
+      "sha256": "44347a2c531fff2aada2bdeb3227acfd7fdb29ad49c45da626aca6705b947b74"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/000519-000672.json",
+      "count": 100,
+      "sha256": "24f43d45e0849e8974514dee5ec12c598acc8d329a69c744c4f0f4cb3b1e9653"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/000676-000822.json",
+      "count": 100,
+      "sha256": "e888baa2bf60ff81ef3eeebe5d5e0326c5b3afcd8d3c647f0e899ff29d3e5787"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/000823-000981.json",
+      "count": 100,
+      "sha256": "10a15fb534cf8701bcbfa790972e5e154a61b09de4eeb58cf1d6a232380d9ab9"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/000983-001338.json",
+      "count": 100,
+      "sha256": "9c3530872bb4897642e0a749291904a12177548ef8c704d8a5a47a06af185d1e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/001339-002072.json",
+      "count": 100,
+      "sha256": "c52d8a0c40e4be865ed0ec0509a39c05b7d966d170274dc113c3cd9c8a9502ba"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002073-002178.json",
+      "count": 100,
+      "sha256": "5128ee3d9d0b67faecc2d9e106319f3e43b5e1d7e83744566e163ae612c888bd"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002179-002283.json",
+      "count": 100,
+      "sha256": "716db27aed2cc8a1be667f89e07812555cfd1fa85a2a03b265658ffa9559f7fa"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002284-002389.json",
+      "count": 100,
+      "sha256": "82e394bc333b69f364a84557d77400dd8c64d8a0b28e4193de23a5189f18d3fa"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002390-002498.json",
+      "count": 100,
+      "sha256": "684f59e5383a7f9014af4b6a5f94ff72beb9d12cd02a5a48378121fa29c2d3cc"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002500-002606.json",
+      "count": 100,
+      "sha256": "883c923efeb6069097dad6826033d1e6006d677c07e93a054af6523b383dbf6e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002607-002717.json",
+      "count": 100,
+      "sha256": "f4555ac0989c00c32c1f8cf3895b7d62eedf7a117a2686c462d909fccd0597cf"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002718-002832.json",
+      "count": 100,
+      "sha256": "fed00d07b1fa0e28ea9d22efa95d66ebe2ca5418b04d80cd01cb7a567046fe47"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002833-002942.json",
+      "count": 100,
+      "sha256": "2f5bcedf822291aaf19bd27fc3a41b3c18ce5308a1d72bb43b40ddba176572b1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/002943-300006.json",
+      "count": 100,
+      "sha256": "c9e2d6971397972b8e6f712f253286455702e00385d89e75ae0c1f0ee3670d21"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300007-300119.json",
+      "count": 100,
+      "sha256": "7b82793a2834d6126ea74ce8ad18c89bf292a2061fe8fe7180554a6793395422"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300120-300225.json",
+      "count": 100,
+      "sha256": "220ad0a6dea3bf1bec1dbf19148429ca2cba8de545fab5bba861dee000d81018"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300226-300334.json",
+      "count": 100,
+      "sha256": "b656cccf3bb5889eec275843c12ed22d1a89017d06dd66e7bdd3684788525abe"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300335-300445.json",
+      "count": 100,
+      "sha256": "3d94d5e04e725775bb5bd447914b44a86e645ca20765d9253b3c454f3f0323d7"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300446-300549.json",
+      "count": 100,
+      "sha256": "641323167c031d68eee6e4d425338196d9d623d3470e977f1728e09402109313"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300550-300652.json",
+      "count": 100,
+      "sha256": "ff821259e602a9b057e6fdf7299ee7fc5e73d73625e39f887b290766d2940142"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300653-300759.json",
+      "count": 100,
+      "sha256": "953c52b7a349c8b425bd4a97d6699cf232b2fdc0f09dae453e3192668549bf2c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300760-300862.json",
+      "count": 100,
+      "sha256": "68344d9a5cc98752efce901c10d4de80dd1e1bffd84af92ae959414d6c6ff9d3"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300863-300968.json",
+      "count": 100,
+      "sha256": "495c815fa017d31728e3b39f8f85dd1b726d8e3b6704c59c040ec0db5bb07592"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/300969-301075.json",
+      "count": 100,
+      "sha256": "8757c6c92102540919a090306e1591ab49ed377c7eee98237eeb86b50cec1589"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/301076-301193.json",
+      "count": 100,
+      "sha256": "b9255da19c3e7838c8f93282dc824de02f58310cfcb3b648973b4b20c8aae518"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/301195-301314.json",
+      "count": 100,
+      "sha256": "8593184c58a0285e0009e25ff355bca3eafb5e26dfe0dfc63b294cc390f377d5"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/301315-301511.json",
+      "count": 100,
+      "sha256": "9d479e9bd0d98c82a85ef24f137c10c16afeae3344caa2e60b38b247e8e62ba9"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/301512-301699.json",
+      "count": 100,
+      "sha256": "b3acf87edfc2f0dbfcecac7f5de59b4ea76ea879249b0bb050b643f5960d7090"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/301707-600128.json",
+      "count": 100,
+      "sha256": "5c694ebc53a2b8c15fa99c219c52b22dfc27c75e91f3438ea19c890465af9e5d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600129-600261.json",
+      "count": 100,
+      "sha256": "6ed7105c3b7bd9f1af626c38596f8090e3101db3ac27b782e10b6cf8953427c1"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600262-600395.json",
+      "count": 100,
+      "sha256": "d601cafc012ed95822a9167b78eae649772138f2a8e22690ae42d051aebfb666"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600396-600540.json",
+      "count": 100,
+      "sha256": "cda6d49f9c2e272d410781ef9b9de2e1deb51ccb5b44188ce2406bb4960b9414"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600543-600665.json",
+      "count": 100,
+      "sha256": "1f94022072044caa874465d6cbcffa7233718ab08a6664a2aff3f073ffc90ba6"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600666-600785.json",
+      "count": 100,
+      "sha256": "aa1512e58af7e64224bbe2d04b13debc9ed12866709e28d6fb444dc23533bd59"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600787-600917.json",
+      "count": 100,
+      "sha256": "f1f57be7869e32aca59b64948dce760672d1f420ef6f1c1ce75260563b70781b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/600918-601118.json",
+      "count": 100,
+      "sha256": "c6d49ff5685933478c5f76a0a93a71ac0de77d5f084855d38d3859c2c6903fb3"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/601121-601686.json",
+      "count": 100,
+      "sha256": "ee918a576122df8b6d08c54cac37c5a4b39f8a766b097546f29aa1d52116e4a7"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/601688-603023.json",
+      "count": 100,
+      "sha256": "6d1cc4a8d8d709d060b4c28286371e9229f4f06b7ed076174257e24992b43c57"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603025-603138.json",
+      "count": 100,
+      "sha256": "3e5c678e55f018591151fdcbd468340992ef58d9c6181c231089910a5402ff2e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603139-603275.json",
+      "count": 100,
+      "sha256": "1451c0884871823f6a94d316866453d8433a7550699b89782a1071a8f7f3c9bf"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603276-603399.json",
+      "count": 100,
+      "sha256": "a19c08eac2fe10d835a221ba60a9cfad8bb7bfd1b9c0c32797f8126100f167ab"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603400-603655.json",
+      "count": 100,
+      "sha256": "4452a40cfd8baec64aab23e9a5a259992e2fd2ac1b50e279e882e7761432d859"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603656-603836.json",
+      "count": 100,
+      "sha256": "bfa7f70e40f1ef72b9191207d1df58c0780762657bf0bd79be2232c92651640f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/603838-605009.json",
+      "count": 100,
+      "sha256": "197460416a651f26d8abc4a8d3fb0f3145c1e84a398bf8e2f897bf855e2d0996"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/605011-605577.json",
+      "count": 100,
+      "sha256": "2e6d16a6cac1a3571bd66964a05aad005f12f3fe741eccbc670be65d8f26b90d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/605580-688108.json",
+      "count": 100,
+      "sha256": "03f528b9116a2f96eb4cdd7d6eb7ade6df5e084b8e63918f1bb3ff0623ea94cc"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688109-688221.json",
+      "count": 100,
+      "sha256": "7ac783e0a364dd64567d03131e6716f86a8572ae49d297dfca410d391585e552"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688222-688337.json",
+      "count": 100,
+      "sha256": "d734a755309b78f7860848e11bb14f38788506302eca6d6f03351b000cf1a78b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688338-688506.json",
+      "count": 100,
+      "sha256": "c997213f390a2781fcfb4c7fae476b5d8720b6d136e473ac2660d6a0785e611b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688507-688628.json",
+      "count": 100,
+      "sha256": "6ed7be693cd36163959f6c44e8d735fb0fe0760e420a95c95f87d582bd1df171"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688629-688798.json",
+      "count": 100,
+      "sha256": "f0b2b0855499854d784f5362247d20379e8c4ecc94ffca9678e12612aa93193b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/records/688799-688981.json",
+      "count": 22,
+      "sha256": "7680c60ba740b69d8fad4cc328667c09b659c7f3c9dca866637807eefc05346d"
+    }
+  ],
+  "candidate_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/candidates.json",
+  "company_diligence_complete": false,
+  "focus_stock_code": null,
+  "recommendation_status": "partial_screen_candidate_review_required",
+  "quality_note": "Technical screen coverage and company research are separate. No automatic recommendation or statistical win rate.",
+  "update_methods": {
+    "verified_completed_store_reuse": 5027,
+    "current_risk_warning_exclusion": 195
+  },
+  "collection_details": {
+    "strategy": "completed_store_plus_independent_noon_quotes_v1",
+    "completed_daily": {
+      "source": {
+        "accepted": true,
+        "screen_file": "output/boll/archive/2026-11-24/20261124T180759-early/screen.json",
+        "sha256": "0348be52f4025a3e2486b191ac7bace090fa9584015efd28f93c0fda9b02aefa",
+        "run_id": "20261124T180759-early",
+        "market_date": "2026-11-24",
+        "published_at": "2026-11-24T18:09:40.372180+08:00",
+        "record_shards_verified": 53,
+        "reasons": []
+      },
+      "reused_count": 5027,
+      "gap_codes": [],
+      "repair_requested_count": 0,
+      "unresolved_codes": [],
+      "history_policy": "Reuse immutable completed indicators; fetch at most 24 actual gaps, never an unfinished daily bar."
+    },
+    "noon_comparison": {
+      "candidate_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_candidates.json",
+      "candidate_sha256": "5b2ab382428366b9e0163837e1d5964c24f31a87cbc9f66160a7bcf1046dfa49",
+      "evaluated_count": 5222,
+      "eligible_count": 150,
+      "record_shards": [
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/000001-000518.json",
+          "count": 100,
+          "sha256": "742ddb1b1a656c615cf91e85bb35286dccd4821f489293af91fade6039e25aab"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/000519-000672.json",
+          "count": 100,
+          "sha256": "c7e1d9f8151d4d6704a8e15044d287203d64f0541684b8ad6ece22984ec779fb"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/000676-000822.json",
+          "count": 100,
+          "sha256": "1d5c714deb1c2206e9c64e1da5131f2f68f4919c567496167936556a9ec070ee"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/000823-000981.json",
+          "count": 100,
+          "sha256": "af2f32ecd71d6724497a83354196bd1d70d7f814f222e3b58c8763462420fd92"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/000983-001338.json",
+          "count": 100,
+          "sha256": "90d703e77c714356874d590140c45a629884cfd07821353c96fc83d8e3b94ebf"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/001339-002072.json",
+          "count": 100,
+          "sha256": "4fb5a7b624a6f7cbf6722518fdb6e0ea6e2f8b7d2076cc88a9b889c72254d27d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002073-002178.json",
+          "count": 100,
+          "sha256": "4aa3b8952068efa43e473d0380743abaeb681129732d6de178349d114e4ec677"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002179-002283.json",
+          "count": 100,
+          "sha256": "ed9eb76d5aacfcc34373318f249fcb8449a0741064915bf35cea175132ffd56d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002284-002389.json",
+          "count": 100,
+          "sha256": "5f55bd6250e31bfacff828c00edebdf3c7c12e8264e3a63c362c007928c4985c"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002390-002498.json",
+          "count": 100,
+          "sha256": "ef5f17342087bafca4319a6ff8aeb1fd94d14def1b59a0fbaf36eb75898f09ba"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002500-002606.json",
+          "count": 100,
+          "sha256": "8e893ba9daaedf5d866544a8771d628fbfa3f3c66146da6b2dd8fa28743f0870"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002607-002717.json",
+          "count": 100,
+          "sha256": "12ff521f315a9e8d6300e58079a0618776a5decba28a0ff3eb065c3186431161"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002718-002832.json",
+          "count": 100,
+          "sha256": "bc0e779177fc7e7e5a3e8e333f35aa1f33ac43f6af989608fdb6a67a8382e435"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002833-002942.json",
+          "count": 100,
+          "sha256": "225366c8509db4240c7301e29d714026f2d93a53b862be0d22c81ccc199194c8"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/002943-300006.json",
+          "count": 100,
+          "sha256": "6a2893a17ed2832ad22e4ab67c644f4c2cc77f7375c09c93e533403a987b88c0"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300007-300119.json",
+          "count": 100,
+          "sha256": "f5cac4ec5aac7ea958e7d44060903a45d55b679b1034d03fa3f4e26d889c477f"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300120-300225.json",
+          "count": 100,
+          "sha256": "9562eee15df8913be54b6a76462688b42a207b3d1405cc0f34198217810d7455"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300226-300334.json",
+          "count": 100,
+          "sha256": "30155ea7ab6594f113654a2be3787087de0eaba5f167da041f01f911551ae45b"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300335-300445.json",
+          "count": 100,
+          "sha256": "3701e2af65a8037963f7d7de0d5f40377a4daecbb46351e648d71ac097633b32"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300446-300549.json",
+          "count": 100,
+          "sha256": "644f5951a4a35783b7b650390c9b63c3073a81caf7119252c8711910d8e03e5d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300550-300652.json",
+          "count": 100,
+          "sha256": "9f28f1dbba76f6752e2a48e80c71e6b2bb93e01933a16cd8a782c1744ada6dac"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300653-300759.json",
+          "count": 100,
+          "sha256": "7111be6ffd2687d8fcf68ff89efd712867211bdf8183a5bfcd04c4449ed3fcd1"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300760-300862.json",
+          "count": 100,
+          "sha256": "c319e3cb0b163eb6921f52e92a4296a823c531097dcad0bdf54f625591b129b1"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300863-300968.json",
+          "count": 100,
+          "sha256": "bbed13375e16e8e9b0d4a92a294894b7d0cbb4941ad141a386b28b4a62d8b394"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/300969-301075.json",
+          "count": 100,
+          "sha256": "03e984818e22d1ac006c6bd90e21a1a5137c99ad314903acb4e202ca79bf667d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/301076-301193.json",
+          "count": 100,
+          "sha256": "299b8dfb77ee2ded0ba63682a69c7c5e276b1bd63db03379b30153cbfe260397"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/301195-301314.json",
+          "count": 100,
+          "sha256": "c342b01ef3d6c645fefead6a85a6419b25697b5b9949460a2d37d2389b5917f9"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/301315-301511.json",
+          "count": 100,
+          "sha256": "d82275b45898d4fec34f1f76a2bd20082ed35d6749708bdd1c5801d5e714732e"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/301512-301699.json",
+          "count": 100,
+          "sha256": "80ba05ab6c1836ce1c415ea400a4e1661f1e593b5996a541c3e7c1d2df2ae109"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/301707-600128.json",
+          "count": 100,
+          "sha256": "6dc7753ec1831e72b63cf477b7dbf275fd9b982332f10a78dac08d666be9174e"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600129-600261.json",
+          "count": 100,
+          "sha256": "3502e42abce5f33ee38ec6b6079f95d59b74187b3439238393633f8f2e09ff9f"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600262-600395.json",
+          "count": 100,
+          "sha256": "9b43367c16ec82d06f56886ef923148a50bfe64d49df4d62c1c020c93e75260f"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600396-600540.json",
+          "count": 100,
+          "sha256": "3b636456fe45797866be09f08519128a82c65f48b8859df1e1c1202bb3534466"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600543-600665.json",
+          "count": 100,
+          "sha256": "394d9ad0691352717c33550fea0aa906db75a4e412b8b63ee3a53314543bebac"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600666-600785.json",
+          "count": 100,
+          "sha256": "64d138d748e36f150580b316efed1d4231de6c4bc435c3d2a441e5983ca5623d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600787-600917.json",
+          "count": 100,
+          "sha256": "30a2af8883a006709146396f1b3f0855a18ce19969f69a39ded1044241ab4e59"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/600918-601118.json",
+          "count": 100,
+          "sha256": "0a987c851a7a75810f512f8e60573a952efcd8c831ce8dc7f68ce5566c7ec4ee"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/601121-601686.json",
+          "count": 100,
+          "sha256": "d0c9810ea3640430fa5c7da0503f690425fd5a973708ed66d07f848815e87d4d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/601688-603023.json",
+          "count": 100,
+          "sha256": "af89a8405c89bcbd45f623876ca3f3814c53f9c1cb4aca2bcb2d1c56a15752f6"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603025-603138.json",
+          "count": 100,
+          "sha256": "87cba0c17a4d048b8a3a7e98944e27a1e15b19a2068c4f3a530e536dcc58a715"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603139-603275.json",
+          "count": 100,
+          "sha256": "953ba1f5ed4d835051954019fe35ae7dd006a916b7a884ba87dfaba7ece67105"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603276-603399.json",
+          "count": 100,
+          "sha256": "7a7cd1a8917e4dddb64920ea35a9741d40a5b8bcb5c33a4ff3867245486c119b"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603400-603655.json",
+          "count": 100,
+          "sha256": "9498ae83aa7e7d849bae197ebfc20c923928235b26ee3778500255bb4f57b15b"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603656-603836.json",
+          "count": 100,
+          "sha256": "5d13f9df7b0d4f49e6c8ca7ca557ca2d1a7135a54ddaf807e2faf2119374e8fa"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/603838-605009.json",
+          "count": 100,
+          "sha256": "be727e25cae16a2ea64c5bd0492d83971086f1eef97cda5b970ff3d9af7c74be"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/605011-605577.json",
+          "count": 100,
+          "sha256": "775bee7a96607e3ad0a7b2f8d49f3689af70cbd165ca40736834e774d7e1d8d0"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/605580-688108.json",
+          "count": 100,
+          "sha256": "7710619892a71586a7ecb5d4ce3e5114dae7a75b08c362bf47d85b8ba54fe9f0"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688109-688221.json",
+          "count": 100,
+          "sha256": "35783b55ed6f62a9c1f9971391cc604e92538847f36070520daf0ae29ef3985b"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688222-688337.json",
+          "count": 100,
+          "sha256": "8b0b7d42f4ee6fbebb3bf97c093c90f42826a387b3873644e2fffbec79f1beb3"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688338-688506.json",
+          "count": 100,
+          "sha256": "64589091d4346a5d060a80fc6cbae82d197d25f6b645c2552b9d965de0023e2d"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688507-688628.json",
+          "count": 100,
+          "sha256": "9be7655ad27726a9d84faf5bb7ed0ab2220f81bbdbcb8b291ac58563c70dbf19"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688629-688798.json",
+          "count": 100,
+          "sha256": "d8d960abc6c008edb60df113e3007af917c25ff270afbf5a0539de8b801e0f46"
+        },
+        {
+          "file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/noon_comparisons/688799-688981.json",
+          "count": 22,
+          "sha256": "d2482e4d13b473b63e48e543bc20a9d91e8e27283cffc902854e4d3dff418e6d"
+        }
+      ],
+      "ranking_method": "completed_boll_score_with_noon_price_risk_gates_v1_fixed"
+    },
+    "no_history_full_rescan": true,
+    "freeze_deadline": "2026-11-25T12:20:00+08:00"
+  },
+  "research_shadow": {
+    "selected_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/research_shadow.json",
+    "sha256": "6feefb9a6d43c77fcc38b759fca52a6f2c1d54c1fffaeb56736f41e1a9814cb6",
+    "reader_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/research_queue.json",
+    "reader_sha256": "0f0efe5cc93e4e8423bec41d57467aa66e218046ef6e09077b77d28cd9e413cc",
+    "mode": "shadow",
+    "feature_version": "boll_context_atr_v2",
+    "evaluated_count": 5222,
+    "feature_available_count": 4972,
+    "pool_counts": {
+      "squeeze_breakout": 20,
+      "trend_pullback": 20,
+      "trend_repair": 20
+    },
+    "entry_qualified_count": 0,
+    "activation_status": "blocked_pending_historical_out_of_sample_and_20_session_shadow_review"
+  },
+  "early_signals": {
+    "reader_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/early_queue.json",
+    "reader_sha256": "c9d68e0f473f6f400112810a54af62e3330d8fb600d8cb0feda747f24035d0f7",
+    "method_version": "boll_early_v3_20261105",
+    "mode": "active_research_discovery_unvalidated_ranking",
+    "feature_available_count": 3681,
+    "evaluated_count": 5222,
+    "pool_counts": {
+      "fresh_mid_reclaim": 20,
+      "first_mid_retest": 3,
+      "squeeze_prepare": 20,
+      "first_expansion": 1
+    },
+    "model_status": "not_trained"
+  },
+  "candidate_sha256": "cedee7145a29eebfb9d02dc8ba04bf18e65e2240e4fe69d4bb751be618170ee0",
+  "overlay_file": "output/boll/archive/2026-11-24/20261125T113240895046-noon/overlay.json"
+}

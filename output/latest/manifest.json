@@ -6,24 +6,24 @@
     "next_trading_day": "2026-11-26",
     "source": "AKShare tool_trade_date_hist_sina"
   },
-  "generated_at": "2026-11-25T06:45:09+08:00",
+  "generated_at": "2026-11-25T11:32:40+08:00",
   "health": {
     "last_attempt": {
       "blocking_reasons": [],
-      "finished_at": "2026-11-25T06:45:09+08:00",
-      "planned_at": "2026-11-25T06:45:00+08:00",
+      "finished_at": "2026-11-25T11:32:40+08:00",
+      "planned_at": "2026-11-25T11:31:00+08:00",
       "published": true,
-      "quality_grade": "A",
+      "quality_grade": "B",
       "reason": "published",
-      "report_cycle": "2026-11-25-early",
+      "report_cycle": "2026-11-25-noon",
       "report_date": "2026-11-25",
-      "snapshot_id": "20261125-0645-early-full-45503545843",
-      "snapshot_type": "early",
-      "started_at": "2026-11-25T06:45:09+08:00",
+      "snapshot_id": "20261125-1131-noon-full-45540412087",
+      "snapshot_type": "noon",
+      "started_at": "2026-11-25T11:31:15+08:00",
       "status": "published"
     },
     "last_grade_a_at": "2026-11-25T06:45:09+08:00",
-    "last_grade_b_at": "2026-11-24T17:47:37+08:00",
+    "last_grade_b_at": "2026-11-25T11:32:40+08:00",
     "latest_run": "output/health/latest_run.json"
   },
   "report_readiness": {
@@ -59,17 +59,27 @@
       "status": "not_ready"
     },
     "noon": {
+      "collection_mode": "historical_point_in_time_recovery",
       "missing_core_fields": [],
-      "missing_optional_fields": [],
-      "quality_grade": null,
-      "quality_profile": null,
-      "reasons": [
-        "stale report cycle 2026-11-24-noon; expected 2026-11-25-noon"
+      "missing_optional_fields": [
+        "total_turnover",
+        "market_breadth",
+        "sectors_top",
+        "sectors_bottom"
       ],
-      "selected_file": null,
-      "selected_snapshot_id": null,
-      "sha256": null,
-      "status": "not_ready"
+      "point_in_time_recovered": true,
+      "quality_grade": "B",
+      "quality_profile": "trading_noon",
+      "reasons": [
+        "quality profile thresholds met for grade B",
+        "indices coverage 3/3",
+        "core coverage 11/11"
+      ],
+      "schedule_delay_minutes": 0.25,
+      "selected_file": "output/archive/2026/11/25/noon/20261125-1131-noon-full-45540412087.json",
+      "selected_snapshot_id": "20261125-1131-noon-full-45540412087",
+      "sha256": "e62e59a08531c6d47e60d34d86c88460006d747c6f53394d4087566b49dc7ea6",
+      "status": "ready_b"
     }
   },
   "schema_version": "1.6.1",
@@ -203,8 +213,8 @@
       "core_effective_count": 11,
       "effective_field_count": 36,
       "latest_alias": "output/latest/noon/report_data_compact.json",
-      "market_asof": "2026-11-24T11:30:00+08:00",
-      "market_date": "2026-11-24",
+      "market_asof": "2026-11-25T11:30:00+08:00",
+      "market_date": "2026-11-25",
       "missing_core_fields": [],
       "missing_optional_fields": [
         "total_turnover",
@@ -213,7 +223,7 @@
         "sectors_bottom"
       ],
       "point_in_time_recovered": true,
-      "published_at": "2026-11-24T17:47:37+08:00",
+      "published_at": "2026-11-25T11:32:40+08:00",
       "quality_grade": "B",
       "quality_profile": "trading_noon",
       "quality_reasons": [
@@ -221,13 +231,13 @@
         "indices coverage 3/3",
         "core coverage 11/11"
       ],
-      "quote_time_max": "2026-11-24T11:30:00+08:00",
-      "report_cycle": "2026-11-24-noon",
-      "schedule_delay_minutes": 372.13,
+      "quote_time_max": "2026-11-25T11:30:00+08:00",
+      "report_cycle": "2026-11-25-noon",
+      "schedule_delay_minutes": 0.25,
       "schema_version": "1.6.1",
-      "selected_file": "output/archive/2026/11/24/noon/20261124-1135-noon-full-45368036102.json",
-      "selected_snapshot_id": "20261124-1135-noon-full-45368036102",
-      "sha256": "16ac1045692738267a3e0e522f4679562037b0c3b77f8b1c4470b3da6459b125",
+      "selected_file": "output/archive/2026/11/25/noon/20261125-1131-noon-full-45540412087.json",
+      "selected_snapshot_id": "20261125-1131-noon-full-45540412087",
+      "sha256": "e62e59a08531c6d47e60d34d86c88460006d747c6f53394d4087566b49dc7ea6",
       "snapshot_type": "noon",
       "suitable_reports": [
         "noon"
