@@ -1,0 +1,4533 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "boll_multisetup_v2_20261103",
+  "mode": "shadow",
+  "production_strategy": "boll_v1",
+  "feature_version": "boll_context_atr_v2",
+  "report_date": "2026-11-26",
+  "market_date": "2026-11-26",
+  "phase": "early",
+  "evaluated_count": 5223,
+  "feature_available_count": 4978,
+  "feature_computed_including_exclusions_count": 5027,
+  "structure_eligible_count": 159,
+  "pool_counts": {
+    "squeeze_breakout": 16,
+    "trend_pullback": 20,
+    "trend_repair": 20
+  },
+  "deduplicated_candidate_count": 50,
+  "context": {
+    "market_medians": {
+      "return_5d_pct": -7.221714401787527,
+      "return_20d_pct": -14.05428426723146
+    },
+    "industry_medians": {
+      "J 金融业": {
+        "return_5d_pct": -4.332239561802398,
+        "return_20d_pct": -4.15297603016429
+      },
+      "K 房地产": {
+        "return_5d_pct": -8.244680851063823,
+        "return_20d_pct": -15.135135135135137
+      },
+      "C 制造业": {
+        "return_5d_pct": -7.617187499999989,
+        "return_20d_pct": -14.885496183206104
+      },
+      "F 批发零售": {
+        "return_5d_pct": -6.410256410256421,
+        "return_20d_pct": -12.13768115942029
+      },
+      "D 水电煤气": {
+        "return_5d_pct": -6.57720657720658,
+        "return_20d_pct": -8.760472921595873
+      },
+      "E 建筑业": {
+        "return_5d_pct": -7.50842553380191,
+        "return_20d_pct": -14.517128690556675
+      },
+      "N 公共环保": {
+        "return_5d_pct": -7.159904534606209,
+        "return_20d_pct": -12.186607426213902
+      },
+      "A 农林牧渔": {
+        "return_5d_pct": -1.6908212560386326,
+        "return_20d_pct": -3.073286052009472
+      },
+      "L 商务服务": {
+        "return_5d_pct": -6.042495529340009,
+        "return_20d_pct": -12.202299335513139
+      },
+      "G 运输仓储": {
+        "return_5d_pct": -5.443171806167402,
+        "return_20d_pct": -8.821530095167473
+      },
+      "I 信息技术": {
+        "return_5d_pct": -7.98668885191347,
+        "return_20d_pct": -15.834084761045986
+      },
+      "B 采矿业": {
+        "return_5d_pct": -6.047919149445508,
+        "return_20d_pct": -13.954505024643886
+      },
+      "H 住宿餐饮": {
+        "return_5d_pct": -5.395131747362846,
+        "return_20d_pct": -11.064030131826748
+      },
+      "M 科研服务": {
+        "return_5d_pct": -8.662283240339857,
+        "return_20d_pct": -17.46442075384926
+      },
+      "Q 卫生": {
+        "return_5d_pct": -6.0833149658364505,
+        "return_20d_pct": -13.903743315508022
+      },
+      "P 教育": {
+        "return_5d_pct": -5.787545787545789,
+        "return_20d_pct": -11.735941320293398
+      },
+      "S 综合": {},
+      "R 文化传播": {
+        "return_5d_pct": -3.5942442593409005,
+        "return_20d_pct": -6.9438715177515595
+      },
+      "O 居民服务": {},
+      "金融业": {
+        "return_5d_pct": -3.3075192908736506,
+        "return_20d_pct": -1.8280670957674994
+      },
+      "交通运输、仓储和邮政业": {
+        "return_5d_pct": -3.0054644808743203,
+        "return_20d_pct": -2.2271714922049157
+      },
+      "制造业": {
+        "return_5d_pct": -7.752808988764038,
+        "return_20d_pct": -15.047291487532243
+      },
+      "房地产业": {
+        "return_5d_pct": -7.080498866213164,
+        "return_20d_pct": -14.509579212237478
+      },
+      "电力、热力、燃气及水生产和供应业": {
+        "return_5d_pct": -5.888330942132953,
+        "return_20d_pct": -8.95252340055968
+      },
+      "采矿业": {
+        "return_5d_pct": -1.8112283197735168,
+        "return_20d_pct": -10.805860805860812
+      },
+      "信息传输、软件和信息技术服务业": {
+        "return_5d_pct": -8.870168483647166,
+        "return_20d_pct": -17.182130584192446
+      },
+      "建筑业": {
+        "return_5d_pct": -7.2023236776723,
+        "return_20d_pct": -11.562553458402231
+      },
+      "批发和零售业": {
+        "return_5d_pct": -3.3584905660377418,
+        "return_20d_pct": -10.48593350383632
+      },
+      "租赁和商务服务业": {
+        "return_5d_pct": -5.161597264780832,
+        "return_20d_pct": -8.065978736710438
+      },
+      "水利、环境和公共设施管理业": {
+        "return_5d_pct": -6.38852672750978,
+        "return_20d_pct": -13.746223564954684
+      },
+      "文化、体育和娱乐业": {
+        "return_5d_pct": -1.5789473684210464,
+        "return_20d_pct": -8.25688073394496
+      },
+      "农、林、牧、渔业": {
+        "return_5d_pct": 1.9009696069829607,
+        "return_20d_pct": -2.656766123355175
+      },
+      "住宿和餐饮业": {
+        "return_5d_pct": -4.33111868425754,
+        "return_20d_pct": 3.103805170808954
+      },
+      "卫生和社会工作": {
+        "return_5d_pct": 3.5094339622641524,
+        "return_20d_pct": -4.057362714235746
+      },
+      "教育": {
+        "return_5d_pct": -7.38714090287278,
+        "return_20d_pct": -13.150425733207193
+      },
+      "综合": {
+        "return_5d_pct": -5.323636262791537,
+        "return_20d_pct": -15.608317271187428
+      },
+      "科学研究和技术服务业": {
+        "return_5d_pct": -5.752961082910324,
+        "return_20d_pct": -16.00806451612904
+      }
+    },
+    "market_reference": "median_of_feature_available_screened_stocks_proxy_not_official_index",
+    "feature_cohort_count": 4978,
+    "breadth_count": 4978,
+    "fraction_above_mid": 0.07352350341502611,
+    "regime": "down",
+    "regime_status": "research_label_no_production_filter",
+    "noon_return_median_pct": null,
+    "noon_return_count": 0
+  },
+  "pools": {
+    "squeeze_breakout": [
+      {
+        "code": "000823",
+        "name": "超声电子",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.5954999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.681752527684159,
+          "bandwidth_percentile_120": 0.21666666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.17956753368849906,
+          "distance_to_mid_atr": 1.7192102789094321,
+          "band_position": 1.0881769460598723,
+          "prior20_high": 20.86,
+          "support_low_5d": 16.29,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 23.41057635175283,
+          "return_20d_pct": 25.65033272837265,
+          "macd_hist_atr": 0.5439850183482536,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 30.632290753540357,
+          "industry_5d_pct": 31.02776385175282,
+          "market_20d_pct": 39.70461699560411,
+          "industry_20d_pct": 40.535828911578754
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.949,
+        "price": 20.77,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600400",
+        "name": "红豆股份",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.2245,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.0675675675675675,
+          "bandwidth_percentile_120": 0.35,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.20712694877505758,
+          "distance_to_mid_atr": 1.9665924276169264,
+          "band_position": 1.0280994692793766,
+          "prior20_high": 3.95,
+          "support_low_5d": 2.99,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 20.52117263843649,
+          "return_20d_pct": 15.625,
+          "macd_hist_atr": 0.5242806538501504,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 27.742887040224016,
+          "industry_5d_pct": 28.273981627200527,
+          "market_20d_pct": 29.67928426723146,
+          "industry_20d_pct": 30.67229148753224
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 71.712,
+        "price": 3.7,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300812",
+        "name": "易天股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.1945000000000003,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.7485875706214715,
+          "bandwidth_percentile_120": 0.6333333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.48848890749267526,
+          "distance_to_mid_atr": 1.6638760987861017,
+          "band_position": 0.8658243824710948,
+          "prior20_high": 19.46,
+          "support_low_5d": 14.61,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 17.999999999999993,
+          "return_20d_pct": 16.600790513833985,
+          "macd_hist_atr": 0.7114661016798755,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 25.22171440178752,
+          "industry_5d_pct": 25.617187499999982,
+          "market_20d_pct": 30.655074781065444,
+          "industry_20d_pct": 31.48628669704009
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 17.7,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300197",
+        "name": "节能铁汉",
+        "industry": "N 公共环保",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.09300000000000001,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.65,
+          "bandwidth_percentile_120": 0.44166666666666665,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.19354838709677433,
+          "distance_to_mid_atr": 1.6881720430107527,
+          "band_position": 1.0767694788584126,
+          "prior20_high": 2.15,
+          "support_low_5d": 1.77,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 9.289617486338786,
+          "return_20d_pct": 3.62694300518136,
+          "macd_hist_atr": 0.5054848731992969,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 16.511331888126314,
+          "industry_5d_pct": 16.449522020944997,
+          "market_20d_pct": 17.68122727241282,
+          "industry_20d_pct": 15.813550431395262
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 71.199,
+        "price": 2.0,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300287",
+        "name": "飞利信",
+        "industry": "I 信息技术",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.19549999999999995,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.25537634408602,
+          "bandwidth_percentile_120": 0.43333333333333335,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.2659846547314581,
+          "distance_to_mid_atr": 1.1994884910485943,
+          "band_position": 0.9734177157873906,
+          "prior20_high": 3.94,
+          "support_low_5d": 3.3,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 7.514450867052025,
+          "return_20d_pct": 10.385756676557856,
+          "macd_hist_atr": 0.27193210684076896,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 14.736165268839553,
+          "industry_5d_pct": 15.501139718965495,
+          "market_20d_pct": 24.440040943789313,
+          "industry_20d_pct": 26.21984143760384
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 60.99,
+        "price": 3.72,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300893",
+        "name": "松原安全",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.9309999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.403366221706326,
+          "bandwidth_percentile_120": 0.5583333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.33727175080558547,
+          "distance_to_mid_atr": 1.7153598281417826,
+          "band_position": 0.9823348117123004,
+          "prior20_high": 17.85,
+          "support_low_5d": 15.3,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 7.085146053449343,
+          "return_20d_pct": 17.932922655715267,
+          "macd_hist_atr": 0.3959792687443478,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 14.306860455236869,
+          "industry_5d_pct": 14.702333553449332,
+          "market_20d_pct": 31.987206922946726,
+          "industry_20d_pct": 32.818418838921374
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 86.816,
+        "price": 17.23,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002584",
+        "name": "西陇科学",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.49000000000000016,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.612829324169532,
+          "bandwidth_percentile_120": 0.7,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.6020408163265303,
+          "distance_to_mid_atr": 2.207142857142857,
+          "band_position": 0.9580635613281648,
+          "prior20_high": 9.23,
+          "support_low_5d": 7.38,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 6.2043795620437825,
+          "return_20d_pct": 21.250000000000014,
+          "macd_hist_atr": 0.7957940854172061,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 13.42609396383131,
+          "industry_5d_pct": 13.821567062043773,
+          "market_20d_pct": 35.30428426723147,
+          "industry_20d_pct": 36.135496183206115
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 8.73,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "301168",
+        "name": "通灵股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.8195000000000001,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.187571921749137,
+          "bandwidth_percentile_120": 0.325,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.06924979389942164,
+          "distance_to_mid_atr": 1.1618576532014313,
+          "band_position": 1.0898628536084798,
+          "prior20_high": 44.65,
+          "support_low_5d": 37.44,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 5.002416626389561,
+          "return_20d_pct": 5.129445923058329,
+          "macd_hist_atr": 0.2303839212716371,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 12.224131028177087,
+          "industry_5d_pct": 12.61960412638955,
+          "market_20d_pct": 19.183730190289786,
+          "industry_20d_pct": 20.014942106264435
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 70.634,
+        "price": 43.45,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "601288",
+        "name": "农业银行",
+        "industry": "金融业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.20649999999999985,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 2.5748129675810456,
+          "bandwidth_percentile_120": 0.8,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.6295399515738498,
+          "distance_to_mid_atr": 2.2929782082324452,
+          "band_position": 0.9861785805188321,
+          "prior20_high": 8.03,
+          "support_low_5d": 7.57,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 4.836601307189525,
+          "return_20d_pct": 6.084656084656093,
+          "macd_hist_atr": 0.4639797033734283,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 12.058315708977052,
+          "industry_5d_pct": 8.144120598063175,
+          "market_20d_pct": 20.138940351887552,
+          "industry_20d_pct": 7.912723180423592
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 8.02,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "000815",
+        "name": "美利云",
+        "industry": "I 信息技术",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.8284999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.605548037889039,
+          "bandwidth_percentile_120": 0.14166666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.1997585998793018,
+          "distance_to_mid_atr": 1.4634882317441142,
+          "band_position": 1.0594666987865708,
+          "prior20_high": 15.03,
+          "support_low_5d": 12.79,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 4.1578576462297345,
+          "return_20d_pct": 15.468749999999986,
+          "macd_hist_atr": 0.4332126160360982,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 11.379572048017263,
+          "industry_5d_pct": 12.144546498143205,
+          "market_20d_pct": 29.523034267231445,
+          "industry_20d_pct": 31.302834761045972
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 69.006,
+        "price": 14.78,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "601916",
+        "name": "浙商银行",
+        "industry": "金融业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.059999999999999984,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 1.9354838709677413,
+          "bandwidth_percentile_120": 0.6833333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.48333333333333944,
+          "distance_to_mid_atr": 1.8999999999999986,
+          "band_position": 1.039177373890438,
+          "prior20_high": 3.09,
+          "support_low_5d": 2.92,
+          "breakout_prior20": true,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 4.026845637583887,
+          "return_20d_pct": 5.802047781569963,
+          "macd_hist_atr": 0.40609015253417396,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 11.248560039371414,
+          "industry_5d_pct": 7.334364928457537,
+          "market_20d_pct": 19.856332048801423,
+          "industry_20d_pct": 7.630114877337463
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 3.1,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "000100",
+        "name": "TCL科技",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.13750000000000004,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 2.7721774193548394,
+          "bandwidth_percentile_120": 0.5416666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.7999999999999956,
+          "distance_to_mid_atr": 2.0581818181818203,
+          "band_position": 0.9275646499571634,
+          "prior20_high": 4.98,
+          "support_low_5d": 4.73,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 3.1185031185031242,
+          "return_20d_pct": 11.210762331838575,
+          "macd_hist_atr": 0.617801127090056,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 10.34021752029065,
+          "industry_5d_pct": 10.735690618503114,
+          "market_20d_pct": 25.265046599070033,
+          "industry_20d_pct": 26.09625851504468
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 69.57,
+        "price": 4.96,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "601166",
+        "name": "兴业银行",
+        "industry": "金融业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.39399999999999996,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 1.9182083739045765,
+          "bandwidth_percentile_120": 0.26666666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.8794416243654796,
+          "distance_to_mid_atr": 1.5672588832487304,
+          "band_position": 1.0130500372654518,
+          "prior20_high": 20.65,
+          "support_low_5d": 19.74,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 2.2399203583872485,
+          "return_20d_pct": 5.876288659793816,
+          "macd_hist_atr": 0.07057848085078214,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 9.461634760174775,
+          "industry_5d_pct": 5.547439649260899,
+          "market_20d_pct": 19.930572927025274,
+          "industry_20d_pct": 7.704355755561315
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 70.882,
+        "price": 20.54,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "601216",
+        "name": "君正集团",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.11299999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 2.389006342494714,
+          "bandwidth_percentile_120": 0.025,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.08407079646017757,
+          "distance_to_mid_atr": 0.7964601769911571,
+          "band_position": 0.9404151646360295,
+          "prior20_high": 4.77,
+          "support_low_5d": 4.47,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 1.7204301075268935,
+          "return_20d_pct": 3.5010940919037337,
+          "macd_hist_atr": 0.06919482645365066,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 8.94214450931442,
+          "industry_5d_pct": 9.473239096290932,
+          "market_20d_pct": 17.555378359135194,
+          "industry_20d_pct": 18.548385579435976
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 97.105,
+        "price": 4.73,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002233",
+        "name": "塔牌集团",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.2345,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 2.9349186483103877,
+          "bandwidth_percentile_120": 0.30833333333333335,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.2707889125799588,
+          "distance_to_mid_atr": 1.1215351812366734,
+          "band_position": 0.8744569982356023,
+          "prior20_high": 8.15,
+          "support_low_5d": 7.7,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 0.8838383838383868,
+          "return_20d_pct": 6.108897742363872,
+          "macd_hist_atr": 0.08170631544637907,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 8.105552785625914,
+          "industry_5d_pct": 8.501025883838377,
+          "market_20d_pct": 20.16318200959533,
+          "industry_20d_pct": 20.994393925569977
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 85.979,
+        "price": 7.99,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603078",
+        "name": "江化微",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.8820000000000006,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.17499046892871,
+          "bandwidth_percentile_120": 0.325,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.3251859723698202,
+          "distance_to_mid_atr": 1.2239638682252918,
+          "band_position": 0.8543069531033128,
+          "prior20_high": 28.13,
+          "support_low_5d": 22.33,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": false,
+          "return_5d_pct": -2.3454951600893503,
+          "return_20d_pct": 17.15051362215274,
+          "macd_hist_atr": 0.5515774095208159,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 4.876219241698177,
+          "industry_5d_pct": 5.407313828674687,
+          "market_20d_pct": 31.2047978893842,
+          "industry_20d_pct": 32.197805109684985
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.414,
+        "price": 26.23,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      }
+    ],
+    "trend_pullback": [
+      {
+        "code": "301052",
+        "name": "果麦文化",
+        "industry": "R 文化传播",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 5.8345,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 12.335095137420721,
+          "bandwidth_percentile_120": 0.7833333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.4061187762447514,
+          "distance_to_mid_atr": 0.9968292055874531,
+          "band_position": 0.8151966660869046,
+          "prior20_high": 51.5,
+          "support_low_5d": 31.69,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 43.85644768856445,
+          "return_20d_pct": 32.49299719887952,
+          "macd_hist_atr": -0.0051049510026188166,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 51.07816209035198,
+          "industry_5d_pct": 47.450691947905355,
+          "market_20d_pct": 46.54728146611098,
+          "industry_20d_pct": 39.43686871663108
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 67.326,
+        "price": 47.3,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002086",
+        "name": "东方海洋",
+        "industry": "A 农林牧渔",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.43300000000000005,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.077568134171909,
+          "bandwidth_percentile_120": 0.8583333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 1.1362586605080829,
+          "distance_to_mid_atr": 1.6593533487297913,
+          "band_position": 0.7882432728304527,
+          "prior20_high": 5.16,
+          "support_low_5d": 3.46,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 39.88269794721406,
+          "return_20d_pct": 85.6031128404669,
+          "macd_hist_atr": -0.08815731517283668,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 47.10441234900159,
+          "industry_5d_pct": 41.573519203252694,
+          "market_20d_pct": 99.65739710769836,
+          "industry_20d_pct": 88.67639889247639
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 4.77,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "000678",
+        "name": "襄阳轴承",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.1249999999999996,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.676684881602911,
+          "bandwidth_percentile_120": 0.6416666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.40023529411764724,
+          "distance_to_mid_atr": 1.4454117647058828,
+          "band_position": 0.9238425149148769,
+          "prior20_high": 23.31,
+          "support_low_5d": 16.29,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 31.18279569892475,
+          "return_20d_pct": 17.12,
+          "macd_hist_atr": -0.008592204947875194,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 38.40451010071228,
+          "industry_5d_pct": 38.799983198924735,
+          "market_20d_pct": 31.17428426723146,
+          "industry_20d_pct": 32.005496183206105
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 21.96,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "605488",
+        "name": "福莱新材",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 5.155500000000001,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.935440354596263,
+          "bandwidth_percentile_120": 0.7416666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.2101639026282612,
+          "distance_to_mid_atr": 0.5020851517796534,
+          "band_position": 0.6165495937720531,
+          "prior20_high": 63.99,
+          "support_low_5d": 40.0,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 25.824442289039773,
+          "return_20d_pct": 8.89821615949633,
+          "macd_hist_atr": -0.2815383833518969,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 33.0461566908273,
+          "industry_5d_pct": 33.57725127780381,
+          "market_20d_pct": 22.952500426727788,
+          "industry_20d_pct": 23.945507647028574
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 76.801,
+        "price": 51.89,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603466",
+        "name": "风语筑",
+        "industry": "文化、体育和娱乐业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.3970000000000002,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.687810945273634,
+          "bandwidth_percentile_120": 0.9166666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.18647100930565522,
+          "distance_to_mid_atr": 1.128131710808875,
+          "band_position": 0.8049033337379919,
+          "prior20_high": 18.35,
+          "support_low_5d": 12.21,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 23.69230769230768,
+          "return_20d_pct": 20.449438202247183,
+          "macd_hist_atr": 0.06415692832204407,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 30.914022094095206,
+          "industry_5d_pct": 25.271255060728727,
+          "market_20d_pct": 34.503722469478646,
+          "industry_20d_pct": 28.706318936192144
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 89.309,
+        "price": 16.08,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "000823",
+        "name": "超声电子",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.5954999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.681752527684159,
+          "bandwidth_percentile_120": 0.21666666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.17956753368849906,
+          "distance_to_mid_atr": 1.7192102789094321,
+          "band_position": 1.0881769460598723,
+          "prior20_high": 20.86,
+          "support_low_5d": 16.29,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 23.41057635175283,
+          "return_20d_pct": 25.65033272837265,
+          "macd_hist_atr": 0.5439850183482536,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 30.632290753540357,
+          "industry_5d_pct": 31.02776385175282,
+          "market_20d_pct": 39.70461699560411,
+          "industry_20d_pct": 40.535828911578754
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.949,
+        "price": 20.77,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300829",
+        "name": "金丹科技",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 3.3249999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 10.262345679012345,
+          "bandwidth_percentile_120": 0.7416666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.6285714285714286,
+          "distance_to_mid_atr": 1.4756390977443603,
+          "band_position": 0.9407281046411404,
+          "prior20_high": 35.87,
+          "support_low_5d": 25.0,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 19.999999999999996,
+          "return_20d_pct": 51.54349859681946,
+          "macd_hist_atr": 0.1929034137249733,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 27.221714401787523,
+          "industry_5d_pct": 27.617187499999986,
+          "market_20d_pct": 65.59778286405091,
+          "industry_20d_pct": 66.42899478002556
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 63.579,
+        "price": 32.4,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600371",
+        "name": "万向德农",
+        "industry": "农、林、牧、渔业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.07,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.248055315471046,
+          "bandwidth_percentile_120": 0.6,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.26635514018691603,
+          "distance_to_mid_atr": 0.2504672897196268,
+          "band_position": 0.5590358553054938,
+          "prior20_high": 13.69,
+          "support_low_5d": 9.2,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 19.032921810699577,
+          "return_20d_pct": 19.278350515463938,
+          "macd_hist_atr": 0.1411108396772748,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 26.254636212487103,
+          "industry_5d_pct": 17.131952203716615,
+          "market_20d_pct": 33.33263478269539,
+          "industry_20d_pct": 21.935116638819114
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 11.57,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300812",
+        "name": "易天股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "squeeze_breakout",
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.1945000000000003,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.7485875706214715,
+          "bandwidth_percentile_120": 0.6333333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.48848890749267526,
+          "distance_to_mid_atr": 1.6638760987861017,
+          "band_position": 0.8658243824710948,
+          "prior20_high": 19.46,
+          "support_low_5d": 14.61,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 17.999999999999993,
+          "return_20d_pct": 16.600790513833985,
+          "macd_hist_atr": 0.7114661016798755,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 25.22171440178752,
+          "industry_5d_pct": 25.617187499999982,
+          "market_20d_pct": 30.655074781065444,
+          "industry_20d_pct": 31.48628669704009
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 17.7,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300237",
+        "name": "美晨科技",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.29600000000000004,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.80132450331126,
+          "bandwidth_percentile_120": 0.9083333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.48648648648648535,
+          "distance_to_mid_atr": 0.881756756756757,
+          "band_position": 0.7220762733100471,
+          "prior20_high": 3.49,
+          "support_low_5d": 2.4,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 13.962264150943394,
+          "return_20d_pct": 31.304347826086975,
+          "macd_hist_atr": -0.04319768285757536,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 21.18397855273092,
+          "industry_5d_pct": 21.579451650943383,
+          "market_20d_pct": 45.358632093318434,
+          "industry_20d_pct": 46.18984400929308
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.531,
+        "price": 3.02,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600189",
+        "name": "泉阳泉",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.6589999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.2817679558011035,
+          "bandwidth_percentile_120": 0.9666666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.1259484066767833,
+          "distance_to_mid_atr": 0.6251896813353579,
+          "band_position": 0.7018769773590222,
+          "prior20_high": 10.6,
+          "support_low_5d": 7.37,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 13.693467336683419,
+          "return_20d_pct": 12.562189054726392,
+          "macd_hist_atr": 0.07366208484855936,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 20.915181738470945,
+          "industry_5d_pct": 21.446276325447457,
+          "market_20d_pct": 26.61647332195785,
+          "industry_20d_pct": 27.609480542258638
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 75.045,
+        "price": 9.05,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002708",
+        "name": "光洋股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.3215000000000003,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.980653482373175,
+          "bandwidth_percentile_120": 0.5833333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.4813698040060304,
+          "distance_to_mid_atr": 0.567520999353867,
+          "band_position": 0.6536995970403574,
+          "prior20_high": 27.88,
+          "support_low_5d": 18.77,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 13.57421875,
+          "return_20d_pct": 11.665866538646208,
+          "macd_hist_atr": -0.1753240876389301,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 20.795933151787526,
+          "industry_5d_pct": 21.19140624999999,
+          "market_20d_pct": 25.720150805877665,
+          "industry_20d_pct": 26.551362721852314
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 23.26,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300094",
+        "name": "国联水产",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.15000000000000008,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.966887417218546,
+          "bandwidth_percentile_120": 0.25833333333333336,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.21666666666666787,
+          "distance_to_mid_atr": 1.1766666666666652,
+          "band_position": 0.9711040542711342,
+          "prior20_high": 3.03,
+          "support_low_5d": 2.51,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 12.686567164179108,
+          "return_20d_pct": 13.962264150943394,
+          "macd_hist_atr": 0.19123028193432828,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 19.908281565966636,
+          "industry_5d_pct": 20.303754664179095,
+          "market_20d_pct": 28.016548418174853,
+          "industry_20d_pct": 28.8477603341495
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 82.58,
+        "price": 3.02,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300504",
+        "name": "天邑股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.257,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.979455857856745,
+          "bandwidth_percentile_120": 0.2916666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.09387430389817193,
+          "distance_to_mid_atr": 0.7553699284009551,
+          "band_position": 0.787947402625841,
+          "prior20_high": 18.64,
+          "support_low_5d": 14.13,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 12.421972534332104,
+          "return_20d_pct": 12.492192379762646,
+          "macd_hist_atr": 0.03210458671251647,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 19.643686936119632,
+          "industry_5d_pct": 20.03916003433209,
+          "market_20d_pct": 26.546476646994105,
+          "industry_20d_pct": 27.37768856296875
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 87.445,
+        "price": 18.01,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "688781",
+        "name": "视涯科技",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 4.2715,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.411776289877903,
+          "bandwidth_percentile_120": 0.5333333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.26407585157438845,
+          "distance_to_mid_atr": 0.5279175933512824,
+          "band_position": 0.6772495096639322,
+          "prior20_high": 57.16,
+          "support_low_5d": 43.15,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 12.419747620101829,
+          "return_20d_pct": 20.047281323877076,
+          "macd_hist_atr": -0.06370133361457606,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 19.641462021889357,
+          "industry_5d_pct": 20.172556608865868,
+          "market_20d_pct": 34.10156559110854,
+          "industry_20d_pct": 35.09457281140932
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 50.78,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600408",
+        "name": "安泰集团",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.27499999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.2751322751322745,
+          "bandwidth_percentile_120": 0.7,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.22181818181818164,
+          "distance_to_mid_atr": 1.067272727272727,
+          "band_position": 0.8102523130590146,
+          "prior20_high": 3.95,
+          "support_low_5d": 3.35,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 10.850439882697938,
+          "return_20d_pct": 9.565217391304337,
+          "macd_hist_atr": 0.1709674567109337,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 18.072154284485464,
+          "industry_5d_pct": 18.603248871461975,
+          "market_20d_pct": 23.619501658535796,
+          "industry_20d_pct": 24.61250887883658
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 3.78,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002931",
+        "name": "锋龙股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 4.472499999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.59969950633183,
+          "bandwidth_percentile_120": 0.8083333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.15584125209614375,
+          "distance_to_mid_atr": 0.3508105086640588,
+          "band_position": 0.5663935257211238,
+          "prior20_high": 62.26,
+          "support_low_5d": 38.6,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 10.141843971631225,
+          "return_20d_pct": 17.089721035436046,
+          "macd_hist_atr": -0.19707513914516916,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.36355837341875,
+          "industry_5d_pct": 17.759031471631214,
+          "market_20d_pct": 31.144005302667505,
+          "industry_20d_pct": 31.97521721864215
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 75.555,
+        "price": 46.59,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603666",
+        "name": "亿嘉和",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.502,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.872340425531915,
+          "bandwidth_percentile_120": 0.7083333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.11250999200639537,
+          "distance_to_mid_atr": 0.4872102318145475,
+          "band_position": 0.6414748216146077,
+          "prior20_high": 32.95,
+          "support_low_5d": 22.26,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 10.113237016790322,
+          "return_20d_pct": 16.818558409279195,
+          "macd_hist_atr": -0.09714895538301022,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.334951418577848,
+          "industry_5d_pct": 17.86604600555436,
+          "market_20d_pct": 30.872842676510654,
+          "industry_20d_pct": 31.86584989681144
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.311,
+        "price": 28.2,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "301265",
+        "name": "华新科技",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.7824999999999993,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.311320754716978,
+          "bandwidth_percentile_120": 0.6916666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.2973352033660597,
+          "distance_to_mid_atr": 1.0302945301542765,
+          "band_position": 0.7944656517531008,
+          "prior20_high": 26.26,
+          "support_low_5d": 19.75,
+          "breakout_prior20": false,
+          "reclaimed_mid": false,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 9.869310500225325,
+          "return_20d_pct": 13.659673659673665,
+          "macd_hist_atr": 0.09502809509771531,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.09102490201285,
+          "industry_5d_pct": 17.486498000225314,
+          "market_20d_pct": 27.713957926905124,
+          "industry_20d_pct": 28.54516984287977
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 86.769,
+        "price": 24.38,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300363",
+        "name": "博腾股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.4304999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.219565217391304,
+          "bandwidth_percentile_120": 0.13333333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.13247116392869548,
+          "distance_to_mid_atr": 0.21391121985319886,
+          "band_position": 0.5668796240077502,
+          "prior20_high": 25.79,
+          "support_low_5d": 19.73,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 9.419600380589909,
+          "return_20d_pct": 4.783599088838275,
+          "macd_hist_atr": 0.01582703132792172,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 16.641314782377435,
+          "industry_5d_pct": 17.0367878805899,
+          "market_20d_pct": 18.837883356069735,
+          "industry_20d_pct": 19.66909527204438
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 73.526,
+        "price": 23.0,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      }
+    ],
+    "trend_repair": [
+      {
+        "code": "301282",
+        "name": "金禄电子",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 3.112,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.89651229273871,
+          "bandwidth_percentile_120": 0.10833333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.41404241645244183,
+          "distance_to_mid_atr": 0.9485861182519274,
+          "band_position": 0.8652071159444674,
+          "prior20_high": 38.75,
+          "support_low_5d": 27.68,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 22.6937916520519,
+          "return_20d_pct": 7.0379436964504105,
+          "macd_hist_atr": 0.2618147802608368,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 29.915506053839426,
+          "industry_5d_pct": 30.31097915205189,
+          "market_20d_pct": 21.09222796368187,
+          "industry_20d_pct": 21.923439879656513
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 34.98,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600280",
+        "name": "中央商场",
+        "industry": "批发和零售业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.18499999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.967741935483869,
+          "bandwidth_percentile_120": 0.7916666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.23243243243243086,
+          "distance_to_mid_atr": 1.3513513513513515,
+          "band_position": 0.8256268489144972,
+          "prior20_high": 3.28,
+          "support_low_5d": 2.35,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 20.62256809338523,
+          "return_20d_pct": 10.71428571428572,
+          "macd_hist_atr": 0.0750918326631186,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 27.844282495172756,
+          "industry_5d_pct": 23.98105865942297,
+          "market_20d_pct": 24.76856998151718,
+          "industry_20d_pct": 21.20021921812204
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 3.1,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600229",
+        "name": "城市传媒",
+        "industry": "文化、体育和娱乐业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.469,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.882352941176469,
+          "bandwidth_percentile_120": 0.9833333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.3475479744136466,
+          "distance_to_mid_atr": 0.5394456289978681,
+          "band_position": 0.6176917840386726,
+          "prior20_high": 7.06,
+          "support_low_5d": 4.62,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 20.2020202020202,
+          "return_20d_pct": 4.203152364273199,
+          "macd_hist_atr": -0.15822556014399705,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 27.423734603807727,
+          "industry_5d_pct": 21.78096757044125,
+          "market_20d_pct": 18.25743663150466,
+          "industry_20d_pct": 12.46003309821816
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 5.95,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600371",
+        "name": "万向德农",
+        "industry": "农、林、牧、渔业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.07,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.248055315471046,
+          "bandwidth_percentile_120": 0.6,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.26635514018691603,
+          "distance_to_mid_atr": 0.2504672897196268,
+          "band_position": 0.5590358553054938,
+          "prior20_high": 13.69,
+          "support_low_5d": 9.2,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 19.032921810699577,
+          "return_20d_pct": 19.278350515463938,
+          "macd_hist_atr": 0.1411108396772748,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 26.254636212487103,
+          "industry_5d_pct": 17.131952203716615,
+          "market_20d_pct": 33.33263478269539,
+          "industry_20d_pct": 21.935116638819114
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 11.57,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300243",
+        "name": "瑞丰高材",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.0865,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.545138888888888,
+          "bandwidth_percentile_120": 0.20833333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.5780027611596872,
+          "distance_to_mid_atr": 0.5623561895996324,
+          "band_position": 0.672847985099297,
+          "prior20_high": 15.89,
+          "support_low_5d": 11.32,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 16.599190283400823,
+          "return_20d_pct": -2.96495956873315,
+          "macd_hist_atr": 0.40553279593731506,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 23.82090468518835,
+          "industry_5d_pct": 24.216377783400812,
+          "market_20d_pct": 11.08932469849831,
+          "industry_20d_pct": 11.920536614472955
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 14.4,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300652",
+        "name": "雷迪克",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.5635,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.284679463962332,
+          "bandwidth_percentile_120": 0.7083333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.27579481178076876,
+          "distance_to_mid_atr": 0.21689096937780417,
+          "band_position": 0.5656717376349962,
+          "prior20_high": 31.3,
+          "support_low_5d": 21.21,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 16.49789029535864,
+          "return_20d_pct": -1.7437722419928914,
+          "macd_hist_atr": -0.038307334615682365,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 23.719604697146167,
+          "industry_5d_pct": 24.11507779535863,
+          "market_20d_pct": 12.310512025238568,
+          "industry_20d_pct": 13.141723941213213
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 27.61,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002913",
+        "name": "奥士康",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 5.386,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.553279339367952,
+          "bandwidth_percentile_120": 0.21666666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.20451169699220229,
+          "distance_to_mid_atr": 0.9377088748607499,
+          "band_position": 0.8195583669713006,
+          "prior20_high": 71.79,
+          "support_low_5d": 52.0,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 15.711135611907379,
+          "return_20d_pct": 10.882197569994712,
+          "macd_hist_atr": 0.3846540018955676,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 22.932850013694907,
+          "industry_5d_pct": 23.328323111907366,
+          "market_20d_pct": 24.93648183722617,
+          "industry_20d_pct": 25.767693753200817
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 62.97,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "301041",
+        "name": "金百泽",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.3449999999999998,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.487151646760767,
+          "bandwidth_percentile_120": 0.2916666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.45884861407249494,
+          "distance_to_mid_atr": 0.33859275053304927,
+          "band_position": 0.6161429755815351,
+          "prior20_high": 30.9,
+          "support_low_5d": 23.23,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 13.516844700082164,
+          "return_20d_pct": 0.5458515283842669,
+          "macd_hist_atr": 0.10046825558469293,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 20.73855910186969,
+          "industry_5d_pct": 21.134032200082153,
+          "market_20d_pct": 14.600135795615726,
+          "industry_20d_pct": 15.431347711590371
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 27.63,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002815",
+        "name": "崇达技术",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.2534999999999998,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.214285714285714,
+          "bandwidth_percentile_120": 0.175,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.5448743518149182,
+          "distance_to_mid_atr": 0.41284403669724784,
+          "band_position": 0.6491005311668755,
+          "prior20_high": 17.2,
+          "support_low_5d": 13.0,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 13.204747774480708,
+          "return_20d_pct": -4.803493449781671,
+          "macd_hist_atr": 0.31860197928135137,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 20.426462176268235,
+          "industry_5d_pct": 20.821935274480698,
+          "market_20d_pct": 9.250790817449788,
+          "industry_20d_pct": 10.082002733424433
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 15.26,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300502",
+        "name": "新易盛",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 19.4135,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 10.270062952970427,
+          "bandwidth_percentile_120": 0.4083333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.8725113967084763,
+          "distance_to_mid_atr": 0.38328997862312325,
+          "band_position": 0.6277426902366275,
+          "prior20_high": 249.98,
+          "support_low_5d": 158.31,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 13.150963725607557,
+          "return_20d_pct": -17.237302977232925,
+          "macd_hist_atr": 0.816970336481874,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 20.372678127395083,
+          "industry_5d_pct": 20.768151225607546,
+          "market_20d_pct": -3.183018710001466,
+          "industry_20d_pct": -2.351806794026821
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 189.03,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603166",
+        "name": "福达股份",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.7885000000000002,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.424670433145011,
+          "bandwidth_percentile_120": 0.6083333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.2675967025998735,
+          "distance_to_mid_atr": 0.32593532022828103,
+          "band_position": 0.5997196049177089,
+          "prior20_high": 12.05,
+          "support_low_5d": 8.7,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 11.437565582371455,
+          "return_20d_pct": -2.5688073394495525,
+          "macd_hist_atr": -0.07776536482579252,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 18.65927998415898,
+          "industry_5d_pct": 19.190374571135493,
+          "market_20d_pct": 11.485476927781907,
+          "industry_20d_pct": 12.478484148082691
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 10.62,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "301316",
+        "name": "慧博云通",
+        "industry": "I 信息技术",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.52,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.823657249301459,
+          "bandwidth_percentile_120": 0.38333333333333336,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.3222222222222227,
+          "distance_to_mid_atr": 0.8611111111111118,
+          "band_position": 0.8297662132246403,
+          "prior20_high": 33.91,
+          "support_low_5d": 25.05,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 11.376210235131401,
+          "return_20d_pct": 6.832504145936991,
+          "macd_hist_atr": 0.16252107450893388,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 18.59792463691893,
+          "industry_5d_pct": 19.362899087044873,
+          "market_20d_pct": 20.88678841316845,
+          "industry_20d_pct": 22.666588906982977
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 32.21,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "000798",
+        "name": "中水渔业",
+        "industry": "A 农林牧渔",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.41100000000000014,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.751445086705204,
+          "bandwidth_percentile_120": 0.43333333333333335,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.312652068126518,
+          "distance_to_mid_atr": 0.823600973236009,
+          "band_position": 0.7382784407201838,
+          "prior20_high": 9.07,
+          "support_low_5d": 7.38,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 11.32561132561134,
+          "return_20d_pct": 3.9663461538461453,
+          "macd_hist_atr": 0.16264561163374514,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 18.547325727398867,
+          "industry_5d_pct": 13.016432581649973,
+          "market_20d_pct": 18.020630421077605,
+          "industry_20d_pct": 7.039632205855617
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 8.65,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603336",
+        "name": "宏辉果蔬",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.4375,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 5.580357142857143,
+          "bandwidth_percentile_120": 0.058333333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.5314285714285713,
+          "distance_to_mid_atr": 0.6845714285714288,
+          "band_position": 0.7518251116799003,
+          "prior20_high": 8.39,
+          "support_low_5d": 6.52,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 11.205673758865252,
+          "return_20d_pct": -1.0101010101010055,
+          "macd_hist_atr": 0.3498718342597754,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 18.42738816065278,
+          "industry_5d_pct": 18.95848274762929,
+          "market_20d_pct": 13.044183257130454,
+          "industry_20d_pct": 14.037190477431238
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 7.84,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "002931",
+        "name": "锋龙股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 4.472499999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 9.59969950633183,
+          "bandwidth_percentile_120": 0.8083333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.15584125209614375,
+          "distance_to_mid_atr": 0.3508105086640588,
+          "band_position": 0.5663935257211238,
+          "prior20_high": 62.26,
+          "support_low_5d": 38.6,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 10.141843971631225,
+          "return_20d_pct": 17.089721035436046,
+          "macd_hist_atr": -0.19707513914516916,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.36355837341875,
+          "industry_5d_pct": 17.759031471631214,
+          "market_20d_pct": 31.144005302667505,
+          "industry_20d_pct": 31.97521721864215
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 75.555,
+        "price": 46.59,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603666",
+        "name": "亿嘉和",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 2.502,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 8.872340425531915,
+          "bandwidth_percentile_120": 0.7083333333333334,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": 0.11250999200639537,
+          "distance_to_mid_atr": 0.4872102318145475,
+          "band_position": 0.6414748216146077,
+          "prior20_high": 32.95,
+          "support_low_5d": 22.26,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 10.113237016790322,
+          "return_20d_pct": 16.818558409279195,
+          "macd_hist_atr": -0.09714895538301022,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.334951418577848,
+          "industry_5d_pct": 17.86604600555436,
+          "market_20d_pct": 30.872842676510654,
+          "industry_20d_pct": 31.86584989681144
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 74.311,
+        "price": 28.2,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603395",
+        "name": "红四方",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.9274999999999997,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.5487984306032345,
+          "bandwidth_percentile_120": 0.625,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.7628032345013476,
+          "distance_to_mid_atr": 0.42371967654986614,
+          "band_position": 0.5770293086860755,
+          "prior20_high": 22.49,
+          "support_low_5d": 16.92,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 9.800753904146475,
+          "return_20d_pct": 0.6913580246913575,
+          "macd_hist_atr": 0.1763762918109612,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 17.022468305934,
+          "industry_5d_pct": 17.553562892910513,
+          "market_20d_pct": 14.745642291922817,
+          "industry_20d_pct": 15.738649512223601
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 20.39,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "600628",
+        "name": "新世界",
+        "industry": "批发和零售业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 0.2745000000000002,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 4.302507836990599,
+          "bandwidth_percentile_120": 0.9916666666666667,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": false,
+          "mid_slope_5d_atr": -0.5683060109289603,
+          "distance_to_mid_atr": 0.45173041894353216,
+          "band_position": 0.5991960639782702,
+          "prior20_high": 6.9,
+          "support_low_5d": 5.51,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 9.621993127147753,
+          "return_20d_pct": -0.6230529595015577,
+          "macd_hist_atr": -0.2384837762017705,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 16.84370752893528,
+          "industry_5d_pct": 12.980483693185494,
+          "market_20d_pct": 13.431231307729902,
+          "industry_20d_pct": 9.862880544334761
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 6.38,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "603386",
+        "name": "骏亚科技",
+        "industry": "制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.0935,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 7.5309917355371905,
+          "bandwidth_percentile_120": 0.09166666666666666,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": -0.5029721079103802,
+          "distance_to_mid_atr": 0.3095564700502971,
+          "band_position": 0.6380553930970361,
+          "prior20_high": 16.29,
+          "support_low_5d": 12.74,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": false,
+          "return_5d_pct": 9.502262443438902,
+          "return_20d_pct": -2.746148693904893,
+          "macd_hist_atr": 0.18128182596782716,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 16.723976845226428,
+          "industry_5d_pct": 17.25507143220294,
+          "market_20d_pct": 11.308135573326567,
+          "industry_20d_pct": 12.301142793627351
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": false,
+        "baseline_v1_score": null,
+        "price": 14.52,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      },
+      {
+        "code": "300363",
+        "name": "博腾股份",
+        "industry": "C 制造业",
+        "daily_asof": "2026-11-26",
+        "setups": [
+          "trend_pullback",
+          "trend_repair"
+        ],
+        "features": {
+          "version": "boll_context_atr_v2",
+          "available": true,
+          "asof": "2026-11-26",
+          "price_basis": "unadjusted_requires_corporate_action_review",
+          "atr20": 1.4304999999999999,
+          "atr_method": "simple_mean_20_true_ranges",
+          "atr_pct": 6.219565217391304,
+          "bandwidth_percentile_120": 0.13333333333333333,
+          "bandwidth_reference_count": 120,
+          "recent_squeeze_120": true,
+          "mid_slope_5d_atr": 0.13247116392869548,
+          "distance_to_mid_atr": 0.21391121985319886,
+          "band_position": 0.5668796240077502,
+          "prior20_high": 25.79,
+          "support_low_5d": 19.73,
+          "breakout_prior20": false,
+          "reclaimed_mid": true,
+          "pullback_reclaimed": true,
+          "return_5d_pct": 9.419600380589909,
+          "return_20d_pct": 4.783599088838275,
+          "macd_hist_atr": 0.01582703132792172,
+          "two_close_mid_failure": false
+        },
+        "relative_strength": {
+          "market_5d_pct": 16.641314782377435,
+          "industry_5d_pct": 17.0367878805899,
+          "market_20d_pct": 18.837883356069735,
+          "industry_20d_pct": 19.66909527204438
+        },
+        "context": {
+          "regime": "down",
+          "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+        },
+        "structure_eligible": true,
+        "rejection_reasons": [],
+        "entry_status": "review_required",
+        "evidence_gaps": [
+          "corporate_action_window_requires_source_review",
+          "exchange_industry_category_may_be_coarse_not_subsector"
+        ],
+        "baseline_v1_eligible": true,
+        "baseline_v1_score": 73.526,
+        "price": 23.0,
+        "noon_return_pct": null,
+        "noon_relative_market_pct": null,
+        "volume_vs_previous_full_morning": null,
+        "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+      }
+    ]
+  },
+  "shortlist": [
+    {
+      "code": "301052",
+      "name": "果麦文化",
+      "industry": "R 文化传播",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 5.8345,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 12.335095137420721,
+        "bandwidth_percentile_120": 0.7833333333333333,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.4061187762447514,
+        "distance_to_mid_atr": 0.9968292055874531,
+        "band_position": 0.8151966660869046,
+        "prior20_high": 51.5,
+        "support_low_5d": 31.69,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 43.85644768856445,
+        "return_20d_pct": 32.49299719887952,
+        "macd_hist_atr": -0.0051049510026188166,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 51.07816209035198,
+        "industry_5d_pct": 47.450691947905355,
+        "market_20d_pct": 46.54728146611098,
+        "industry_20d_pct": 39.43686871663108
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 67.326,
+      "price": 47.3,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "002086",
+      "name": "东方海洋",
+      "industry": "A 农林牧渔",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 0.43300000000000005,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 9.077568134171909,
+        "bandwidth_percentile_120": 0.8583333333333333,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 1.1362586605080829,
+        "distance_to_mid_atr": 1.6593533487297913,
+        "band_position": 0.7882432728304527,
+        "prior20_high": 5.16,
+        "support_low_5d": 3.46,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 39.88269794721406,
+        "return_20d_pct": 85.6031128404669,
+        "macd_hist_atr": -0.08815731517283668,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 47.10441234900159,
+        "industry_5d_pct": 41.573519203252694,
+        "market_20d_pct": 99.65739710769836,
+        "industry_20d_pct": 88.67639889247639
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 4.77,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "000678",
+      "name": "襄阳轴承",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 2.1249999999999996,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 9.676684881602911,
+        "bandwidth_percentile_120": 0.6416666666666667,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.40023529411764724,
+        "distance_to_mid_atr": 1.4454117647058828,
+        "band_position": 0.9238425149148769,
+        "prior20_high": 23.31,
+        "support_low_5d": 16.29,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 31.18279569892475,
+        "return_20d_pct": 17.12,
+        "macd_hist_atr": -0.008592204947875194,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 38.40451010071228,
+        "industry_5d_pct": 38.799983198924735,
+        "market_20d_pct": 31.17428426723146,
+        "industry_20d_pct": 32.005496183206105
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 21.96,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "605488",
+      "name": "福莱新材",
+      "industry": "制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 5.155500000000001,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 9.935440354596263,
+        "bandwidth_percentile_120": 0.7416666666666667,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.2101639026282612,
+        "distance_to_mid_atr": 0.5020851517796534,
+        "band_position": 0.6165495937720531,
+        "prior20_high": 63.99,
+        "support_low_5d": 40.0,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 25.824442289039773,
+        "return_20d_pct": 8.89821615949633,
+        "macd_hist_atr": -0.2815383833518969,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 33.0461566908273,
+        "industry_5d_pct": 33.57725127780381,
+        "market_20d_pct": 22.952500426727788,
+        "industry_20d_pct": 23.945507647028574
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 76.801,
+      "price": 51.89,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "603466",
+      "name": "风语筑",
+      "industry": "文化、体育和娱乐业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 1.3970000000000002,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 8.687810945273634,
+        "bandwidth_percentile_120": 0.9166666666666666,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.18647100930565522,
+        "distance_to_mid_atr": 1.128131710808875,
+        "band_position": 0.8049033337379919,
+        "prior20_high": 18.35,
+        "support_low_5d": 12.21,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 23.69230769230768,
+        "return_20d_pct": 20.449438202247183,
+        "macd_hist_atr": 0.06415692832204407,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 30.914022094095206,
+        "industry_5d_pct": 25.271255060728727,
+        "market_20d_pct": 34.503722469478646,
+        "industry_20d_pct": 28.706318936192144
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 89.309,
+      "price": 16.08,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "000823",
+      "name": "超声电子",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "squeeze_breakout",
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 1.5954999999999997,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 7.681752527684159,
+        "bandwidth_percentile_120": 0.21666666666666667,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": true,
+        "mid_slope_5d_atr": 0.17956753368849906,
+        "distance_to_mid_atr": 1.7192102789094321,
+        "band_position": 1.0881769460598723,
+        "prior20_high": 20.86,
+        "support_low_5d": 16.29,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 23.41057635175283,
+        "return_20d_pct": 25.65033272837265,
+        "macd_hist_atr": 0.5439850183482536,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 30.632290753540357,
+        "industry_5d_pct": 31.02776385175282,
+        "market_20d_pct": 39.70461699560411,
+        "industry_20d_pct": 40.535828911578754
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 74.949,
+      "price": 20.77,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "301282",
+      "name": "金禄电子",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 3.112,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 8.89651229273871,
+        "bandwidth_percentile_120": 0.10833333333333334,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": true,
+        "mid_slope_5d_atr": -0.41404241645244183,
+        "distance_to_mid_atr": 0.9485861182519274,
+        "band_position": 0.8652071159444674,
+        "prior20_high": 38.75,
+        "support_low_5d": 27.68,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 22.6937916520519,
+        "return_20d_pct": 7.0379436964504105,
+        "macd_hist_atr": 0.2618147802608368,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 29.915506053839426,
+        "industry_5d_pct": 30.31097915205189,
+        "market_20d_pct": 21.09222796368187,
+        "industry_20d_pct": 21.923439879656513
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 34.98,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "600280",
+      "name": "中央商场",
+      "industry": "批发和零售业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 0.18499999999999997,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 5.967741935483869,
+        "bandwidth_percentile_120": 0.7916666666666666,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": -0.23243243243243086,
+        "distance_to_mid_atr": 1.3513513513513515,
+        "band_position": 0.8256268489144972,
+        "prior20_high": 3.28,
+        "support_low_5d": 2.35,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 20.62256809338523,
+        "return_20d_pct": 10.71428571428572,
+        "macd_hist_atr": 0.0750918326631186,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 27.844282495172756,
+        "industry_5d_pct": 23.98105865942297,
+        "market_20d_pct": 24.76856998151718,
+        "industry_20d_pct": 21.20021921812204
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 3.1,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "600400",
+      "name": "红豆股份",
+      "industry": "制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "squeeze_breakout"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 0.2245,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 6.0675675675675675,
+        "bandwidth_percentile_120": 0.35,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": true,
+        "mid_slope_5d_atr": 0.20712694877505758,
+        "distance_to_mid_atr": 1.9665924276169264,
+        "band_position": 1.0280994692793766,
+        "prior20_high": 3.95,
+        "support_low_5d": 2.99,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": false,
+        "return_5d_pct": 20.52117263843649,
+        "return_20d_pct": 15.625,
+        "macd_hist_atr": 0.5242806538501504,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 27.742887040224016,
+        "industry_5d_pct": 28.273981627200527,
+        "market_20d_pct": 29.67928426723146,
+        "industry_20d_pct": 30.67229148753224
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 71.712,
+      "price": 3.7,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "600229",
+      "name": "城市传媒",
+      "industry": "文化、体育和娱乐业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 0.469,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 7.882352941176469,
+        "bandwidth_percentile_120": 0.9833333333333333,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": -0.3475479744136466,
+        "distance_to_mid_atr": 0.5394456289978681,
+        "band_position": 0.6176917840386726,
+        "prior20_high": 7.06,
+        "support_low_5d": 4.62,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 20.2020202020202,
+        "return_20d_pct": 4.203152364273199,
+        "macd_hist_atr": -0.15822556014399705,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 27.423734603807727,
+        "industry_5d_pct": 21.78096757044125,
+        "market_20d_pct": 18.25743663150466,
+        "industry_20d_pct": 12.46003309821816
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 5.95,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "300829",
+      "name": "金丹科技",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 3.3249999999999997,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 10.262345679012345,
+        "bandwidth_percentile_120": 0.7416666666666667,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.6285714285714286,
+        "distance_to_mid_atr": 1.4756390977443603,
+        "band_position": 0.9407281046411404,
+        "prior20_high": 35.87,
+        "support_low_5d": 25.0,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 19.999999999999996,
+        "return_20d_pct": 51.54349859681946,
+        "macd_hist_atr": 0.1929034137249733,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 27.221714401787523,
+        "industry_5d_pct": 27.617187499999986,
+        "market_20d_pct": 65.59778286405091,
+        "industry_20d_pct": 66.42899478002556
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": true,
+      "baseline_v1_score": 63.579,
+      "price": 32.4,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "600371",
+      "name": "万向德农",
+      "industry": "农、林、牧、渔业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_pullback",
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 1.07,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 9.248055315471046,
+        "bandwidth_percentile_120": 0.6,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": 0.26635514018691603,
+        "distance_to_mid_atr": 0.2504672897196268,
+        "band_position": 0.5590358553054938,
+        "prior20_high": 13.69,
+        "support_low_5d": 9.2,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 19.032921810699577,
+        "return_20d_pct": 19.278350515463938,
+        "macd_hist_atr": 0.1411108396772748,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 26.254636212487103,
+        "industry_5d_pct": 17.131952203716615,
+        "market_20d_pct": 33.33263478269539,
+        "industry_20d_pct": 21.935116638819114
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 11.57,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "300812",
+      "name": "易天股份",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "squeeze_breakout",
+        "trend_pullback"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 1.1945000000000003,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 6.7485875706214715,
+        "bandwidth_percentile_120": 0.6333333333333333,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": true,
+        "mid_slope_5d_atr": 0.48848890749267526,
+        "distance_to_mid_atr": 1.6638760987861017,
+        "band_position": 0.8658243824710948,
+        "prior20_high": 19.46,
+        "support_low_5d": 14.61,
+        "breakout_prior20": false,
+        "reclaimed_mid": false,
+        "pullback_reclaimed": true,
+        "return_5d_pct": 17.999999999999993,
+        "return_20d_pct": 16.600790513833985,
+        "macd_hist_atr": 0.7114661016798755,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 25.22171440178752,
+        "industry_5d_pct": 25.617187499999982,
+        "market_20d_pct": 30.655074781065444,
+        "industry_20d_pct": 31.48628669704009
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 17.7,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "300243",
+      "name": "瑞丰高材",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 1.0865,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 7.545138888888888,
+        "bandwidth_percentile_120": 0.20833333333333334,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": true,
+        "mid_slope_5d_atr": -0.5780027611596872,
+        "distance_to_mid_atr": 0.5623561895996324,
+        "band_position": 0.672847985099297,
+        "prior20_high": 15.89,
+        "support_low_5d": 11.32,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": false,
+        "return_5d_pct": 16.599190283400823,
+        "return_20d_pct": -2.96495956873315,
+        "macd_hist_atr": 0.40553279593731506,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 23.82090468518835,
+        "industry_5d_pct": 24.216377783400812,
+        "market_20d_pct": 11.08932469849831,
+        "industry_20d_pct": 11.920536614472955
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 14.4,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    },
+    {
+      "code": "300652",
+      "name": "雷迪克",
+      "industry": "C 制造业",
+      "daily_asof": "2026-11-26",
+      "setups": [
+        "trend_repair"
+      ],
+      "features": {
+        "version": "boll_context_atr_v2",
+        "available": true,
+        "asof": "2026-11-26",
+        "price_basis": "unadjusted_requires_corporate_action_review",
+        "atr20": 2.5635,
+        "atr_method": "simple_mean_20_true_ranges",
+        "atr_pct": 9.284679463962332,
+        "bandwidth_percentile_120": 0.7083333333333334,
+        "bandwidth_reference_count": 120,
+        "recent_squeeze_120": false,
+        "mid_slope_5d_atr": -0.27579481178076876,
+        "distance_to_mid_atr": 0.21689096937780417,
+        "band_position": 0.5656717376349962,
+        "prior20_high": 31.3,
+        "support_low_5d": 21.21,
+        "breakout_prior20": false,
+        "reclaimed_mid": true,
+        "pullback_reclaimed": false,
+        "return_5d_pct": 16.49789029535864,
+        "return_20d_pct": -1.7437722419928914,
+        "macd_hist_atr": -0.038307334615682365,
+        "two_close_mid_failure": false
+      },
+      "relative_strength": {
+        "market_5d_pct": 23.719604697146167,
+        "industry_5d_pct": 24.11507779535863,
+        "market_20d_pct": 12.310512025238568,
+        "industry_20d_pct": 13.141723941213213
+      },
+      "context": {
+        "regime": "down",
+        "reference": "median_of_feature_available_screened_stocks_proxy_not_official_index"
+      },
+      "structure_eligible": true,
+      "rejection_reasons": [],
+      "entry_status": "review_required",
+      "evidence_gaps": [
+        "corporate_action_window_requires_source_review",
+        "exchange_industry_category_may_be_coarse_not_subsector"
+      ],
+      "baseline_v1_eligible": false,
+      "baseline_v1_score": null,
+      "price": 27.61,
+      "noon_return_pct": null,
+      "noon_relative_market_pct": null,
+      "volume_vs_previous_full_morning": null,
+      "ranking_meaning": "lexicographic_shadow_research_priority_not_expected_return_or_probability"
+    }
+  ],
+  "entry_qualified_count": 0,
+  "entry_qualification_note": "Company/event/price-structure review is required; no automatic buy signal.",
+  "activation_status": "blocked_pending_historical_out_of_sample_and_20_session_shadow_review",
+  "gap_counts": {
+    "corporate_action_window_requires_source_review": 5223,
+    "exchange_industry_category_may_be_coarse_not_subsector": 5223,
+    "dated_industry_reference_unavailable": 199,
+    "v2_completed_features_unavailable": 196
+  },
+  "published_at": "2026-11-26T16:41:15.770899+08:00",
+  "record_shards": [
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/000001-000518.json",
+      "count": 100,
+      "sha256": "ff1e476a5d9a2beab5af2040af8bb78aba3bef83573842fd7260687ead010c12"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/000519-000672.json",
+      "count": 100,
+      "sha256": "e8199734d841753ef3d4405def9225967b6dea859b8a85d0ac4e9cf096cd8e6c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/000676-000822.json",
+      "count": 100,
+      "sha256": "13ae3c26a2573ada453501093e0b7b5f280f6456dbe7b5675802d30686fc18f2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/000823-000981.json",
+      "count": 100,
+      "sha256": "fa2e27efa3233de4153997ab45a7f7d63ab4fb269c1adefb5a3da1dd41ed78d4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/000983-001338.json",
+      "count": 100,
+      "sha256": "5bcdc06214699a113a1708924c98c873bb98a8430f9287bba5385c6e5c8439f2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/001339-002069.json",
+      "count": 100,
+      "sha256": "9db6d14534bcc6bb19481bf160d8bc9d444760a23c659bb44696040f477ef447"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002072-002177.json",
+      "count": 100,
+      "sha256": "902b689147bebcf9cad0958b3a8ee9e5f4605cc8a9f4c591395e95b7e11eb391"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002178-002282.json",
+      "count": 100,
+      "sha256": "66934c0598415cdc8d55828765e8e04def8a57e4d40c8fdadd997d286d0e0d40"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002283-002388.json",
+      "count": 100,
+      "sha256": "bcd014c930310f042bc8d7e4ddaef35d99fb18826224dbd9632ad0766183a4d2"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002389-002497.json",
+      "count": 100,
+      "sha256": "0c704ea22bedee85f2e3bbee3d226b2b27bca5d740dcf6a16d34784e4e382e86"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002498-002605.json",
+      "count": 100,
+      "sha256": "d671b28c02a41c446dbeef7d8d52ce21a602b98e254aebb2245ff3a221942de7"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002606-002716.json",
+      "count": 100,
+      "sha256": "1d503484bc27ebf0aa4775d68e49b6bbcaa91fcf586b885cf22d2d3bc9033937"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002717-002832.json",
+      "count": 100,
+      "sha256": "d9e0ed9170c0e9bb9d5c3b909142b438002ed82f2a010e78dd2875fab66c75ab"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002833-002942.json",
+      "count": 100,
+      "sha256": "3ffe5de839363b312bbf36fbd77d604f2a08adba257d27315e30c4e3aa65bbee"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/002943-300006.json",
+      "count": 100,
+      "sha256": "012aa58ecbb032590be023f5ec0c8fc886940434a4b9e4b45725ae7c635a7417"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300007-300119.json",
+      "count": 100,
+      "sha256": "fd8ced3cbacc8a1839213deb2d1c85935457d600d6c2715c9257448a5c559c80"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300120-300225.json",
+      "count": 100,
+      "sha256": "23403917bb214fc72efa65e52cf8789d6b4d8924e0433222a94c347e94c2040c"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300226-300334.json",
+      "count": 100,
+      "sha256": "56b0dba5ba7eb95359e6bbfac81371a86cad9cd2ff9a427af9e1e88dcb0aec19"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300335-300445.json",
+      "count": 100,
+      "sha256": "eb42e3cf981d830fbb4b15a861b8c44f82037219bf12a5f7e59e89de0842d849"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300446-300549.json",
+      "count": 100,
+      "sha256": "6ca5dfa8bb675dbbb5b7292a561a070444354cd4b58759f781b0bf68aa120403"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300550-300652.json",
+      "count": 100,
+      "sha256": "d325751beccf39c9f8a3517c564a87b2cf74db1df3d9f3f3a36dc6656d526da8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300653-300759.json",
+      "count": 100,
+      "sha256": "a48cc311a61cae8140d17a684666d73e5997c1092f861affa2fd12f9a3a53e2b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300760-300862.json",
+      "count": 100,
+      "sha256": "e173a3fb405a78209134938688fc658bc6211db116e6489d730dbd258bdfbe76"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300863-300968.json",
+      "count": 100,
+      "sha256": "bd258a81175148c81cf7713095c93e4430dc80d663379c0c7cf84f1114fc1099"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/300969-301075.json",
+      "count": 100,
+      "sha256": "172c5ac6353ad14d3d6c2f8c96f560d30c3df024703825014c1d4b7fdb131213"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/301076-301193.json",
+      "count": 100,
+      "sha256": "070efcc8c81b071120558adcc82e0fb24d667032f2579bb38224735ca1312d97"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/301195-301314.json",
+      "count": 100,
+      "sha256": "45941350a12875d5f116fd28fdd1bc52cc5c549cdaa9dad2d4530fd4b4aea8a8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/301315-301511.json",
+      "count": 100,
+      "sha256": "e64475a208767cafa130183ced26d086b62b3ec871031b7e4e4ccd81aeacf624"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/301512-301699.json",
+      "count": 100,
+      "sha256": "1c528d7aca4f2825902250fcaa84b03b2701c8533c92a4550b4fb99a601e8018"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/301707-600128.json",
+      "count": 100,
+      "sha256": "38d8c8d819a6d7cb5b729ccdb2941e61d20acdbbc1b77eec800b8cddb93eb91b"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600129-600261.json",
+      "count": 100,
+      "sha256": "5d70af1fa46721666bd51352b58d74edb814bf84a63819f5c6ac4e3db35e151d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600262-600395.json",
+      "count": 100,
+      "sha256": "f33be37aa6c44e2abfe4ec2cd271f59b96efba6b3862e721668a4291cd2d9ecd"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600396-600540.json",
+      "count": 100,
+      "sha256": "54f031244ca7784ebea9626d38f53e698cf426bf9af345d87e4eed29349f0cca"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600543-600665.json",
+      "count": 100,
+      "sha256": "e94573618aef91423953768577effffc810b6a4ceb8b231df2e2b041976ea971"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600666-600785.json",
+      "count": 100,
+      "sha256": "6a47bdfc2240f5a57a54229341930c51998b4f45b2ada958ea4395f583a937f4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600787-600917.json",
+      "count": 100,
+      "sha256": "5c52cdc7ba1f8e3b392c0b8f3445a09749406f4401f81c1a19a0a1f753fe65ec"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/600918-601118.json",
+      "count": 100,
+      "sha256": "9975aebb2378d8589d9ac7df397e1cfe422c44200a7f302476093f4fb22e8d7e"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/601121-601686.json",
+      "count": 100,
+      "sha256": "761189f82a19a127c33eb914ac43ddf6c5dd44bce7aa1baef086ac53fc131da0"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/601688-603023.json",
+      "count": 100,
+      "sha256": "ce90c93b195c453e2017c8f0f43d66ff1aa41a9f5211be4428539664ea7d7626"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603025-603138.json",
+      "count": 100,
+      "sha256": "90b23cec24a8b3528721f7e2157ce75b4e0142018fe69702e0908e2fba5b9d68"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603139-603275.json",
+      "count": 100,
+      "sha256": "9c7c24372396c51dc551ad02a09a6b6e2de8185e7014e1f13d9b7c9724136e9d"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603276-603399.json",
+      "count": 100,
+      "sha256": "f9fa2be811bb1b9ecc50072cc084b68e6cb2c10f28cc051edb894c6fa966a0b9"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603400-603655.json",
+      "count": 100,
+      "sha256": "5a981e9b714e813f75e4cac010b1e8f81ed4b365008918eb2dcd18b7c7e8ad60"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603656-603836.json",
+      "count": 100,
+      "sha256": "6626a80649f9636f7445ae7407e3b92cf1d0d8c0aa71bae71c14810e6d9238a8"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/603838-605009.json",
+      "count": 100,
+      "sha256": "358f548838104961d3d8872a7847a2966bce5ebb9f9eb32fb34b3814c60da707"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/605011-605577.json",
+      "count": 100,
+      "sha256": "08dbb261e95b4f55b588ded92b53910604b44033a3163598994486e41a6b01f4"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/605580-688108.json",
+      "count": 100,
+      "sha256": "40a8c79cbb8ff381a9b5849ac11e37c40cc2e559bcef91202962836cd9676b52"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688109-688221.json",
+      "count": 100,
+      "sha256": "363d4fe13a2da18ea12e2458d8474e92d7d090eae0de72f849de292cbd261076"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688222-688337.json",
+      "count": 100,
+      "sha256": "a8f1e82c08841f1e157f98314954f8df1946b058a4083ed8db24d9cff472576f"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688338-688506.json",
+      "count": 100,
+      "sha256": "2e3fd3a63ab648f4266b9e0a9a628294d6bdc97f1e36ab9aa85c21d42d1b18cd"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688507-688628.json",
+      "count": 100,
+      "sha256": "557e11c95218bbf013c113ed89071a7e671d6629951cd374064d0385c1241972"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688629-688798.json",
+      "count": 100,
+      "sha256": "c98d48f5b3b6468c87291e39896c743d439d557d223e58234bb210830442cf93"
+    },
+    {
+      "file": "output/boll/archive/2026-11-26/20261126T163839-early/research_records/688799-688981.json",
+      "count": 23,
+      "sha256": "a6be5a77a52426326879dffc5cd007fc226c2b471149479b0aab04094c8694d1"
+    }
+  ]
+}
