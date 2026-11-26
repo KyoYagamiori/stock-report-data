@@ -11,7 +11,8 @@
     "reports/forecasts/2026/11/24/evening.json": "4fd000c7515b4d55c4467649a31b489098c80f426ce02bb213a2600ad2e3daad",
     "reports/forecasts/2026/11/25/noon.json": "cfa4f76033243f6b4f3f958726c649342e2dceed0394339e42ae2153b361927e",
     "reports/forecasts/2026/11/26/early.json": "04aa55721f4c4353cff1209484c7894f41269ac207b2e8ef444c1bcc456d71e6",
-    "reports/forecasts/2026/11/26/noon.json": "26f25017cf82d4d86e6c93ce9a279c9e43abeb4e4762d300d0839a8d8b84591a"
+    "reports/forecasts/2026/11/26/noon.json": "26f25017cf82d4d86e6c93ce9a279c9e43abeb4e4762d300d0839a8d8b84591a",
+    "reports/forecasts/2026/11/26/evening.json": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4"
   },
   "calls": {
     "6ce9b68e6801c4205ee2dd35": {
@@ -1555,6 +1556,134 @@
           "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
         }
       }
+    },
+    "69466294f6c42c324e539504": {
+      "signal_id": "69466294f6c42c324e539504",
+      "code": "600988",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-26T21:08:50+08:00",
+      "quote_asof": "2026-11-26T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 34.9,
+      "high": 36.4,
+      "etf_context": "mixed",
+      "reference_price": 35.3,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 36.2,
+        "reduce_high": 36.4,
+        "stop": 34.15,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "26日买窗到期。27日先等完成15分钟收回36.40元、黄金股ETF与同业同步走强，届时再评，新买区空缺。",
+        "exit_rule": "27日已有可卖仓触36.20–36.40元后首根完成15分钟收<36.20元减1/3，完成15分钟收<34.15元退出。完成15分钟收≥36.40元后保护上移至35.60元，守线且无减仓信号续持。"
+      },
+      "source": "reports/forecasts/2026/11/26/evening.json",
+      "source_sha256": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4",
+      "seen_at": "2026-11-26T21:09:15.601738+08:00"
+    },
+    "aca529c1d880d8071ea07961": {
+      "signal_id": "aca529c1d880d8071ea07961",
+      "code": "601838",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-26T21:08:50+08:00",
+      "quote_asof": "2026-11-26T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 21.03,
+      "high": 21.35,
+      "etf_context": "supportive",
+      "reference_price": 21.3,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": 20.99,
+        "buy_high": 21.02,
+        "reduce_low": 21.25,
+        "reduce_high": 21.3,
+        "stop": 20.88,
+        "profit_target": 21.3,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "27日09:45–11:15先回踩20.99–21.07元且守20.88元，之后完成15分钟收≥21.08元、量≥前日同段1.2倍，512800跑赢510300，才看二次回踩20.99–21.02元。超价、破20.88元或过窗放弃。",
+        "exit_rule": "已有可卖仓触21.25–21.30元后首根完成15分钟收<21.25元减1/3，完成15分钟收<20.88元退出。完成15分钟收≥21.30元后保护上移至21.02元，守线且无减仓信号续持。"
+      },
+      "source": "reports/forecasts/2026/11/26/evening.json",
+      "source_sha256": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4",
+      "seen_at": "2026-11-26T21:09:15.601738+08:00"
+    },
+    "77e5c463461d23355dfb4ff7": {
+      "signal_id": "77e5c463461d23355dfb4ff7",
+      "code": "600011",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-26T21:08:50+08:00",
+      "quote_asof": "2026-11-26T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "below",
+      "price": 7.82,
+      "high": null,
+      "etf_context": "unknown",
+      "reference_price": 7.78,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": null,
+        "reduce_high": null,
+        "stop": 7.48,
+        "profit_target": null,
+        "reduce_fraction": null,
+        "entry_rule": "观察，待完成日线核8.06元枢纽、放量及延伸。",
+        "exit_rule": ""
+      },
+      "source": "reports/forecasts/2026/11/26/evening.json",
+      "source_sha256": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4",
+      "seen_at": "2026-11-26T21:09:15.601738+08:00"
+    },
+    "5d0d7029c50613e7074ec225": {
+      "signal_id": "5d0d7029c50613e7074ec225",
+      "code": "002043",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-26T21:08:50+08:00",
+      "quote_asof": "2026-11-26T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "below",
+      "price": 12.97,
+      "high": null,
+      "etf_context": "unknown",
+      "reference_price": 12.74,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": null,
+        "reduce_high": null,
+        "stop": 12.15,
+        "profit_target": null,
+        "reduce_fraction": null,
+        "entry_rule": "观察，待完成日线核13.65元枢纽、放量及延伸。",
+        "exit_rule": ""
+      },
+      "source": "reports/forecasts/2026/11/26/evening.json",
+      "source_sha256": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4",
+      "seen_at": "2026-11-26T21:09:15.601738+08:00"
     }
   }
 }
