@@ -1,7 +1,7 @@
 # 股票行情快照 Manifest
 
 - Schema：1.6.1
-- 更新时间：2026-11-27T01:14:22+08:00
+- 更新时间：2026-11-27T01:48:52+08:00
 - 交易日状态：交易日
 - 最近已完成交易日：2026-11-26
 
@@ -9,7 +9,7 @@
 
 | 报告 | 状态 | 等级 | Snapshot ID | 权威文件 |
 |---|---|---|---|---|
-| early | ready_a | A | 20261127-0114-early-full-45865765170 | output/archive/2026/11/27/early/20261127-0114-early-full-45865765170.json |
+| early | ready_a | A | 20261127-0148-early-full-45870594156 | output/archive/2026/11/27/early/20261127-0148-early-full-45870594156.json |
 | noon | not_ready | 暂无 | 暂无 | 暂无 |
 | evening | not_ready | 暂无 | 暂无 | 暂无 |
 
@@ -17,7 +17,7 @@
 
 | 类型 | 等级 | 报告周期 | 行情日期 | 最新行情时间 | 不可变文件 | SHA-256 |
 |---|---|---|---|---|---|---|
-| early | A | 2026-11-27-early | 2026-11-26 | 2026-11-26T15:36:00+08:00 | output/archive/2026/11/27/early/20261127-0114-early-full-45865765170.json | `e4d4ab077aa5f0000d6ffc0f1117d2637313f7cdb8d30698c2de792884d64274` |
+| early | A | 2026-11-27-early | 2026-11-26 | 2026-11-26T15:36:00+08:00 | output/archive/2026/11/27/early/20261127-0148-early-full-45870594156.json | `c2c4d3af0abb61a1205fc87f155851bd2f6b0b1bc889b2e4ffe7849d5208d743` |
 | noon | B | 2026-11-26-noon | 2026-11-26 | 2026-11-26T11:30:00+08:00 | output/archive/2026/11/26/noon/20261126-1135-noon-full-45749769947.json | `7a20ab85d04dfab87db6c04d809aac31200c0f8fc102355329eb3cf3fdc4a98c` |
 | close | A | 2026-11-26-close | 2026-11-26 | 2026-11-26T15:36:00+08:00 | output/archive/2026/11/26/close/20261126-1655-close-full-45786974664.json | `fcc51ff99958f61d20d2430568ea36deb85a7d64938443250a3fea1dc9471777` |
 | evening | A | 2026-11-26-evening | 2026-11-26 | 2026-11-26T15:36:00+08:00 | output/archive/2026/11/26/evening/20261126-2203-evening-full-45834844008.json | `2d12e9fd239ade72326bc34cc4d8ed3d90d0c5af6500637a0ac1ea84cabf7c3b` |
