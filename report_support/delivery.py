@@ -12,13 +12,16 @@ from zoneinfo import ZoneInfo
 from .index import CYCLES, validate_body
 
 TZ = ZoneInfo("Asia/Shanghai")
-TIMES = {"early": "09:00:00", "noon": "12:40:00", "evening": "21:00:00"}
-VERIFIER_TIMES = {
-    time(9, 30): ("verify_delivery", "early"),
+OPENING_SCHEDULE_START = "2026-11-28"
+TIMES = {"early": "09:50:00", "noon": "12:40:00", "evening": "21:00:00"}
+LEGACY_TIMES = dict(TIMES, early="09:00:00")
+MIDDAY_AND_EVENING_SLOTS = {
     time(11, 30): ("collect_noon", "noon"),
     time(13, 10): ("verify_delivery", "noon"),
     time(21, 30): ("verify_delivery", "evening"),
 }
+VERIFIER_TIMES = {time(10, 10): ("verify_delivery", "early"), **MIDDAY_AND_EVENING_SLOTS}
+LEGACY_VERIFIER_TIMES = {time(9, 30): ("verify_delivery", "early"), **MIDDAY_AND_EVENING_SLOTS}
 
 
 def assess_verifier_run(scheduled_for, *, moment):
@@ -32,7 +35,8 @@ def assess_verifier_run(scheduled_for, *, moment):
         if due.tzinfo is None or moment.tzinfo is None:
             raise ValueError("timezone_required")
         due, now = due.astimezone(TZ), moment.astimezone(TZ)
-        role, cycle = VERIFIER_TIMES[due.time()]
+        slots = LEGACY_VERIFIER_TIMES if due.date().isoformat() < OPENING_SCHEDULE_START else VERIFIER_TIMES
+        role, cycle = slots[due.time()]
     except (AttributeError, KeyError, TypeError, ValueError):
         return {"action": "invalid_schedule_metadata", "reason": "unknown_or_naive_scheduled_for"}
     base = {"report_date": due.date().isoformat(), "role": role, "cycle": cycle,
@@ -49,7 +53,8 @@ def assess_verifier_run(scheduled_for, *, moment):
 
 
 def assess_delivery(task, report_date, cycle, *, moment):
-    due = datetime.fromisoformat(report_date + "T" + TIMES[cycle] + "+08:00")
+    slots = LEGACY_TIMES if report_date < OPENING_SCHEDULE_START else TIMES
+    due = datetime.fromisoformat(report_date + "T" + slots[cycle] + "+08:00")
     if moment.astimezone(TZ) < due:
         return {"action": "not_due", "reason": "future_cycle"}
     if moment.astimezone(TZ).date().isoformat() != report_date:
