@@ -25,6 +25,13 @@ CHINA = ZoneInfo("Asia/Shanghai")
 TIMEOUT_SECONDS = 8
 PAGE_SIZE = 100
 MAX_PAGES = 5
+A_SHARE_PREFIXES = {"SH": ("60", "688"), "SZ": ("000", "001", "002", "003", "300", "301", "302")}
+
+
+def is_a_share(code):
+    symbol, _, market = code.partition(".")
+    return (len(symbol) == 6 and symbol.isascii() and symbol.isdigit()
+            and symbol.startswith(A_SHARE_PREFIXES.get(market, ())))
 
 
 def request_json(endpoint, params):
@@ -64,7 +71,8 @@ def fetch_board(trade_date, report, fields, *, trade_id=None):
         raise ValueError("Board contains a different trading date")
     if trade_id is not None and any(int(row["TRADE_ID"]) != trade_id for row in rows):
         raise ValueError("Board contains a different disclosure")
-    return {"provider_row_count": len(rows), "rows": [{key: row[key] for key in fields} for row in rows]}
+    scoped_rows = [{key: row[key] for key in fields} for row in rows if is_a_share(row["SECUCODE"])]
+    return {"provider_row_count": len(rows), "scope_row_count": len(scoped_rows), "rows": scoped_rows}
 
 
 def fetch_daily_flow(trade_date, code):
@@ -120,8 +128,7 @@ def main():
     if args.trade_date == now.date() and now.time() < time(15):
         parser.error("the requested daily session has not closed")
     for code in args.flow_code:
-        symbol, _, exchange = code.partition(".")
-        if len(symbol) != 6 or not symbol.isascii() or not symbol.isdigit() or exchange not in {"SH", "SZ"}:
+        if not is_a_share(code):
             parser.error("flow-code must be an A-share code with .SH or .SZ")
     result = collect(args.trade_date.isoformat(), trade_id=args.trade_id, flow_codes=args.flow_code)
     print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))
