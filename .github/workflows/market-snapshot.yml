@@ -8,8 +8,10 @@ on:
       - "config/watchlist.csv"
       - "config/quality_profiles.json"
       - "pipeline/**"
-      - ".github/workflows/market-snapshot.yml"
       - "tests/**"
+      - "!tests/test_report_index.py"
+      - "!tests/test_report_delivery.py"
+      - "!tests/test_research_*.py"
       - "schemas/**"
       - "scripts/fetch_snapshot.py"
   workflow_dispatch:
