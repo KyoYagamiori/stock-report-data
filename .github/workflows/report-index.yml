@@ -6,8 +6,11 @@ on:
     paths:
       - "reports/archive/**.md"
       - "reports/archive/**-handoff.json"
-      - "report_support/**"
-      - "tests/test_report_*.py"
+      - "report_support/__init__.py"
+      - "report_support/index.py"
+      - "report_support/delivery.py"
+      - "tests/test_report_index.py"
+      - "tests/test_report_delivery.py"
       - ".github/workflows/report-index.yml"
   workflow_dispatch:
   schedule:
@@ -30,15 +33,19 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /reports/archive/
+            /reports/latest/
+            /report_support/
+            /tests/__init__.py
+            /tests/test_report_index.py
+            /tests/test_report_delivery.py
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-      - name: Install report contract dependencies
-        run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Verify archive and recovery contracts
-        run: python -m unittest discover -s tests -p 'test_report_*.py'
+        run: python -m unittest tests.test_report_index tests.test_report_delivery
       - name: Index complete archives and publish compact handoff
         run: python -m report_support.index
       - name: Commit and retry against the current ledger
@@ -46,14 +53,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          base=$(git rev-parse HEAD)
           for attempt in 1 2 3; do
-            git add reports/latest/manifest.json reports/latest/handoff.json
-            if git diff --cached --quiet; then exit 0; fi
-            git commit -m "reports: reconcile archive index and compact handoff"
+            git add --sparse reports/latest/manifest.json reports/latest/handoff.json
+            if ! git diff --cached --quiet; then
+              git commit -m "reports: reconcile archive index and compact handoff"
+            fi
+            if [ "$(git rev-parse HEAD)" = "$base" ]; then exit 0; fi
             if git push origin HEAD:main; then exit 0; fi
-            # Recompute from the latest ledger, preserving concurrent reports.
-            git fetch origin main
-            git reset --hard origin/main
-            python -m report_support.index
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+            git fetch --depth=1 origin main
+            if git diff --quiet "$base" origin/main -- reports/archive reports/latest report_support; then
+              git rebase --onto origin/main "$base"
+            else
+              git reset --hard origin/main
+              python -m report_support.index
+            fi
+            base=$(git rev-parse origin/main)
           done
-          exit 1

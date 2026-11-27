@@ -89,6 +89,32 @@ class ReportIndexTests(unittest.TestCase):
         self.assertEqual(meta["focus_conditions"], entry["focus_conditions"])
         self.assertNotIn("private_prompt", entry)
 
+    def test_late_sidecar_enriches_existing_report_once(self):
+        path = self.body()
+        sync_index(self.root, moment=self.now)
+        original = self.read()["reports"][0]
+        sidecar = path.with_name("noon-handoff.json")
+        metadata = {"report_date": "2026-11-02", "report_type": "noon",
+                    "body_sha256": original["sha256"], "market_cutoff": "2026-11-02T11:30:00+08:00",
+                    "private_prompt": "private key stays out"}
+        write_json(sidecar, {**metadata, "body_sha256": "bad"})
+        mismatch = sync_index(self.root, moment=self.now.replace(hour=16))
+        self.assertEqual([], mismatch["enriched"])
+        self.assertIn("hash_mismatch", mismatch["rejected"][0]["reason"])
+        write_json(sidecar, metadata)
+        updated = sync_index(self.root, moment=self.now.replace(hour=16))
+        self.assertEqual([original["selected_file"]], updated["enriched"])
+        self.assertEqual([], updated["added"])
+        [entry] = self.read()["reports"]
+        self.assertEqual(original["indexed_at"], entry["indexed_at"])
+        self.assertNotIn("private_prompt", entry)
+        latest = self.read("handoff")["latest_by_cycle"]["noon"]
+        self.assertEqual(metadata["market_cutoff"], latest["market_cutoff"])
+        self.assertEqual("unverified", latest["chat_delivery_status"])
+        unchanged = sync_index(self.root, moment=self.now.replace(hour=17))
+        self.assertFalse(unchanged["manifest_changed"])
+        self.assertFalse(unchanged["handoff_changed"])
+
     def test_bad_sidecar_hash_rejects_orphan_without_claiming_metadata(self):
         path = self.body()
         write_json(path.with_name("noon-handoff.json"), {"report_date": "2026-11-02", "report_type": "noon", "body_sha256": "bad"})

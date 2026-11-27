@@ -12,7 +12,7 @@ import hashlib
 import json
 import statistics
 
-from market_screen.history import canonical_bytes
+from market_screen.history import canonical_bytes, write_json
 from market_screen.technicals import normalize_bars
 
 
@@ -34,6 +34,23 @@ def checked(root, reference, prefix):
     if hashlib.sha256(raw).hexdigest() != reference["sha256"]:
         raise ValueError("daily_model_source_hash_mismatch:" + relative)
     return raw
+
+
+def write_changed_latest(path, snapshot, timestamp, *, after=None):
+    """Keep the original publication timestamp when the substantive receipt is unchanged."""
+    try:
+        previous = json.loads(path.read_bytes())
+        before = {key: value for key, value in previous.items() if key != timestamp}
+        incoming = {key: value for key, value in snapshot.items() if key != timestamp}
+        if before == incoming:
+            prior_time = datetime.fromisoformat(previous[timestamp])
+            if ((after is None or prior_time > after)
+                    and prior_time <= datetime.fromisoformat(snapshot[timestamp])):
+                return previous
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        pass
+    write_json(path, snapshot)
+    return snapshot
 
 
 def load_bars(root, needed, now):

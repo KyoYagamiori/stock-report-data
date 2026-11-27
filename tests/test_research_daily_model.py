@@ -12,7 +12,8 @@ from unittest.mock import patch
 from market_screen.history import canonical_bytes, write_json
 from market_screen.vcp import FEATURES as VCP_FEATURES
 from research_system.daily_model import (FEATURES, VERSION, candidates, ensure_models, immutable,
-    load_calendar, load_queue, register, run, score_rows, verify_predictions, validate_completed_screen)
+    load_calendar, load_queue, register, reused_reader, run, score_current_rows, score_rows,
+    verify_predictions, validate_completed_screen)
 from research_system.daily_model_data import (checked, feedback, load_bars, next_entry, price_outcome,
     settle, summarize)
 
@@ -168,13 +169,59 @@ class DailyModelTests(unittest.TestCase):
         (history / "history.jsonl.gz").write_bytes(raw)
         result = run(self.root, datetime.fromisoformat("2026-11-23T16:00:00+08:00"))
         outcomes = json.loads(state_path.read_bytes())["episodes"][signal]["outcomes"]
-        self.assertEqual("blocked", result["status"])
+        self.assertEqual("waiting_for_daily_screen", result["status"])
         self.assertIn("completed_verified_daily_screen", result["reason"])
+        evening = run(self.root, datetime.fromisoformat("2026-11-23T20:47:00+08:00"))
+        retry = run(self.root, datetime.fromisoformat("2026-11-23T20:50:00+08:00"))
+        self.assertEqual("blocked", evening["status"])
+        self.assertEqual(evening, retry)
         self.assertEqual(1, result["settlement"]["matured_feedback_rows"])
         self.assertEqual("matured_price_proxy", outcomes["3"]["state"])
         self.assertEqual("pending", outcomes["5"]["state"])
         self.assertEqual(frozen, frozen_path.read_bytes())
         self.assertEqual({"latest": "previous_scoring_reader"}, json.loads(manifest_path.read_bytes()))
+
+    def test_identical_validated_candidates_reuse_scores_until_input_changes(self):
+        from research_system import daily_model
+
+        state = {}
+        model = {"sha256": "a" * 64}
+        source = {"screen_sha256": "b" * 64}
+
+        def calculate(rows, _):
+            self.assertEqual(1, len(rows))
+            rows[0].update(scores={"ridge": .2, "lightgbm": -.1},
+                           ranks={"ridge": 1, "lightgbm": 1, "early_rule": 1})
+            return rows
+
+        with patch.object(daily_model, "score_rows", side_effect=calculate) as predict:
+            first = score_current_rows([sample()], {}, model, source, state)
+            other = {**sample(), "exit_plan": {"initial_defense_price": 8}}
+            second = score_current_rows([other], {}, model, source, state)
+            self.assertEqual(first[0]["scores"], second[0]["scores"])
+            self.assertEqual(8, second[0]["exit_plan"]["initial_defense_price"])
+            self.assertEqual(1, predict.call_count)
+            score_current_rows([sample()], {}, model, {"screen_sha256": "c" * 64}, state)
+            self.assertEqual(2, predict.call_count)
+            changed = sample()
+            changed["features"][FEATURES[0]] += 1
+            score_current_rows([changed], {}, model, {"screen_sha256": "c" * 64}, state)
+            self.assertEqual(3, predict.call_count)
+
+    def test_material_change_or_later_failure_requires_fresh_reader(self):
+        p = self.root / "output/research/latest/daily_model_manifest.json"
+        old = {"market_date": "2026-11-16", "generated_at": NOW.isoformat(),
+               "published_at": NOW.isoformat(), "new_predictions": 1, "matured_feedback_rows": 10}
+        ref = immutable(self.root, self.root / "output/research/daily_model/readers/first.json", old)
+        pointer = {**ref, "market_date": old["market_date"], "published_at": old["published_at"]}
+        write_json(p, {"latest": pointer})
+        next_time = NOW + timedelta(minutes=10)
+        current = {**old, "new_predictions": 0, "published_at": next_time.isoformat(),
+                   "generated_at": next_time.isoformat()}
+        self.assertEqual(pointer, reused_reader(self.root, p, current))
+        self.assertIsNone(reused_reader(self.root, p, {**current, "matured_feedback_rows": 11}))
+        write_json(p.with_name("daily_model_last_failure.json"), {"checked_at": next_time.isoformat()})
+        self.assertIsNone(reused_reader(self.root, p, current))
 
     def test_source_byte_hash_and_path_are_verified(self):
         path = self.root / "output/research/daily_model/models/test.json"

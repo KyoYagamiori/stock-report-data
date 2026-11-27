@@ -12,13 +12,16 @@ on:
       - "reports/forecasts/**"
       - ".github/workflows/daily-model.yml"
   workflow_run:
-    workflows: ["Early BOLL discovery", "Shanghai Shenzhen BOLL screen", "Independent noon market ingestion"]
+    workflows: ["Shanghai Shenzhen BOLL screen"]
     types: [completed]
     branches: [main]
   schedule:
-    # China 08:47, 12:17, 15:47, 20:47. Upstream completions also trigger it.
-    - cron: "47 0,7,12 * * 1-5"
+    # 08:47 and 12:17 verify forecast evidence. 15:47 is for the former-leader ledger.
+    # The completed BOLL screen wakes daily scoring. 20:47 is the evening fallback.
+    - cron: "47 0 * * 1-5"
     - cron: "17 4 * * 1-5"
+    - cron: "47 7 * * 1-5"
+    - cron: "47 12 * * 1-5"
 
 permissions:
   contents: write
@@ -29,7 +32,9 @@ concurrency:
 
 jobs:
   trial:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: >-
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+      && (github.event_name != 'schedule' || github.event.schedule != '47 7 * * 1-5')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
@@ -82,15 +87,27 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           trial_failed="${{ steps.run.outcome == 'failure' }}"
+          base=$(git rev-parse HEAD)
+          inputs=(config research_system market_screen pipeline report_support requirements-research.txt
+                  reports/forecasts output/cache/trade_calendar.json output/boll output/history_pilot/experiments
+                  output/research/daily_model ':(glob)output/research/latest/daily_model*.json')
           for attempt in 1 2 3; do
             git add --sparse output/research/daily_model output/research/latest/daily_model*.json
-            if git diff --cached --quiet; then break; fi
-            git commit -m "research: freeze daily model trial predictions and own-data feedback"
+            if ! git diff --cached --quiet; then
+              git commit -m "research: freeze daily model trial predictions and own-data feedback"
+            fi
+            if [ "$(git rev-parse HEAD)" = "$base" ]; then break; fi
             if git push origin HEAD:main; then break; fi
             if [ "$attempt" -eq 3 ]; then exit 1; fi
-            git fetch origin main
-            # Rebuild from published state: never rebase conflicting episode counters.
+            git fetch --depth=1 origin main
+            if git diff --quiet "$base" origin/main -- "${inputs[@]}"; then
+              git rebase --onto origin/main "$base"
+              base=$(git rev-parse origin/main)
+              continue
+            fi
+            # Rebuild only when input or prediction evidence changed.
             git reset --hard origin/main
+            base=$(git rev-parse HEAD)
             python -m research_system.daily_model hydrate
             if ! python -m research_system.daily_model_report_feedback; then
               echo '::warning::Forecast feedback could not be refreshed.'
@@ -112,7 +129,10 @@ jobs:
         run: exit 1
 
   relaunch:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'schedule' && github.event.schedule == '47 0,7,12 * * 1-5')
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'schedule'
+          && (github.event.schedule == '47 7 * * 1-5' || github.event.schedule == '47 12 * * 1-5'))
     runs-on: ubuntu-latest
     timeout-minutes: 9
     env:

@@ -9,7 +9,7 @@ from pathlib import Path
 import statistics
 
 from market_screen.history import TZ, canonical_bytes, write_json
-from .daily_model_data import checked, immutable
+from .daily_model_data import checked, immutable, write_changed_latest
 from .daily_model_report_feedback import read_published
 from .early_model import block_interval, daily_results, fit, predictions
 from .ledger import stamp
@@ -224,5 +224,4 @@ def run(root, config, episodes, calendar, now, *, proxy_rows, shadow_error=None)
                               forward_comparison=forward_comparison([], [], ref, config["primary_model"]))
     except ERRORS as exc:
         status.update(status="blocked_retraining_check", reason=str(exc)[:400])
-    write_json(root / STATUS, status)
-    return status
+    return write_changed_latest(root / STATUS, status, "checked_at")

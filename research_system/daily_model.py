@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import datetime, time
 import gzip
 import hashlib
 import json
@@ -14,7 +14,7 @@ from market_screen.early import POOLS
 from market_screen.history import TZ, canonical_bytes, write_json
 from market_screen.vcp import FEATURES as VCP_FEATURES, feature_values
 from . import daily_model_retraining
-from .daily_model_data import checked, feedback, immutable, load_bars, next_entry, settle, summarize
+from .daily_model_data import checked, feedback, immutable, load_bars, next_entry, settle, summarize, write_changed_latest
 
 VERSION = "daily_forward_trial_20261117_v1"
 DATA_ERRORS = (ValueError, OSError, KeyError, TypeError)
@@ -24,6 +24,10 @@ RUN_ERRORS = (*DATA_ERRORS, ImportError, StopIteration)
 # Exclude both rather than silently scoring different definitions.
 FEATURES = ("mid_slope_5d_atr", "distance_to_mid_atr", "bandwidth_percentile_120",
     "return_5d_pct", "return_20d_pct", "volume_vs_previous20_median", "signal_age_sessions") + VCP_FEATURES
+
+
+class DailyScreenPending(ValueError):
+    """The producer has not published a candidate daily screen for this session."""
 
 
 def load_calendar(root, now):
@@ -85,10 +89,12 @@ def screen_pointers(root, target, now):
     """Bounded references for one completed session, including legacy manifests."""
     try:
         manifest = json.loads((root / "output/boll/latest/manifest.json").read_bytes())
-    except (OSError, ValueError):
+    except FileNotFoundError:
         manifest = {}
+    if not isinstance(manifest, dict):
+        raise ValueError("daily_model_daily_screen_manifest_invalid")
     for key in ("latest_completed_daily_screen", "latest_complete_screen", "latest_screen"):
-        pointer = manifest.get(key) if isinstance(manifest, dict) else None
+        pointer = manifest.get(key)
         if (isinstance(pointer, dict) and pointer.get("market_date", target) == target
                 and pointer.get("phase", "early") in {"early", "close"}
                 and isinstance(pointer.get("selected_file"), str) and pointer.get("sha256")):
@@ -107,7 +113,12 @@ def screen_pointers(root, target, now):
 def load_queue(root, now, calendar):
     target = completed_market_date(calendar, now)
     errors = []
+    seen = set()
     for pointer in screen_pointers(root, target, now):
+        identity = (pointer["selected_file"], pointer["sha256"])
+        if identity in seen:
+            continue
+        seen.add(identity)
         try:
             screen = json.loads(checked(root, pointer, "output/boll/archive"))
             validate_completed_screen(screen, now)
@@ -118,8 +129,10 @@ def load_queue(root, now, calendar):
             continue
         break
     else:
-        detail = ("; " + errors[0]) if errors else ""
-        raise ValueError(f"daily_model_requires_completed_verified_daily_screen:{target}{detail}")
+        reason = f"daily_model_requires_completed_verified_daily_screen:{target}"
+        if errors:
+            raise ValueError(f"{reason}: {errors[0]}")
+        raise DailyScreenPending(reason)
     source = screen["early_signals"]
     ref = {"file": source["reader_file"], "sha256": source["reader_sha256"]}
     queue = json.loads(checked(root, ref, "output/boll/archive"))
@@ -242,6 +255,27 @@ def score_rows(rows, artifact):
                     row.setdefault("selected_by", []).append(kind)
     return rows
 
+def score_current_rows(rows, artifact, model_ref, queue_ref, state):
+    """Reuse the numerical output of an identical, independently validated input."""
+    paths = (Path(__file__), Path(__file__).with_name("early_model.py"),
+             Path(__file__).resolve().parents[1] / "requirements-research.txt")
+    scorer = [hashlib.sha256(path.read_bytes()).hexdigest() for path in paths]
+    matrix = [(row["code"], row["setup"], row["features"]) for row in rows]
+    signature = hashlib.sha256(canonical_bytes(
+        [scorer, model_ref["sha256"], queue_ref["screen_sha256"], matrix])).hexdigest()
+    previous = state.get("score_cache") or {}
+    cached = previous.get("results", [])
+    if previous.get("input_sha256") == signature and len(cached) == len(rows):
+        for row, result in zip(rows, cached, strict=True):
+            row.update(result)
+        return rows
+
+    rows = score_rows(rows, artifact)
+    state["score_cache"] = {"input_sha256": signature, "results": [
+        {key: row[key] for key in ("scores", "ranks", "selected_by") if key in row} for row in rows
+    ]}
+    return rows
+
 
 def register(root, rows, state, model_ref, queue_ref, calendar, now, config):
     episodes = state.setdefault("episodes", {})
@@ -274,11 +308,39 @@ def register(root, rows, state, model_ref, queue_ref, calendar, now, config):
     return new
 
 
-def publish_failure(root, exc, now, **details):
-    result = {"status": "blocked", "reason": str(exc)[:400], "checked_at": now.isoformat(),
+def publish_failure(root, exc, now, *, status="blocked", **details):
+    result = {"status": status, "reason": str(exc)[:400], "checked_at": now.isoformat(),
               "automatic_trading": False, "probabilities_enabled": False, **details}
-    write_json(root / "output/research/latest/daily_model_last_failure.json", result)
-    return result
+    directory = root / "output/research/latest"
+    latest = directory / "daily_model_last_failure.json"
+    # A later issue must supersede an intervening successful release, even
+    # when the reason is the same as an older issue.
+    after = None
+    try:
+        manifest = json.loads((directory / "daily_model_manifest.json").read_bytes())
+        after = datetime.fromisoformat(manifest["latest"]["published_at"])
+    except DATA_ERRORS:
+        pass
+    return write_changed_latest(latest, result, "checked_at", after=after)
+
+
+def reused_reader(root, path, receipt):
+    try:
+        prior = json.loads(path.read_bytes())["latest"]
+        if prior["market_date"] != receipt["market_date"]:
+            return None
+        committed = json.loads(checked(root, prior, "output/research/daily_model/readers"))
+        prior_time = datetime.fromisoformat(prior["published_at"])
+        if prior_time > datetime.fromisoformat(receipt["published_at"]):
+            return None
+        issue = path.with_name("daily_model_last_failure.json")
+        if issue.exists() and datetime.fromisoformat(json.loads(issue.read_bytes())["checked_at"]) > prior_time:
+            return None
+        stamps = {"generated_at", "published_at", "new_predictions"}
+        before, after = ({k: v for k, v in payload.items() if k not in stamps} for payload in (committed, receipt))
+        return prior if before == after else None
+    except DATA_ERRORS:
+        return None
 
 
 def run(root, now=None):
@@ -304,7 +366,7 @@ def run(root, now=None):
             raise ValueError("daily_model_model_frozen_in_future")
         rows, rejections, pool_size = candidates(queue, config)
         # The frozen scoring path has no access to forward label data.
-        rows = score_rows(rows, artifact)
+        rows = score_current_rows(rows, artifact, model_ref, queue_ref, state)
         needed.update(row["code"] for row in rows)
     except RUN_ERRORS as exc:
         scoring_error = exc
@@ -327,7 +389,11 @@ def run(root, now=None):
     retraining = daily_model_retraining.run(root, config, state["episodes"], calendar, now,
                                             proxy_rows=len(samples), shadow_error=shadow_error)
     if scoring_error is not None:
-        return publish_failure(root, scoring_error, now, retraining=retraining, settlement={
+        pending = (isinstance(scoring_error, DailyScreenPending)
+                   and completed_market_date(calendar, now) == now.date().isoformat()
+                   and now.time() < time(20, 47))
+        status = "waiting_for_daily_screen" if pending else "blocked"
+        return publish_failure(root, scoring_error, now, status=status, retraining=retraining, settlement={
             "status": "completed", "history_market_date": own_ref["market_date"],
             "unique_prediction_count": len(state["episodes"]), "matured_feedback_rows": len(samples),
             "outcomes": {h: item["states"] for h, item in results["horizons"].items()},
@@ -358,11 +424,17 @@ def run(root, now=None):
         "formal_production_promotion": False, "automatic_retraining": retraining["enabled"],
         "retraining": retraining,
         "next_action": "settle_future_1_3_5_session_prices_and_check_retraining_evidence"}
-    # Every report can recover its exact cutoff from a small immutable version.
+    manifest_path = root / "output/research/latest/daily_model_manifest.json"
+    prior = reused_reader(root, manifest_path, receipt) if not new else None
+    if prior is not None:
+        return {"status": "running", **prior, "scored_codes": len(rows), "new_predictions": 0,
+                "unique_prediction_count": len(state["episodes"]), "matured_feedback_rows": len(samples),
+                "reused_reader": True}
+
+    # Every material change is kept in a small immutable version.
     run_id = now.strftime("%Y%m%dT%H%M%S%f")
     ref = immutable(root, root / "output/research/daily_model/readers" / (run_id + ".json"), receipt)
     pointer = {**ref, "market_date": receipt["market_date"], "published_at": receipt["published_at"], "phase": receipt["phase"]}
-    manifest_path = root / "output/research/latest/daily_model_manifest.json"
     manifest = json.loads(manifest_path.read_bytes()) if manifest_path.exists() else {"schema_version": "1.0", "daily": {}}
     manifest["latest"] = pointer
     manifest["daily"][receipt["market_date"]] = pointer

@@ -17,7 +17,7 @@ from market_screen.history import TZ, write_json
 from market_screen.noon_repair import sina_minute_rows, sina_minute_url
 from market_screen.quotes import HEADERS
 from .daily_model import load_calendar
-from .daily_model_data import checked, load_bars
+from .daily_model_data import checked, load_bars, write_changed_latest
 from .daily_model_report_feedback import READER as REPORT_READER, close_time, load_state
 from .ledger import stamp
 
@@ -308,7 +308,7 @@ def run(root, now=None, *, fetcher=fetch_minutes):
                "price_evidence_only": True, "trade_execution_labels": 0, "formal_training_rows": 0,
                "recent_calls": recent_calls}
     write_json(path, catalog)
-    write_json(root / READER, summary)
+    summary = write_changed_latest(root / READER, summary, "evaluated_at")
     report_reader = root / REPORT_READER
     if report_reader.exists():
         report = json.loads(report_reader.read_bytes())

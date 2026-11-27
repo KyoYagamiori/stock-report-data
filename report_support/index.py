@@ -18,6 +18,14 @@ CYCLES = {"early": "早报", "noon": "午报", "evening": "晚报"}
 SECTION = re.compile(r"^##\s+([1-7])[.、．\s].*$", re.M)
 ARCHIVE = re.compile(r"reports/archive/(\d{4})/(\d{2})/(\d{2})/(early|noon|evening)(?:[._][^/]*)?\.md\Z")
 
+PUBLIC_SIDECAR_FIELDS = {"body_archived_at", "market_cutoff", "news_cutoff", "indicator_cutoff",
+    "snapshot_file", "snapshot_id", "snapshot_quality_grade", "quality",
+    "active_pool", "card_codes", "locked_codes", "focus_stock_code", "focus_status",
+    "focus_reason", "technical_stock_code", "technical_status", "technical_reason",
+    "technical_secondary_code", "research_method", "focus_conditions",
+    "technical_conditions", "technical_secondary_conditions", "market_screen",
+    "research_signals", "available_at"}
+
 
 def write_json(path: Path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -69,12 +77,17 @@ def sync_index(root: Path, *, moment=None):
         "schema_version": "1.0", "timezone": "Asia/Shanghai", "reports": [], "latest_by_cycle": {}}
     if not isinstance(manifest.get("reports"), list) or not isinstance(manifest.get("latest_by_cycle"), dict):
         raise ValueError("invalid_existing_report_index")
-    known = {entry.get("selected_file") for entry in manifest["reports"]}
-    added, rejected = [], []
+    known = {entry.get("selected_file"): entry for entry in manifest["reports"]}
+    added, enriched, rejected = [], [], []
     for body in sorted((root / "reports/archive").glob("*/*/*/*.md")):
         relative = body.relative_to(root).as_posix()
         match = ARCHIVE.fullmatch(relative)
-        if not match or relative in known:
+        if not match:
+            continue
+        existing = known.get(relative)
+        sidecar = body.with_name(body.stem + "-handoff.json")
+        if existing is not None and (existing.get("structured_metadata_status") == "body_hash_bound_sidecar"
+                                     or not sidecar.exists()):
             continue
         year, month, day, cycle = match.groups()
         report_date = f"{year}-{month}-{day}"
@@ -85,32 +98,34 @@ def sync_index(root: Path, *, moment=None):
             validate_body(text, report_date, cycle)
             if report_date > now[:10]:
                 raise ValueError("future_report_date")
+            digest = hashlib.sha256(raw).hexdigest()
+            if existing is not None and existing.get("sha256") not in (None, digest):
+                raise ValueError("indexed_body_sha256_mismatch")
             entry = {"report_date": report_date, "report_type": cycle,
                      "title": f"{report_date} {CYCLES[cycle]}", "selected_file": relative,
                      "archived_at": now, "indexed_at": now, "body_archived_at": None,
-                     "sha256": hashlib.sha256(raw).hexdigest(), "body_raw_bytes": len(raw),
+                     "sha256": digest, "body_raw_bytes": len(raw),
                      "body_raw_sha256_verified": True, "archive_index_status": "complete",
                      "chat_delivery_status": "unverified", "metadata_source": "validated_archive_body",
                      "structured_metadata_status": "not_supplied"}
-            sidecar = body.with_name(body.stem + "-handoff.json")
+            metadata = None
             if sidecar.exists():
                 meta = json.loads(sidecar.read_text(encoding="utf-8"))
-                if (meta.get("report_date") != report_date or meta.get("report_type") != cycle
-                        or meta.get("body_sha256") != entry["sha256"]):
+                if (not isinstance(meta, dict) or meta.get("report_date") != report_date
+                        or meta.get("report_type") != cycle or meta.get("body_sha256") != digest):
                     raise ValueError("report_sidecar_identity_or_hash_mismatch")
                 # Exact public research fields, never arbitrary task/user data.
-                allowed = {"body_archived_at", "market_cutoff", "news_cutoff", "indicator_cutoff",
-                           "snapshot_file", "snapshot_id", "snapshot_quality_grade", "quality",
-                           "active_pool", "card_codes", "locked_codes", "focus_stock_code", "focus_status",
-                           "focus_reason", "technical_stock_code", "technical_status", "technical_reason",
-                           "technical_secondary_code", "research_method", "focus_conditions",
-                           "technical_conditions", "technical_secondary_conditions", "market_screen",
-                           "research_signals", "available_at"}
-                entry.update({key: value for key, value in meta.items() if key in allowed})
+                metadata = {key: value for key, value in meta.items() if key in PUBLIC_SIDECAR_FIELDS}
+                entry.update(metadata)
                 entry["structured_metadata_status"] = "body_hash_bound_sidecar"
-            manifest["reports"].append(entry)
-            known.add(relative)
-            added.append(relative)
+            if existing is None:
+                manifest["reports"].append(entry)
+                added.append(relative)
+            elif metadata is not None:
+                existing.update(metadata)
+                existing.update(sha256=digest, body_raw_bytes=len(raw), body_raw_sha256_verified=True)
+                existing["structured_metadata_status"] = entry["structured_metadata_status"]
+                enriched.append(relative)
         except (OSError, UnicodeError, ValueError, TypeError) as exc:
             rejected.append({"selected_file": relative, "reason": str(exc)})
     # Retain all existing history and rich fields; only advance pointers.
@@ -121,7 +136,9 @@ def sync_index(root: Path, *, moment=None):
         prior = manifest["latest_by_cycle"].get(cycle)
         if not prior or _rank(entry) > _rank(prior):
             manifest["latest_by_cycle"][cycle] = entry
-    if added:
+        elif entry.get("selected_file") in enriched and prior.get("selected_file") == entry["selected_file"]:
+            manifest["latest_by_cycle"][cycle] = {**prior, **entry}
+    if added or enriched:
         manifest["updated_at"] = now
     changed = write_json(path, manifest)
     handoff = {"schema_version": "1.0", "timezone": "Asia/Shanghai",
@@ -149,7 +166,7 @@ def sync_index(root: Path, *, moment=None):
             handoff["latest_by_cycle"][cycle] = {"selected_file": entry.get("selected_file"),
                                                    "status": "invalid", "reason": str(exc)}
     handoff_changed = write_json(root / "reports/latest/handoff.json", handoff)
-    return {"added": added, "rejected": rejected, "history_count": len(manifest["reports"]),
+    return {"added": added, "enriched": enriched, "rejected": rejected, "history_count": len(manifest["reports"]),
             "manifest_changed": changed, "handoff_changed": handoff_changed}
 
 

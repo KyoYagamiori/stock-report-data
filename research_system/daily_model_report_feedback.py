@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from market_screen.history import TZ, canonical_bytes, write_json
+from .daily_model_data import write_changed_latest
 from .ledger import number, stamp
 
 
@@ -216,8 +217,14 @@ def publish(root, state, rejected, now, history_error=None):
               "rejected_sources": rejected[:12], "history_error": history_error, "recent_calls": recent,
               "trade_execution_labels": 0, "formal_production_promotion": False}
     write_json(root / STATE, state)
-    write_json(root / READER, reader)
-    return reader
+    path = root / READER
+    # VCP appends its own evidence to the same reader after direction settlement.
+    # Carry it through this stage so an unchanged pair does not erase/rewrite it.
+    if path.exists():
+        prior = json.loads(path.read_bytes())
+        if "vcp_minute_feedback" in prior:
+            reader["vcp_minute_feedback"] = prior["vcp_minute_feedback"]
+    return write_changed_latest(path, reader, "generated_at")
 
 
 def run(root, now=None):
