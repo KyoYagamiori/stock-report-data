@@ -79,6 +79,12 @@ def fits_base(box, range_limit, change_limit):
     return box["range_pct"] <= range_limit and abs(box["close_change_pct"]) <= change_limit
 
 
+def recent_rising_turnover(bars):
+    return any(bars[i].change_pct > 0 and
+               bars[i].amount >= 1.5 * median(bar.amount for bar in bars[i - 20:i])
+               for i in range(len(bars) - 5, len(bars)))
+
+
 def screen_history(payload, asof):
     code, name = payload["code"], payload["name"]
     bars = parse_bars(payload, asof)
@@ -103,6 +109,7 @@ def screen_history(payload, asof):
     qualifies_120 = qualifies_60 and fits_base(box_120, 40, 15)
     high_20 = max(row.high for row in bars[-21:-1])
     high_60 = max(row.high for row in bars[-61:-1])
+    watch_high_20 = max(row.high for row in bars[-20:])
     amount_multiple = last.amount / median(row.amount for row in bars[-21:-1])
     old_leader = best_swing >= 60 and sessions_after_peak >= 120 and decline <= -20
 
@@ -112,6 +119,9 @@ def screen_history(payload, asof):
         "decline_from_old_high_pct": decline, "close": last.close, "change_pct": last.change_pct,
         "amount_multiple": amount_multiple, "single_price_day": last.high == last.low,
         "prior_20d_high": high_20, "prior_60d_high": high_60,
+        "prior_5d_rising_turnover": recent_rising_turnover(bars[:-1]),
+        "latest_5d_rising_turnover": recent_rising_turnover(bars),
+        "watch_20d_high": watch_high_20, "watch_within_5pct_of_20d_high": last.close >= 0.95 * watch_high_20,
         "base_10_before_today": measure_base(bars[-11:-1]), "base_60": box_60, "base_120": box_120,
         "fits_60d_base": qualifies_60, "fits_120d_base": qualifies_120,
         "above_prior_20d_high": last.close > high_20, "above_prior_60d_high": last.close > high_60,
