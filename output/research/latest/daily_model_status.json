@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "version": "daily_forward_trial_20261117_v1",
   "mode": "visible_daily_report_trial",
-  "generated_at": "2026-11-27T12:47:20.328061+08:00",
-  "published_at": "2026-11-27T12:47:20.328061+08:00",
-  "market_date": "2026-11-26",
+  "generated_at": "2026-11-27T16:54:33.600295+08:00",
+  "published_at": "2026-11-27T16:54:33.600295+08:00",
+  "market_date": "2026-11-27",
   "phase": "completed_daily_model",
   "model": {
     "file": "output/research/daily_model/models/2dba5b674b546daf6dd9cd6bde1636d0229920220eec0ab94dac3bab5b54c9df.json",
@@ -12,32 +12,32 @@
   },
   "model_frozen_at": "2026-11-17T10:42:26.626657+08:00",
   "source": {
-    "file": "output/boll/archive/2026-11-26/20261126T163839-early/early_queue.json",
-    "sha256": "3ddae63ab18ee25abb1529b96c02cfb40ea684d4d684dbfe019988ab981b22fd",
-    "published_at": "2026-11-26T16:41:15.770899+08:00",
-    "screen_file": "output/boll/archive/2026-11-26/20261126T163839-early/screen.json",
-    "screen_sha256": "40fe0aefa7751a6650f48404c72000645737942a961bf809e728a5bda98df83d",
+    "file": "output/boll/archive/2026-11-27/20261127T165050-early/early_queue.json",
+    "sha256": "7edf4465aaf1d1b5d4fb3453e6f32594121289d04c4a82e5fbc88de6802b98a7",
+    "published_at": "2026-11-27T16:52:38.065976+08:00",
+    "screen_file": "output/boll/archive/2026-11-27/20261127T165050-early/screen.json",
+    "screen_sha256": "ba025b0d1c25a24aaaa4fb9800c74c04b384c66872590250429a5a24bfc7d234",
     "producer_phase": "early",
     "bar_contract": "completed_1500_daily_not_intraday"
   },
   "own_data": {
     "file": "output/boll/bootstrap/history.jsonl.gz",
-    "sha256": "004d3f174a873da8280b69664e8e0e4f481640e2c4dfd14305b09e5a2688640d",
-    "market_date": "2026-11-26",
+    "sha256": "b276a9ffe50be380899001f91a2d358bf56d6c75e916d3b99c7a9483cc92e96d",
+    "market_date": "2026-11-27",
     "codes": 5223,
-    "bars": 934791,
+    "bars": 934848,
     "earliest_bar": "2025-11-20",
-    "latest_bar": "2026-11-26",
-    "requested_codes": 206,
-    "available_requested_codes": 206,
+    "latest_bar": "2026-11-27",
+    "requested_codes": 218,
+    "available_requested_codes": 218,
     "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
   },
   "model_status": "trained_and_running_daily_trial",
   "coverage": {
-    "source_early_pool_codes": 40,
-    "scored_codes": 32,
+    "source_early_pool_codes": 44,
+    "scored_codes": 23,
     "rejections": {
-      "outside_historical_mainboard_scope": 8
+      "outside_historical_mainboard_scope": 21
     },
     "source_daily_universe": 5223,
     "full_market_model_scoring": false,
@@ -47,88 +47,91 @@
   "publication_note": "published_at_is_generation_time;public_availability_verified_on_next_repository_read_before_entry",
   "feature_contract": "same_dimensionless_definitions;relative_market_and_scale_sensitive_alpha_excluded",
   "price_basis_gap": "historical_causal_adjusted_vs_live_raw_action_window_requires_review",
-  "new_predictions": 0,
-  "unique_prediction_count": 250,
-  "matured_feedback_rows": 141,
+  "new_predictions": 21,
+  "unique_prediction_count": 271,
+  "matured_feedback_rows": 169,
   "forward_results": {
-    "registered_unique_signals": 250,
+    "registered_unique_signals": 271,
     "horizons": {
       "1": {
         "states": {
-          "matured_price_proxy": 190,
+          "matured_price_proxy": 212,
           "unresolved_exit_limit_proxy": 5,
           "unfilled_price_proxy": 2,
-          "pending": 53
+          "pending": 31,
+          "pending_public_availability_audit": 21
         },
         "groups": {
           "lightgbm": {
-            "matured_signal_dates": 6,
-            "date_balanced_price_net_return_pct": -1.8991503142085773
+            "matured_signal_dates": 7,
+            "date_balanced_price_net_return_pct": -0.3380472080971474
           },
           "ridge": {
-            "matured_signal_dates": 6,
-            "date_balanced_price_net_return_pct": -2.8458996439333335
+            "matured_signal_dates": 7,
+            "date_balanced_price_net_return_pct": -1.9616822801253502
           },
           "early_rule": {
-            "matured_signal_dates": 6,
-            "date_balanced_price_net_return_pct": -3.149070463366747
+            "matured_signal_dates": 7,
+            "date_balanced_price_net_return_pct": -2.5353753059032393
           }
         },
-        "paired_complete_cohorts": 24,
-        "paired_model_minus_rule_price_proxy_pct": 1.0227120349559988
+        "paired_complete_cohorts": 25,
+        "paired_model_minus_rule_price_proxy_pct": 1.1805116280919208
       },
       "3": {
         "states": {
-          "matured_price_proxy": 139,
+          "matured_price_proxy": 167,
           "unresolved_exit_limit_proxy": 1,
           "unfilled_price_proxy": 2,
-          "pending": 108
+          "pending": 80,
+          "pending_public_availability_audit": 21
         },
         "groups": {
           "lightgbm": {
-            "matured_signal_dates": 4,
-            "date_balanced_price_net_return_pct": -3.010727250252606
+            "matured_signal_dates": 5,
+            "date_balanced_price_net_return_pct": -1.4440006945306731
           },
           "ridge": {
-            "matured_signal_dates": 4,
-            "date_balanced_price_net_return_pct": -3.1148427906336917
+            "matured_signal_dates": 5,
+            "date_balanced_price_net_return_pct": -2.3720350087375612
           },
           "early_rule": {
-            "matured_signal_dates": 4,
-            "date_balanced_price_net_return_pct": -3.204787209311073
+            "matured_signal_dates": 5,
+            "date_balanced_price_net_return_pct": -3.9630500885905007
           }
         },
-        "paired_complete_cohorts": 18,
-        "paired_model_minus_rule_price_proxy_pct": 0.1113227974603608
+        "paired_complete_cohorts": 22,
+        "paired_model_minus_rule_price_proxy_pct": 2.239992676843072
       },
       "5": {
         "states": {
-          "matured_price_proxy": 87,
-          "pending": 163
+          "matured_price_proxy": 113,
+          "pending": 137,
+          "pending_public_availability_audit": 21
         },
         "groups": {
           "lightgbm": {
-            "matured_signal_dates": 2,
-            "date_balanced_price_net_return_pct": -8.320848695032103
+            "matured_signal_dates": 3,
+            "date_balanced_price_net_return_pct": -5.910453404891607
           },
           "ridge": {
-            "matured_signal_dates": 2,
-            "date_balanced_price_net_return_pct": -10.692011121633744
+            "matured_signal_dates": 3,
+            "date_balanced_price_net_return_pct": -7.436482648152435
           },
           "early_rule": {
-            "matured_signal_dates": 2,
-            "date_balanced_price_net_return_pct": -11.057518691439144
+            "matured_signal_dates": 3,
+            "date_balanced_price_net_return_pct": -7.027106124115358
           }
         },
-        "paired_complete_cohorts": 11,
-        "paired_model_minus_rule_price_proxy_pct": 1.7963706709572715
+        "paired_complete_cohorts": 14,
+        "paired_model_minus_rule_price_proxy_pct": 0.9564237053643924
       }
     },
     "measurement": "fixed_horizon_price_proxies_not_trade_win_rate_or_portfolio_pnl",
     "net_excess_return_available": false,
     "production_activation": false
   },
-  "expired_suppressed": 0,
+  "expired_suppressed": 1,
   "report_use": "show_model_and_rule_rank_side_by_side_with_entry_and_exit_conditions;daily_scores_only_at_noon",
   "intraday_model_status": "not_trained_no_intraday_prediction_claim",
   "automatic_trading": false,
@@ -137,12 +140,12 @@
   "automatic_retraining": true,
   "retraining": {
     "enabled": true,
-    "checked_at": "2026-11-27T12:47:20.328061+08:00",
+    "checked_at": "2026-11-27T16:54:33.600295+08:00",
     "status": "waiting_for_qualified_feedback",
-    "matured_price_proxy_rows": 141,
+    "matured_price_proxy_rows": 169,
     "qualified_rows": 0,
     "qualified_signal_dates": 0,
-    "forward_sessions": 7,
+    "forward_sessions": 8,
     "production_activation": false,
     "required_evidence": [
       "official_benchmark",
