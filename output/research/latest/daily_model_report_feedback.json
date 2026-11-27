@@ -1,12 +1,12 @@
 {
   "version": "public_close_plan_calibration_v1",
-  "generated_at": "2026-11-27T09:03:56.031029+08:00",
-  "total_calls": 39,
+  "generated_at": "2026-11-27T12:47:07.149753+08:00",
+  "total_calls": 41,
   "statuses": {
     "hit": 18,
     "miss": 11,
     "publication_unverified_before_close": 3,
-    "pending": 7
+    "pending": 9
   },
   "model": {
     "state": "shadow_calibration",
@@ -54,6 +54,70 @@
   "rejected_sources": [],
   "history_error": null,
   "recent_calls": [
+    {
+      "signal_id": "bbd6045439219b6539a131d5",
+      "code": "600988",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-27T12:46:46+08:00",
+      "quote_asof": "2026-11-27T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 35.6,
+      "high": 36.65,
+      "etf_context": "unknown",
+      "reference_price": 36.23,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 36.2,
+        "reduce_high": 36.4,
+        "stop": 34.15,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "原26日买窗到期。27日午后13:15起等完整15分钟收≥36.40且黄金ETF、同业同强，新买区仍空。",
+        "exit_rule": "已有可卖仓触36.20–36.40后首根完整15分钟收<36.20减1/3，完整15分钟收<34.15退出，收≥36.40保护上移35.60，守线且无减仓信号续持。"
+      },
+      "source": "reports/forecasts/2026/11/27/noon.json",
+      "source_sha256": "96da51cfe84cab3ca1e77b1c7c30fa298b6da5303eb31d0e4dd455301e986685",
+      "seen_at": "2026-11-27T12:47:07.149753+08:00"
+    },
+    {
+      "signal_id": "a3ed5b3399c049524783db95",
+      "code": "688757",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-27",
+      "issued_at": "2026-11-27T12:46:46+08:00",
+      "quote_asof": "2026-11-27T11:30:00+08:00",
+      "phase": "noon",
+      "relation": "between",
+      "price": 30.9,
+      "high": 31.88,
+      "etf_context": "unknown",
+      "reference_price": 31.21,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-27T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 31.7,
+        "reduce_high": 31.88,
+        "stop": 29.65,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "13:15起等完整15分钟回踩守住31.05，量价与芯片同业同向，收破降级。买区空缺。",
+        "exit_rule": "已有可卖仓触31.70–31.88后首根完整15分钟收<31.70减1/3，完整15分钟收<29.65退出，收≥31.88保护上移31.05，守线且无减仓信号续持。"
+      },
+      "source": "reports/forecasts/2026/11/27/noon.json",
+      "source_sha256": "96da51cfe84cab3ca1e77b1c7c30fa298b6da5303eb31d0e4dd455301e986685",
+      "seen_at": "2026-11-27T12:47:07.149753+08:00"
+    },
     {
       "signal_id": "2fa978c99372196be9eda63e",
       "code": "600988",
@@ -970,111 +1034,13 @@
           "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
         }
       }
-    },
-    {
-      "signal_id": "476b4d23762f2f8580e6c58a",
-      "code": "688981",
-      "roles": [
-        "technical"
-      ],
-      "check_day": "2026-11-24",
-      "issued_at": "2026-11-24T12:46:15+08:00",
-      "quote_asof": "2026-11-24T11:30:00+08:00",
-      "phase": "noon",
-      "relation": "between",
-      "price": 124.35,
-      "high": 127.2,
-      "etf_context": "supportive",
-      "reference_price": 126.38,
-      "plan": {
-        "action": "hold",
-        "valid_until": "2026-11-24T15:00:00+08:00",
-        "buy_low": null,
-        "buy_high": null,
-        "reduce_low": 126.8,
-        "reduce_high": 127.85,
-        "stop": 124.35,
-        "profit_target": null,
-        "reduce_fraction": 0.3333333333333333,
-        "entry_rule": "上午旧窗已结束且未触价，午后不新增买入。观察24日15:00是否守住125.68。",
-        "exit_rule": "仅可卖仓午后触126.80–127.85后首根完整15分钟收低于126.80减1/3，完整15分钟收破124.35退出，完整15分钟收过127.85后上移保护至125.68，守住保护且未触减仓则续持。"
-      },
-      "source": "reports/forecasts/2026/11/24/noon.json",
-      "source_sha256": "fc4389c7243af14eff2a57e393fe0f094beb705ae287a02c14922cc2853e958a",
-      "seen_at": "2026-11-24T12:46:47.483467+08:00",
-      "outcome": {
-        "status": "hit",
-        "close": 126.51,
-        "settled_at": "2026-11-24T17:50:45.949262+08:00",
-        "source": {
-          "file": "output/boll/bootstrap/history.jsonl.gz",
-          "sha256": "29b9b83bd931d775f1991cec0cbead52064c270f75147de362cb17b928dbdbdf",
-          "market_date": "2026-11-24",
-          "codes": 5223,
-          "bars": 934677,
-          "earliest_bar": "2025-11-20",
-          "latest_bar": "2026-11-24",
-          "requested_codes": 3,
-          "available_requested_codes": 3,
-          "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
-        }
-      }
-    },
-    {
-      "signal_id": "cc58866f2273a68931062acc",
-      "code": "300761",
-      "roles": [
-        "vcp"
-      ],
-      "check_day": "2026-11-24",
-      "issued_at": "2026-11-24T12:46:15+08:00",
-      "quote_asof": "2026-11-24T11:30:00+08:00",
-      "phase": "noon",
-      "relation": "below",
-      "price": 23.58,
-      "high": null,
-      "etf_context": "unknown",
-      "reference_price": 22.41,
-      "plan": {
-        "action": "avoid",
-        "valid_until": "2026-11-24T15:00:00+08:00",
-        "buy_low": null,
-        "buy_high": null,
-        "reduce_low": null,
-        "reduce_high": null,
-        "stop": 22.33,
-        "profit_target": null,
-        "reduce_fraction": null,
-        "entry_rule": "仅为VCP观察研究，C首选空缺，等待15:00完成日线和原量能阈值、延伸上限复核。",
-        "exit_rule": "以完成日线复核22.33结构失效，无当前执行合同。"
-      },
-      "source": "reports/forecasts/2026/11/24/noon.json",
-      "source_sha256": "fc4389c7243af14eff2a57e393fe0f094beb705ae287a02c14922cc2853e958a",
-      "seen_at": "2026-11-24T12:46:47.483467+08:00",
-      "outcome": {
-        "status": "hit",
-        "close": 22.45,
-        "settled_at": "2026-11-24T17:50:45.949262+08:00",
-        "source": {
-          "file": "output/boll/bootstrap/history.jsonl.gz",
-          "sha256": "29b9b83bd931d775f1991cec0cbead52064c270f75147de362cb17b928dbdbdf",
-          "market_date": "2026-11-24",
-          "codes": 5223,
-          "bars": 934677,
-          "earliest_bar": "2025-11-20",
-          "latest_bar": "2026-11-24",
-          "requested_codes": 3,
-          "available_requested_codes": 3,
-          "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
-        }
-      }
     }
   ],
   "trade_execution_labels": 0,
   "formal_production_promotion": false,
   "vcp_minute_feedback": {
     "version": "vcp_minute_price_review_v1",
-    "evaluated_at": "2026-11-27T09:04:04.610208+08:00",
+    "evaluated_at": "2026-11-27T12:47:20.216556+08:00",
     "plans": 14,
     "statuses": {
       "data_gap": 4,
@@ -1507,7 +1473,7 @@
         "observed_days": [],
         "pending_days": [],
         "missing_days": {
-          "2026-11-23": "minute_data_does_not_reconcile_with_verified_daily_ohlcv"
+          "2026-11-23": "<urlopen error _ssl.c:994: The handshake operation timed out>"
         },
         "price_events": {},
         "sources": [],
@@ -1545,7 +1511,7 @@
         "observed_days": [],
         "pending_days": [],
         "missing_days": {
-          "2026-11-23": "minute_data_does_not_reconcile_with_verified_daily_ohlcv"
+          "2026-11-23": "<urlopen error _ssl.c:994: The handshake operation timed out>"
         },
         "price_events": {},
         "sources": [],
