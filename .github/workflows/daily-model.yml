@@ -110,3 +110,41 @@ jobs:
       - name: Surface actual trial failures
         if: steps.publish.outputs.trial_failed == 'true'
         run: exit 1
+
+  relaunch:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'schedule' && github.event.schedule == '47 0,7,12 * * 1-5')
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /pipeline/
+            /report_support/
+            /research_system/relaunch_ledger.py
+            /output/cache/trade_calendar.json
+            /output/research/relaunch/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Register launch signals and mature outcomes
+        run: python -u -m research_system.relaunch_ledger
+      - name: Publish the dated research records
+        shell: bash
+        run: |
+          git add --sparse output/research/relaunch/
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "research: update former-leader launch observations"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch --depth=1 origin main
+            git rebase --onto origin/main HEAD^
+          done
+          exit 1
