@@ -1,12 +1,13 @@
 {
   "version": "vcp_minute_price_review_v1",
-  "evaluated_at": "2026-11-27T17:05:52.999415+08:00",
-  "plans": 14,
+  "evaluated_at": "2026-11-28T21:03:15.629365+08:00",
+  "plans": 15,
   "statuses": {
     "data_gap": 4,
     "window_reviewed": 7,
     "publication_window_unverified": 1,
-    "window_open": 2
+    "window_open": 2,
+    "waiting_for_close": 1
   },
   "verified_security_sessions": 11,
   "collection_error": null,
@@ -14,6 +15,35 @@
   "trade_execution_labels": 0,
   "formal_training_rows": 0,
   "recent_calls": [
+    {
+      "signal_id": "015a1bb55708e9030ef0ae77",
+      "code": "603369",
+      "phase": "evening",
+      "issued_at": "2026-11-28T21:02:39+08:00",
+      "seen_at": "2026-11-28T21:03:07.609089+08:00",
+      "check_day": "2026-11-30",
+      "valid_until": "2026-11-30T15:00:00+08:00",
+      "forecast_file": "reports/forecasts/2026/11/28/evening.json",
+      "forecast_sha256": "56bd167b7d443251420db3d039b52d39a2f2487311534192f239342c1cfb5f2c",
+      "status": "waiting_for_close",
+      "observed_days": [],
+      "pending_days": [
+        "2026-11-30"
+      ],
+      "missing_days": {},
+      "price_events": {},
+      "sources": [],
+      "condition_checks": {
+        "status": "defined_conditions_checked",
+        "daily_breakout": {
+          "state": "awaiting_evidence",
+          "pivot": 36.95,
+          "min_volume_shares": 18444996
+        }
+      },
+      "entry_condition_state": "original_additional_conditions_require_review",
+      "fill_state": "no_execution_evidence"
+    },
     {
       "signal_id": "2fa8a077b91cb16f8dd3482f",
       "code": "002043",
@@ -559,44 +589,6 @@
       "valid_until": "2026-11-23T15:00:00+08:00",
       "forecast_file": "reports/forecasts/2026/11/23/noon.json",
       "forecast_sha256": "bc1d214978d5117d90291576bcf09748f86b8e10d01180d3445040919a375f35",
-      "status": "data_gap",
-      "observed_days": [],
-      "pending_days": [],
-      "missing_days": {
-        "2026-11-23": "minute_data_does_not_reconcile_with_verified_daily_ohlcv"
-      },
-      "price_events": {},
-      "sources": [],
-      "condition_checks": {
-        "status": "defined_conditions_checked",
-        "daily_breakout": {
-          "state": "awaiting_evidence",
-          "pivot": 8.1,
-          "min_volume_shares": 24440000
-        },
-        "stop_below_15m": {
-          "state": "evidence_gap",
-          "event": null
-        },
-        "reduce_after_band_below_15m": {
-          "state": "evidence_gap",
-          "touch": null,
-          "event": null
-        }
-      },
-      "entry_condition_state": "original_additional_conditions_require_review",
-      "fill_state": "no_execution_evidence"
-    },
-    {
-      "signal_id": "5876b324c6e6001e564c8ae3",
-      "code": "600970",
-      "phase": "evening",
-      "issued_at": "2026-11-20T21:04:56+08:00",
-      "seen_at": "2026-11-20T21:05:18.769055+08:00",
-      "check_day": "2026-11-23",
-      "valid_until": "2026-11-23T15:00:00+08:00",
-      "forecast_file": "reports/forecasts/2026/11/20/evening.json",
-      "forecast_sha256": "b9b552e31f8478388d835ae52f11f708b90a3725d476605faa895354c3b1310e",
       "status": "data_gap",
       "observed_days": [],
       "pending_days": [],

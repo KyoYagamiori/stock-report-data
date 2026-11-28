@@ -14,7 +14,8 @@
     "reports/forecasts/2026/11/26/noon.json": "26f25017cf82d4d86e6c93ce9a279c9e43abeb4e4762d300d0839a8d8b84591a",
     "reports/forecasts/2026/11/26/evening.json": "56c1081334adf185704af82952d48c65d5fcff8ca47c1da09f218fdd1f8238e4",
     "reports/forecasts/2026/11/27/early.json": "8f9981862dab16b6feda011d75e35d0c5b105e9ce68a20eace7effd1810444ae",
-    "reports/forecasts/2026/11/27/noon.json": "96da51cfe84cab3ca1e77b1c7c30fa298b6da5303eb31d0e4dd455301e986685"
+    "reports/forecasts/2026/11/27/noon.json": "96da51cfe84cab3ca1e77b1c7c30fa298b6da5303eb31d0e4dd455301e986685",
+    "reports/forecasts/2026/11/28/evening.json": "56bd167b7d443251420db3d039b52d39a2f2487311534192f239342c1cfb5f2c"
   },
   "calls": {
     "6ce9b68e6801c4205ee2dd35": {
@@ -1999,6 +2000,108 @@
           "role": "live_features_and_forward_price_labels_not_multiyear_independent_training_history"
         }
       }
+    },
+    "6afbe4af266cf8d2a2b9575a": {
+      "signal_id": "6afbe4af266cf8d2a2b9575a",
+      "code": "600988",
+      "roles": [
+        "comprehensive"
+      ],
+      "check_day": "2026-11-30",
+      "issued_at": "2026-11-28T21:02:39+08:00",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 36.4,
+      "high": 37.77,
+      "etf_context": "supportive",
+      "reference_price": 37.6,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-30T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": 37.6,
+        "reduce_high": 37.77,
+        "stop": 35.6,
+        "profit_target": null,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "30日09:45核36.40承接、黄金股ETF与同业共振，新买区空。",
+        "exit_rule": "可卖仓触37.60–37.77后首根完整15分钟收<37.60减1/3，收<35.60退出，收≥37.77抬保护到36.40，守线且无减仓信号续持。"
+      },
+      "source": "reports/forecasts/2026/11/28/evening.json",
+      "source_sha256": "56bd167b7d443251420db3d039b52d39a2f2487311534192f239342c1cfb5f2c",
+      "seen_at": "2026-11-28T21:03:07.609089+08:00"
+    },
+    "127f2f895d5f3c51fe9b1d5d": {
+      "signal_id": "127f2f895d5f3c51fe9b1d5d",
+      "code": "688757",
+      "roles": [
+        "technical"
+      ],
+      "check_day": "2026-11-30",
+      "issued_at": "2026-11-28T21:02:39+08:00",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 31.05,
+      "high": 34.7,
+      "etf_context": "supportive",
+      "reference_price": 34.7,
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-30T11:15:00+08:00",
+        "buy_low": 31.08,
+        "buy_high": 31.28,
+        "reduce_low": 34.5,
+        "reduce_high": 34.7,
+        "stop": 29.65,
+        "profit_target": 34.7,
+        "reduce_fraction": 0.3333333333333333,
+        "entry_rule": "30日10:00–11:15回踩守31.05，完整15分钟收≥31.15、量≥27日同段1.2倍且159560跑赢510300，下一段仍在31.08–31.28。超价、收破平台、缺基线、过窗均放弃。",
+        "exit_rule": "新计划防守29.65；已有可卖仓到34.50–34.70减1/3，完整15分钟收破31.05退出，收过34.70保护抬到32.30，守线可续持。"
+      },
+      "source": "reports/forecasts/2026/11/28/evening.json",
+      "source_sha256": "56bd167b7d443251420db3d039b52d39a2f2487311534192f239342c1cfb5f2c",
+      "seen_at": "2026-11-28T21:03:07.609089+08:00"
+    },
+    "015a1bb55708e9030ef0ae77": {
+      "signal_id": "015a1bb55708e9030ef0ae77",
+      "code": "603369",
+      "roles": [
+        "vcp"
+      ],
+      "check_day": "2026-11-30",
+      "issued_at": "2026-11-28T21:02:39+08:00",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "phase": "evening",
+      "relation": "between",
+      "price": 31.91,
+      "high": 33.34,
+      "etf_context": "unknown",
+      "reference_price": 32.22,
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-30T15:00:00+08:00",
+        "buy_low": null,
+        "buy_high": null,
+        "reduce_low": null,
+        "reduce_high": null,
+        "stop": 31.91,
+        "profit_target": null,
+        "reduce_fraction": null,
+        "entry_rule": "原窗内只核完整日线收过36.95并比较量能，研究阈为基线1.5倍，原延伸上限未核，回避新开。",
+        "exit_rule": "",
+        "vcp_checks": {
+          "daily_breakout": {
+            "pivot": 36.95,
+            "min_volume_shares": 18444996
+          }
+        }
+      },
+      "source": "reports/forecasts/2026/11/28/evening.json",
+      "source_sha256": "56bd167b7d443251420db3d039b52d39a2f2487311534192f239342c1cfb5f2c",
+      "seen_at": "2026-11-28T21:03:07.609089+08:00"
     }
   }
 }
