@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "issued_at": "2026-11-28T21:02:39+08:00",
+  "calls": [
+    {
+      "check_day": "2026-11-30",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "relation": "between",
+      "code": "600988",
+      "roles": [
+        "comprehensive"
+      ],
+      "reference_price": 37.6,
+      "price": 36.4,
+      "high": 37.77,
+      "etf_context": "supportive",
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-30T15:00:00+08:00",
+        "entry_rule": "30日09:45核36.40承接、黄金股ETF与同业共振，新买区空。",
+        "reduce_low": 37.6,
+        "reduce_high": 37.77,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 35.6,
+        "exit_rule": "可卖仓触37.60–37.77后首根完整15分钟收<37.60减1/3，收<35.60退出，收≥37.77抬保护到36.40，守线且无减仓信号续持。"
+      }
+    },
+    {
+      "check_day": "2026-11-30",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "relation": "between",
+      "code": "688757",
+      "roles": [
+        "technical"
+      ],
+      "reference_price": 34.7,
+      "price": 31.05,
+      "high": 34.7,
+      "etf_context": "supportive",
+      "plan": {
+        "action": "wait",
+        "valid_until": "2026-11-30T11:15:00+08:00",
+        "buy_low": 31.08,
+        "buy_high": 31.28,
+        "entry_rule": "30日10:00–11:15回踩守31.05，完整15分钟收≥31.15、量≥27日同段1.2倍且159560跑赢510300，下一段仍在31.08–31.28。超价、收破平台、缺基线、过窗均放弃。",
+        "reduce_low": 34.5,
+        "reduce_high": 34.7,
+        "reduce_fraction": 0.3333333333333333,
+        "stop": 29.65,
+        "profit_target": 34.7,
+        "exit_rule": "新计划防守29.65；已有可卖仓到34.50–34.70减1/3，完整15分钟收破31.05退出，收过34.70保护抬到32.30，守线可续持。"
+      }
+    },
+    {
+      "check_day": "2026-11-30",
+      "quote_asof": "2026-11-27T15:00:00+08:00",
+      "relation": "between",
+      "code": "603369",
+      "roles": [
+        "vcp"
+      ],
+      "reference_price": 32.22,
+      "price": 31.91,
+      "high": 33.34,
+      "etf_context": "unknown",
+      "plan": {
+        "action": "avoid",
+        "valid_until": "2026-11-30T15:00:00+08:00",
+        "stop": 31.91,
+        "entry_rule": "原窗内只核完整日线收过36.95并比较量能，研究阈为基线1.5倍，原延伸上限未核，回避新开。",
+        "vcp_checks": {
+          "daily_breakout": {
+            "pivot": 36.95,
+            "min_volume_shares": 18444996
+          }
+        }
+      }
+    }
+  ]
+}
